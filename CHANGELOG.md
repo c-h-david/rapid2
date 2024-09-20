@@ -8,10 +8,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 
 ### Added
 
-- `./CHANGELOG.md`      New file.
-- `./Dockerfile`        New file.		
-- `./LICENSE`           New file.
-- `./README.md`         New file.
-- `./requirement.apt`   New file.
-- `./requirement.pip`   New file.
-- `./src/con_vec.py`    New file.
+| File                 | Note |
+| ----                 | ---- |
+| `./CHANGELOG`        | New file. |
+| `./Dockerfile`       | New file. |
+| `./LICENSE`          | New file. |
+| `./README.md`        | New file. |
+| `./requirement.apt`  | New file. |
+| `./requirement.pip`  | New file. |
+| `./src/bas_vec.py`   | New file. |
+| `./src/con_vec.py`   | New file. |
+| `./src/hsh_tbl.py`   | New file. |
+
+### Changed
+
+| File                 | Note |
+| ----                 | ---- |
+| `./src/con_vec.py`   | Changed type hinting and updated docstring. |
+| `./CHANGELOG`        | Changed to table format. |
+
