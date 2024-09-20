@@ -13,7 +13,6 @@
 import csv
 import numpy as np
 import numpy.typing as npt
-from typing import Tuple
 
 
 # *****************************************************************************
@@ -21,7 +20,7 @@ from typing import Tuple
 # *****************************************************************************
 def con_vec(
             con_csv: str
-            ) -> Tuple[
+            ) -> tuple[
                        npt.NDArray[np.int32],
                        npt.NDArray[np.int32]
                        ]:
@@ -32,7 +31,7 @@ def con_vec(
     Parameters
     ----------
     arg1 : str
-        Path the the connectivity file.
+        Path to the connectivity file.
 
     Returns
     -------
@@ -43,9 +42,10 @@ def con_vec(
 
     Examples
     --------
-    >>> con_vec('../input/Test/rapid_connect_Test.csv')
-    (array([10, 20, 30, 40, 50], dtype=int32), array([30, 30, 50, 50,  0],\
- dtype=int32))
+    >>> con_csv = '../input/Test/rapid_connect_Test.csv'
+    >>> con_vec(con_csv) # doctest: +NORMALIZE_WHITESPACE
+    (array([10, 20, 30, 40, 50], dtype=int32),\
+     array([30, 30, 50, 50,  0], dtype=int32))
 
     '''
 
