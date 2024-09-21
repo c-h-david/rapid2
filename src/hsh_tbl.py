@@ -34,15 +34,19 @@ def hsh_tbl(
 
     Parameters
     ----------
-    arg1 : ndarray[int32]
-        Path to the basin file.
-    arg2 : ndarray[int32]
-        Path to the basin file.
+    IV_riv_tot : ndarray[int32]
+        The river IDs of the domain.
+    IV_riv_bas : ndarray[int32]
+        The river IDs of the basin.
 
     Returns
     -------
-    ndarray[int32]
-        The river IDs of the basin.
+    IM_hsh_tot : dict[int32, int]
+        The link from river ID to index in domain.
+    IM_hsh_bas : dict[int32, int]
+        The link from river ID to index in basin.
+    IV_bas_tot : ndarray[int32]
+        The index in domain for river IDs in basin.
 
     Examples
     --------

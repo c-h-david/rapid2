@@ -30,15 +30,15 @@ def con_vec(
 
     Parameters
     ----------
-    arg1 : str
+    con_csv : str
         Path to the connectivity file.
 
     Returns
     -------
-    ndarray[int32]
+    IV_riv_tot : ndarray[int32]
         The river IDs of the domain.
-    ndarray[int32]
-        The river IDs downstream.
+    IV_dwn_tot : ndarray[int32]
+        The river IDs downstream of the river IDs in domain.
 
     Examples
     --------

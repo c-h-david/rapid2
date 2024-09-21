@@ -26,4 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | ----                 | ---- |
 | `./src/con_vec.py`   | Changed type hinting and updated docstring. |
 | `./CHANGELOG`        | Changed to table format. |
+| `./src/bas_vec.py`   | Updated docstring. |
+| `./src/con_vec.py`   | Updated docstring. |
+| `./src/hsh_tbl.py`   | Updated docstring. |
 
