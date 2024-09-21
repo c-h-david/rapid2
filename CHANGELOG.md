@@ -19,6 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/bas_vec.py`   | New file. |
 | `./src/con_vec.py`   | New file. |
 | `./src/hsh_tbl.py`   | New file. |
+| `./src/net_mat.py`   | New file. |
 
 ### Changed
 
