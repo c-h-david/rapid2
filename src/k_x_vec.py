@@ -52,8 +52,8 @@ def k_x_vec(
     >>> xpr_csv = '../input/Test/x_Test.csv'
     >>> IV_bas_tot = np.array([0, 1, 2, 3, 4], dtype=np.int32)
     >>> k_x_vec(kpr_csv, xpr_csv, IV_bas_tot) # doctest: +NORMALIZE_WHITESPACE
-    (array([12600., 12600., 12600., 12600., 12600.]),\
-     array([0.3, 0.3, 0.3, 0.3, 0.3]))
+    (array([9000., 9000., 9000., 9000., 9000.]),\
+     array([0.25, 0.25, 0.25, 0.25, 0.25]))
     '''
 
     ZV_kpr_tot = np.empty(0, dtype=np.float64)

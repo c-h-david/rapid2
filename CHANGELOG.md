@@ -33,4 +33,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/bas_vec.py`   | Updated docstring. |
 | `./src/con_vec.py`   | Updated docstring. |
 | `./src/hsh_tbl.py`   | Updated docstring. |
+| `./src/k_x_vec.py`   | Used simpler test values. |
+| `./src/ccc_mat.py`   | Used simpler test values. |
+| `./src/rte_mat.py`   | Used simpler test values. |
 
