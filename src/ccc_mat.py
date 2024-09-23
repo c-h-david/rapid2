@@ -1,0 +1,98 @@
+#!/usr/bin/env python3
+# *****************************************************************************
+# ccc_mat.py
+# *****************************************************************************
+
+# Author:
+# Cedric H. David, 2024-2024
+
+
+# *****************************************************************************
+# Import Python modules
+# *****************************************************************************
+import numpy as np
+import numpy.typing as npt
+from scipy.sparse import diags  # type: ignore
+from scipy.sparse import csc_matrix
+
+
+# *****************************************************************************
+# Muskingum C1, C2, C3 function
+# *****************************************************************************
+def ccc_mat(
+            ZV_kpr_bas: npt.NDArray[np.float64],
+            ZV_xpr_bas: npt.NDArray[np.float64],
+            ZS_dtR: np.float64
+            ) -> tuple[
+                       csc_matrix,
+                       csc_matrix,
+                       csc_matrix
+                       ]:
+    '''Create parameter matrices.
+
+    Create C1, C2, and C3 parameter matrices for basin within domain.
+
+    Parameters
+    ----------
+    ZV_kpr_bas : ndarray[float64]
+        The values of k in the basin.
+    ZV_xpr_bas : ndarray[float64]
+        The values of x in the basin.
+    ZS_dtR : float64
+        The routing time step of Muskingum method.
+
+    Returns
+    -------
+    ZM_C1m : scipy.sparse.spmatrix
+        The C1 parameter matrix for the basin.
+    ZM_C2m : scipy.sparse.spmatrix
+        The C2 parameter matrix for the basin.
+    ZM_C3m : scipy.sparse.spmatrix
+        The C3 parameter matrix for the basin.
+
+    Examples
+    --------
+    >>> ZV_kpr_bas=np.array([12600., 12600., 12600., 12600., 12600.])
+    >>> ZV_xpr_bas=np.array([0.3, 0.3, 0.3, 0.3, 0.3])
+    >>> ZS_dtR=900
+    >>> ZM_C1m, ZM_C2m, ZM_C3m=ccc_mat(ZV_kpr_bas, ZV_xpr_bas, ZS_dtR)
+    >>> ZM_C1m.toarray()
+    array([[-0.3592233,  0.       ,  0.       ,  0.       ,  0.       ],
+           [ 0.       , -0.3592233,  0.       ,  0.       ,  0.       ],
+           [ 0.       ,  0.       , -0.3592233,  0.       ,  0.       ],
+           [ 0.       ,  0.       ,  0.       , -0.3592233,  0.       ],
+           [ 0.       ,  0.       ,  0.       ,  0.       , -0.3592233]])
+    >>> ZM_C2m.toarray()
+    array([[0.45631068, 0.        , 0.        , 0.        , 0.        ],
+           [0.        , 0.45631068, 0.        , 0.        , 0.        ],
+           [0.        , 0.        , 0.45631068, 0.        , 0.        ],
+           [0.        , 0.        , 0.        , 0.45631068, 0.        ],
+           [0.        , 0.        , 0.        , 0.        , 0.45631068]])
+    >>> ZM_C3m.toarray()
+    array([[0.90291262, 0.        , 0.        , 0.        , 0.        ],
+           [0.        , 0.90291262, 0.        , 0.        , 0.        ],
+           [0.        , 0.        , 0.90291262, 0.        , 0.        ],
+           [0.        , 0.        , 0.        , 0.90291262, 0.        ],
+           [0.        , 0.        , 0.        , 0.        , 0.90291262]])
+    '''
+
+    ZV_den = ZS_dtR/2 + ZV_kpr_bas * (1 - ZV_xpr_bas)
+
+    ZV_C1m = ZS_dtR/2 - ZV_kpr_bas * ZV_xpr_bas
+    ZV_C1m = ZV_C1m / ZV_den
+    ZM_C1m = diags(ZV_C1m, format='csc', dtype=np.float64)
+
+    ZV_C2m = ZS_dtR/2 + ZV_kpr_bas * ZV_xpr_bas
+    ZV_C2m = ZV_C2m / ZV_den
+    ZM_C2m = diags(ZV_C2m, format='csc', dtype=np.float64)
+
+    ZV_C3m = - ZS_dtR/2 + ZV_kpr_bas * (1 - ZV_xpr_bas)
+    ZV_C3m = ZV_C3m / ZV_den
+    ZM_C3m = diags(ZV_C3m, format='csc', dtype=np.float64)
+
+    return ZM_C1m, ZM_C2m, ZM_C3m
+
+
+# *****************************************************************************
+# End
+# *****************************************************************************
