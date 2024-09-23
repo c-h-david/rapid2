@@ -41,7 +41,7 @@ def net_mat(
 
     Returns
     -------
-    IM_Net : scipy.sparse.spmatrix
+    ZM_Net : scipy.sparse.spmatrix
         The network matrix for the basin.
 
     Examples
@@ -63,7 +63,7 @@ def net_mat(
            [0, 0, 0, 0, 0],
            [1, 1, 0, 0, 0],
            [0, 0, 0, 0, 0],
-           [0, 0, 1, 1, 0]], dtype=int32)
+           [0, 0, 1, 1, 0]])
     '''
 
     IS_riv_bas = len(IV_riv_bas)
@@ -79,12 +79,11 @@ def net_mat(
             IV_col.append(JS_riv_bas)
             ZV_val.append(1)
 
-    IM_Net = csc_matrix((ZV_val, (IV_row, IV_col)),
+    ZM_Net = csc_matrix((ZV_val, (IV_row, IV_col)),
                         shape=(IS_riv_bas, IS_riv_bas),
-                        dtype=np.int32,
                         )
 
-    return IM_Net
+    return ZM_Net
 
 
 # *****************************************************************************
