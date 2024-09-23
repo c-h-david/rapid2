@@ -22,6 +22,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/net_mat.py`   | New file. |
 | `./src/k_x_vec.py`   | New file. |
 | `./src/ccc_mat.py`   | New file. |
+| `./src/rte_mat.py`   | New file. |
 
 ### Changed
 
