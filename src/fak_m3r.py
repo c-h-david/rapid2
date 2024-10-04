@@ -55,7 +55,7 @@ def fak_m3r(
 
     Examples
     --------
-    >>> m3r_ncf = '../input/Test/m3_riv_Test_20000101_2000102_tst.nc4'
+    >>> m3r_ncf = '../input/Test/m3_riv_Test_20000101_20000102_tst.nc4'
     >>> IV_riv_tot = np.array([10, 20, 30, 40, 50], dtype=np.int32)
     >>> ZV_lon_tot = np.array([0.5, 2.0, 1.0, 2.0, 0.5])
     >>> ZV_lat_tot = np.array([5.0, 4.5, 3.0, 2.5, 1.0])
@@ -66,21 +66,21 @@ def fak_m3r(
     >>> fak_m3r(m3r_ncf, IV_riv_tot, ZV_lon_tot, ZV_lat_tot, IV_tim_tot,\
                 ZS_avg, ZS_amp)
     >>> m3r = netCDF4.Dataset(m3r_ncf, 'r')
-    >>> m3r.variables['rivid'][:].compressed()
+    >>> m3r.variables['rivid'][:].filled()
     array([10, 20, 30, 40, 50], dtype=int32)
-    >>> m3r.variables['lon'][:].compressed()
+    >>> m3r.variables['lon'][:].filled()
     array([0.5, 2. , 1. , 2. , 0.5])
-    >>> m3r.variables['lat'][:].compressed()
+    >>> m3r.variables['lat'][:].filled()
     array([5. , 4.5, 3. , 2.5, 1. ])
-    >>> m3r.variables['time'][:].compressed()
+    >>> m3r.variables['time'][:].filled()
     array([946684800, 946695600, 946706400, 946717200, 946728000, 946738800,
            946749600, 946760400, 946771200, 946782000, 946792800, 946803600,
            946814400, 946825200, 946836000, 946846800], dtype=int32)
-    >>> m3r.variables['time_bnds'][:, 1].compressed()
+    >>> m3r.variables['time_bnds'][:, 1].filled()
     array([946695600, 946706400, 946717200, 946728000, 946738800, 946749600,
            946760400, 946771200, 946782000, 946792800, 946803600, 946814400,
            946825200, 946836000, 946846800, 946857600], dtype=int32)
-    >>> m3r.variables['m3_riv'][:, 0].compressed()
+    >>> m3r.variables['m3_riv'][:, 0].filled()
     array([    0.    ,  3163.2468, 10800.    , 18436.754 , 21600.    ,
            18436.754 , 10800.    ,  3163.2468,     0.    ,  3163.2468,
            10800.    , 18436.754 , 21600.    , 18436.754 , 10800.    ,
