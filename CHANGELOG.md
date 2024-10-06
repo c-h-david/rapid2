@@ -26,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/fak_m3r.py`           | New file. |
 | `./.github/workflows/CD.yml` | New file. |
 | `./src/m3r_mdt.py`           | New file. |
+| `./src/stp_cor.py`           | New file. |
 
 ### Changed
 
