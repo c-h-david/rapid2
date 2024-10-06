@@ -22,7 +22,7 @@ from scipy.sparse import csc_matrix
 def ccc_mat(
             ZV_kpr_bas: npt.NDArray[np.float64],
             ZV_xpr_bas: npt.NDArray[np.float64],
-            ZS_dtR: np.float64
+            IS_dtR: np.int32
             ) -> tuple[
                        csc_matrix,
                        csc_matrix,
@@ -38,7 +38,7 @@ def ccc_mat(
         The values of k in the basin.
     ZV_xpr_bas : ndarray[float64]
         The values of x in the basin.
-    ZS_dtR : float64
+    IS_dtR : int32
         The routing time step of Muskingum method.
 
     Returns
@@ -54,8 +54,8 @@ def ccc_mat(
     --------
     >>> ZV_kpr_bas = np.array([9000., 9000., 9000., 9000., 9000.])
     >>> ZV_xpr_bas = np.array([0.25, 0.25, 0.25, 0.25, 0.25])
-    >>> ZS_dtR = 900
-    >>> ZM_C1m, ZM_C2m, ZM_C3m = ccc_mat(ZV_kpr_bas, ZV_xpr_bas, ZS_dtR)
+    >>> IS_dtR = 900
+    >>> ZM_C1m, ZM_C2m, ZM_C3m = ccc_mat(ZV_kpr_bas, ZV_xpr_bas, IS_dtR)
     >>> ZM_C1m.toarray()
     array([[-0.25,  0.  ,  0.  ,  0.  ,  0.  ],
            [ 0.  , -0.25,  0.  ,  0.  ,  0.  ],
@@ -82,17 +82,17 @@ def ccc_mat(
            [0., 0., 0., 0., 1.]])
     '''
 
-    ZV_den = ZS_dtR/2 + ZV_kpr_bas * (1 - ZV_xpr_bas)
+    ZV_den = IS_dtR/2 + ZV_kpr_bas * (1 - ZV_xpr_bas)
 
-    ZV_C1m = ZS_dtR/2 - ZV_kpr_bas * ZV_xpr_bas
+    ZV_C1m = IS_dtR/2 - ZV_kpr_bas * ZV_xpr_bas
     ZV_C1m = ZV_C1m / ZV_den
     ZM_C1m = diags(ZV_C1m, format='csc', dtype=np.float64)
 
-    ZV_C2m = ZS_dtR/2 + ZV_kpr_bas * ZV_xpr_bas
+    ZV_C2m = IS_dtR/2 + ZV_kpr_bas * ZV_xpr_bas
     ZV_C2m = ZV_C2m / ZV_den
     ZM_C2m = diags(ZV_C2m, format='csc', dtype=np.float64)
 
-    ZV_C3m = - ZS_dtR/2 + ZV_kpr_bas * (1 - ZV_xpr_bas)
+    ZV_C3m = - IS_dtR/2 + ZV_kpr_bas * (1 - ZV_xpr_bas)
     ZV_C3m = ZV_C3m / ZV_den
     ZM_C3m = diags(ZV_C3m, format='csc', dtype=np.float64)
 
