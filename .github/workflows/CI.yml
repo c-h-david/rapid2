@@ -1,0 +1,96 @@
+---
+# *****************************************************************************
+# CI.yml
+# *****************************************************************************
+
+# Purpose:
+# GitHub Actions is a continuous integration and continuous delivery (CI/CD)
+# platform that allows to automate the build, test, and deployment pipeline.
+# The purpose of this file is to give instructions to GitHub on how to do the
+# integration work.
+# Author:
+# Cedric H. David, 2024-2024.
+
+
+# *****************************************************************************
+# Name and specification of triggers
+# *****************************************************************************
+name: GitHub Actions CI
+on:  # yamllint disable-line rule:truthy
+  push:
+    branches:
+      - 'main'
+    tags:
+      - 'v*'
+      - '20*'
+
+
+# *****************************************************************************
+# Jobs
+# *****************************************************************************
+jobs:
+
+  # ---------------------------------------------------------------------------
+  # Ubuntu
+  # ---------------------------------------------------------------------------
+  ubuntu:
+    runs-on: ubuntu-20.04
+
+    steps:
+
+      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      # Display GitHub Action-related information
+      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      - name: Display GitHub Action-related information
+        run: |
+          echo "The job was triggered by a ${{ github.event_name }} event."
+          echo "The job is running on a ${{ runner.os }} server at GitHub!"
+          echo "The name of the repository is ${{ github.repository }}."
+          echo "The full git ref of this event is ${{ github.ref }}."
+          echo "The short git ref of this event is ${{ github.ref_name }}."
+          echo "The current working directory is $PWD"
+          echo "The GitHub workspace is ${{ github.workspace }}"
+          echo "The shell used is $SHELL"
+
+      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      # Checkout RAPID2 code
+      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      - name: Checkout RAPID2 code
+        uses: actions/checkout@v4
+
+      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      # Install OS requirements
+      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      - name: Install OS requirements
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            $(grep -v -E '(^#|^$)' requirements.apt)
+          sudo rm -f /usr/bin/python3
+          sudo ln -s /usr/bin/python3.11 /usr/bin/python3
+
+      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      # Install Python requirements
+      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      - name: Install Python requirements
+        run: |
+          PATH="/venv/bin:$PATH"
+          python3 -m venv /venv/ && \
+          pip3 install --no-cache-dir -r requirements.pip
+
+      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      # Run tests
+      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      - name: Run tests
+        run: |
+          cd $GITHUB_WORKSPACE
+          yamllint .github/workflows/*.yml
+          cd ./src/
+          flake8 *.py
+          mypy --strict src/*.py
+          python3 -m doctest *.py
+
+
+# *****************************************************************************
+# End
+# *****************************************************************************
