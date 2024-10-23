@@ -47,4 +47,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./.github/workflows/CD.yml` | Updated for yamllint. |
 | `./src/fak_m3r.py`           | Replaced compressed() by filled(). |
 | `./src/ccc_mat.py`           | Replaced type of routing time step. |
+| `./.github/workflows/CD.yml` | Fixed typo. |
 
