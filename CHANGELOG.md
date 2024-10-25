@@ -51,4 +51,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./.github/workflows/CD.yml` | Fixed typo. |
 | `./.github/workflows/CD.yml` | Updated to Ubuntu 22.04. |
 | `./.github/workflows/CI.yml` | Updated to Ubuntu 22.04. |
+| `./.github/workflows/CI.yml` | Activated virtual environment. |
 

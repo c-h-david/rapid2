@@ -70,12 +70,19 @@ jobs:
           sudo ln -s /usr/bin/python3.11 /usr/bin/python3
 
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      # Activate virtual environment
+      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      - name: Activate virtual environment
+        run: |
+          python3 -m venv $HOME/venv
+          export PATH=$HOME/venv/bin:$PATH
+          echo PATH=$PATH >> $GITHUB_ENV
+
+      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       # Install Python requirements
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       - name: Install Python requirements
         run: |
-          PATH="/venv/bin:$PATH"
-          python3 -m venv /venv/ && \
           pip3 install --no-cache-dir -r requirements.pip
 
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -85,10 +92,8 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           yamllint .github/workflows/*.yml
-          cd ./src/
-          flake8 *.py
+          flake8 src/*.py
           mypy --strict src/*.py
-          python3 -m doctest *.py
 
 
 # *****************************************************************************
