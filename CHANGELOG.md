@@ -57,4 +57,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./Dockerfile`               | Updated Debian. |
 | `./.github/workflows/CI.yml` | Added pymarkdown. |
 | `./requirement.pip`          | Added pymarkdown. |
-
+| `./README.md`                | Added installation instructions. |
