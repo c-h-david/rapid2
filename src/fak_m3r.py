@@ -13,6 +13,7 @@
 import numpy as np
 import numpy.typing as npt
 import netCDF4  # type: ignore
+from datetime import datetime, timezone
 
 
 # *****************************************************************************
@@ -88,6 +89,11 @@ def fak_m3r(
     >>> import os
     >>> os.remove(m3r_ncf)
     '''
+
+    # -------------------------------------------------------------------------
+    # Get UTC date and time
+    # -------------------------------------------------------------------------
+    YS_dat = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 
     # -------------------------------------------------------------------------
     # Create file
@@ -168,13 +174,13 @@ def fak_m3r(
     # Metadata in netCDF global attributes
     # -------------------------------------------------------------------------
     m3r.Conventions = 'CF-1.6'
-    m3r.title = 'RAPID data corresponding to the Test basin'
+    m3r.title = 'RAPID2 data corresponding to the Test basin'
     m3r.institution = (
                        'Jet Propulsion Laboratory, California Institute of '
                        'Technology'
                        )
     m3r.source = 'RAPID2'
-    m3r.history = ''
+    m3r.history = 'date created: ' + YS_dat
     m3r.references = 'https://github.com/c-h-david/rapid2/'
     m3r.comment = ''
     m3r.featureType = 'timeSeries'
