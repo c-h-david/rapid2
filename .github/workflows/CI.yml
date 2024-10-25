@@ -92,6 +92,7 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           yamllint .github/workflows/*.yml
+          pymarkdown scan *.md
           flake8 src/*.py
           mypy --strict src/*.py
 
