@@ -31,6 +31,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/chk_top.py`           | New file. |
 | `./.github/workflows/CI.yml` | New file. |
 | `./src/Qou_mdt.py`           | New file. |
+| `./src/mus_rte.py`           | New file. |
 
 ### Changed
 
