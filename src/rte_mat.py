@@ -11,8 +11,10 @@
 # Import Python modules
 # *****************************************************************************
 import numpy as np
-from scipy.sparse import identity  # type: ignore
-from scipy.sparse import csc_matrix
+from scipy.sparse import (  # type: ignore[import-untyped]
+                          identity,
+                          csc_matrix,
+                          )
 
 
 # *****************************************************************************

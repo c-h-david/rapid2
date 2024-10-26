@@ -12,7 +12,7 @@
 # *****************************************************************************
 import numpy as np
 import numpy.typing as npt
-import netCDF4  # type: ignore
+import netCDF4  # type: ignore[import-untyped]
 
 
 # *****************************************************************************

@@ -58,3 +58,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./.github/workflows/CI.yml` | Added pymarkdown. |
 | `./requirement.pip`          | Added pymarkdown. |
 | `./README.md`                | Added installation instructions. |
+| `./src/Qou_mdt.py`           | Changed mypy ignore comment. |
+| `./src/ccc_mat.py`           | Changed mypy ignore comment. |
+| `./src/fak_m3r.py`           | Changed mypy ignore comment. |
+| `./src/m3r_mdt.py`           | Changed mypy ignore comment. |
+| `./src/net_mat.py`           | Changed mypy ignore comment. |
+| `./src/rte_mat.py`           | Changed mypy ignore comment. |

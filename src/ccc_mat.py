@@ -12,8 +12,10 @@
 # *****************************************************************************
 import numpy as np
 import numpy.typing as npt
-from scipy.sparse import diags  # type: ignore
-from scipy.sparse import csc_matrix
+from scipy.sparse import (  # type: ignore[import-untyped]
+                          diags,
+                          csc_matrix,
+                          )
 
 
 # *****************************************************************************

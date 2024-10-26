@@ -12,7 +12,7 @@
 # *****************************************************************************
 import numpy as np
 import numpy.typing as npt
-from scipy.sparse import csc_matrix  # type: ignore
+from scipy.sparse import csc_matrix  # type: ignore[import-untyped]
 
 
 # *****************************************************************************
