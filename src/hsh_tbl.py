@@ -64,7 +64,6 @@ def hsh_tbl(
        np.int32(40): 3,\
        np.int32(50): 4},\
       array([0, 1, 2, 3, 4], dtype=int32))
-
     '''
 
     IS_riv_tot = len(IV_riv_tot)

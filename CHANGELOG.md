@@ -64,3 +64,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/m3r_mdt.py`           | Changed mypy ignore comment. |
 | `./src/net_mat.py`           | Changed mypy ignore comment. |
 | `./src/rte_mat.py`           | Changed mypy ignore comment. |
+| `./src/bas_vec.py`           | Fixed typo. |
+| `./src/con_vec.py`           | Fixed typo. |
+| `./src/hsh_tbl.py`           | Fixed typo. |
+| `./src/rte_mat.py`           | Fixed typo. |

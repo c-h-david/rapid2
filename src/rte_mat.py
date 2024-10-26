@@ -52,7 +52,7 @@ def rte_mat(
     ZM_Qex : scipy.sparse.spmatrix
         The multiplicand matrix for ZV_Qex for the basin in right-hand side.
     ZM_Qou : scipy.sparse.spmatrix
-        The multiplicand matrix for ZV_Qou for the basin in left-hand side.
+        The multiplicand matrix for ZV_Qou for the basin in right-hand side.
 
     Examples
     --------

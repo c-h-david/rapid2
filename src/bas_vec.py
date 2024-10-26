@@ -40,7 +40,6 @@ def bas_vec(
     >>> bas_csv = '../input/Test/riv_bas_id_Test.csv'
     >>> bas_vec(bas_csv)
     array([10, 20, 30, 40, 50], dtype=int32)
-
     '''
 
     IV_riv_bas = np.empty(0, dtype=np.int32)

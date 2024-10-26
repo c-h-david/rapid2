@@ -46,7 +46,6 @@ def con_vec(
     >>> con_vec(con_csv) # doctest: +NORMALIZE_WHITESPACE
     (array([10, 20, 30, 40, 50], dtype=int32),\
      array([30, 30, 50, 50,  0], dtype=int32))
-
     '''
 
     IV_riv_tot = np.empty(0, dtype=np.int32)
