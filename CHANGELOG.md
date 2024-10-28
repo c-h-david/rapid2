@@ -72,3 +72,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/bas_vec.py`           | Used try and except for opening files. |
 | `./src/con_vec.py`           | Used try and except for opening files. |
 | `./src/k_x_vec.py`           | Used try and except for opening files. |
+| `./README.md`                | Fixed text. |

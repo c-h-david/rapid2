@@ -99,8 +99,8 @@ python3 -m venv $HOME/venv
 export PATH=$HOME/venv/bin:$PATH
 ```
 
-> Consider including this last `export` statement in your run command file
-> `~/.bash_aliases`
+> Consider including this last `export` statement in your run command file,
+> like `~/.bash_aliases` on Debian.
 
 All packages can be installed at once using:
 
@@ -113,5 +113,5 @@ pip3 install --no-cache-dir -r requirements.pip
 > one by one, for example:
 >
 > ```bash
-> sudo pip3 install flake8==7.1.1
+> pip3 install flake8==7.1.1
 > ```
