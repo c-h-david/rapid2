@@ -57,17 +57,25 @@ def k_x_vec(
     '''
 
     ZV_kpr_tot = np.empty(0, dtype=np.float64)
-    with open(kpr_csv, 'r') as csvfile:
-        csvreader = csv.reader(csvfile)
-        for row in csvreader:
-            ZV_kpr_tot = np.append(ZV_kpr_tot, np.float64(row[0]))
+    try:
+        with open(kpr_csv, 'r') as csvfile:
+            csvreader = csv.reader(csvfile)
+            for row in csvreader:
+                ZV_kpr_tot = np.append(ZV_kpr_tot, np.float64(row[0]))
+    except IOError:
+        print('ERROR - Unable to open '+kpr_csv)
+        raise SystemExit(22)
     ZV_kpr_bas = ZV_kpr_tot[IV_bas_tot]
 
     ZV_xpr_tot = np.empty(0, dtype=np.float64)
-    with open(xpr_csv, 'r') as csvfile:
-        csvreader = csv.reader(csvfile)
-        for row in csvreader:
-            ZV_xpr_tot = np.append(ZV_xpr_tot, np.float64(row[0]))
+    try:
+        with open(xpr_csv, 'r') as csvfile:
+            csvreader = csv.reader(csvfile)
+            for row in csvreader:
+                ZV_xpr_tot = np.append(ZV_xpr_tot, np.float64(row[0]))
+    except IOError:
+        print('ERROR - Unable to open '+xpr_csv)
+        raise SystemExit(22)
     ZV_xpr_bas = ZV_xpr_tot[IV_bas_tot]
 
     return ZV_kpr_bas, ZV_xpr_bas

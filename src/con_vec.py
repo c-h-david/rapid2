@@ -50,11 +50,15 @@ def con_vec(
 
     IV_riv_tot = np.empty(0, dtype=np.int32)
     IV_dwn_tot = np.empty(0, dtype=np.int32)
-    with open(con_csv, 'r') as csvfile:
-        csvreader = csv.reader(csvfile)
-        for row in csvreader:
-            IV_riv_tot = np.append(IV_riv_tot, np.int32(row[0]))
-            IV_dwn_tot = np.append(IV_dwn_tot, np.int32(row[1]))
+    try:
+        with open(con_csv, 'r') as csvfile:
+            csvreader = csv.reader(csvfile)
+            for row in csvreader:
+                IV_riv_tot = np.append(IV_riv_tot, np.int32(row[0]))
+                IV_dwn_tot = np.append(IV_dwn_tot, np.int32(row[1]))
+    except IOError:
+        print('ERROR - Unable to open '+con_csv)
+        raise SystemExit(22)
 
     return IV_riv_tot, IV_dwn_tot
 
