@@ -74,3 +74,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/k_x_vec.py`           | Used try and except for opening files. |
 | `./README.md`                | Fixed text. |
 | `./Dockerfile`               | Linted with hadolint. |
+| `./.github/workflows/CI.yml` | Added hadolint. |
+| `./requirement.pip`          | Added hadolint. |
