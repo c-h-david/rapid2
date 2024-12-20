@@ -78,3 +78,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./Dockerfile`               | Linted with hadolint. |
 | `./.github/workflows/CI.yml` | Added hadolint. |
 | `./requirement.pip`          | Added hadolint. |
+| `./TESTING.md`               | Fixed typos. |

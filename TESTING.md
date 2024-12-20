@@ -30,7 +30,7 @@ yamllint .github/workflows/*.yml
 We use `hadolint` to lint our Dockerfiles.
 
 ```bash
-hadolint --ignore DL3008 Dockerfile_*
+hadolint --ignore DL3008 Dockerfile
 ```
 
 > `hadolint` does not enforce a maximum line width.
@@ -40,7 +40,7 @@ hadolint --ignore DL3008 Dockerfile_*
 We use `flake8` to lint our python files.
 
 ```bash
-flake8 *.py drv/*.py src/*.py
+flake8 src/*.py
 ```
 
 > The maximum line width is 79 characters by default.
