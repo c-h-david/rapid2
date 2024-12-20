@@ -33,7 +33,7 @@ COPY . .
 # *****************************************************************************
 RUN  apt-get update && \
      apt-get install -y --no-install-recommends \
-             $(grep -v -E '(^#|^$)' requirements.apt) && \
+             "$(grep -v -E '(^#|^$)' requirements.apt)" && \
      rm -rf /var/lib/apt/lists/*
 
 
@@ -48,7 +48,7 @@ RUN python3 -m venv /venv/ && \
 # *****************************************************************************
 # Intended (default) command at execution of image (not used during build)
 # *****************************************************************************
-CMD  /bin/bash
+CMD  ["/bin/bash"]
 
 
 # *****************************************************************************
