@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 
 | File                         | Note |
 | ----                         | ---- |
-| `./CHANGELOG`                | New file. |
+| `./CHANGELOG.md`             | New file. |
 | `./Dockerfile`               | New file. |
 | `./LICENSE`                  | New file. |
 | `./README.md`                | New file. |
@@ -40,7 +40,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | File                         | Note |
 | ----                         | ---- |
 | `./src/con_vec.py`           | Changed type hinting and updated docstring. |
-| `./CHANGELOG`                | Changed to table format. |
+| `./CHANGELOG.md`             | Changed to table format. |
 | `./src/bas_vec.py`           | Updated docstring. |
 | `./src/con_vec.py`           | Updated docstring. |
 | `./src/hsh_tbl.py`           | Updated docstring. |
@@ -79,3 +79,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./.github/workflows/CI.yml` | Added hadolint. |
 | `./requirement.pip`          | Added hadolint. |
 | `./TESTING.md`               | Fixed typos. |
+| `./.github/workflows/CI.yml` | Added hadolint exception. |

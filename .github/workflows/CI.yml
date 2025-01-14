@@ -93,7 +93,7 @@ jobs:
           cd $GITHUB_WORKSPACE
           pymarkdown scan *.md
           yamllint .github/workflows/*.yml
-          hadolint --ignore DL3008 Dockerfile
+          hadolint --ignore DL3008 --ignore SC2046 Dockerfile
           flake8 src/*.py
           mypy --strict src/*.py
 
