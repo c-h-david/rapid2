@@ -33,7 +33,8 @@ COPY . .
 # *****************************************************************************
 RUN  apt-get update && \
      apt-get install -y --no-install-recommends \
-             "$(grep -v -E '(^#|^$)' requirements.apt)" && \
+             $(grep -v -E '(^#|^$)' requirements.apt) && \
+     apt-get clean && \
      rm -rf /var/lib/apt/lists/*
 
 

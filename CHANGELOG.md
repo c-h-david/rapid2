@@ -80,3 +80,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./requirement.pip`          | Added hadolint. |
 | `./TESTING.md`               | Fixed typos. |
 | `./.github/workflows/CI.yml` | Added hadolint exception. |
+| `./Dockerfile`               | Fixed quotes and added apt-get clean. |
