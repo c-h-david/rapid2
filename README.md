@@ -1,18 +1,18 @@
 # RAPID2
 
-[![License (3-Clause BSD)](https://img.shields.io/badge/license-BSD%203--Clause-yellow.svg)](https://github.com/c-h-david/rapid2/blob/main/LICENSE)
+[![License (3-Clause BSD)][BDG_BSD3]][URL_LICENS]
 
 ## Installation with Docker
 
 Installing RAPID2 is **by far the easiest with Docker**. This document was
 written and tested using
-[Docker Community Edition](https://www.docker.com/community-edition#/download)
+[Docker Community Edition][URL_DOCSFT]
 which is available for free and can be installed on a wide variety of operating
 systems. To install it, follow the instructions in the link provided above.
 
 Note that the experienced users may find more up-to-date installation
 instructions in
-[Dockerfile](https://github.com/c-h-david/rapid2/blob/main/Dockerfile).
+[Dockerfile][URL_DOCFIL].
 
 ### Download RAPID2 Docker image from Docker Hub
 
@@ -34,13 +34,13 @@ docker run --rm -it chdavid/rapid2
 ## Installation on Debian
 
 This document was written and tested on a machine with a **clean** image of
-[Debian 12.7.0 ARM64](https://get.debian.org/images/release/current/arm64/iso-cd/debian-12.7.0-arm64-netinst.iso)
+[Debian 12.7.0 ARM64][URL_DEBIAN]
 installed, *i.e.* **no update** was performed, and **no upgrade** either.
 Similar steps **may** be applicable for Ubuntu.
 
 Note that the experienced users may find more up-to-date installation
 instructions in
-[CI.yml](https://github.com/c-h-david/rapid2/blob/main/.github/workflows/CI.yml).
+[CI.yml][URL_CI_YML].
 
 ### Download RAPID2 source code from GitHub
 
@@ -65,15 +65,17 @@ cd rapid2/
 ### Install APT packages
 
 Software packages for the Advanced Packaging Tool (APT) are summarized in
-[requirements.apt](https://github.com/c-h-david/rapid2/blob/main/requirements.apt)
-and can be installed with `apt-get`. All packages can be installed at once using:
+[requirements.apt][URL_REQAPT]
+and can be installed with `apt-get`. All packages can be installed at once
+using:
 
 ```bash
-sudo apt-get install -y --no-install-recommends $(grep -v -E '(^#|^$)' requirements.apt)
+sudo apt-get install -y --no-install-recommends \
+     $(grep -v -E '(^#|^$)' requirements.apt)
 ```
 
 > Alternatively, one may install the APT packages listed in
-> [requirements.apt](https://github.com/c-h-david/rapid2/blob/main/requirements.apt)
+> [requirements.apt][URL_REQAPT]
 > one by one, for example:
 >
 > ```bash
@@ -90,7 +92,7 @@ sudo ln -s /usr/bin/python3.11 /usr/bin/python3
 ### Install Python packages
 
 Python packages from the Python Package Index (PyPI) are summarized in
-[requirements.pip](https://github.com/c-h-david/rapid2/blob/main/requirements.pip)
+[requirements.pip][URL_REQPIP]
 and can be installed with `pip`. But first, let's make sure to create a
 virtual environment
 
@@ -109,9 +111,22 @@ pip3 install --no-cache-dir -r requirements.pip
 ```
 
 > Alternatively, one may install the PyPI packages listed in
-> [requirements.pip](https://github.com/c-h-david/rapid2/blob/main/requirements.pip)
+> [requirements.pip][URL_REQPIP]
 > one by one, for example:
 >
 > ```bash
 > pip3 install flake8==7.1.1
 > ```
+
+<!-- pyml disable-num-lines 20 line-length-->
+[BDG_BSD3]: https://img.shields.io/badge/license-BSD%203--Clause-yellow.svg
+
+[URL_LICENS]: https://github.com/c-h-david/rapid2/blob/main/LICENSE
+[URL_DOCFIL]: https://github.com/c-h-david/rapid2/blob/main/Dockerfile
+[URL_CI_YML]: https://github.com/c-h-david/rapid2/blob/main/.github/workflows/CI.yml
+[URL_REQAPT]: https://github.com/c-h-david/rapid2/blob/main/requirements.apt
+[URL_REQPIP]: https://github.com/c-h-david/rapid2/blob/main/requirements.pip
+[URL_REPOSI]: https://github.com/c-h-david/rapid2/blob/main/
+
+[URL_DOCSFT]: https://www.docker.com/community-edition#/download
+[URL_DEBIAN]: https://get.debian.org/images/release/current/arm64/iso-cd/debian-12.7.0-arm64-netinst.iso

@@ -13,27 +13,30 @@ We use `pymarkdown` to lint our markdown files.
 pymarkdown scan *.md
 ```
 
-> The maximum line width is 80 characters by default.
+> We enforce a maximum line width of 79 characters using the `.pymarkdown.yml`
+> configuration file.
 
 ### Yaml linter
 
 We use `yamllint` to lint our yaml files.
 
 ```bash
-yamllint .github/workflows/*.yml
+yamllint .github/workflows/*.yml .*.yml
 ```
 
-> The maximum line width is 80 characters by default.
+> We enforce a maximum line width of 79 characters using the `.yamllint.yml`
+> configuration file.
 
 ### Dockerfile linter
 
 We use `hadolint` to lint our Dockerfiles.
 
 ```bash
-hadolint --ignore DL3008 Dockerfile
+hadolint --ignore DL3008 --ignore SC2046 Dockerfile
 ```
 
-> `hadolint` does not enforce a maximum line width.
+> `hadolint` does not allow to enforce a maximum line width, but we try to keep
+> it at 79 for consistency
 
 ### Python linter
 

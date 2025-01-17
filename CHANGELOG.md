@@ -83,3 +83,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./TESTING.md`               | Fixed typos. |
 | `./.github/workflows/CI.yml` | Added hadolint exception. |
 | `./Dockerfile`               | Fixed quotes and added apt-get clean. |
+| `./.github/workflows/CI.yml` | Linted. |
+| `./CODE_OF_COLLAB.md`        | Linted. |
+| `./README.md`                | Linted. |
+| `./TESTING.md`               | Linted. |

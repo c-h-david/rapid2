@@ -1,9 +1,7 @@
 # Code of Conduct for Scientific Collaboration
 
 > DRAFT. Work in progress: consider contributing to its associated GitHub
-> issues at
-> [NASA AMMOS](https://github.com/NASA-AMMOS/slim/issues/173) and
-> [NASA TOPS](https://github.com/nasa/Transform-to-Open-Science/issues/894).
+> issues at [NASA AMMOS][URL_AMMOS] and [NASA TOPS][URL_TOPS].
 
 ## Overview
 
@@ -14,8 +12,8 @@ publishing, funding, and achieving scientific impact.
 
 ## Our Metrics of Success
 
-As a project developed by scientific researchers, our primary metrics of success
-are:
+As a project developed by scientific researchers, our primary metrics of
+success are:
 
 1. **Achieving scientific and societal impact**.
 2. **Publishing articles in peer-reviewed journals**.
@@ -35,8 +33,8 @@ involved.
 ### What We Offer
 
 1. **Access to cutting-edge research and software** for community use.
-2. **Openness in sharing methods and ideas** while still competing in scientific
-   research.
+2. **Openness in sharing methods and ideas** while still competing in
+   scientific research.
 3. **Opportunities for collaboration** that align with our metrics of success.
 
 ### What We Expect from You
@@ -44,8 +42,8 @@ involved.
 1. **Respect for Our Time and Resources**.  
    Open-source software does not mean free support. We ask that you respect the
    fact that developing and maintaining software, alongside research, is a
-   time-intensive process. Please make your queries clear and concise to help us
-   assist you efficiently.
+   time-intensive process. Please make your queries clear and concise to help
+   us assist you efficiently.
 
 2. **Collaborate, Don’t Compete**.  
    Open science thrives on collaboration. We encourage you to collaborate with
@@ -67,7 +65,7 @@ involved.
 
 We adhere to the highest standards of research integrity, including those
 outlined in the
-[European Code of Conduct for Research Integrity](https://allea.org/code-of-conduct/),
+[European Code of Conduct for Research Integrity][URL_Allea],
 and expect the same from all collaborators.
 
 ### Key Principles
@@ -102,8 +100,8 @@ following:
 
 2. **Clear Communication**.  
    When working together, clear and transparent communication is essential.
-   Please inform us of any plans to use or build upon our software, particularly
-   if it involves publishing or applying for research funding.
+   Please inform us of any plans to use or build upon our software,
+   particularly if it involves publishing or applying for research funding.
 
 3. **Support for Open Science**.  
    We encourage you to align with our open science principles by:
@@ -118,3 +116,7 @@ collaboration that benefits everyone involved. Open science requires time,
 dedication, and a shared commitment to advancing scientific knowledge. Let’s
 work together to achieve meaningful impact while supporting the sustainability
 of scientific research.
+
+[URL_Allea]: https://allea.org/code-of-conduct/
+[URL_AMMOS]: https://github.com/NASA-AMMOS/slim/issues/173
+[URL_TOPS]: https://github.com/nasa/Transform-to-Open-Science/issues/894
