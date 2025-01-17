@@ -1,0 +1,30 @@
+---
+# *****************************************************************************
+# .yamllint.yml
+# *****************************************************************************
+
+# Purpose:
+# yamllint uses a set of rules to check source files for problems. Rules can be
+# specified in a configuration file such as this one.
+# Author:
+# Cedric H. David, 2025-2025.
+
+
+# *****************************************************************************
+# Configuration
+# *****************************************************************************
+extends: default
+
+rules:
+  line-length:
+    max: 79
+    allow-non-breakable-words: false
+  indentation:
+    spaces: 2
+    indent-sequences: true
+    check-multi-line-strings: false
+
+
+# *****************************************************************************
+# End
+# *****************************************************************************
