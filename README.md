@@ -129,4 +129,4 @@ pip3 install --no-cache-dir -r requirements.pip
 [URL_REPOSI]: https://github.com/c-h-david/rapid2/blob/main/
 
 [URL_DOCSFT]: https://www.docker.com/community-edition#/download
-[URL_DEBIAN]: https://get.debian.org/images/release/current/arm64/iso-cd/debian-12.7.0-arm64-netinst.iso
+[URL_DEBIAN]: https://cloud.debian.org/images/archive/12.7.0/arm64/iso-cd/debian-12.7.0-arm64-netinst.iso
