@@ -13,7 +13,8 @@ We use `pymarkdown` to lint our markdown files.
 pymarkdown scan *.md
 ```
 
-> We enforce a maximum line width of 79 characters using the `.pymarkdown.yml`
+> We enforce a maximum line width of 79 characters using the
+> [.pymarkdown.yml][URL_CFG_MD]
 > configuration file.
 
 ### Yaml linter
@@ -24,7 +25,8 @@ We use `yamllint` to lint our yaml files.
 yamllint .github/workflows/*.yml .*.yml
 ```
 
-> We enforce a maximum line width of 79 characters using the `.yamllint.yml`
+> We enforce a maximum line width of 79 characters using the
+> [.yamllint.yml][URL_CFG_YM]
 > configuration file.
 
 ### Dockerfile linter
@@ -55,3 +57,6 @@ We use `mypy` to dynamic typing and static typing.
 ```bash
 mypy --strict src/*.py
 ```
+
+[URL_CFG_MD]: https://github.com/c-h-david/rapid2/blob/main/.pymarkdown.yml
+[URL_CFG_YM]: https://github.com/c-h-david/rapid2/blob/main/.yamllint.yml

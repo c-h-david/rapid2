@@ -88,3 +88,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./README.md`                | Linted. |
 | `./TESTING.md`               | Linted. |
 | `./README.md`                | Fixed Debian URL. |
+| `./TESTING.md`               | Added URLs. |
