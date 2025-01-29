@@ -35,10 +35,11 @@ We use `hadolint` to lint our Dockerfiles.
 
 ```bash
 hadolint --ignore DL3008 --ignore SC2046 Dockerfile
+wc -L Dockerfile | awk '{exit $1 > 79}'
 ```
 
-> `hadolint` does not allow to enforce a maximum line width, but we try to keep
-> it at 79 for consistency
+> We enforce a maximum line width of 79 characters using a combination of `wc`
+> and `awk` because `hadolint` does not allow to enforce a maximum line width.
 
 ### Python linter
 
@@ -52,7 +53,7 @@ flake8 src/*.py
 
 ### Python type checker
 
-We use `mypy` to dynamic typing and static typing.
+We use `mypy` to check dynamic and static typing.
 
 ```bash
 mypy --strict src/*.py
