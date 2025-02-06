@@ -36,6 +36,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./CODE_OF_COLLAB.md`        | New file. |
 | `./.yamllint.yml`            | New file. |
 | `./.pymarkdown.yml`          | New file. |
+| `./.gitignore`               | New file. |
+| `./pyproject.toml`           | New file. |
+| `./src/__init__.py`          | New file. |
 
 ### Changed
 

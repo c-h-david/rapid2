@@ -1,0 +1,34 @@
+# *****************************************************************************
+# pyproject.toml
+# *****************************************************************************
+
+# Purpose:
+# This file acts as a configuration file for packaging-related and other tools.
+# Author:
+# Cedric H. David, 2025-2025
+
+
+# *****************************************************************************
+# Project configuration
+# *****************************************************************************
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rapid2"
+version = "0.0.0"
+description = "Routing Application for Python Integration of Discharge"
+authors = [{name = "Cedric H. David", email = "cedric.david@jpl.nasa.gov"}]
+dynamic = ["dependencies"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.pip"]}
+
+[tool.setuptools]
+packages = ["src"]
+
+
+# *****************************************************************************
+# End
+# *****************************************************************************
