@@ -40,6 +40,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./pyproject.toml`           | New file. |
 | `./src/rapid2/__init__.py`   | New file. |
 | `./clean.sh`                 | New file. |
+| `./src/_rapid2.py`           | New file. |
 
 ### Changed
 
