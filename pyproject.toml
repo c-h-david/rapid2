@@ -3,7 +3,8 @@
 # *****************************************************************************
 
 # Purpose:
-# This file acts as a configuration file for packaging-related and other tools.
+# This file acts as a Python project configuration file for packaging-related
+# tools and for other tools.
 # Author:
 # Cedric H. David, 2025-2025
 
@@ -12,21 +13,22 @@
 # Project configuration
 # *****************************************************************************
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "rapid2"
-version = "0.0.0"
+version = "2.0.0"
+license = {file = "LICENSE"}
 description = "Routing Application for Python Integration of Discharge"
 authors = [{name = "Cedric H. David", email = "cedric.david@jpl.nasa.gov"}]
 dynamic = ["dependencies"]
 
+[project.urls]
+Repository = "https://github.com/c-h-david/rapid2.git"
+
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.pip"]}
-
-[tool.setuptools]
-packages = ["src"]
 
 
 # *****************************************************************************
