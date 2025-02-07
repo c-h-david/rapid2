@@ -46,7 +46,7 @@ wc -L Dockerfile | awk '{exit $1 > 79}'
 We use `flake8` to lint our python files.
 
 ```bash
-flake8 src/*.py
+flake8 src/rapid2/*.py
 ```
 
 > The maximum line width is 79 characters by default.
@@ -56,7 +56,7 @@ flake8 src/*.py
 We use `mypy` to check dynamic and static typing.
 
 ```bash
-mypy --strict src/*.py
+mypy --strict src/rapid2/*.py
 ```
 
 [URL_CFG_MD]: https://github.com/c-h-david/rapid2/blob/main/.pymarkdown.yml
