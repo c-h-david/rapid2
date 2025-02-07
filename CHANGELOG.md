@@ -95,3 +95,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./.github/workflows/CI.yml` | Enforced max line width for Dockerfile. |
 | `./TESTING.md`               | Enforced max line width for Dockerfile. |
 | `./src/rapid2/*.py`          | Moved files to sub-directory. |
+| `./.github/workflows/CI.yml` | Moved files to sub-directory. |
