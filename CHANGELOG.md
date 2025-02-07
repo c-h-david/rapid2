@@ -101,3 +101,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `TESTING.md`                 | Moved files to sub-directory. |
 | `./src/rapid2/*.py`          | Changed mode to not executable. |
 | `./Dockerfile`               | Added package installation. |
+| `./.github/workflows/CI.yml` | Added new directory with Python files. |
+| `TESTING.md`                 | Added new directory with Python files. |
