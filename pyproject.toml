@@ -30,6 +30,9 @@ Repository = "https://github.com/c-h-david/rapid2.git"
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.pip"]}
 
+[project.scripts]
+rapid2 = "_rapid2:main"
+
 
 # *****************************************************************************
 # End

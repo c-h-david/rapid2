@@ -104,3 +104,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./Dockerfile`               | Added package installation. |
 | `./.github/workflows/CI.yml` | Added new directory with Python files. |
 | `TESTING.md`                 | Added new directory with Python files. |
+| `./pyproject.toml`           | Added rapid2 executable. |
