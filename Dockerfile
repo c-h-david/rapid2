@@ -43,7 +43,9 @@ RUN  apt-get update && \
 # *****************************************************************************
 ENV PATH="/venv/bin:$PATH"
 RUN python3 -m venv /venv/ && \
-    pip3 install --no-cache-dir -r requirements.pip
+    pip3 install --no-cache-dir -r requirements.pip && \
+    pip3 install --no-cache-dir . && \
+    ./clean.sh
 
 
 # *****************************************************************************
