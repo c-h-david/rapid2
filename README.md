@@ -1,136 +1,85 @@
-# RAPID2
+<hr>
 
-[![License (3-Clause BSD)][BDG_BSD3CL]][URL_LICENS]
+<div align="center">
 
-[![Contributor Covenant][BDG_CONDUC]][URL_CONDUC]
+![RAPID2 Logo](/static/img/logo.svg)
 
-## Installation with Docker
+<h1 align="center">RAPID2</h1>
 
-Installing RAPID2 is **by far the easiest with Docker**. This document was
-written and tested using
-[Docker Community Edition][URL_DOCSFT]
-which is available for free and can be installed on a wide variety of operating
-systems. To install it, follow the instructions in the link provided above.
+</div>
 
-Note that the experienced users may find more up-to-date installation
-instructions in
-[Dockerfile][URL_DOCFIL].
+<pre align="center">Hydrologic routing application integrating discharge calculations in Python.</pre>
 
-### Download RAPID2 Docker image from Docker Hub
+[![License (3-Clause BSD)](https://img.shields.io/badge/license-BSD%203--Clause-yellow.svg)](https://github.com/c-h-david/rapid2/blob/main/LICENSE)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](https://github.com/c-h-david/rapid2/blob/main/CODE_OF_CONDUCT.md)
+[![SLIM](https://img.shields.io/badge/Best%20Practices%20from-SLIM-blue)](https://nasa-ammos.github.io/slim/)
 
-Downloading RAPID2 with Docker can be done using:
+
+## Features
+
+- Basin file processing
+- Connectivity mapping
+- Hydrologic routing with the Muskingum method
+- NetCDF-based inflow and outflow file handling
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Installation](#installation)
+- [Usage Examples](#usage-examples)
+- [Changelog](#changelog)
+- [Contributing](#contributing)
+- [License](#license)
+- [Support](#support)
+
+## Quick Start
+
+### Installation with Docker
+
+The easiest way to install RAPID2 is via Docker. Follow these steps:
 
 ```bash
 docker pull chdavid/rapid2
-```
-
-### Install packages
-
-The beauty of Docker is that there is **no need to install anymore packages**.
-RAPID2 is ready to go! To run it, just use:
-
-```bash
 docker run --rm -it chdavid/rapid2
 ```
 
-## Installation on Debian
+### Installation on Debian
 
-This document was written and tested on a machine with a **clean** image of
-[Debian 12.7.0 ARM64][URL_DEBIAN]
-installed, *i.e.* **no update** was performed, and **no upgrade** either.
-Similar steps **may** be applicable for Ubuntu.
-
-Note that the experienced users may find more up-to-date installation
-instructions in
-[CI.yml][URL_CI_YML].
-
-### Download RAPID2 source code from GitHub
-
-First, make sure that `git` is installed:
+For Debian users, follow these steps:
 
 ```bash
 sudo apt-get install -y --no-install-recommends git
-```
 
-Then download RAPID2:
-
-```bash
 git clone https://github.com/c-h-david/rapid2
-```
-
-Finally, enter the RAPID2 directory:
-
-```bash
 cd rapid2/
+
+sudo apt-get install -y --no-install-recommends $(grep -v -E '(^#|^$)' requirements.apt)
 ```
 
-### Install APT packages
-
-Software packages for the Advanced Packaging Tool (APT) are summarized in
-[requirements.apt][URL_REQAPT]
-and can be installed with `apt-get`. All packages can be installed at once
-using:
-
-```bash
-sudo apt-get install -y --no-install-recommends \
-     $(grep -v -E '(^#|^$)' requirements.apt)
-```
-
-> Alternatively, one may install the APT packages listed in
-> [requirements.apt][URL_REQAPT]
-> one by one, for example:
->
-> ```bash
-> sudo apt-get install -y --no-install-recommends python3.11
-> ```
-
-Also make sure that `python3` points to `python3.11`:
-
-```bash
-sudo rm -f /usr/bin/python3
-sudo ln -s /usr/bin/python3.11 /usr/bin/python3
-```
-
-### Install Python packages
-
-Python packages from the Python Package Index (PyPI) are summarized in
-[requirements.pip][URL_REQPIP]
-and can be installed with `pip`. But first, let's make sure to create a
-virtual environment
+Set up Python:
 
 ```bash
 python3 -m venv $HOME/venv
 export PATH=$HOME/venv/bin:$PATH
-```
-
-> Consider including this last `export` statement in your run command file,
-> like `~/.bash_aliases` on Debian.
-
-All packages can be installed at once using:
-
-```bash
 pip3 install --no-cache-dir -r requirements.pip
 ```
 
-> Alternatively, one may install the PyPI packages listed in
-> [requirements.pip][URL_REQPIP]
-> one by one, for example:
->
-> ```bash
-> pip3 install flake8==7.1.1
-> ```
+## Usage Examples
 
-<!-- pyml disable-num-lines 20 line-length-->
-[BDG_BSD3CL]: https://img.shields.io/badge/license-BSD%203--Clause-yellow.svg
-[BDG_CONDUC]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
+- Running basic hydrologic routing:
 
-[URL_LICENS]: https://github.com/c-h-david/rapid2/blob/main/LICENSE
-[URL_CONDUC]: https://github.com/c-h-david/rapid2/blob/main/CODE_OF_CONDUCT.md
-[URL_DOCFIL]: https://github.com/c-h-david/rapid2/blob/main/Dockerfile
-[URL_CI_YML]: https://github.com/c-h-david/rapid2/blob/main/.github/workflows/CI.yml
-[URL_REQAPT]: https://github.com/c-h-david/rapid2/blob/main/requirements.apt
-[URL_REQPIP]: https://github.com/c-h-david/rapid2/blob/main/requirements.pip
-[URL_REPOSI]: https://github.com/c-h-david/rapid2/blob/main/
+```bash
+python3 run_rapid.py --input example_input.nc --output results.nc
+```
 
-[URL_DOCSFT]: https://www.docker.com/community-edition#/download
-[URL_DEBIAN]: https://cloud.debian.org/images/archive/12.7.0/arm64/iso-cd/debian-12.7.0-arm64-netinst.iso
+## Changelog
+See our [CHANGELOG.md](CHANGELOG.md) for the history of changes.
+
+## Contributing
+Interested in contributing? See our [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+This project is licensed under the [BSD 3-Clause License](LICENSE).
+
+## Support
+For questions and support, please contact [@c-h-david](https://github.com/c-h-david).
