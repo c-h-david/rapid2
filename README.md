@@ -1,6 +1,8 @@
 # RAPID2
 
-[![License (3-Clause BSD)][BDG_BSD3]][URL_LICENS]
+[![License (3-Clause BSD)][BDG_BSD3CL]][URL_LICENS]
+
+[![Contributor Covenant][BDG_CONDUC]][URL_CONDUC]
 
 ## Installation with Docker
 
@@ -119,9 +121,11 @@ pip3 install --no-cache-dir -r requirements.pip
 > ```
 
 <!-- pyml disable-num-lines 20 line-length-->
-[BDG_BSD3]: https://img.shields.io/badge/license-BSD%203--Clause-yellow.svg
+[BDG_BSD3CL]: https://img.shields.io/badge/license-BSD%203--Clause-yellow.svg
+[BDG_CONDUC]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
 
 [URL_LICENS]: https://github.com/c-h-david/rapid2/blob/main/LICENSE
+[URL_CONDUC]: https://github.com/c-h-david/rapid2/blob/main/CODE_OF_CONDUCT.md
 [URL_DOCFIL]: https://github.com/c-h-david/rapid2/blob/main/Dockerfile
 [URL_CI_YML]: https://github.com/c-h-david/rapid2/blob/main/.github/workflows/CI.yml
 [URL_REQAPT]: https://github.com/c-h-david/rapid2/blob/main/requirements.apt

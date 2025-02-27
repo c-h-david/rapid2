@@ -41,6 +41,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/__init__.py`   | New file. |
 | `./clean.sh`                 | New file. |
 | `./src/_rapid2.py`           | New file. |
+| `./CODE_OF_CONDUCT.md`       | New file. |
+| `./GOVERNANCE.md`            | New file. |
+| `./CONTRIBUTING.md`          | New file. |
 
 ### Changed
 
