@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![RAPID2 Logo](/static/img/logo.svg)
+<img src="/static/img/logo.svg" alt="RAPID2 Logo" width="200px">
 
 <h1 align="center">RAPID2</h1>
 
