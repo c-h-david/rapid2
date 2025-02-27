@@ -1,1 +1,41 @@
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="90" fill="#f8f9fa" stroke="#e6e7e8" stroke-width="2"/>
+  
+  <!-- Stylized "R" formed by river flows -->
+  <path d="M60,40 L60,160 C60,160 60,160 60,160" 
+        stroke="#1a4ba8" 
+        stroke-width="14" 
+        stroke-linecap="round"
+        fill="none"/>
+        
+  <path d="M60,65 Q90,65 105,80 Q120,95 105,115 Q90,135 60,135" 
+        stroke="#1a4ba8" 
+        stroke-width="14" 
+        stroke-linecap="round"
+        fill="none"/>
+        
+  <path d="M90,115 L140,160" 
+        stroke="#1a4ba8" 
+        stroke-width="14" 
+        stroke-linecap="round"
+        fill="none"/>
+  
+  <!-- Water flow elements -->
+  <path d="M30,100 Q65,70 100,100 T170,100" 
+        stroke="#4287f5" 
+        stroke-width="8" 
+        stroke-linecap="round"
+        fill="none"/>
+        
+  <path d="M30,130 Q75,100 120,130 T170,130" 
+        stroke="#2d6ad9" 
+        stroke-width="6" 
+        stroke-linecap="round"
+        fill="none"/>
+  
+  <!-- Data points -->
+  <circle cx="65" cy="70" r="5" fill="#e63946"/>
+  <circle cx="105" cy="100" r="5" fill="#e63946"/>
+  <circle cx="140" cy="130" r="5" fill="#e63946"/>
+</svg>
