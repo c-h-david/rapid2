@@ -44,6 +44,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./CODE_OF_CONDUCT.md`       | New file. |
 | `./GOVERNANCE.md`            | New file. |
 | `./CONTRIBUTING.md`          | New file. |
+| `.github/bug_report.md`      | New file. |
+| `.github/feature_request.md` | New file. |
+| `.github/PR_TEMPLATE.md`     | New file. |
 
 ### Changed
 
@@ -109,3 +112,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `TESTING.md`                 | Added new directory with Python files. |
 | `./pyproject.toml`           | Added rapid2 executable. |
 | `./src/_rapid2.py`           | Added whitespace. |
+| `.github/PR_TEMPLATE.md`     | Linted. |
