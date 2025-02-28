@@ -19,7 +19,7 @@ the respective governing members.
 ### Governance matrix
 
 | Role | Open To | Clone | Create PR | Support | Review | Commit | Decisions |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| --- | --- | --- | --- | --- | --- | --- | --- |
 | User        | All          | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | Contributor | All          | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
 | Committer   | Contributors | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
@@ -37,7 +37,7 @@ code, issues, documentation, graphics, designs, or anything else that tangibly
 improves the project. We encourage you to start contributing right away by
 joining our [Discussions][URL_DISCUS] or submitting an [Issue][URL_ISSUES].
 Suggesting a [Pull Request][URL_PULLRE] is also possible, following our
-[Congributing Guidelines][URL_CONTRI].
+[Contributing Guidelines][URL_CONTRI].
 
 ### Committer
 
@@ -56,7 +56,7 @@ request to [Cedric H. David](https://github.com/c-h-david).
 The advisor role is by invitation only and targets community leaders whose
 activities have or could enhance the project or its community.
 
-### Product Manager
+### Manager
 
 Overall manager of the project with final authority over all key decisions when
 consensus cannot be reached among deciding members. The product manager is
@@ -66,9 +66,9 @@ approval from all deciding members.
 ## Acknowledgments
 
 Much of this governance model was adapted from other notable open source
-projects including [node.js][URL_NODEJA], [OpenSSL][URL_OPENSS],
-[PostgresQL][URL_POSTGR], and [OpenMCT]. We would like to thank those projects
-for setting the foundation upon which this model was built.
+projects including [node.js][URL_NODEJS], [OpenSSL][URL_OPENSS],
+[PostgresQL][URL_POSTGR], and [OpenMCT][URL_OPENMC]. We would like to thank
+those projects for setting the foundation upon which this model was built.
 
 [URL_CONSEN]: https://en.wikipedia.org/wiki/Consensus-seeking_decision-making
 [URL_DISCUS]: https://github.com/c-h-david/rapid2/discussions
