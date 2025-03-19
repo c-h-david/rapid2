@@ -117,3 +117,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./GOVERNANCE.md`            | Fixed typos. |
 | `./src/rapid2/*.py`          | Changed relative path in docstrings. |
 | `TESTING.md`                 | Added testing for examples in docstrings. |
+| `./src/_rapid2.py`           | Added basic RAPID routing. |
