@@ -59,5 +59,13 @@ We use `mypy` to check dynamic and static typing.
 mypy --strict src/*.py src/rapid2/*.py
 ```
 
+### Python docstrings check
+
+We use the `doctest` module to check examples in docstrings.
+
+```bash
+python3 -m doctest src/rapid2/*.py
+```
+
 [URL_CFG_MD]: https://github.com/c-h-david/rapid2/blob/main/.pymarkdown.yml
 [URL_CFG_YM]: https://github.com/c-h-david/rapid2/blob/main/.yamllint.yml
