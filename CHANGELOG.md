@@ -47,6 +47,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `.github/bug_report.md`      | New file. |
 | `.github/feature_request.md` | New file. |
 | `.github/PR_TEMPLATE.md`     | New file. |
+| `./src/rapid2/nml_cfg.py`    | New file. |
 
 ### Changed
 
