@@ -38,22 +38,22 @@ def nml_cfg(
 
     Examples
     --------
-    >>> nml_yml = '../input/Test/namelist_Test.yml'
+    >>> nml_yml = './input/Test/namelist_Test.yml'
     >>> nml_dic = nml_cfg(nml_yml)
     >>> nml_dic['m3r_ncf']
-    '../input/Test/m3_riv_Test_20000101_20000102.nc4'
+    './input/Test/m3_riv_Test_20000101_20000102.nc4'
     >>> nml_dic['con_csv']
-    '../input/Test/rapid_connect_Test.csv'
+    './input/Test/rapid_connect_Test.csv'
     >>> nml_dic['kpr_csv']
-    '../input/Test/k_Test.csv'
+    './input/Test/k_Test.csv'
     >>> nml_dic['xpr_csv']
-    '../input/Test/x_Test.csv'
+    './input/Test/x_Test.csv'
     >>> nml_dic['bas_csv']
-    '../input/Test/riv_bas_id_Test.csv'
+    './input/Test/riv_bas_id_Test.csv'
     >>> nml_dic['IS_dtR']
     np.int32(900)
     >>> nml_dic['Qou_ncf']
-    '../output/Test/Qout_Test_20000101_20000102_tst.nc4'
+    './output/Test/Qout_Test_20000101_20000102_tst.nc4'
     '''
 
     try:

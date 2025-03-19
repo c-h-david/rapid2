@@ -49,9 +49,9 @@ def Qou_mdt(
 
     Examples
     --------
-    >>> m3r_ncf = '../input/Test/m3_riv_Test_20000101_20000102.nc4'
+    >>> m3r_ncf = './input/Test/m3_riv_Test_20000101_20000102.nc4'
     >>> IV_bas_tot = np.array([0, 1, 2, 3, 4], dtype=np.int32)
-    >>> Qou_ncf = '../output/Test/Qout_Test_20000101_20000102_tst.nc4'
+    >>> Qou_ncf = './output/Test/Qout_Test_20000101_20000102_tst.nc4'
     >>> Qou_mdt(m3r_ncf, IV_bas_tot, Qou_ncf)
     >>> Qou = netCDF4.Dataset(Qou_ncf, 'r')
     >>> Qou.variables['rivid'][:].filled()

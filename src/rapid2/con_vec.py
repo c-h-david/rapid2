@@ -42,7 +42,7 @@ def con_vec(
 
     Examples
     --------
-    >>> con_csv = '../input/Test/rapid_connect_Test.csv'
+    >>> con_csv = './input/Test/rapid_connect_Test.csv'
     >>> con_vec(con_csv) # doctest: +NORMALIZE_WHITESPACE
     (array([10, 20, 30, 40, 50], dtype=int32),\
      array([30, 30, 50, 50,  0], dtype=int32))

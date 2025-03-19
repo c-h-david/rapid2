@@ -58,7 +58,7 @@ def m3r_mdt(
 
     Examples
     --------
-    >>> m3r_ncf = '../input/Test/m3_riv_Test_20000101_20000102.nc4'
+    >>> m3r_ncf = './input/Test/m3_riv_Test_20000101_20000102.nc4'
     >>> (IV_m3r_tot, ZV_lon_tot, ZV_lat_tot, IV_m3r_tim, IM_m3r_tim,\
          IS_m3r_tim, IS_TaR) = m3r_mdt(m3r_ncf)
     >>> IV_m3r_tot
