@@ -4,6 +4,33 @@
 
 [![Contributor Covenant][BDG_CONDUC]][URL_CONDUC]
 
+[![SLIM][BDG___SLIM]][URL___SLIM]
+
+[![GitHub CI Status][BDG_GHA_CI]][URL_GHA_CI]
+
+[![GitHub CI Status][BDG_GHA_CD]][URL_GHA_CD]
+
+The Routing Application for Python Integration of Discharge (RAPID) is a river
+network routing model. Given surface and groundwater inflow to rivers, this
+model can compute flow and volume of water everywhere in river networks made
+out of many thousands of reaches.
+
+[RAPID website][URL_RAPHUB]
+
+[Discussion Board][URL_DISCUS]
+
+[Issue Tracker][URL_ISSUES]
+
+## Features
+
+Notable features of the RAPID model:
+
+- Open Source
+- Described in peer-reviewed papers
+- Has been used in 100+ studies published in international peer-reviewed
+  journals
+- Operationally implemented at world-class research centers
+
 ## Installation with Docker
 
 Installing RAPID2 is **by far the easiest with Docker**. This document was
@@ -120,12 +147,21 @@ pip3 install --no-cache-dir -r requirements.pip
 > pip3 install flake8==7.1.1
 > ```
 
-<!-- pyml disable-num-lines 20 line-length-->
+<!-- pyml disable-num-lines 30 line-length-->
 [BDG_BSD3CL]: https://img.shields.io/badge/license-BSD%203--Clause-yellow.svg
 [BDG_CONDUC]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
+[BDG___SLIM]: https://img.shields.io/badge/Best%20Practices%20from-SLIM-blue
+[BDG_GHA_CI]: https://github.com/c-h-david/rapid2/actions/workflows/CI.yml/badge.svg
+[BDG_GHA_CD]: https://github.com/c-h-david/rapid2/actions/workflows/CD.yml/badge.svg
 
 [URL_LICENS]: https://github.com/c-h-david/rapid2/blob/main/LICENSE
 [URL_CONDUC]: https://github.com/c-h-david/rapid2/blob/main/CODE_OF_CONDUCT.md
+[URL___SLIM]: https://nasa-ammos.github.io/slim/
+[URL_GHA_CI]: https://github.com/c-h-david/rapid2/actions/workflows/CI.yml
+[URL_GHA_CD]: https://github.com/c-h-david/rapid2/actions/workflows/CD.yml
+[URL_RAPHUB]: http://rapid-hub.org/
+[URL_DISCUS]: https://github.com/c-h-david/rapid2/discussions
+[URL_ISSUES]: https://github.com/c-h-david/rapid2/issues
 [URL_DOCFIL]: https://github.com/c-h-david/rapid2/blob/main/Dockerfile
 [URL_CI_YML]: https://github.com/c-h-david/rapid2/blob/main/.github/workflows/CI.yml
 [URL_REQAPT]: https://github.com/c-h-david/rapid2/blob/main/requirements.apt
