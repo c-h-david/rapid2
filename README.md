@@ -10,16 +10,18 @@
 
 [![GitHub CI Status][BDG_GHA_CD]][URL_GHA_CD]
 
+[![Docker Images][BDG_DKRIMG]][URL_DKRIMG]
+
 The Routing Application for Python Integration of Discharge (RAPID) is a river
 network routing model. Given surface and groundwater inflow to rivers, this
 model can compute flow and volume of water everywhere in river networks made
 out of many thousands of reaches.
 
-[RAPID website][URL_RAPHUB]
+Notable links:
 
-[Discussion Board][URL_DISCUS]
-
-[Issue Tracker][URL_ISSUES]
+- [RAPID website][URL_RAPHUB]
+- [Discussion Board][URL_DISCUS]
+- [Issue Tracker][URL_ISSUES]
 
 ## Features
 
@@ -31,71 +33,72 @@ Notable features of the RAPID model:
   journals
 - Operationally implemented at world-class research centers
 
-## Installation with Docker
+## Contents
 
-Installing RAPID2 is **by far the easiest with Docker**. This document was
-written and tested using
-[Docker Community Edition][URL_DOCSFT]
-which is available for free and can be installed on a wide variety of operating
-systems. To install it, follow the instructions in the link provided above.
+- [Quick Start](#quick-start)
+- [Changelog](#changelog)
+- [FAQ](#frequently-asked-questions-faq)
+- [Contributing Guide](#contributing)
+- [License](#license)
+- [Support](#support)
 
-Note that the experienced users may find more up-to-date installation
-instructions in
-[Dockerfile][URL_DOCFIL].
+## Quick Start
 
-### Download RAPID2 Docker image from Docker Hub
+This guide provides a quick way to get started with our project. Please see the
+[RAPID website][URL_RAPHUB] for a more comprehensive information.
 
-Downloading RAPID2 with Docker can be done using:
+### Requirements
 
-```bash
-docker pull chdavid/rapid2
-```
+- `git`
+- `python3.11`
+- `pip3`
 
-### Install packages
-
-The beauty of Docker is that there is **no need to install anymore packages**.
-RAPID2 is ready to go! To run it, just use:
-
-```bash
-docker run --rm -it chdavid/rapid2
-```
-
-## Installation on Debian
-
-This document was written and tested on a machine with a **clean** image of
-[Debian 12.7.0 ARM64][URL_DEBIAN]
-installed, *i.e.* **no update** was performed, and **no upgrade** either.
-Similar steps **may** be applicable for Ubuntu.
-
-Note that the experienced users may find more up-to-date installation
-instructions in
-[CI.yml][URL_CI_YML].
-
-### Download RAPID2 source code from GitHub
-
-First, make sure that `git` is installed:
-
-```bash
-sudo apt-get install -y --no-install-recommends git
-```
-
-Then download RAPID2:
+### Setup Instructions
 
 ```bash
 git clone https://github.com/c-h-david/rapid2
+cd rapid2
+pip3 install .
 ```
 
-Finally, enter the RAPID2 directory:
+### Run Instructions
 
 ```bash
-cd rapid2/
+rapid2 -nl namelist.yml
 ```
 
-### Install APT packages
+OR
 
-Software packages for the Advanced Packaging Tool (APT) are summarized in
+```bash
+rapid2 --namelist namelist.yml
+```
+
+### Usage Examples
+
+Below is an example of what `namelist.yml` should include:
+
+```yaml
+---
+m3r_ncf: './input/Test/m3_riv_Test_20000101_20000102.nc4'
+
+con_csv: './input/Test/rapid_connect_Test.csv'
+kpr_csv: './input/Test/k_Test.csv'
+xpr_csv: './input/Test/x_Test.csv'
+
+bas_csv: './input/Test/riv_bas_id_Test.csv'
+
+IS_dtR: 900
+
+Qou_ncf: './output/Test/Qout_Test_20000101_20000102_tst.nc4'
+```
+
+### Build Instructions
+
+If you would like to build an Operating System to run RAPID2 from scratch,
+we recommend Debian-based distributions and software packages for the
+Advanced Packaging Tool (APT) are summarized in
 [requirements.apt][URL_REQAPT]
-and can be installed with `apt-get`. All packages can be installed at once
+to be installed with `apt-get`. All packages can be installed at once
 using:
 
 ```bash
@@ -118,34 +121,44 @@ sudo rm -f /usr/bin/python3
 sudo ln -s /usr/bin/python3.11 /usr/bin/python3
 ```
 
-### Install Python packages
+### Test Instructions
 
-Python packages from the Python Package Index (PyPI) are summarized in
-[requirements.pip][URL_REQPIP]
-and can be installed with `pip`. But first, let's make sure to create a
-virtual environment
+See our [`TESTING.md`][URL_TSTING] for a description of our tests.
 
-```bash
-python3 -m venv $HOME/venv
-export PATH=$HOME/venv/bin:$PATH
-```
+## Changelog
 
-> Consider including this last `export` statement in your run command file,
-> like `~/.bash_aliases` on Debian.
+See our [`CHANGELOG.md`][URL_CHGLOG] for a history of our changes.
 
-All packages can be installed at once using:
+See our [releases page][URL_RELEAS] for our key versioned releases.
 
-```bash
-pip3 install --no-cache-dir -r requirements.pip
-```
+## Frequently Asked Questions (FAQ)
 
-> Alternatively, one may install the PyPI packages listed in
-> [requirements.pip][URL_REQPIP]
-> one by one, for example:
->
-> ```bash
-> pip3 install flake8==7.1.1
-> ```
+Questions about our project? Please see our [Discussion Board][URL_DISCUS].
+
+## Contributing
+
+Interested in contributing to our project? Please see:
+
+- [`CONTRIBUTING.md`][URL_CONTRI]
+- [`CODE_OF_CONDUCT.md`][URL_CONDUC]
+- [`CODE_OF_COLLAB.md`][URL_COLLAB]
+- [`GOVERNANCE.md`][URL_GOVERN]
+
+## License
+
+See our: [`LICENSE`][URL_LICENS]
+
+## Support
+
+The prefered way to interact with RAPID2 and its community is to do so through
+our public online resources:
+
+- [RAPID website][URL_RAPHUB]
+- [Discussion Board][URL_DISCUS]
+- [Issue Tracker][URL_ISSUES]
+
+For sensitive matters that cannot be shared publicly, contact
+[Cédric H. David][URL_GITCHD]
 
 <!-- pyml disable-num-lines 30 line-length-->
 [BDG_BSD3CL]: https://img.shields.io/badge/license-BSD%203--Clause-yellow.svg
@@ -153,20 +166,24 @@ pip3 install --no-cache-dir -r requirements.pip
 [BDG___SLIM]: https://img.shields.io/badge/Best%20Practices%20from-SLIM-blue
 [BDG_GHA_CI]: https://github.com/c-h-david/rapid2/actions/workflows/CI.yml/badge.svg
 [BDG_GHA_CD]: https://github.com/c-h-david/rapid2/actions/workflows/CD.yml/badge.svg
+[BDG_DKRIMG]: https://img.shields.io/badge/docker-images-blue?logo=docker
 
 [URL_LICENS]: https://github.com/c-h-david/rapid2/blob/main/LICENSE
 [URL_CONDUC]: https://github.com/c-h-david/rapid2/blob/main/CODE_OF_CONDUCT.md
 [URL___SLIM]: https://nasa-ammos.github.io/slim/
 [URL_GHA_CI]: https://github.com/c-h-david/rapid2/actions/workflows/CI.yml
 [URL_GHA_CD]: https://github.com/c-h-david/rapid2/actions/workflows/CD.yml
+[URL_DKRIMG]: https://hub.docker.com/r/chdavid/rapid/tags
+
 [URL_RAPHUB]: http://rapid-hub.org/
 [URL_DISCUS]: https://github.com/c-h-david/rapid2/discussions
 [URL_ISSUES]: https://github.com/c-h-david/rapid2/issues
-[URL_DOCFIL]: https://github.com/c-h-david/rapid2/blob/main/Dockerfile
-[URL_CI_YML]: https://github.com/c-h-david/rapid2/blob/main/.github/workflows/CI.yml
 [URL_REQAPT]: https://github.com/c-h-david/rapid2/blob/main/requirements.apt
-[URL_REQPIP]: https://github.com/c-h-david/rapid2/blob/main/requirements.pip
-[URL_REPOSI]: https://github.com/c-h-david/rapid2/blob/main/
-
-[URL_DOCSFT]: https://www.docker.com/community-edition#/download
-[URL_DEBIAN]: https://cloud.debian.org/images/archive/12.7.0/arm64/iso-cd/debian-12.7.0-arm64-netinst.iso
+[URL_TSTING]: https://github.com/c-h-david/rapid2/blob/main/TESTING.md
+[URL_CHGLOG]: https://github.com/c-h-david/rapid2/blob/main/CHANGELOG.md
+[URL_RELEAS]: https://github.com/c-h-david/rapid2/releases
+[URL_CONTRI]: https://github.com/c-h-david/rapid2/blob/main/CONTRIBUTING.md
+[URL_CONDUC]: https://github.com/c-h-david/rapid2/blob/main/CODE_OF_CONDUCT.md
+[URL_COLLAB]: https://github.com/c-h-david/rapid2/blob/main/CODE_OF_COLLAB.md
+[URL_GOVERN]: https://github.com/c-h-david/rapid2/blob/main/GOVERNANCE.md
+[URL_GITCHD]: https://github.com/c-h-david

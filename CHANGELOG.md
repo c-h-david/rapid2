@@ -121,3 +121,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./README.md`                | Added badges and notable features. |
 | `./clean.sh`                 | Added more directories to clean up. |
 | `TESTING.md`                 | Specified runtime testing activities. |
+| `./README.md`                | Changed for SLIM guidelines. |
