@@ -12,7 +12,9 @@
 # *****************************************************************************
 # Clean up
 # *****************************************************************************
-rm -rf build src/*.egg-info .mypy_cache
+rm -rf build src/*.egg-info
+rm -rf .mypy_cache src/.mypy_cache src/rapid2/.mypy_cache
+rm -rf __pycache__ src/__pycache__ src/rapid2/__pycache__
 
 
 # *****************************************************************************

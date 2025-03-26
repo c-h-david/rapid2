@@ -119,3 +119,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `TESTING.md`                 | Added testing for examples in docstrings. |
 | `./src/_rapid2.py`           | Added basic RAPID routing process. |
 | `./README.md`                | Added badges and notable features. |
+| `./clean.sh`                 | Added more directories to clean up. |
