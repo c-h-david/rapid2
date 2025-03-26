@@ -120,3 +120,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_rapid2.py`           | Added basic RAPID routing process. |
 | `./README.md`                | Added badges and notable features. |
 | `./clean.sh`                 | Added more directories to clean up. |
+| `TESTING.md`                 | Specified runtime testing activities. |
