@@ -21,22 +21,20 @@ from datetime import datetime, timezone
 # *****************************************************************************
 def Qfi_mdt(
             m3r_ncf: str,
-            IS_tim_val: np.int32,
             Qfi_ncf: str
             ) -> None:
     '''Create instantaneous discharge file populated with basic metadata.
 
     Create instantaneous discharge file populated with basic metadata obtained
     from lateral inflow volume file: river IDs, longitudes, latitudes, crs. The
-    integer value of time step is taken from an argument. Global attributes are
-    built from creation time and static RAPID2 information.
+    integer value of time step is taken as the upper bound of the final time
+    step. Global attributes are built from creation time and static RAPID2
+    information.
 
     Parameters
     ----------
     m3r_ncf : str
         Path to the lateral inflow volume file.
-    IS_tim_val : int32
-        The integer value for epoch time of the instantaneous discharge.
     Qfi_ncf : str
         Path to the instantaneous discharge file.
 
@@ -47,9 +45,8 @@ def Qfi_mdt(
     Examples
     --------
     >>> m3r_ncf = './input/Test/m3_riv_Test_20000101_20000102.nc4'
-    >>> IS_tim_val = np.int32(946857600)
     >>> Qfi_ncf = './output/Test/Qfinal_Test_20000101_20000102_tst.nc4'
-    >>> Qfi_mdt(m3r_ncf, IS_tim_val, Qfi_ncf)
+    >>> Qfi_mdt(m3r_ncf, Qfi_ncf)
     >>> Qfi = netCDF4.Dataset(Qfi_ncf, 'r')
     >>> Qfi.variables['rivid'][:].filled()
     array([10, 20, 30, 40, 50], dtype=int32)
@@ -120,7 +117,7 @@ def Qfi_mdt(
     # -------------------------------------------------------------------------
     # Populate time value
     # -------------------------------------------------------------------------
-    h['time'][0] = IS_tim_val
+    h['time'][0] = f['time_bnds'][-1,1]
 
     # -------------------------------------------------------------------------
     # Populate global attributes
