@@ -127,3 +127,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/Qou_mdt.py`    | Updated global attributes. |
 | `./src/rapid2/fak_m3r.py`    | Updated global attributes. |
 | `./src/rapid2/Qfi_mdt.py`    | Defaulted time to upper bound of final step. |
+| `./src/_rapid2.py`           | Saved final discharge state. |
+| `./src/rapid2/Qfi_mdt.py`    | Saved final discharge state. |
+| `./src/rapid2/nml_cfg.py`    | Saved final discharge state. |

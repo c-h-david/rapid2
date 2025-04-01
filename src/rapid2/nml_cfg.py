@@ -54,6 +54,8 @@ def nml_cfg(
     np.int32(900)
     >>> nml_dic['Qou_ncf']
     './output/Test/Qout_Test_20000101_20000102_tst.nc4'
+    >>> nml_dic['Qfi_ncf']
+    './output/Test/Qfinal_Test_20000101_20000102_tst.nc4'
     '''
 
     try:
@@ -72,7 +74,8 @@ def nml_cfg(
                    'xpr_csv',
                    'bas_csv',
                    'IS_dtR',
-                   'Qou_ncf'
+                   'Qou_ncf',
+                   'Qfi_ncf',
                    }
         mis_key = req_key - nml_dic.keys()
         if mis_key:

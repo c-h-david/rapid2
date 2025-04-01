@@ -27,6 +27,7 @@ from rapid2.stp_cor import stp_cor
 from rapid2.chk_ids import chk_ids
 from rapid2.chk_top import chk_top
 from rapid2.Qou_mdt import Qou_mdt
+from rapid2.Qfi_mdt import Qfi_mdt
 from rapid2.mus_rte import mus_rte
 
 
@@ -67,6 +68,7 @@ def main() -> None:
     IS_dtR = nml_dic['IS_dtR']
 
     Qou_ncf = nml_dic['Qou_ncf']
+    Qfi_ncf = nml_dic['Qfi_ncf']
 
     # -------------------------------------------------------------------------
     # River network
@@ -97,22 +99,26 @@ def main() -> None:
     chk_top(IV_riv_bas, IM_hsh_bas, IV_riv_tot, IV_dwn_tot, IM_hsh_tot)
 
     # -------------------------------------------------------------------------
-    # Populate metadata for discharge output file
+    # Populate metadata for discharge output files
     # -------------------------------------------------------------------------
     Qou_mdt(m3r_ncf, IV_bas_tot, Qou_ncf)
+    Qfi_mdt(m3r_ncf, Qfi_ncf)
 
     # -------------------------------------------------------------------------
-    # Initialize discharge
+    # Read initial discharge state
     # -------------------------------------------------------------------------
     ZV_Qou_ini = np.zeros(len(IV_riv_bas), dtype=np.float64)
 
     # -------------------------------------------------------------------------
-    # Routing
+    # Open files
     # -------------------------------------------------------------------------
     f = netCDF4.Dataset(m3r_ncf, 'r')
     g = netCDF4.Dataset(Qou_ncf, 'a')
-    Qout = g.variables['Qout']
+    h = netCDF4.Dataset(Qfi_ncf, 'a')
 
+    # -------------------------------------------------------------------------
+    # Run simulations
+    # -------------------------------------------------------------------------
     for JS_m3r_tim in range(IS_m3r_tim):
         ZV_Qex_avg = f.variables['m3_riv'][JS_m3r_tim][IV_bas_tot] / IS_TaR
 
@@ -120,10 +126,20 @@ def main() -> None:
                                          ZV_Qou_ini, ZV_Qex_avg)
         ZV_Qou_ini = ZV_Qou_fin
 
-        Qout[JS_m3r_tim, :] = ZV_Qou_avg[:]
+        g.variables['Qout'][JS_m3r_tim, :] = ZV_Qou_avg[:]
 
+    # -------------------------------------------------------------------------
+    # Save final discharge state
+    # -------------------------------------------------------------------------
+    h.variables['Qout'][0, :] = ZV_Qou_fin[:]
+    # this will need to be resorted...
+
+    # -------------------------------------------------------------------------
+    # Close files
+    # -------------------------------------------------------------------------
     f.close()
     g.close()
+    h.close()
 
     # -------------------------------------------------------------------------
     # Done
