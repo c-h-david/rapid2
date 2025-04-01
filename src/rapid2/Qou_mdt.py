@@ -122,16 +122,24 @@ def Qou_mdt(
     YV_sub = ['rivid', 'lon', 'lat']
     for nam, var in f.variables.items():
         if nam not in YV_exc:
+            # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+            # Variables resorted like basin of interest (rivid, lon, lat)
+            # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
             if nam in YV_sub:
                 g.createVariable(nam, var.datatype, var.dimensions)
                 g[nam][:] = f[nam][IV_bas_tot]
 
+            # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+            # Variables kept as is (time, time_bnds, crs)
+            # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
             else:
                 g.createVariable(nam, var.datatype, var.dimensions)
                 g[nam][:] = f[nam][:]
 
+            # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+            # Copy variable attributes all at once via dictionary
+            # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
             g[nam].setncatts(f[nam].__dict__)
-            # copy variable attributes all at once via dictionary
 
     # -------------------------------------------------------------------------
     # Populate global attributes
