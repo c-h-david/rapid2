@@ -123,3 +123,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `TESTING.md`                 | Specified runtime testing activities. |
 | `./README.md`                | Changed for SLIM guidelines. |
 | `./src/rapid2/Qou_mdt.py`    | Added comments. |
+| `./src/rapid2/Qou_mdt.py`    | Updated global attributes. |
+| `./src/rapid2/fak_m3r.py`    | Updated global attributes. |

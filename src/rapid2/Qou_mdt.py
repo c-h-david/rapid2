@@ -147,7 +147,7 @@ def Qou_mdt(
     g.Conventions = f.Conventions
     g.title = f.title
     g.institution = f.institution
-    g.source = 'RAPID2, ' + 'runoff: ' + os.path.basename(m3r_ncf)
+    g.source = 'RAPID2, ' + 'water inflow: ' + os.path.basename(m3r_ncf)
     g.history = 'date created: ' + YS_dat
     g.references = 'https://github.com/c-h-david/rapid2/'
     g.comment = ''

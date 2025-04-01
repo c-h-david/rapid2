@@ -179,7 +179,7 @@ def fak_m3r(
                        'Jet Propulsion Laboratory, California Institute of '
                        'Technology'
                        )
-    m3r.source = 'RAPID2'
+    m3r.source = 'RAPID2, ' + 'water inflow: synthetic'
     m3r.history = 'date created: ' + YS_dat
     m3r.references = 'https://github.com/c-h-david/rapid2/'
     m3r.comment = ''
