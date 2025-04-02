@@ -40,6 +40,8 @@ def nml_cfg(
     --------
     >>> nml_yml = './input/Test/namelist_Test.yml'
     >>> nml_dic = nml_cfg(nml_yml)
+    >>> nml_dic['Q00_ncf']
+    './input/Test/Qinit_riv_Test_20000101_20000102.nc4'
     >>> nml_dic['m3r_ncf']
     './input/Test/m3_riv_Test_20000101_20000102.nc4'
     >>> nml_dic['con_csv']
@@ -68,7 +70,8 @@ def nml_cfg(
         # ---------------------------------------------------------------------
         # Check for required keys
         # ---------------------------------------------------------------------
-        req_key = {'m3r_ncf',
+        req_key = {'Q00_ncf',
+                   'm3r_ncf',
                    'con_csv',
                    'kpr_csv',
                    'xpr_csv',

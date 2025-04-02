@@ -11,7 +11,6 @@
 # Import Python modules
 # *****************************************************************************
 import argparse
-import numpy as np
 import netCDF4  # type: ignore[import-untyped]
 
 from rapid2.nml_cfg import nml_cfg
@@ -57,6 +56,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     nml_dic = nml_cfg(nml_yml)
 
+    Q00_ncf = nml_dic['Q00_ncf']
     m3r_ncf = nml_dic['m3r_ncf']
 
     con_csv = nml_dic['con_csv']
@@ -105,16 +105,17 @@ def main() -> None:
     Qfi_mdt(m3r_ncf, Qfi_ncf)
 
     # -------------------------------------------------------------------------
-    # Read initial discharge state
-    # -------------------------------------------------------------------------
-    ZV_Qou_ini = np.zeros(len(IV_riv_bas), dtype=np.float64)
-
-    # -------------------------------------------------------------------------
     # Open files
     # -------------------------------------------------------------------------
+    e = netCDF4.Dataset(Q00_ncf, 'r')
     f = netCDF4.Dataset(m3r_ncf, 'r')
     g = netCDF4.Dataset(Qou_ncf, 'a')
     h = netCDF4.Dataset(Qfi_ncf, 'a')
+
+    # -------------------------------------------------------------------------
+    # Read initial discharge state
+    # -------------------------------------------------------------------------
+    ZV_Qou_ini = e.variables['Qout'][0, IV_bas_tot]
 
     # -------------------------------------------------------------------------
     # Run simulations
@@ -136,6 +137,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Close files
     # -------------------------------------------------------------------------
+    e.close()
     f.close()
     g.close()
     h.close()

@@ -130,4 +130,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_rapid2.py`           | Saved final discharge state. |
 | `./src/rapid2/Qfi_mdt.py`    | Saved final discharge state. |
 | `./src/rapid2/nml_cfg.py`    | Saved final discharge state. |
+| `./src/_rapid2.py`           | Read initial discharge state. |
+| `./src/rapid2/nml_cfg.py`    | Read initial discharge state. |
 | `./src/_rapid2.py`           | Resorted final discharge state. |
