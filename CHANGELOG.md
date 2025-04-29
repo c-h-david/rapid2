@@ -49,6 +49,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `.github/PR_TEMPLATE.md`     | New file. |
 | `./src/rapid2/nml_cfg.py`    | New file. |
 | `./src/rapid2/Qfi_mdt.py`    | New file. |
+| `./SANDBOX.md`               | New file. |
 
 ### Changed
 
