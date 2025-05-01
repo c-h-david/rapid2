@@ -37,10 +37,10 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Initialize the argument parser and add valid arguments
     # -------------------------------------------------------------------------
-    parser = argparse.ArgumentParser(description="This is RAPID2")
+    parser = argparse.ArgumentParser(description='This is RAPID2')
 
-    parser.add_argument("-nl", "--namelist", type=str, required=True,
-                        help="Specify the namelist value")
+    parser.add_argument('-nl', '--namelist', type=str, required=True,
+                        help='Specify the namelist value')
 
     # -------------------------------------------------------------------------
     # Parse arguments and assign to variables
