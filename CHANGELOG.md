@@ -139,3 +139,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_rapid2.py`           | Used single quotes. |
 | `./src/rapid2/nml_cfg.py`    | Fixed typo in docstring. |
 | `./requirement.pip`          | Added earthaccess. |
+| `./pyproject.toml`           | Added executable for GLDAS2 download. |

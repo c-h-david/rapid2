@@ -32,6 +32,7 @@ dependencies = {file = ["requirements.pip"]}
 
 [project.scripts]
 rapid2 = "_rapid2:main"
+dgldas2 = "_dgldas2:main"
 
 
 # *****************************************************************************
