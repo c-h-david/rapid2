@@ -41,7 +41,7 @@ def nml_cfg(
     >>> nml_yml = './input/Test/namelist_Test.yml'
     >>> nml_dic = nml_cfg(nml_yml)
     >>> nml_dic['Q00_ncf']
-    './input/Test/Qinit_riv_Test_20000101_20000102.nc4'
+    './input/Test/Qinit_Test_20000101_20000102.nc4'
     >>> nml_dic['m3r_ncf']
     './input/Test/m3_riv_Test_20000101_20000102.nc4'
     >>> nml_dic['con_csv']

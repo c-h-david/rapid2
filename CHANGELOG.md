@@ -136,3 +136,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_rapid2.py`           | Resorted final discharge state. |
 | `./SANDBOX.md`               | Clarified description. |
 | `./src/_rapid2.py`           | Used single quotes. |
+| `./src/rapid2/nml_cfg.py`    | Fixed typo in docstring. |
