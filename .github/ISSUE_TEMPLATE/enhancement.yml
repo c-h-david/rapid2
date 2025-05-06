@@ -1,4 +1,4 @@
-name: Proposed Enhancement for RAPID
+name: Proposed Enhancement
 description: If you would like to suggest an enhancement to RAPID.
 title: "[enhancement]: "
 labels: ["enhancement"]
@@ -25,10 +25,6 @@ body:
         - label: >
             I have looked at previous GitHub issues and this enhancement has not
             yet been proposed.
-          required: true
-        - label: >
-            I have already submitted one unique GitHub issue with my RAPID User
-            Information.
           required: true
         - label: >
             I have read the last paragraph of Section 6.3 in

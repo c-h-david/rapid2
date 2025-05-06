@@ -7,13 +7,6 @@ body:
     attributes:
       value: |
         Thanks for taking the time to report a bug in RAPID!
-  - type: checkboxes
-    attributes:
-      label: Checked for duplicates
-      description: Have you checked for duplicate issue tickets?
-      options:
-        - label: I have checked for duplicate issues and confirm this is not a duplicate
-          required: true
   - type: textarea
     attributes:
       label: Describe the bug
@@ -58,8 +51,8 @@ body:
         a productive collaboration.
       options:
         - label: >
-            I have already submitted one unique GitHub issue with my RAPID User
-            Information.
+            I have looked at previous GitHub issues and this bug has not
+            yet been reported.
           required: true
         - label: >
             I have read the last paragraph of Section 6.3 in
