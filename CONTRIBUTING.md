@@ -46,6 +46,15 @@ Our communication channels are:
    conversations related to our project. This resource can be searched for old
    discussions.
 
+### Contribution Expectations
+ 
+We are deeply grateful for all contributions, big or small. Please note that
+while we do our best to engage, we may not always have time to support every
+contribution. To keep the repository maintainable, we kindly ask that you start
+a discussion or issue before submitting a pull request. Submissions made
+without prior engagement are welcome but may be declined or ignored at our
+discretion.
+
 ## Our Development Process
 
 Our project is designed to facilitate contributions, and the following visual

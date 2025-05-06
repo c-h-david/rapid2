@@ -27,6 +27,8 @@ body:
             yet been proposed.
           required: true
         - label: >
-            I have read the last paragraph of Section 6.3 in
-            [David et al., 2016](https://doi.org/10.1002/2015EA000142).
+            I have read the [RAPID Code of Collab](https://github.com/c-h-david/rapid2/blob/main/CODE_OF_COLLAB.md) and agree to the terms.
           required: true
+        - label: >
+            I have scanned the [Contributing Guide](https://github.com/c-h-david/rapid2/blob/main/CONTRIBUTING.md) and am aware a prompt response or resolution to my request is not guaranteed.
+          required: true          
