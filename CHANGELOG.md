@@ -147,3 +147,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `.github/enhancement.yml`    | Linted. |
 | `./CONTRIBUTING.md`          | Linted. |
 | `TESTING.md`                 | Expanded testing for .yml files. |
+| `./.github/workflows/CI.yml` | Expanded testing for .yml files. |
