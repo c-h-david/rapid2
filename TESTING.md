@@ -22,7 +22,7 @@ pymarkdown scan *.md
 We use `yamllint` to lint our yaml files.
 
 ```bash
-yamllint .github/workflows/*.yml .*.yml
+yamllint .github/*/*.yml
 ```
 
 > We enforce a maximum line width of 79 characters using the

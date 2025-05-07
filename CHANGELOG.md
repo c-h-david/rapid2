@@ -146,3 +146,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `.github/bug_report.yml`     | Linted. |
 | `.github/enhancement.yml`    | Linted. |
 | `./CONTRIBUTING.md`          | Linted. |
+| `TESTING.md`                 | Expanded testing for .yml files. |
