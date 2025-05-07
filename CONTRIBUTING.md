@@ -47,7 +47,7 @@ Our communication channels are:
    discussions.
 
 ### Contribution Expectations
- 
+
 We are deeply grateful for all contributions, big or small. Please note that
 while we do our best to engage, we may not always have time to support every
 contribution. To keep the repository maintainable, we kindly ask that you start

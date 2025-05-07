@@ -1,12 +1,13 @@
+---
 name: Bug Report
-description: Report a bug to help us improve RAPID
-title: "[Bug]: "
+description: If you would like to report a bug in RAPID.
+title: "[bug]: "
 labels: ["bug"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to report a bug in RAPID!
+        Thanks for taking the time to make a suggestion for RAPID!
   - type: textarea
     attributes:
       label: Describe the bug
@@ -17,7 +18,8 @@ body:
   - type: textarea
     attributes:
       label: Expected behavior
-      description: A clear and concise description of what you expected to happen.
+      description: |
+        A clear and concise description of what you expected to happen.
       placeholder: I expected [...]
     validations:
       required: true
@@ -39,24 +41,29 @@ body:
       placeholder: |
         - Version of RAPID: [e.g. v1.2.3]
         - Operating System: [e.g. MacOS 12.4, Windows 11, Ubuntu 22.04]
-        - Browser (if applicable): [e.g. Chrome 98, Firefox 97]
         - Additional context: [Any other relevant environment information]
     validations:
       required: false
   - type: checkboxes
     attributes:
       label: Let us ensure open source development is sustainable!
-      description: >
+      description: |
         We care about open source, and we would like for our interactions to be
         a productive collaboration.
       options:
-        - label: >
+        - label: |
             I have looked at previous GitHub issues and this bug has not
             yet been reported.
           required: true
-        - label: >
-            I have read the [RAPID Code of Collab](https://github.com/c-h-david/rapid2/blob/main/CODE_OF_COLLAB.md) and agree to the terms.
+        - label: |
+            I have read [`CODE_OF_COLLAB.md`][COLLAB] and agree to the terms.
           required: true
-        - label: >
-            I have scanned the [Contributing Guide](https://github.com/c-h-david/rapid2/blob/main/CONTRIBUTING.md) and am aware a prompt response or resolution to my request is not guaranteed.
-          required: true  
+        - label: |
+            I understand from [`CONTRIBUTING.md`][CONTRI] that a response or
+            resolution to my request is not guaranteed.
+          required: true
+  - type: markdown
+    attributes:
+      value: |
+      [COLLAB]: https://github.com/c-h-david/rapid2/blob/main/CODE_OF_COLLAB.md
+      [CONTRI]: https://github.com/c-h-david/rapid2/blob/main/CONTRIBUTING.md

@@ -140,3 +140,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/nml_cfg.py`    | Fixed typo in docstring. |
 | `./requirement.pip`          | Added earthaccess. |
 | `./pyproject.toml`           | Added executable for GLDAS2 download. |
+| `.github/bug_report.yml`     | Modified format. |
+| `.github/enhancement.yml`    | Modified format. |
+| `./CONTRIBUTING.md`          | Clarified expectations. |
+| `.github/bug_report.yml`     | Linted. |
+| `.github/enhancement.yml`    | Linted. |
+| `./CONTRIBUTING.md`          | Linted. |

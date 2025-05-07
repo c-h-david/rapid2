@@ -1,3 +1,4 @@
+---
 name: Proposed Enhancement
 description: If you would like to suggest an enhancement to RAPID.
 title: "[enhancement]: "
@@ -10,7 +11,7 @@ body:
   - type: textarea
     attributes:
       label: What would you like to suggest?
-      description: >
+      description: |
         We cannot promise anything, but we love suggestions for improvement.
       placeholder: Please tell us.
     validations:
@@ -18,17 +19,23 @@ body:
   - type: checkboxes
     attributes:
       label: Let us ensure open source development is sustainable!
-      description: >
+      description: |
         We care about open source, and we would like for our interactions to be
         a productive collaboration.
       options:
-        - label: >
-            I have looked at previous GitHub issues and this enhancement has not
-            yet been proposed.
+        - label: |
+            I have looked at previous GitHub issues and this enhancement has
+            not yet been proposed.
           required: true
-        - label: >
-            I have read the [RAPID Code of Collab](https://github.com/c-h-david/rapid2/blob/main/CODE_OF_COLLAB.md) and agree to the terms.
+        - label: |
+            I have read [`CODE_OF_COLLAB.md`][COLLAB] and agree to the terms.
           required: true
-        - label: >
-            I have scanned the [Contributing Guide](https://github.com/c-h-david/rapid2/blob/main/CONTRIBUTING.md) and am aware a prompt response or resolution to my request is not guaranteed.
-          required: true          
+        - label: |
+            I understand from [`CONTRIBUTING.md`][CONTRI] that a response or
+            resolution to my request is not guaranteed.
+          required: true
+  - type: markdown
+    attributes:
+      value: |
+      [COLLAB]: https://github.com/c-h-david/rapid2/blob/main/CODE_OF_COLLAB.md
+      [CONTRI]: https://github.com/c-h-david/rapid2/blob/main/CONTRIBUTING.md
