@@ -56,14 +56,14 @@ body:
             yet been reported.
           required: true
         - label: |
-            I have read [`CODE_OF_COLLAB.md`][COLLAB] and agree to the terms.
+            I have read
+            [`CODE_OF_COLLAB.md`](https://github.com/c-h-david/rapid2/blob/
+            main/CODE_OF_COLLAB.md)
+            and agree to the terms.
           required: true
         - label: |
-            I understand from [`CONTRIBUTING.md`][CONTRI] that a response or
-            resolution to my request is not guaranteed.
+            I understand from
+            [`CONTRIBUTING.md`](https://github.com/c-h-david/rapid2/blob/
+            main/CONTRIBUTING.md)
+            that a response or resolution to my request is not guaranteed.
           required: true
-  - type: markdown
-    attributes:
-      value: |
-        [COLLAB]: https://github.com/c-h-david/rapid2/blob/main/CODE_OF_COLLAB.md
-        [CONTRI]: https://github.com/c-h-david/rapid2/blob/main/CONTRIBUTING.md
