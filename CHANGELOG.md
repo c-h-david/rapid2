@@ -152,3 +152,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `.github/enhancement.yml`    | Removed markdown shortcuts. |
 | `TESTING.md`                 | Checked .yml for configuration files. |
 | `./.github/workflows/CI.yml` | Checked .yml for configuration files. |
+| `./README.md`                | Specified BSD-3-Clause. |

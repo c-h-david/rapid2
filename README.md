@@ -145,8 +145,7 @@ Interested in contributing to our project? Please see:
 - [`GOVERNANCE.md`][URL_GOVERN]
 
 ## License
-
-See our: [`LICENSE`][URL_LICENS]
+We use a Berkeley Software Distribution 3-Clause license: [`LICENSE`][URL_LICENS]
 
 ## Support
 
