@@ -27,15 +27,15 @@ body:
             I have looked at previous GitHub issues and this enhancement has
             not yet been proposed.
           required: true
+          # yamllint disable rule:line-length
         - label: |
             I have read
-            [`CODE_OF_COLLAB.md`](https://github.com/c-h-david/rapid2/blob/
-            main/CODE_OF_COLLAB.md)
+            [`CODE_OF_COLLAB.md`](https://github.com/c-h-david/rapid2/blob/main/CODE_OF_COLLAB.md)
             and agree to the terms.
           required: true
         - label: |
             I understand from
-            [`CONTRIBUTING.md`](https://github.com/c-h-david/rapid2/blob/
-            main/CONTRIBUTING.md)
+            [`CONTRIBUTING.md`](https://github.com/c-h-david/rapid2/blob/main/CONTRIBUTING.md)
             that a response or resolution to my request is not guaranteed.
           required: true
+          # yamllint enable rule:line-length
