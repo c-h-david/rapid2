@@ -155,3 +155,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./README.md`                | Specified BSD-3-Clause. |
 | `.github/bug_report.yml`     | Ignored yamllint rules. |
 | `.github/enhancement.yml`    | Ignored yamllint rules. |
+| `./README.md`                | Linted. |
