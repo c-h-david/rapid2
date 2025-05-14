@@ -150,3 +150,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./.github/workflows/CI.yml` | Expanded testing for .yml files. |
 | `.github/bug_report.yml`     | Removed markdown shortcuts. |
 | `.github/enhancement.yml`    | Removed markdown shortcuts. |
+| `TESTING.md`                 | Checked .yml for configuration files. |
+| `./.github/workflows/CI.yml` | Checked .yml for configuration files. |

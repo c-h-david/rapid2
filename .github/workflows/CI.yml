@@ -92,7 +92,7 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           pymarkdown scan *.md
-          yamllint .github/*/*.yml .*.yml
+          yamllint .*.yml .github/*/*.yml
           hadolint --ignore DL3008 --ignore SC2046 Dockerfile
           wc -L Dockerfile | awk '{exit $1 > 79}'
           flake8 src/*.py src/rapid2/*.py
