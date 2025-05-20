@@ -118,7 +118,7 @@ expectations for various types of collaborations.
 
 ### Collaborative Roles Matrix
 
-| Engagement Level | Citation Requirements | Community Updates | Publication Collaboration | Funding Collaboration | Code Maintenance |
+| Roles | Citation | News Sharing | Joint Publications | Joint Proposals | Code Maintainence |
 | --- | :---: | :---: | :---: | :---: | :---: |
 | User | ✅ | ✅ | ❌ | ❌ | ❌ |
 | Supported User | ✅ | ✅ | ✅ | ❌ | ❌ |
