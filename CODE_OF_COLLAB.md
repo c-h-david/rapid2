@@ -1,7 +1,7 @@
 # Code of Conduct for Scientific Collaboration
 
 > DRAFT. Work in progress: consider contributing to its associated GitHub
-> issues at [NASA AMMOS][URL_AMMOS] and [NASA TOPS][URL_TOPS].
+> issues at [NASA AMMOS][URL_AMMOS].
 
 ## Overview
 
@@ -172,12 +172,11 @@ on funding proposals.
 
 ## Conclusion
 
-By following these expectations and understanding the different collaborative roles,
-we can ensure a productive and respectful collaboration that benefits everyone involved.
-Open science requires time, dedication, and a shared commitment to advancing scientific
-knowledge. Let's work together to achieve meaningful impact while supporting the
-sustainability of scientific research.
+By following these expectations, we can ensure a productive and respectful
+collaboration that benefits everyone involved. Open science requires time,
+dedication, and a shared commitment to advancing scientific knowledge. Let’s
+work together to achieve meaningful impact while supporting the sustainability
+of scientific research.
 
 [URL_Allea]: https://allea.org/code-of-conduct/
 [URL_AMMOS]: https://github.com/NASA-AMMOS/slim/issues/173
-[URL_TOPS]: https://github.com/nasa/Transform-to-Open-Science/issues/894
