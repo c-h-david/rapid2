@@ -127,6 +127,7 @@ associated expectations for various types of collaborations.
 | Core Team        | ✅ | ✅ | ✅ | ✅ | ✅ |
 
 **Symbol explanation:**
+
 - ✅ Expected as part of this role
 - ❌ Not typically expected at this level
 - 💬 Let's discuss
