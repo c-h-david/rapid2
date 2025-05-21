@@ -4,6 +4,8 @@
 
 [![Contributor Covenant][BDG_CONDUC]][URL_CONDUC]
 
+[![Code of Collab][BDG_COLLAB]][URL_COLLAB]
+
 [![SLIM][BDG___SLIM]][URL___SLIM]
 
 [![GitHub CI Status][BDG_GHA_CI]][URL_GHA_CI]
@@ -164,6 +166,7 @@ For sensitive matters that cannot be shared publicly, contact
 <!-- pyml disable-num-lines 30 line-length-->
 [BDG_BSD3CL]: https://img.shields.io/badge/license-BSD%203--Clause-yellow.svg
 [BDG_CONDUC]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
+[BDG_COLLAB]: https://img.shields.io/badge/Code%20of%20Collab-DRAFT-violet.svg
 [BDG___SLIM]: https://img.shields.io/badge/Best%20Practices%20from-SLIM-blue
 [BDG_GHA_CI]: https://github.com/c-h-david/rapid2/actions/workflows/CI.yml/badge.svg
 [BDG_GHA_CD]: https://github.com/c-h-david/rapid2/actions/workflows/CD.yml/badge.svg
@@ -171,6 +174,7 @@ For sensitive matters that cannot be shared publicly, contact
 
 [URL_LICENS]: https://github.com/c-h-david/rapid2/blob/main/LICENSE
 [URL_CONDUC]: https://github.com/c-h-david/rapid2/blob/main/CODE_OF_CONDUCT.md
+[URL_COLLAB]: https://github.com/c-h-david/rapid2/blob/main/CODE_OF_COLLAB.md
 [URL___SLIM]: https://nasa-ammos.github.io/slim/
 [URL_GHA_CI]: https://github.com/c-h-david/rapid2/actions/workflows/CI.yml
 [URL_GHA_CD]: https://github.com/c-h-david/rapid2/actions/workflows/CD.yml
