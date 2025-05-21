@@ -25,10 +25,10 @@ and sustainable collaboration is key.
 ## Open Science Commitment
 
 This project is committed to open science, transparency, and community-driven
-development, in alignment with initiatives like NASA's Transform to Open
-Science (TOPS). However, open-source development requires significant time and
-effort, and we want to ensure all collaborators understand the expectations
-involved.
+development, in alignment with initiatives like
+[NASA Open Science][URL_NASAO].
+However, open-source development requires significant time and effort, and we
+want to ensure all collaborators understand the expectations involved.
 
 ### What We Offer
 
@@ -50,7 +50,7 @@ involved.
    us, rather than compete against us, when using our software. If our tools
    are useful for your research, consider working with us directly to co-author
    papers, write joint proposals, contribute to further development, and/or
-   share data.
+   share code and data.
 
 3. **Contribute to Mutual Success**.
    Our open-source work is designed to benefit the scientific community at
@@ -59,7 +59,8 @@ involved.
    - **Engage us in conversations** about related publications, proposals, or
      presentations.
    - **Support our efforts** by contributing to our success metrics through
-     co-authorship, funding proposals, or other forms of collaboration.
+     co-authorship, joint funding proposals, sharing updates, or other forms of
+     collaboration.
 
 ## Research Integrity and Collaborative Working
 
@@ -113,62 +114,79 @@ following:
 
 We consider everyone using this project to be collaborators – members of our
 community. We aim for all collaborators to benefit from the software and thrive
-while doing so. The following table outlines different engagement levels and
-expectations for various types of collaborations.
+while doing so. The following table outlines different collaborative roles and
+associated expectations for various types of collaborations.
 
 ### Collaborative Roles Matrix
 
-| Roles | Citation | News Sharing | Joint Publications | Joint Proposals | Code Maintainence |
-| --- | :---: | :---: | :---: | :---: | :---: |
-| User | ✅ | ✅ | ❌ | ❌ | ❌ |
-| Supported User | ✅ | ✅ | ✅ | ❌ | ❌ |
-| Champion | ✅ | ✅ | 💬 | 💬 | ❌ |
-| Maintainer | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Collaborators | Cite | Tell Us | Joint Pubs | Joint Proposals | Maintenance |
+| --- | --- | --- | --- | --- | --- |
+| Independent User | ✅ | ✅ | ❌ | ❌ | ❌ |
+| Supported User   | ✅ | ✅ | ✅ | ❌ | ❌ |
+| Champion         | ✅ | ✅ | 💬 | 💬 | ❌ |
+| Core Team        | ✅ | ✅ | ✅ | ✅ | ✅ |
 
 **Symbol explanation:**
 - ✅ Expected as part of this role
 - ❌ Not typically expected at this level
-- 💬 We invite you to discuss possibilities with our team (@c-h-david) for potential collaboration in this area
+- 💬 Let's discuss
 
-### User
-Users prefer to work with our project on their own, using it as an off-the-shelf tool.
-This category suits those comfortable relying on existing documentation without
-direct support. Please enjoy our software! Just be sure to cite it in any publications
-(papers, talks, software, etc.) using the citation information provided, and share highlights
-like presentations, publications, or media coverage. You're not expected to involve
-us in your proposals or publications.
+### Independent User
+
+Independent Users prefer to work with our project on their own, using it as an
+off-the-shelf tool. This category suits those comfortable relying on existing
+documentation without direct support. Please enjoy our software! Just be sure
+to cite it in any publications (papers, talks, software, etc.) using the
+citation information provided, and share highlights like presentations,
+publications, or media coverage with us. You're not expected to involve us in
+your proposals or publications.
+Code maintenance is not expected for this role.
+This group aligns with the **User** role in our
+[`GOVERNANCE.md`][URL_GOVER].
 
 ### Supported User
-Supported Users choose our project for their specific application and may require our
-help with design, execution, analysis, or troubleshooting. In these cases, we
-appreciate the opportunity to contribute to publications resulting from this
-collaboration. We'll ensure our software is used and cited appropriately, and our
-awareness of your work will naturally follow from our involvement. You've
-likely secured your own funding or received a letter of support from us; formal
-collaboration on proposals isn't expected at this stage. Publication collaboration
-is welcome, but code maintenance is not part of this engagement level.
+
+Supported Users choose our project for their specific application and may
+require our help with design, execution, analysis, or troubleshooting. In these
+cases, we appreciate the opportunity to contribute to publications resulting
+from this collaboration. We'll ensure our software is used and cited
+appropriately, and our awareness of your work will naturally follow from our
+involvement. You've likely secured your own funding or received a letter of
+support from us; formal collaboration on proposals isn't expected at this
+stage.
+Code maintenance is not expected for this role.
+This group aligns with the **User** role in our
+[`GOVERNANCE.md`][URL_GOVER].
 
 ### Champion
-Champions are individuals or team leads who have integrated our project into their
-regular workflows. You likely know us, and we know you. We're deeply grateful
-for your advocacy, outreach, and use of our software to advance scientific impact. At
-this point, you already know how to use and cite our work independently. We value
-your autonomy and love hearing your success stories. As a Champion, we expect
-collaboration on both publications and funding proposals that significantly
-involve our project. If your proposals make significant use of our software, please consider
-including us – along with appropriate budget — so we can sustainably support your
-efforts. Champions typically do not participate in code maintenance.
 
-### Maintainer
-The Maintainer team consists of active contributors to our project's codebase. We may
+Champions are individuals or team leads who have integrated our project into
+their regular workflows. You likely know us, and we know you. We're deeply
+grateful for your advocacy, outreach, and use of our software to advance our
+joint scientific impact. At this point, you already know how to use and cite
+our work independently. We value your autonomy and love hearing your success
+stories. You’re always welcome to involve us in milestone publications, though
+it’s not required for incremental work. If your proposals make significant use
+use of RAPID, please consider including us – along with appropriate budget — so
+we can sustainably support your efforts. What matters most here is open, candid
+conversations about publications and proposals so we reach an understanding.
+Code maintenance is not expected for this role.
+Champions align with the **Stakeholder** role in our
+[`GOVERNANCE.md`][URL_GOVER]
+and may be invited to serve as **Advisors**.
+
+### Core Team
+
+The Core Team consists of active contributors to our project's codebase. We may
 work in close proximity — sharing hallways or meeting regularly, whether in
-person or virtually — on our project's design, architecture, features, maintenance,
-and long-term evolution. Maintainers are expected to participate in all aspects of the
-project: citation requirements, community updates, publication collaboration, funding
-collaboration, and code maintenance. Maintainers are routinely involved in a variety
-of activities: commit code, develop documentation, submit pull requests, engage
-with users, and manage GitHub issues. We also co-author papers and collaborate
-on funding proposals.
+person or virtually — on our project's design, architecture, features,
+maintenance, and long-term evolution. The Core Team is routinely involved in a
+variety of activities: commit code, develop documentation, submit pull
+requests, engage with users, and manage GitHub issues. We also co-author papers
+and collaborate on funding proposals.
+This group includes the **Contributor**, **Committer**, and **Manager** roles
+defined in our
+[`GOVERNANCE.md`][URL_GOVER].
 
 ## Conclusion
 
@@ -178,5 +196,7 @@ dedication, and a shared commitment to advancing scientific knowledge. Let’s
 work together to achieve meaningful impact while supporting the sustainability
 of scientific research.
 
-[URL_Allea]: https://allea.org/code-of-conduct/
 [URL_AMMOS]: https://github.com/NASA-AMMOS/slim/issues/173
+[URL_NASAO]: https://science.nasa.gov/open-science/
+[URL_Allea]: https://allea.org/code-of-conduct/
+[URL_GOVER]: https://github.com/c-h-david/rapid2/blob/main/GOVERNANCE.md

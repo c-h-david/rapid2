@@ -157,3 +157,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `.github/enhancement.yml`    | Ignored yamllint rules. |
 | `./README.md`                | Linted. |
 | `./README.md`                | Added badge for Code of Collab. |
+| `./CODE_OF_COLLAB.md`        | Added collaboration matrix. |
