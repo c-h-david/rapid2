@@ -1,0 +1,41 @@
+cff-version: 1.2.0
+title: >-
+  Routing Application for Programmed Integration of Discharge (RAPID)
+message: >-
+  If you use this software, please cite it using the metadata from this file.
+type: software
+authors:
+  - given-names: Cedric
+    name-particle: H.
+    family-names: David
+    orcid: 'https://orcid.org/0000-0002-0924-5907'
+    email: cedric.david@jpl.nasa.gov
+    affiliation: >-
+      Jet Propulsion Laboratory, California Institute of Technology
+identifiers:
+  - type: doi
+    value: 10.1175/2011JHM1345.1
+    description: River Network Routing on the NHDPlus Dataset
+  - type: doi
+    value: 10.1002/2015EA000142
+    description: >-
+      A decade of RAPID - Reﬂections on the development of an open source
+      geoscience code
+repository-code: 'https://github.com/c-h-david/rapid2'
+url: 'http://rapid-hub.org/'
+abstract: >-
+  The Routing Application for Programmed Integration of Discharge (RAPID) is a
+  river network routing model. Given external inflow to rivers, this model can
+  compute the flow of water everywhere in river networks made out of many
+  thousands of reaches.
+keywords:
+  - River
+  - Network
+  - Routing
+  - Model
+  - Muskingum
+  - Matrix
+  - Water
+  - Flow
+  - Discharge
+license: BSD-3-Clause
