@@ -14,10 +14,10 @@
 
 [![Docker Images][BDG_DKRIMG]][URL_DKRIMG]
 
-The Routing Application for Python Integration of Discharge (RAPID) is a river
-network routing model. Given surface and groundwater inflow to rivers, this
-model can compute flow and volume of water everywhere in river networks made
-out of many thousands of reaches.
+The Routing Application for Programmed Integration of Discharge (RAPID) is a
+river network routing model. Given external inflow to rivers, this model can
+compute the flow of water everywhere in river networks made out of many
+thousands of reaches.
 
 Notable links:
 

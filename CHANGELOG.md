@@ -160,3 +160,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./README.md`                | Added badge for Code of Collab. |
 | `./CODE_OF_COLLAB.md`        | Added collaboration matrix. |
 | `./CODE_OF_COLLAB.md`        | Fixed typo. |
+| `./README.md`                | Changed summary. |
