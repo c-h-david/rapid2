@@ -138,9 +138,10 @@ Independent Users prefer to work with our project on their own, using it as an
 off-the-shelf tool. This category suits those comfortable relying on existing
 documentation without direct support. Please enjoy our software! Just be sure
 to cite it in any publications (papers, talks, software, etc.) using the
-citation information provided, and share highlights like presentations,
-publications, or media coverage with us. You're not expected to involve us in
-your proposals or publications.
+information in
+[`CITATION.cff`][URL_CITAT],
+and share highlights like presentations, publications, or media coverage with
+us. You're not expected to involve us in your proposals or publications.
 Code maintenance is not expected for this role.
 This group aligns with the **User** role in our
 [`GOVERNANCE.md`][URL_GOVER].
@@ -200,4 +201,5 @@ of scientific research.
 [URL_AMMOS]: https://github.com/NASA-AMMOS/slim/issues/173
 [URL_NASAO]: https://science.nasa.gov/open-science/
 [URL_Allea]: https://allea.org/code-of-conduct/
+[URL_CITAT]: https://github.com/c-h-david/rapid2/blob/main/CITATION.cff
 [URL_GOVER]: https://github.com/c-h-david/rapid2/blob/main/GOVERNANCE.md

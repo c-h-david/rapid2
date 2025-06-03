@@ -161,3 +161,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./CODE_OF_COLLAB.md`        | Added collaboration matrix. |
 | `./CODE_OF_COLLAB.md`        | Fixed typo. |
 | `./README.md`                | Changed summary. |
+| `./CODE_OF_COLLAB.md`        | Added CITATION.cff. |
