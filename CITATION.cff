@@ -2,11 +2,11 @@ cff-version: 1.2.0
 title: >-
   Routing Application for Programmed Integration of Discharge (RAPID)
 message: >-
-  If you use this software, please cite it using the metadata from this file.
+  If you use this software, please cite it using all Digital Object Identifiers
+  (DOIs) provided in this file.
 type: software
 authors:
-  - given-names: Cedric
-    name-particle: H.
+  - given-names: Cedric H.
     family-names: David
     orcid: 'https://orcid.org/0000-0002-0924-5907'
     email: cedric.david@jpl.nasa.gov
