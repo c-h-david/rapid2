@@ -81,7 +81,7 @@ Below is an example of what `namelist.yml` should include:
 
 ```yaml
 ---
-m3r_ncf: './input/Test/m3_riv_Test_20000101_20000102.nc4'
+Qex_ncf: './input/Test/Qext_Test_20000101_20000102.nc4'
 
 con_csv: './input/Test/rapid_connect_Test.csv'
 kpr_csv: './input/Test/k_Test.csv'

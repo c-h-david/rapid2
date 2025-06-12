@@ -21,12 +21,12 @@ from rapid2.net_mat import net_mat
 from rapid2.k_x_vec import k_x_vec
 from rapid2.ccc_mat import ccc_mat
 from rapid2.rte_mat import rte_mat
-from rapid2.m3r_mdt import m3r_mdt
+from rapid2.Qex_mdt import Qex_mdt
 from rapid2.stp_cor import stp_cor
 from rapid2.chk_ids import chk_ids
 from rapid2.chk_top import chk_top
-from rapid2.Qou_mdt import Qou_mdt
-from rapid2.Qfi_mdt import Qfi_mdt
+from rapid2.Qou_new import Qou_new
+from rapid2.Qfi_new import Qfi_new
 from rapid2.mus_rte import mus_rte
 
 
@@ -57,7 +57,7 @@ def main() -> None:
     nml_dic = nml_cfg(nml_yml)
 
     Q00_ncf = nml_dic['Q00_ncf']
-    m3r_ncf = nml_dic['m3r_ncf']
+    Qex_ncf = nml_dic['Qex_ncf']
 
     con_csv = nml_dic['con_csv']
     kpr_csv = nml_dic['kpr_csv']
@@ -88,27 +88,28 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Extract metadata of external inflow, get time step correspondance
     # -------------------------------------------------------------------------
-    (IV_m3r_tot, ZV_lon_tot, ZV_lat_tot, IV_m3r_tim, IM_m3r_tim, IS_m3r_tim,
-     IS_TaR) = m3r_mdt(m3r_ncf)
+    (IV_Qex_tot, ZV_lon_tot, ZV_lat_tot, IV_Qex_tim, IM_Qex_tim, IS_Qex_tim,
+     IS_TaR) = Qex_mdt(Qex_ncf)
     IS_mus = stp_cor(IS_TaR, IS_dtR)
 
     # -------------------------------------------------------------------------
     # Check river IDs and upstream to downstream topology
     # -------------------------------------------------------------------------
-    chk_ids(IV_riv_tot, IV_m3r_tot)
+    chk_ids(IV_riv_tot, IV_Qex_tot)
     chk_top(IV_riv_bas, IM_hsh_bas, IV_riv_tot, IV_dwn_tot, IM_hsh_tot)
 
     # -------------------------------------------------------------------------
     # Populate metadata for discharge output files
     # -------------------------------------------------------------------------
-    Qou_mdt(m3r_ncf, IV_bas_tot, Qou_ncf)
-    Qfi_mdt(m3r_ncf, Qfi_ncf)
+    Qou_new(IV_riv_tot[IV_bas_tot], ZV_lon_tot[IV_bas_tot],
+            ZV_lat_tot[IV_bas_tot], Qou_ncf)
+    Qfi_new(IV_Qex_tot, ZV_lon_tot, ZV_lat_tot, Qfi_ncf)
 
     # -------------------------------------------------------------------------
     # Open files
     # -------------------------------------------------------------------------
     e = netCDF4.Dataset(Q00_ncf, 'r')
-    f = netCDF4.Dataset(m3r_ncf, 'r')
+    f = netCDF4.Dataset(Qex_ncf, 'r')
     g = netCDF4.Dataset(Qou_ncf, 'a')
     h = netCDF4.Dataset(Qfi_ncf, 'a')
 
@@ -120,14 +121,14 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Run simulations
     # -------------------------------------------------------------------------
-    for JS_m3r_tim in range(IS_m3r_tim):
-        ZV_Qex_avg = f.variables['m3_riv'][JS_m3r_tim][IV_bas_tot] / IS_TaR
+    for JS_Qex_tim in range(IS_Qex_tim):
+        ZV_Qex_avg = f.variables['Qext'][JS_Qex_tim][IV_bas_tot]
 
         ZV_Qou_avg, ZV_Qou_fin = mus_rte(ZM_Lin, ZM_Qex, ZM_Qou, IS_mus,
                                          ZV_Qou_ini, ZV_Qex_avg)
         ZV_Qou_ini = ZV_Qou_fin
 
-        g.variables['Qout'][JS_m3r_tim, :] = ZV_Qou_avg[:]
+        g.variables['Qout'][JS_Qex_tim, :] = ZV_Qou_avg[:]
 
     # -------------------------------------------------------------------------
     # Save final discharge state
