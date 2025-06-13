@@ -52,6 +52,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./SANDBOX.md`               | New file. |
 | `./src/_dgldas2.py`          | New file. |
 | `./CITATION.cff`             | New file. |
+| `./src/_m3rivtoqext.py`      | New file. |
+| `./src/_zeroqinit.py`        | New file. |
 
 ### Changed
 
