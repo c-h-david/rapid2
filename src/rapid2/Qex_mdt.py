@@ -156,6 +156,10 @@ def Qex_mdt(
     IS_TaR = IM_Qex_tim[0, 1] - IM_Qex_tim[0, 0]
     # Using IM_Qex_tim rather than IV_Qex_tim which may have only one timestep
 
+    if IS_TaR == 0:
+        print('ERROR - Values of time_bnds lead to IS_TaR=0 in ' + Qex_ncf)
+        raise SystemExit(22)
+
     return (IV_Qex_tot, ZV_lon_tot, ZV_lat_tot, IV_Qex_tim, IM_Qex_tim,
             IS_Qex_tim, IS_TaR)
 

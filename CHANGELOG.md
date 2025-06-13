@@ -173,6 +173,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/Qex_mdt.py`    | Refactored m3_riv into Qext. |
 | `./src/rapid2/snd_Qex.py`    | Refactored m3_riv into Qext. |
 | `./src/_rapid2.py`           | Enabled execution as script. |
+| `./src/rapid2/Qex_mdt.py`    | Added debugging for time step values. |
+| `./src/rapid2/stp_cor.py`    | Added debugging for time step values. |
 
 ### Removed
 
