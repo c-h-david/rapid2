@@ -165,22 +165,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./README.md`                | Changed summary. |
 | `./CODE_OF_COLLAB.md`        | Added CITATION.cff. |
 | `./CITATION.cff`             | Edited text. |
-| `./README.md`                | Refactored m3_riv into Qext. |
-| `./src/_rapid2.py`           | Refactored m3_riv into Qext. |
-| `./src/rapid2/nml_cfg.py`    | Refactored m3_riv into Qext. |
-| `./src/rapid2/rud_new.py`    | Refactored m3_riv into Qext. |
-| `./src/rapid2/Qex_new.py`    | Refactored m3_riv into Qext. |
-| `./src/rapid2/Qou_new.py`    | Refactored m3_riv into Qext. |
-| `./src/rapid2/Qfi_new.py`    | Refactored m3_riv into Qext. |
-| `./src/rapid2/Qex_mdt.py`    | Refactored m3_riv into Qext. |
-| `./src/rapid2/snd_Qex.py`    | Refactored m3_riv into Qext. |
+| `./README.md`                | Refactored m3riv into Qext. |
+| `./src/_rapid2.py`           | Refactored m3riv into Qext. |
+| `./src/rapid2/nml_cfg.py`    | Refactored m3riv into Qext. |
+| `./src/rapid2/rud_new.py`    | Refactored m3riv into Qext. |
+| `./src/rapid2/Qex_new.py`    | Refactored m3riv into Qext. |
+| `./src/rapid2/Qou_new.py`    | Refactored m3riv into Qext. |
+| `./src/rapid2/Qfi_new.py`    | Refactored m3riv into Qext. |
+| `./src/rapid2/Qex_mdt.py`    | Refactored m3riv into Qext. |
+| `./src/rapid2/snd_Qex.py`    | Refactored m3riv into Qext. |
 | `./src/_rapid2.py`           | Enabled execution as script. |
 | `./src/rapid2/Qex_mdt.py`    | Added debugging for time step values. |
 | `./src/rapid2/stp_cor.py`    | Added debugging for time step values. |
+| `./pyproject.toml`           | Added executables for old m3riv and Qinit. |
 
 ### Removed
 
-| `./src/rapid2/m3r_mdt.py`    | Refactored m3_riv into Qext. |
-| `./src/rapid2/Qou_mdt.py`    | Refactored m3_riv into Qext. |
-| `./src/rapid2/Qfi_mdt.py`    | Refactored m3_riv into Qext. |
-| `./src/rapid2/fak_m3r.py`    | Refactored m3_riv into Qext. |
+| `./src/rapid2/m3r_mdt.py`    | Refactored m3riv into Qext. |
+| `./src/rapid2/Qou_mdt.py`    | Refactored m3riv into Qext. |
+| `./src/rapid2/Qfi_mdt.py`    | Refactored m3riv into Qext. |
+| `./src/rapid2/fak_m3r.py`    | Refactored m3riv into Qext. |
