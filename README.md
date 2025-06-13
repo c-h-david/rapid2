@@ -82,6 +82,7 @@ Below is an example of what `namelist.yml` should include:
 ```yaml
 ---
 Qex_ncf: './input/Test/Qext_Test_20000101_20000102.nc4'
+Q00_ncf: './input/Test/Qinit_Test_20000101_20000102.nc4'
 
 con_csv: './input/Test/rapid_connect_Test.csv'
 kpr_csv: './input/Test/k_Test.csv'
@@ -92,6 +93,7 @@ bas_csv: './input/Test/riv_bas_id_Test.csv'
 IS_dtR: 900
 
 Qou_ncf: './output/Test/Qout_Test_20000101_20000102_tst.nc4'
+Qfi_ncf: './output/Test/Qfinal_Test_20000101_20000102_tst.nc4'
 ```
 
 ### Build Instructions
@@ -99,7 +101,7 @@ Qou_ncf: './output/Test/Qout_Test_20000101_20000102_tst.nc4'
 If you would like to build an Operating System to run RAPID2 from scratch,
 we recommend Debian-based distributions and software packages for the
 Advanced Packaging Tool (APT) are summarized in
-[requirements.apt][URL_REQAPT]
+[`requirements.apt`][URL_REQAPT]
 to be installed with `apt-get`. All packages can be installed at once
 using:
 
@@ -109,7 +111,7 @@ sudo apt-get install -y --no-install-recommends \
 ```
 
 > Alternatively, one may install the APT packages listed in
-> [requirements.apt][URL_REQAPT]
+> [`requirements.apt`][URL_REQAPT]
 > one by one, for example:
 >
 > ```bash

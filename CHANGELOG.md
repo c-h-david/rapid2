@@ -178,6 +178,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/Qex_mdt.py`    | Added debugging for time step values. |
 | `./src/rapid2/stp_cor.py`    | Added debugging for time step values. |
 | `./pyproject.toml`           | Added executables for old m3riv and Qinit. |
+| `./README.md`                | Added variables to example namelist. |
 
 ### Removed
 
