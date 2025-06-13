@@ -27,7 +27,7 @@ def stp_cor(
     Parameters
     ----------
     IS_TaR : int32
-       The time step of the external inflow file.
+       The time step of the lateral inflow volume file.
     IS_dtR : int32
        The time step of Muskingum routing.
 
@@ -48,14 +48,6 @@ def stp_cor(
     Traceback (most recent call last):
     ValueError: quotient of time steps is not an integer
     '''
-
-    if IS_TaR <= 0:
-        raise ValueError('lateral inflow time step must be positive')
-    if IS_dtR <= 0:
-        raise ValueError('Muskingum routing time step must be positive')
-    if IS_TaR < IS_dtR:
-        raise ValueError('external inflow time step must be greater than or ',
-                         'equal to Muskingum routing time step')
 
     if round(IS_TaR/IS_dtR) == IS_TaR/IS_dtR:
         IS_mus = round(IS_TaR/IS_dtR)
