@@ -89,12 +89,12 @@ def main() -> None:
     IM_m3r_tim = d.variables['time_bnds'][:]
 
     IS_m3r_tim = len(IV_m3r_tim)
-    ZS_TaR = float(IM_m3r_tim[0, 1] - IM_m3r_tim[0, 0])
+    IS_TaR = IM_m3r_tim[0, 1] - IM_m3r_tim[0, 0]
 
     # -------------------------------------------------------------------------
     # Create Qex file
     # -------------------------------------------------------------------------
-    print('The transformation will divide by the value: ', ZS_TaR)
+    print('The transformation will divide by the value: ', IS_TaR)
 
     Qex_new(IV_m3r_tot, ZV_lon_tot, ZV_lat_tot, Qex_ncf)
 
@@ -105,7 +105,7 @@ def main() -> None:
     Qex = f.variables['Qext']
 
     for JS_m3r_tim in range(IS_m3r_tim):
-        Qex[JS_m3r_tim, :] = d.variables['m3_riv'][JS_m3r_tim, :] / ZS_TaR
+        Qex[JS_m3r_tim, :] = d.variables['m3_riv'][JS_m3r_tim, :] / IS_TaR
 
     # -------------------------------------------------------------------------
     # Close files
