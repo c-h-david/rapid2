@@ -2,9 +2,16 @@
 
 RAPID2 comes along with a set of test files based on a synthetic experiment.
 
+## Study Domain
+
 The geographic domain is the same that was used for illustration of the
 matrix-based Muskingum method equations that were originally developed in
 [David et al. (2011)][URL_DA2011].
+
+The temporal domain of the simulation starts at Unix Epoch, *i.e* on
+1970-01-01 at 00:00:00 Universal Time, and lasts for 10 consecutive days.
+
+## River Network
 
 The river network used is composed of five reaches connected by two
 confluences. The corresponding network matrix is:
@@ -20,6 +27,8 @@ confluences. The corresponding network matrix is:
 \end{bmatrix}
 ```
 
+## Gauging Stations
+
 Two gaging stations are contained within the network. The associated
 selection matrix is:
 
@@ -30,6 +39,8 @@ selection matrix is:
  0      & 0      & 0      & 0      & 1
 \end{bmatrix}
 ```
+
+## Model Parameters
 
 RAPID uses the Muskingum method for river routing, which requires two
 parameters for each river reach.
@@ -115,33 +126,7 @@ The three Muskingum parameter matrices always satisfy the following equality:
 \end{bmatrix}
 ```
 
-Some notable matrices related to Muskingum routing include:
-[(David et al. 2011)][URL_DA2011]:
-
-```math
-\mathbf{I} - \mathbf{C_1} \cdot \mathbf{N} =
-\begin{bmatrix}
- 1.     &  0.    &  0.    &  0.    &  0.    \\
- 0.250  &  0.250 &  0.    &  0.    &  0.    \\
- 0.     &  0.    &  1.    &  0.    &  0.    \\
- 0.     &  0.    &  0.    &  1 .   &  0.    \\
- 0.     &  0.    &  0.250 &  0.250 &  1.
-\end{bmatrix}
-```
-
-```math
-(\mathbf{I} - \mathbf{C_1} \cdot \mathbf{N})^{-1} =
-\begin{bmatrix}
- 1.     &  0.    &  0.    &  0.    &  0.    \\
- 0.250  &  0.250 &  0.    &  0.    &  0.    \\
- 0.     &  0.    &  1.    &  0.    &  0.    \\
- 0.     &  0.    &  0.    &  1 .   &  0.    \\
- 0.0625 &  0.0625&  0.250 &  0.250 &  1.
-\end{bmatrix}
-```
-
-The temporal domain of the simulation starts at Unix Epoch, *i.e* on
-1970-01-01 at 00:00:00 Universal Time, and lasts for 10 consecutive days.
+## True External Inflow
 
 We assume that the flow of water coming from the exterior of the network
 and feeding into each reach of the network is a square wave function, *i.e.* a
@@ -171,10 +156,39 @@ divided by $z$. This "true" external flow into the network is here defined as:
 \left( \left\lfloor \frac{t}{86400} \right\rfloor \right) \bmod 2
 ```
 
+## True Observations
+
 This "true" inflow is used to generate the synthetic gage observations:
 
 ```math
 \mathbf{g^{T}}(t)
+```
+
+## Notable Matrices
+
+Some notable matrices related to matrix-based Muskingum routing include
+[(David et al. 2011)][URL_DA2011]:
+
+```math
+\mathbf{I} - \mathbf{C_1} \cdot \mathbf{N} =
+\begin{bmatrix}
+ 1.     &  0.    &  0.    &  0.    &  0.    \\
+ 0.250  &  0.250 &  0.    &  0.    &  0.    \\
+ 0.     &  0.    &  1.    &  0.    &  0.    \\
+ 0.     &  0.    &  0.    &  1 .   &  0.    \\
+ 0.     &  0.    &  0.250 &  0.250 &  1.
+\end{bmatrix}
+```
+
+```math
+(\mathbf{I} - \mathbf{C_1} \cdot \mathbf{N})^{-1} =
+\begin{bmatrix}
+ 1.     &  0.    &  0.    &  0.    &  0.    \\
+ 0.250  &  0.250 &  0.    &  0.    &  0.    \\
+ 0.     &  0.    &  1.    &  0.    &  0.    \\
+ 0.     &  0.    &  0.    &  1 .   &  0.    \\
+ 0.0625 &  0.0625&  0.250 &  0.250 &  1.
+\end{bmatrix}
 ```
 
 In some cases, lumped routing is used for monthly simulations, *i.e* water is

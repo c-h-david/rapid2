@@ -181,6 +181,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./README.md`                | Added variables to example namelist. |
 | `./src/_m3rivtoqext.py`      | Replaced float32 by int32 for precision. |
 | `./README.md`                | Added venv instructions. |
+| `./SANDBOX.md`               | Added sub-sections. |
 
 ### Removed
 
