@@ -125,6 +125,13 @@ sudo rm -f /usr/bin/python3
 sudo ln -s /usr/bin/python3.11 /usr/bin/python3
 ```
 
+If you would like to run in a virtual environment:
+
+```bash
+python3 -m venv $HOME/venv
+export PATH=$HOME/venv/bin:$PATH
+```
+
 ### Test Instructions
 
 See our [`TESTING.md`][URL_TSTING] for a description of our tests.
