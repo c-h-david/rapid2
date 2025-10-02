@@ -189,3 +189,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/Qou_mdt.py`    | Refactored m3riv into Qext. |
 | `./src/rapid2/Qfi_mdt.py`    | Refactored m3riv into Qext. |
 | `./src/rapid2/fak_m3r.py`    | Refactored m3riv into Qext. |
+| `./src/rapid2/snd_Qex.py`    | Refactored into sandboxqext. |
