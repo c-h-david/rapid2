@@ -54,6 +54,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./CITATION.cff`             | New file. |
 | `./src/_m3rivtoqext.py`      | New file. |
 | `./src/_zeroqinit.py`        | New file. |
+| `./img/font_rapid_network.s` | New file. |
+| `./img/icon_rapid_network.s` | New file. |
 
 ### Changed
 
