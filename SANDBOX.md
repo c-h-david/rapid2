@@ -1,6 +1,6 @@
 # Sandbox
 
-RAPID2 comes along with a set of test files based on a synthetic experiment.
+RAPID comes along with a set of test files based on a synthetic experiment.
 
 ## Study Domain
 
@@ -8,7 +8,7 @@ The geographic domain is the same that was used for illustration of the
 matrix-based Muskingum method equations that were originally developed in
 [David et al. (2011)][URL_DA2011].
 
-The temporal domain of the simulation starts at Unix Epoch, *i.e* on
+The temporal domain of the simulation starts at Unix Epoch, *i.e.* on
 1970-01-01 at 00:00:00 Universal Time, and lasts for 10 consecutive days.
 
 ## River Network
@@ -78,7 +78,7 @@ The routing time step (s) used for simulations is set to:
 ```
 
 With these, the Muskingum parameter matrices become
-[(David et al. 2011)][URL_DA2011]:
+([David et al. 2011][URL_DA2011]):
 
 ```math
 \mathbf{C_1} =
@@ -131,18 +131,17 @@ The three Muskingum parameter matrices always satisfy the following equality:
 We assume that the flow of water coming from the exterior of the network
 and feeding into each reach of the network is a square wave function, *i.e.* a
 periodic waveform that alternates between two fixed levels, switching
-instantaneously between them. We use $\lfloor y \rfloor$ to describe the floor
-of a number $y$. Additionally, $y \bmod z$ is used for the remainder of $y$
-divided by $z$. This "true" external flow into the network is here defined as:
+instantaneously between them. This "true" external flow into the network is
+here defined as:
 
 ```math
 \mathbf{Q^{eT}}(t) =
 \begin{bmatrix}
- 1      \\
- 1      \\
- 1      \\
- 2      \\
- 2
+ 10     \\
+ 10     \\
+ 10     \\
+ 20     \\
+ 20
 \end{bmatrix}
 +
 \begin{bmatrix}
@@ -153,8 +152,17 @@ divided by $z$. This "true" external flow into the network is here defined as:
  2
 \end{bmatrix}
 \cdot
-\left( \left\lfloor \frac{t}{86400} \right\rfloor \right) \bmod 2
+\operatorname{sgn}\!\left( \sin\!\left(\tfrac{\pi t}{86400}
++
+\varepsilon\right) \right)
 ```
+
+where $\operatorname{sgn}(\cdot)$ is the sign function and $\varepsilon$ is a
+small offset (e.g., $10^{-7}$) introduced to avoid the undefined case
+$\operatorname{sgn}(0) = 0$.
+
+Thus, for each reach, the inflow alternates every 86,400 seconds (one day)
+between the a mean value plus and minus an amplitude.
 
 ## True Observations
 
@@ -167,7 +175,7 @@ This "true" inflow is used to generate the synthetic gage observations:
 ## Notable Matrices
 
 Some notable matrices related to matrix-based Muskingum routing include
-[(David et al. 2011)][URL_DA2011]:
+([David et al. 2011][URL_DA2011]):
 
 ```math
 \mathbf{I} - \mathbf{C_1} \cdot \mathbf{N} =
@@ -219,6 +227,13 @@ include:
 \end{bmatrix}
 ```
 
-<!-- pyml disable-num-lines 30 line-length-->
+> Note: we use
+> [StackEdit][URL_STCKED],
+> an online Markdown editor with MathJax support to test drive our equations
+> before pushing to GitHub. We replace code blocks by `$$` blocks during test
+> drive.
+
+<!-- pyml disable-num-lines 30 line-length -->
 [URL_DA2011]: https://doi.org/10.1175/2011JHM1345.1
 [URL_DA2019]: https://doi.org/10.1029/2019GL083342
+[URL_STCKED]: https://stackedit.io/
