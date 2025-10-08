@@ -186,6 +186,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./SANDBOX.md`               | Added sub-sections. |
 | `./README.md`                | Added icon and font. |
 | `./README.md`                | Allowed inline html. |
+| `./CODE_OF_CONDUCT.md`       | Added space in pymarkdown disable. |
+| `./CONTRIBUTING.md`          | Added space in pymarkdown disable. |
+| `./README.md`                | Added space in pymarkdown disable. |
 
 ### Removed
 

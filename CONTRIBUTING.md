@@ -86,7 +86,7 @@ flowchart TD
     end
 ```
 
-<!-- pyml disable-num-lines 20 line-length-->
+<!-- pyml disable-num-lines 30 line-length -->
 [URL_LICENS]: https://github.com/c-h-david/rapid2/blob/main/LICENSE
 [URL_CONDUC]: https://github.com/c-h-david/rapid2/blob/main/CODE_OF_CONDUCT.md
 [URL_COLLAB]: https://github.com/c-h-david/rapid2/blob/main/CODE_OF_COLLAB.md

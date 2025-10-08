@@ -176,7 +176,7 @@ our public online resources:
 For sensitive matters that cannot be shared publicly, contact
 [Cédric H. David][URL_GITCHD]
 
-<!-- pyml disable-num-lines 30 line-length-->
+<!-- pyml disable-num-lines 30 line-length -->
 [SVG_NETICN]: https://raw.githubusercontent.com/c-h-david/rapid2/main/img/icon_rapid_network.svg
 [SVG_NETFNT]: https://raw.githubusercontent.com/c-h-david/rapid2/main/img/font_rapid_network.svg
 

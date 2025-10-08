@@ -123,7 +123,7 @@ about this code of conduct or other languages, see the [FAQ][URL_COVFAQ] and
 Community Impact Guidelines were inspired by
 [Mozilla's code of conduct enforcement ladder][URL_MOZCOC].
 
-<!-- pyml disable-num-lines 20 line-length-->
+<!-- pyml disable-num-lines 30 line-length -->
 [URL_COVENA]: https://www.contributor-covenant.org
 [URL_COVV21]: https://www.contributor-covenant.org/version/2/1/code_of_conduct.html
 [URL_COVTRA]: https://www.contributor-covenant.org/translations
