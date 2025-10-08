@@ -136,6 +136,14 @@ def main() -> None:
     h.variables['Qout'][0, IV_bas_tot] = ZV_Qou_fin[:]
 
     # -------------------------------------------------------------------------
+    # Copy some global attributes
+    # -------------------------------------------------------------------------
+    g.setncattr('title', f.getncattr('title'))
+    g.setncattr('institution', f.getncattr('institution'))
+    h.setncattr('title', f.getncattr('title'))
+    h.setncattr('institution', f.getncattr('institution'))
+
+    # -------------------------------------------------------------------------
     # Close files
     # -------------------------------------------------------------------------
     e.close()
