@@ -70,34 +70,34 @@ pip3 install .
 ### Run Instructions
 
 ```bash
-rapid2 -nl namelist.yml
+rapid2 -nl namelist_Sandbox.yml
 ```
 
 OR
 
 ```bash
-rapid2 --namelist namelist.yml
+rapid2 --namelist namelist_Sandbox.yml
 ```
 
 ### Usage Examples
 
-Below is an example of what `namelist.yml` should include:
+Below is an example of what `namelist_Sandbox.yml` should include:
 
 ```yaml
 ---
-Qex_ncf: './input/Test/Qext_Test_20000101_20000102.nc4'
-Q00_ncf: './input/Test/Qinit_Test_20000101_20000102.nc4'
+Qex_ncf: './input/Sandbox/Qext_Sandbox_19700101_19700110.nc4'
+Q00_ncf: './input/Sandbox/Qinit_Sandbox_19700101_19700110.nc4'
 
-con_csv: './input/Test/rapid_connect_Test.csv'
-kpr_csv: './input/Test/k_Test.csv'
-xpr_csv: './input/Test/x_Test.csv'
+con_csv: './input/Sandbox/rapid_connect_Sandbox.csv'
+kpr_csv: './input/Sandbox/k_Sandbox.csv'
+xpr_csv: './input/Sandbox/x_Sandbox.csv'
 
-bas_csv: './input/Test/riv_bas_id_Test.csv'
+bas_csv: './input/Sandbox/riv_bas_id_Sandbox.csv'
 
 IS_dtR: 900
 
-Qou_ncf: './output/Test/Qout_Test_20000101_20000102_tst.nc4'
-Qfi_ncf: './output/Test/Qfinal_Test_20000101_20000102_tst.nc4'
+Qou_ncf: './output/Sandbox/Qout_Sandbox_19700101_19700110_tst.nc4'
+Qfi_ncf: './output/Sandbox/Qfinal_Sandbox_19700101_19700110_tst.nc4'
 ```
 
 ### Build Instructions
