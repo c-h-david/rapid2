@@ -35,6 +35,7 @@ rapid2 = "_rapid2:main"
 dgldas2 = "_dgldas2:main"
 m3rivtoqext = "_m3rivtoqext:main"
 zeroqinit = "_zeroqinit:main"
+sandboxqext = "_sandboxqext:main"
 
 
 # *****************************************************************************
