@@ -197,6 +197,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./README.md`                | Changed icon size. |
 | `./src/_sandboxqext.py`      | Hardcoded global attributes. |
 | `./src/_zeroqinit.py`        | Copied global attributes. |
+| `./SANDBOX.md`               | Added initial state. |
 
 ### Removed
 

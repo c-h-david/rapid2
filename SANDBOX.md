@@ -164,6 +164,22 @@ $\mathrm{sgn}(0) = 0$.
 Thus, for each reach, the inflow alternates every 86,400 seconds (one day)
 between the a mean value plus and minus an amplitude.
 
+## True Initial State
+
+We assume the following initial values of instantaneous discharge in the
+network:
+
+```math
+\mathbf{Q^{T}}(0) =
+\begin{bmatrix}
+ 9      \\
+ 9      \\
+ 27     \\
+ 18     \\
+ 63
+\end{bmatrix}
+```
+
 ## True Observations
 
 This "true" inflow is used to generate the synthetic gage observations:
