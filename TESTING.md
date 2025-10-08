@@ -35,11 +35,15 @@ We use `hadolint` to lint our Dockerfiles.
 
 ```bash
 hadolint --ignore DL3008 --ignore SC2046 Dockerfile
-wc -L Dockerfile | awk '{exit $1 > 79}'
 ```
 
-> We enforce a maximum line width of 79 characters using a combination of `wc`
-> and `awk` because `hadolint` does not allow to enforce a maximum line width.
+We also enforce a maximum line width of 79 characters using a combination of
+`wc` and `awk` because `hadolint` does not allow to enforce a maximum line
+width.
+
+```bash
+wc -L Dockerfile | awk '{exit $1 > 79}'
+```
 
 ### Python linter
 
