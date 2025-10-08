@@ -152,14 +152,14 @@ here defined as:
  2
 \end{bmatrix}
 \cdot
-\operatorname{sgn}\!\left( \sin\!\left(\tfrac{\pi t}{86400}
+\mathrm{sgn}\!\left( \sin\!\left(\tfrac{\pi t}{86400}
 +
 \varepsilon\right) \right)
 ```
 
-where $\operatorname{sgn}(\cdot)$ is the sign function and $\varepsilon$ is a
-small offset (e.g., $10^{-7}$) introduced to avoid the undefined case
-$\operatorname{sgn}(0) = 0$.
+where $\mathrm{sgn}(\cdot)$ is the sign function and $\varepsilon$ is a small
+offset (e.g., $10^{-7}$) introduced to avoid the undefined case
+$\mathrm{sgn}(0) = 0$.
 
 Thus, for each reach, the inflow alternates every 86,400 seconds (one day)
 between the a mean value plus and minus an amplitude.
