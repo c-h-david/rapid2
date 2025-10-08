@@ -192,6 +192,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./README.md`                | Added space in pymarkdown disable. |
 | `./SANDBOX.md`               | Changed QeT equation. |
 | `./pyproject.toml`           | Added sandboxqext. |
+| `./README.md`                | Modified icon and font links. |
 
 ### Removed
 

@@ -1,8 +1,9 @@
 # README
 
 <!-- pyml disable-num-lines 2 no-inline-html -->
-<img src="[SVG_NETFNT]" alt="RAPID network font" width="40"/>
-<img src="[SVG_NETICN]" alt="RAPID network icon" width="40"/>
+<!-- pyml disable-num-lines 2 line-length -->
+<img src="https://raw.githubusercontent.com/c-h-david/rapid2/main/img/font_rapid_network.svg" alt="RAPID network font" width="40"/>
+<img src="https://raw.githubusercontent.com/c-h-david/rapid2/main/img/icon_rapid_network.svg" alt="RAPID network icon" width="40"/>
 
 [![License (3-Clause BSD)][BDG_BSD3CL]][URL_LICENS]
 
@@ -177,9 +178,6 @@ For sensitive matters that cannot be shared publicly, contact
 [Cédric H. David][URL_GITCHD]
 
 <!-- pyml disable-num-lines 30 line-length -->
-[SVG_NETICN]: https://raw.githubusercontent.com/c-h-david/rapid2/main/img/icon_rapid_network.svg
-[SVG_NETFNT]: https://raw.githubusercontent.com/c-h-david/rapid2/main/img/font_rapid_network.svg
-
 [BDG_BSD3CL]: https://img.shields.io/badge/license-BSD%203--Clause-yellow.svg
 [BDG_CONDUC]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
 [BDG_COLLAB]: https://img.shields.io/badge/Code%20of%20Collab-DRAFT-violet.svg
