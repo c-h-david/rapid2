@@ -185,6 +185,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./README.md`                | Added venv instructions. |
 | `./SANDBOX.md`               | Added sub-sections. |
 | `./README.md`                | Added icon and font. |
+| `./README.md`                | Allowed inline html. |
 
 ### Removed
 
