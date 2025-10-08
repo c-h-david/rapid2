@@ -200,6 +200,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./SANDBOX.md`               | Added initial state. |
 | `./TESTING.md`               | Clarified Dockerfile linter. |
 | `./README.md`                | Fixed pyml disable. |
+| `./src/rapid2/*.py`          | Renamed Test into Sandbox. |
 
 ### Removed
 

@@ -50,7 +50,7 @@ def Qfi_new(
     >>> IV_riv_tot = np.array([10, 20, 30, 40, 50], dtype=np.int32)
     >>> ZV_lon_tot = np.array([0.5, 2.0, 1.0, 2.0, 0.5])
     >>> ZV_lat_tot = np.array([5.0, 4.5, 3.0, 2.5, 1.0])
-    >>> Qfi_ncf = './output/Test/Qfinal_Test_20000101_20000102_tst.nc4'
+    >>> Qfi_ncf = './output/Sandbox/Qfinal_Sandbox_19700101_19700110_tst.nc4'
     >>> Qfi_new(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Qfi_ncf)
     >>> f = netCDF4.Dataset(Qfi_ncf, 'r')
     >>> f.variables['rivid'][:].filled()

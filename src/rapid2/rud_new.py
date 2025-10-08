@@ -51,7 +51,7 @@ def rud_new(
     >>> IV_riv = np.array([10, 20, 30, 40, 50], dtype=np.int32)
     >>> ZV_lon = np.array([0.5, 2.0, 1.0, 2.0, 0.5])
     >>> ZV_lat = np.array([5.0, 4.5, 3.0, 2.5, 1.0])
-    >>> rud_ncf = './input/Test/rud_Test_20000101_20000102_tst.nc4'
+    >>> rud_ncf = './input/Sandbox/rud_Sandbox_19700101_19700110_tst.nc4'
     >>> rud_new(IV_riv, ZV_lon, ZV_lat, rud_ncf)
     >>> f = netCDF4.Dataset(rud_ncf, 'r')
     >>> f.variables['rivid'][:].filled()

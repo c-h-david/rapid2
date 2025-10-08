@@ -48,8 +48,8 @@ def k_x_vec(
 
     Examples
     --------
-    >>> kpr_csv = './input/Test/k_Test.csv'
-    >>> xpr_csv = './input/Test/x_Test.csv'
+    >>> kpr_csv = './input/Sandbox/k_Sandbox.csv'
+    >>> xpr_csv = './input/Sandbox/x_Sandbox.csv'
     >>> IV_bas_tot = np.array([0, 1, 2, 3, 4], dtype=np.int32)
     >>> k_x_vec(kpr_csv, xpr_csv, IV_bas_tot) # doctest: +NORMALIZE_WHITESPACE
     (array([9000., 9000., 9000., 9000., 9000.]),\

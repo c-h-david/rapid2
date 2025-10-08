@@ -37,7 +37,7 @@ def bas_vec(
 
     Examples
     --------
-    >>> bas_csv = './input/Test/riv_bas_id_Test.csv'
+    >>> bas_csv = './input/Sandbox/riv_bas_id_Sandbox.csv'
     >>> bas_vec(bas_csv)
     array([10, 20, 30, 40, 50], dtype=int32)
     '''

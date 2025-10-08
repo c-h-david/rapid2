@@ -50,7 +50,7 @@ def Qou_new(
     >>> IV_riv_bas = np.array([10, 20, 30, 40, 50], dtype=np.int32)
     >>> ZV_lon_bas = np.array([0.5, 2.0, 1.0, 2.0, 0.5])
     >>> ZV_lat_bas = np.array([5.0, 4.5, 3.0, 2.5, 1.0])
-    >>> Qou_ncf = './output/Test/Qout_Test_20000101_20000102_tst.nc4'
+    >>> Qou_ncf = './output/Sandbox/Qout_Sandbox_19700101_19700110_tst.nc4'
     >>> Qou_new(IV_riv_bas, ZV_lon_bas, ZV_lat_bas, Qou_ncf)
     >>> f = netCDF4.Dataset(Qou_ncf, 'r')
     >>> f.variables['rivid'][:].filled()

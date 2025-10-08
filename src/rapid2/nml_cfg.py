@@ -38,26 +38,26 @@ def nml_cfg(
 
     Examples
     --------
-    >>> nml_yml = './input/Test/namelist_Test.yml'
+    >>> nml_yml = './input/Sandbox/namelist_Sandbox.yml'
     >>> nml_dic = nml_cfg(nml_yml)
     >>> nml_dic['Q00_ncf']
-    './input/Test/Qinit_Test_20000101_20000102.nc4'
+    './input/Sandbox/Qinit_Sandbox_19700101_19700110.nc4'
     >>> nml_dic['Qex_ncf']
-    './input/Test/Qext_Test_20000101_20000102.nc4'
+    './input/Sandbox/Qext_Sandbox_19700101_19700110.nc4'
     >>> nml_dic['con_csv']
-    './input/Test/rapid_connect_Test.csv'
+    './input/Sandbox/rapid_connect_Sandbox.csv'
     >>> nml_dic['kpr_csv']
-    './input/Test/k_Test.csv'
+    './input/Sandbox/k_Sandbox.csv'
     >>> nml_dic['xpr_csv']
-    './input/Test/x_Test.csv'
+    './input/Sandbox/x_Sandbox.csv'
     >>> nml_dic['bas_csv']
-    './input/Test/riv_bas_id_Test.csv'
+    './input/Sandbox/riv_bas_id_Sandbox.csv'
     >>> nml_dic['IS_dtR']
     np.int32(900)
     >>> nml_dic['Qou_ncf']
-    './output/Test/Qout_Test_20000101_20000102_tst.nc4'
+    './output/Sandbox/Qout_Sandbox_19700101_19700110_tst.nc4'
     >>> nml_dic['Qfi_ncf']
-    './output/Test/Qfinal_Test_20000101_20000102_tst.nc4'
+    './output/Sandbox/Qfinal_Sandbox_19700101_19700110_tst.nc4'
     '''
 
     try:
