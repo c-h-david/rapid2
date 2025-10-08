@@ -1,9 +1,8 @@
-# README
+# RAPID
 
-<!-- pyml disable-num-lines 2 no-inline-html -->
-<!-- pyml disable-num-lines 2 line-length -->
-<img src="https://raw.githubusercontent.com/c-h-david/rapid2/main/img/font_rapid_network.svg" alt="RAPID network font" width="40"/>
-<img src="https://raw.githubusercontent.com/c-h-david/rapid2/main/img/icon_rapid_network.svg" alt="RAPID network icon" width="40"/>
+<!-- pyml disable-num-lines 1 no-inline-html -->
+<!-- pyml disable-num-lines 1 line-length -->
+<img src="https://raw.githubusercontent.com/c-h-david/rapid2/main/img/icon_rapid_network.svg" alt="RAPID network icon" width="80"/>
 
 [![License (3-Clause BSD)][BDG_BSD3CL]][URL_LICENS]
 
