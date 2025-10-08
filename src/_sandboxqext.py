@@ -108,6 +108,10 @@ def main() -> None:
         Qex[JS_Qex_tim, :] = ZV_tmp[:]
     # The 1e-7 avoids np.sign(0) = 0
 
+    f.title = 'Sandbox dataset for RAPID2'
+    f.institution = ('Jet Propulsion Laboratory, '
+                     'California Institute of Technology')
+
     # -------------------------------------------------------------------------
     # Close file
     # -------------------------------------------------------------------------
