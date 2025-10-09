@@ -58,6 +58,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./img/icon_rapid_network.s` | New file. |
 | `./src/_sandboxqext.py`      | New file. |
 | `./tst/tst_dwnl_Sandbox.sh`  | New file. |
+| `./.github/workflows/CL.yml` | New file. |
 
 ### Changed
 
@@ -209,6 +210,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./TESTING.md`               | Added shell linter. |
 | `./clean.sh`                 | Added shell linter. |
 | `./requirement.apt`          | Added shell linter. |
+| `./.github/workflows/CI.yml` | Refactored for Sandbox. |
 
 ### Removed
 
