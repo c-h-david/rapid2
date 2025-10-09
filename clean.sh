@@ -23,11 +23,8 @@ IFS=$'\n\t'
 # Clean up
 # *****************************************************************************
 targets=(
-    ".DS_Store"
-    "*/.DS_Store"
-    "*/*/.DS_Store"
     "build"
-    "src/*.egg-info"
+    "src/rapid2.egg-info"
     ".mypy_cache"
     "src/.mypy_cache"
     "src/rapid2/.mypy_cache"
@@ -39,6 +36,8 @@ targets=(
 for target in "${targets[@]}"; do
     rm -rf "$target"
 done
+
+find . -name .DS_Store -delete
 
 
 # *****************************************************************************
