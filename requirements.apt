@@ -40,6 +40,8 @@ python3.11-venv
 # -----------------------------------------------------------------------------
 # Code testing
 # -----------------------------------------------------------------------------
+shellcheck
+# shell script linting
 wget
 # download utility
 ca-certificates

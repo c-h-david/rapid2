@@ -204,6 +204,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./README.md`                | Renamed Test into Sandbox. |
 | `./src/_rapid2.py`           | Copied global attributes. |
 | `./SANDBOX.md`               | Added Zenodo badge. |
+| `./.github/workflows/CI.yml` | Added shell linter. |
+| `./TESTING.md`               | Added shell linter. |
+| `./clean.sh`                 | Added shell linter. |
+| `./requirement.apt`          | Added shell linter. |
 
 ### Removed
 
