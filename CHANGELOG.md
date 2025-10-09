@@ -211,6 +211,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./clean.sh`                 | Added shell linter. |
 | `./requirement.apt`          | Added shell linter. |
 | `./.github/workflows/CI.yml` | Refactored for Sandbox. |
+| `./README.md`                | Added Continuous Linting. |
 
 ### Removed
 
