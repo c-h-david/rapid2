@@ -213,6 +213,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./.github/workflows/CI.yml` | Refactored for Sandbox. |
 | `./README.md`                | Added Continuous Linting. |
 | `./tst/tst_dwnl_Sandbox.sh`  | Fixed line width. |
+| `./.github/workflows/CI.yml` | Added doctest. |
 
 ### Removed
 

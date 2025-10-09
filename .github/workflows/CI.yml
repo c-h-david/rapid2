@@ -93,6 +93,8 @@ jobs:
           cd $GITHUB_WORKSPACE
           cd tst/
           ./tst_dwnl_Sandbox.sh
+          cd ..
+          python3 -m doctest src/rapid2/*.py
 
 
 # *****************************************************************************
