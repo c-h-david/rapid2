@@ -203,6 +203,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/*.py`          | Renamed Test into Sandbox. |
 | `./README.md`                | Renamed Test into Sandbox. |
 | `./src/_rapid2.py`           | Copied global attributes. |
+| `./SANDBOX.md`               | Added Zenodo badge. |
 
 ### Removed
 

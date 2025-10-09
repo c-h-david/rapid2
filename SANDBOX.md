@@ -2,6 +2,8 @@
 
 RAPID comes along with a set of test files based on a synthetic experiment.
 
+[![DOI:10.5281/zenodo.17298742][SVG_ZENODO]][URL_ZENODO]
+
 ## Study Domain
 
 The geographic domain is the same that was used for illustration of the
@@ -250,6 +252,9 @@ include:
 > drive.
 
 <!-- pyml disable-num-lines 30 line-length -->
+[SVG_ZENODO]: https://zenodo.org/badge/doi/10.5281/zenodo.17298742.svg
+
+[URL_ZENODO]: https://doi.org/10.5281/zenodo.17298742
 [URL_DA2011]: https://doi.org/10.1175/2011JHM1345.1
 [URL_DA2019]: https://doi.org/10.1029/2019GL083342
 [URL_STCKED]: https://stackedit.io/
