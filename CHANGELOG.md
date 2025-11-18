@@ -216,6 +216,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./.github/workflows/CI.yml` | Added doctest. |
 | `./.github/workflows/CI.yml` | Installed RAPID. |
 | `./clean.sh`                 | Removed MacOS metadata file. |
+| `./src/_dgldas2.py`          | Updated time values. |
 
 ### Removed
 

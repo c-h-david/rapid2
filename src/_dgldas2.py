@@ -178,6 +178,22 @@ def main() -> None:
                         dst.variables[name][:] = var[:]
             JS_tim += IS_siz
 
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # Update time
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    with netCDF4.Dataset(YS_cmb, 'a') as dst:
+        if vsn_str == '2.0':
+            dst.variables['time'][:] = (
+                                       dst.variables['time'][:] * 60
+                                       - 694299600
+                                       )
+        if vsn_str == '2.1':
+            dst.variables['time'][:] = (
+                                       dst.variables['time'][:] * 60
+                                       + 946695600
+                                       )
+        dst.variables['time'].units = 'second since 1970-01-01 00:00:00 +00:00'
+
     # -------------------------------------------------------------------------
     # Delete files
     # -------------------------------------------------------------------------
