@@ -59,6 +59,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_sandboxqext.py`      | New file. |
 | `./tst/tst_dwnl_Sandbox.sh`  | New file. |
 | `./.github/workflows/CL.yml` | New file. |
+| `./src/rapid2/crd_vec.py`    | New file. |
+| `./src/rapid2/cpl_vec.py`    | New file. |
 
 ### Changed
 
