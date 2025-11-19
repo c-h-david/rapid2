@@ -134,8 +134,6 @@ def main() -> None:
     YV_loc = sorted(YV_loc)
     YV_yes = {'time', 'time_bnds', 'lon', 'lat', 'Qs_acc', 'Qsb_acc'}
 
-    print(type(YV_loc))
-
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Open first file to create the output structure
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
