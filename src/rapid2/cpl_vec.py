@@ -39,12 +39,12 @@ def cpl_vec(
     -------
     IV_riv_tot : ndarray[int32]
         The river IDs of the domain.
-    ZV_riv_km2 : ndarray[float64]
+    ZV_riv_skm : ndarray[float64]
         The areas of contributing catchments to each river ID.
-    IV_riv_iii : ndarray[float64]
-        The i index corresponding to each river ID in the LSM grid.
-    IV_riv_jjj : ndarray[float64]
-        The j index corresponding to each river ID in the LSM grid.
+    IV_riv_1bi : ndarray[float64]
+        The 1-based i index corresponding to each river ID in the LSM grid.
+    IV_riv_1bj : ndarray[float64]
+        The 1-based j index corresponding to each river ID in the LSM grid.
 
     Examples
     --------
@@ -57,22 +57,22 @@ def cpl_vec(
     '''
 
     IV_riv_tot = np.empty(0, dtype=np.int32)
-    ZV_riv_km2 = np.empty(0, dtype=np.float64)
-    IV_riv_iii = np.empty(0, dtype=np.int32)
-    IV_riv_jjj = np.empty(0, dtype=np.int32)
+    ZV_riv_skm = np.empty(0, dtype=np.float64)
+    IV_riv_1bi = np.empty(0, dtype=np.int32)
+    IV_riv_1bj = np.empty(0, dtype=np.int32)
     try:
         with open(cpl_csv, 'r') as csvfile:
             csvreader = csv.reader(csvfile)
             for row in csvreader:
                 IV_riv_tot = np.append(IV_riv_tot, np.int32(row[0]))
-                ZV_riv_km2 = np.append(ZV_riv_km2, np.float64(row[1]))
-                IV_riv_iii = np.append(IV_riv_iii, np.int32(row[2]))
-                IV_riv_jjj = np.append(IV_riv_jjj, np.int32(row[3]))
+                ZV_riv_skm = np.append(ZV_riv_skm, np.float64(row[1]))
+                IV_riv_1bi = np.append(IV_riv_1bi, np.int32(row[2]))
+                IV_riv_1bj = np.append(IV_riv_1bj, np.int32(row[3]))
     except IOError:
         print('ERROR - Unable to open '+cpl_csv)
         raise SystemExit(22)
 
-    return IV_riv_tot, ZV_riv_km2, IV_riv_iii, IV_riv_jjj
+    return IV_riv_tot, ZV_riv_skm, IV_riv_1bi, IV_riv_1bj
 
 
 # *****************************************************************************

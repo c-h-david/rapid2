@@ -220,6 +220,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./clean.sh`                 | Removed MacOS metadata file. |
 | `./src/_dgldas2.py`          | Updated time values. |
 | `./src/_dgldas2.py`          | Removed print statement. |
+| `./src/rapid2/cpl_vec.py`    | Renamed variables. |
 
 ### Removed
 
