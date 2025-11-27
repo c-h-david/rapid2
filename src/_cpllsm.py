@@ -235,7 +235,7 @@ def main() -> None:
         # Scaling accounting for area and units.
 
         if isinstance(ZV_riv_Qex, np.ma.MaskedArray):
-            ZV_riv_Qex = ZV_riv_Qex.filled(0)
+            ZV_riv_Qex = np.where(ZV_riv_Qex.mask, 0, ZV_riv_Qex.data)
         # Make sure the masked values are replaced by 0
         Qex[JS_lsm_tim, :] = ZV_riv_Qex[:]
         # netCDF data are stored following: g.variables[m3_riv][time][rivid]

@@ -225,6 +225,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/cpl_vec.py`    | Renamed variables. |
 | `./src/rapid2/cpl_vec.py`    | Updated doctest example. |
 | `./tst/tst_dwnl_Sandbox.sh`  | Updated version and added new file. |
+| `./src/_cpllsm.py`           | Rewrote line for mypy. |
 
 ### Removed
 
