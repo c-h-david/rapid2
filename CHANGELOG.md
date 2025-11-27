@@ -62,6 +62,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/crd_vec.py`    | New file. |
 | `./src/rapid2/cpl_vec.py`    | New file. |
 | `./src/rapid2/chk_cpl.py`    | New file. |
+| `./src/_cpllsm.py`           | New file. |
 
 ### Changed
 
