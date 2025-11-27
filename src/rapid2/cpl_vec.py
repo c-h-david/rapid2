@@ -52,8 +52,8 @@ def cpl_vec(
     >>> cpl_vec(cpl_csv) # doctest: +NORMALIZE_WHITESPACE
     (array([10, 20, 30, 40, 50], dtype=int32),\
      array([1., 1., 1., 1., 1.]),\
-     array([0, 0, 0, 0, 0], dtype=int32),\
-     array([1, 1, 1, 0, 0], dtype=int32))
+     array([1, 1, 1, 1, 1], dtype=int32),\
+     array([2, 2, 2, 1, 1], dtype=int32))
     '''
 
     IV_riv_tot = np.empty(0, dtype=np.int32)
