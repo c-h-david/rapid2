@@ -61,6 +61,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./.github/workflows/CL.yml` | New file. |
 | `./src/rapid2/crd_vec.py`    | New file. |
 | `./src/rapid2/cpl_vec.py`    | New file. |
+| `./src/rapid2/chk_cpl.py`    | New file. |
 
 ### Changed
 
