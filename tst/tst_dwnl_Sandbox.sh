@@ -38,7 +38,7 @@ echo "********************"
 # *****************************************************************************
 # Location of the dataset
 # *****************************************************************************
-URL="https://zenodo.org/records/17738091/files"
+URL="https://zenodo.org/records/17739043/files"
 
 
 # *****************************************************************************
@@ -54,6 +54,7 @@ list=(
     "riv_bas_id_Sandbox.csv"
     "namelist_Sandbox.yml"
     "rapid_coupling_Sandbox.csv"
+    "coords_Sandbox.csv"
 )
 
 mkdir -p $folder
