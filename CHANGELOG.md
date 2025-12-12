@@ -228,6 +228,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_cpllsm.py`           | Rewrote line for mypy. |
 | `./pyproject.toml`           | Added cpllsm. |
 | `./tst/tst_dwnl_Sandbox.sh`  | Updated URL and added coords file. |
+| `./src/rapid2/rte_mat.py`    | Updated type of identity matrix. |
 
 ### Removed
 
