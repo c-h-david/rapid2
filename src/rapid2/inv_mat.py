@@ -72,6 +72,8 @@ def inv_mat(
         ZM_Inv = ZM_Inv + ZM_inc
         ZM_inc = ZM_inc * ZM_C1N
 
+    # Compute (I-C1N)^-1 using Equation (10) in David et al. (2013, WRR).
+
     return ZM_Inv
 
 
