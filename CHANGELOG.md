@@ -232,6 +232,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/rte_mat.py`    | Updated type of identity matrix. |
 | `./src/rapid2/inv_mat.py`    | Added comment on computation method. |
 | `./src/rapid2/mus_rte.py`    | Added new doctest checks. |
+| `./src/rapid2/inv_mat.py`    | Used at sign for linear algebra products. |
+| `./src/rapid2/mus_rte.py`    | Used at sign for linear algebra products. |
+| `./src/rapid2/rte_mat.py`    | Used at sign for linear algebra products. |
 
 ### Removed
 

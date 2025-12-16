@@ -101,7 +101,7 @@ def mus_rte(
 
     ZV_Qou = ZV_Qou_ini
     ZV_avg = np.zeros(len(ZV_Qou_ini))
-    ZV_rh1 = ZM_Qex * ZV_Qex_avg
+    ZV_rh1 = ZM_Qex @ ZV_Qex_avg
 
     for JS_mus in range(IS_mus):
         # ---------------------------------------------------------------------
@@ -112,7 +112,7 @@ def mus_rte(
         # ---------------------------------------------------------------------
         # Updating instantaneous value of right-hand side
         # ---------------------------------------------------------------------
-        ZV_rhs = ZV_rh1 + ZM_Qou * ZV_Qou
+        ZV_rhs = ZV_rh1 + ZM_Qou @ ZV_Qou
 
         # ---------------------------------------------------------------------
         # Routing

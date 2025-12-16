@@ -64,13 +64,13 @@ def inv_mat(
     IS_riv_bas = ZM_Net.shape[0]
     ZM_Idt = identity(IS_riv_bas, format='csc', dtype=np.float64)
 
-    ZM_C1N = ZM_C1m * ZM_Net
+    ZM_C1N = ZM_C1m @ ZM_Net
 
     ZM_Inv = ZM_Idt
     ZM_inc = ZM_C1N
     for JS_riv_bas in range(IS_riv_bas):
         ZM_Inv = ZM_Inv + ZM_inc
-        ZM_inc = ZM_inc * ZM_C1N
+        ZM_inc = ZM_inc @ ZM_C1N
 
     # Compute (I-C1N)^-1 using Equation (10) in David et al. (2013, WRR).
 
