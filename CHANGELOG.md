@@ -231,6 +231,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./tst/tst_dwnl_Sandbox.sh`  | Updated URL and added coords file. |
 | `./src/rapid2/rte_mat.py`    | Updated type of identity matrix. |
 | `./src/rapid2/inv_mat.py`    | Added comment on computation method. |
+| `./src/rapid2/mus_rte.py`    | Added new doctest checks. |
 
 ### Removed
 

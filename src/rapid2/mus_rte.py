@@ -88,6 +88,15 @@ def mus_rte(
     array([0.0625   , 0.0625   , 0.03125  , 0.0625   , 0.0390625])
     >>> ZV_Qou_fin
     array([0.234375  , 0.234375  , 0.15625   , 0.234375  , 0.16601562])
+    >>> ZV_Qou_ini = np.array([1, 1, 1, 1, 1])
+    >>> ZV_Qex_avg = np.array([1, 1, 1, 1, 1])
+    >>> ZV_Qou_avg, ZV_Qou_fin = mus_rte(ZM_Lin, ZM_Qex, ZM_Qou, IS_mus,\
+                                         ZV_Qou_ini, ZV_Qex_avg\
+                                         )
+    >>> ZV_Qou_avg
+    array([1.     , 1.     , 1.125  , 1.     , 1.09375])
+    >>> ZV_Qou_fin
+    array([1.      , 1.      , 1.46875 , 1.      , 1.390625])
     '''
 
     ZV_Qou = ZV_Qou_ini
