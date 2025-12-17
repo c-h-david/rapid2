@@ -64,6 +64,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/chk_cpl.py`    | New file. |
 | `./src/_cpllsm.py`           | New file. |
 | `./src/rapid2/inv_mat.py`    | New file. |
+| `./src/rapid2/wdw_mat.py`    | New file. |
 
 ### Changed
 
