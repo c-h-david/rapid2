@@ -30,7 +30,7 @@ wheel==0.44.0
 # Packages for code checking
 # -----------------------------------------------------------------------------
 flake8==7.1.1
-hadolint-bin==2.12.0
+hadolint-bin==2.14.0
 mypy==1.11.2
 pymarkdownlnt==0.9.24
 yamllint==1.35.1
