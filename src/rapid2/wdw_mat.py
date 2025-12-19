@@ -106,19 +106,26 @@ def wdw_mat(
     ZM_Bet = spsolve(ZM_Lin, ZM_Qex)
 
     # -------------------------------------------------------------------------
-    # Computation of Ae and A0
+    # Computation of Ae
     # -------------------------------------------------------------------------
-    ZM_A0m = csc_matrix((IS_riv_bas, IS_riv_bas))
     ZM_Aem = csc_matrix((IS_riv_bas, IS_riv_bas))
-    ZM_tmp = ZM_Idt
+    ZM_tmp = ZM_Bet
     for JS_wdw in range(IS_wdw):
-        ZM_A0m = ZM_A0m + ZM_tmp
         ZM_Aem = ZM_Aem + (IS_wdw-1-JS_wdw)*ZM_tmp
         ZM_tmp = spsolve(ZM_Lin, ZM_Qou @ ZM_tmp)
         # spsolve refactorizes ZM_Lin at each iteration (suboptimal, need fix)
-    ZM_A0m = ZM_A0m / IS_wdw
-    ZM_Aem = ZM_Aem @ ZM_Bet
     ZM_Aem = ZM_Aem / IS_wdw
+
+    # -------------------------------------------------------------------------
+    # Computation of A0
+    # -------------------------------------------------------------------------
+    ZM_A0m = csc_matrix((IS_riv_bas, IS_riv_bas))
+    ZM_tmp = ZM_Idt
+    for JS_wdw in range(IS_wdw):
+        ZM_A0m = ZM_A0m + ZM_tmp
+        ZM_tmp = spsolve(ZM_Lin, ZM_Qou @ ZM_tmp)
+        # spsolve refactorizes ZM_Lin at each iteration (suboptimal, need fix)
+    ZM_A0m = ZM_A0m / IS_wdw
 
     # -------------------------------------------------------------------------
     # Explanations
@@ -127,16 +134,20 @@ def wdw_mat(
     # ZM_Bet = (ZM_Lin)^(-1) @ ZM_Qex
     # ZM_A0m = (ZM_Idt + ZM_Alp + ZM_Alp^2 + ... + ZM_Alp^(IS_wdw-1))/IS_wdw
     # ZM_Aem = (
-    #             (IS_wdw - 1 - 0) * ZM_Idt
-    #           + (IS_wdw - 1 - 1) * ZM_Alp
-    #           + (IS_wdw - 1 - 2) * ZM_Alp^2
+    #             (IS_wdw - 1 - 0) * ZM_Bet
+    #           + (IS_wdw - 1 - 1) * ZM_Alp @ ZM_Bet
+    #           + (IS_wdw - 1 - 2) * ZM_Alp^2 @ ZM_Bet
     #           + ...
-    #           + (IS_wdw - 1 - IS_wdw +2) * ZM_Alp^(IS_wdw-2)
-    #           ) @ ZM_Bet / IS_wdw
+    #           + (IS_wdw - 1 - IS_wdw +2) * ZM_Alp^(IS_wdw-2) @ ZM_Bet
+    #           ) / IS_wdw
     #
-    # The matrix ZM_tmp is used to store the current value of ZM_Alp^(JS_wdw).
-    # However, the inverse (ZM_Lin)^(-1) is never actually computed, relying
-    # instead on a linear system solver applied to matrices.
+    # The inverse (ZM_Lin)^(-1) is never actually computed, relying instead on
+    # the following linear system solver applied to matrices:
+    # ZM_Lin @ ZM_Alp^(JS_wdw+1) = ZM_Qou @ ZM_Alp^(JS_wdw)
+    # ZM_tmp stores ZM_Alp^(JS_wdw) for the computation of A0.
+    # ZM_tmp stores ZM_Alp^(JS_wdw) @ ZM_Bet for the computation of Ae.
+    # The recurrence for ZM_A0m is initialized with ZM_Alp^0 = ZM_Idt
+    # The recurrence for ZM_Aem is initialized with ZM_Alp^0 @ ZM_Bet = ZM_Bet
     # Note that spsolve_triangular cannot be used on sparse matrices. It could
     # be used on dense matrices but densifying the lower triangular matrices
     # would not be sustainable for memory usage when dealing with networks

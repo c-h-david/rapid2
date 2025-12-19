@@ -238,6 +238,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/rte_mat.py`    | Used at sign for linear algebra products. |
 | `./requirement.pip`          | Updated for hadolint-bin. |
 | `./pyproject.toml`           | Fixed acronym. |
+| `./src/rapid2/wdw_mat.py`    | Split Ae and A0, folded Bet earlier. |
 
 ### Removed
 
