@@ -1,0 +1,64 @@
+#!/usr/bin/env python3
+# *****************************************************************************
+# _cmpncf.py
+# *****************************************************************************
+
+# Author:
+# Cedric H. David, 2016-2026
+
+
+# *****************************************************************************
+# Import Python modules
+# *****************************************************************************
+import argparse
+
+
+# *****************************************************************************
+# Main
+# *****************************************************************************
+def main() -> None:
+
+    # -------------------------------------------------------------------------
+    # Initialize the argument parser and add valid arguments
+    # -------------------------------------------------------------------------
+    parser = argparse.ArgumentParser(description='Compare RAPID netCDF files')
+
+    parser.add_argument('-o', '--old', type=str, required=True,
+                        help='Specify the old netCDF file')
+
+    parser.add_argument('-n', '--new', type=str, required=True,
+                        help='Specify the new netCDF file')
+
+    parser.add_argument('-r', '--rel', type=str, required=False, default='0',
+                        help='Specify relative tolerance')
+
+    parser.add_argument('-a', '--abs', type=str, required=False, default='0',
+                        help='Specify the absolute tolerance')
+
+    # -------------------------------------------------------------------------
+    # Parse arguments and assign to variables
+    # -------------------------------------------------------------------------
+    args = parser.parse_args()
+
+    old_ncf = args.old
+    new_ncf = args.new
+    rel_str = args.rel
+    abs_str = args.abs
+
+    print('Comparing ', old_ncf,
+          'with', new_ncf,
+          'relative tolerance', rel_str,
+          'absolute tolerance', abs_str,
+          )
+
+
+# *****************************************************************************
+# If executed as a script
+# *****************************************************************************
+if __name__ == '__main__':
+    main()
+
+
+# *****************************************************************************
+# End
+# *****************************************************************************
