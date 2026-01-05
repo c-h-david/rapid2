@@ -239,6 +239,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./requirement.pip`          | Updated for hadolint-bin. |
 | `./pyproject.toml`           | Fixed acronym. |
 | `./src/rapid2/wdw_mat.py`    | Split Ae and A0, folded Bet earlier. |
+| `./src/_cpllsm.py`           | Changed nc4 to ncf for consitency. |
 
 ### Removed
 

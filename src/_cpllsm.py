@@ -57,14 +57,14 @@ def main() -> None:
     # -------------------------------------------------------------------------
     args = parser.parse_args()
 
-    lsm_nc4 = args.lsm
+    lsm_ncf = args.lsm
     con_csv = args.con
     pos_csv = args.pos
     bnd_csv = args.bnd
     dir_str = args.dir
     fil_str = args.fil
 
-    print('Transforming data from ', lsm_nc4,
+    print('Transforming data from ', lsm_ncf,
           'for', con_csv,
           'with', pos_csv,
           'and', bnd_csv,
@@ -84,10 +84,10 @@ def main() -> None:
     # Check if files exist
     # -------------------------------------------------------------------------
     try:
-        with open(lsm_nc4):
+        with open(lsm_ncf):
             pass
     except IOError:
-        print(f'ERROR - Unable to open {lsm_nc4}')
+        print(f'ERROR - Unable to open {lsm_ncf}')
         sys.exit(1)
 
     # -------------------------------------------------------------------------
@@ -148,7 +148,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     print('- Read LSM metadata')
 
-    c = netCDF4.Dataset(lsm_nc4, 'r')
+    c = netCDF4.Dataset(lsm_ncf, 'r')
 
     IS_lsm_lon = len(c.dimensions['lon'])
     print('  . The number of longitudes is: '+str(IS_lsm_lon))
