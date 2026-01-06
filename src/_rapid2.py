@@ -12,6 +12,7 @@
 # *****************************************************************************
 import argparse
 import netCDF4  # type: ignore[import-untyped]
+import sys
 
 from rapid2.nml_cfg import nml_cfg
 from rapid2.con_vec import con_vec
