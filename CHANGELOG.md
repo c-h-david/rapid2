@@ -241,6 +241,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./pyproject.toml`           | Fixed acronym. |
 | `./src/rapid2/wdw_mat.py`    | Split Ae and A0, folded Bet earlier. |
 | `./src/_cpllsm.py`           | Changed nc4 to ncf for consitency. |
+| `./src/rapid2/Qex_mdt.py`    | Moved time step computation for broader use. |
+| `./src/_rapid2.py`           | Moved time step computation for broader use. |
 
 ### Removed
 

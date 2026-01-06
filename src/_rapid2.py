@@ -88,8 +88,18 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Extract metadata of external inflow, get time step correspondance
     # -------------------------------------------------------------------------
-    (IV_Qex_tot, ZV_lon_tot, ZV_lat_tot, IV_Qex_tim, IM_Qex_tim, IS_Qex_tim,
-     IS_TaR) = Qex_mdt(Qex_ncf)
+    (IV_Qex_tot, ZV_lon_tot, ZV_lat_tot,
+     IV_Qex_tim, IM_Qex_tim,
+     ) = Qex_mdt(Qex_ncf)
+
+    IS_Qex_tim = len(IV_Qex_tim)
+    IS_TaR = IM_Qex_tim[0, 1] - IM_Qex_tim[0, 0]
+    # Using IM_Qex_tim rather than IV_Qex_tim which may have only one timestep
+
+    if IS_TaR == 0:
+        print('ERROR - Values of time_bnds lead to IS_TaR = 0')
+        raise SystemExit(22)
+
     IS_mus = stp_cor(IS_TaR, IS_dtR)
 
     # -------------------------------------------------------------------------

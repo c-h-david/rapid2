@@ -19,48 +19,42 @@ import netCDF4  # type: ignore[import-untyped]
 # Metadata of external inflow
 # *****************************************************************************
 def Qex_mdt(
-            Qex_ncf: str
+            fil_ncf: str
             ) -> tuple[
                        npt.NDArray[np.int32],
                        npt.NDArray[np.float64],
                        npt.NDArray[np.float64],
                        npt.NDArray[np.int32],
                        npt.NDArray[np.int32],
-                       int,
-                       np.int32
                        ]:
-    '''Get metadata from external inflow file.
+    '''Get metadata from a RAPID netCDF file.
 
-    Get metadata from external inflow file: river IDs, longitudes, epoch time,
-    epoch time bounds, number of time steps, value of time step.
+    Get metadata from a RAPID netCDF file: river IDs, longitudes, epoch time,
+    epoch time bounds.
 
     Parameters
     ----------
-    Qex_ncf : str
-        Path to the external inflow file.
+    fil_ncf : str
+        Path to the RAPID netCDF file.
 
     Returns
     -------
     IV_Qex_tot : ndarray[int32]
-        The river IDs of the external inflow file.
+        The river IDs of the RAPID netCDF file.
     ZV_lon_tot : ndarray[float64]
-        The longitudes of river IDs in the external inflow file.
+        The longitudes of river IDs in the RAPID netCDF file.
     ZV_lat_tot : ndarray[float64]
-        The latitudes of river IDs in the external inflow file.
+        The latitudes of river IDs in the RAPID netCDF file.
     IV_Qex_tim : ndarray[int32]
-        The epoch time values of the external inflow file.
+        The epoch time values of the RAPID netCDF file.
     IM_Qex_tim : ndarray[int32]
-        The epoch time bounds paired values of the external inflow file.
-    IS_Qex_tim : int
-        The number of time steps of the external inflow file.
-    IS_TaR : int32
-       The time step of the external inflow file.
+        The epoch time bounds paired values of the RAPID netCDF file.
 
     Examples
     --------
-    >>> Qex_ncf = './input/Sandbox/Qext_Sandbox_19700101_19700110.nc4'
-    >>> (IV_Qex_tot, ZV_lon_tot, ZV_lat_tot, IV_Qex_tim, IM_Qex_tim,\
-         IS_Qex_tim, IS_TaR) = Qex_mdt(Qex_ncf)
+    >>> fil_ncf = './input/Sandbox/Qext_Sandbox_19700101_19700110.nc4'
+    >>> (IV_Qex_tot, ZV_lon_tot, ZV_lat_tot,\
+         IV_Qex_tim, IM_Qex_tim) = Qex_mdt(fil_ncf)
     >>> IV_Qex_tot
     array([10, 20, 30, 40, 50], dtype=int32)
     >>> ZV_lon_tot
@@ -91,58 +85,54 @@ def Qex_mdt(
            702000, 712800, 723600, 734400, 745200, 756000, 766800, 777600,
            788400, 799200, 810000, 820800, 831600, 842400, 853200, 864000],
           dtype=int32)
-    >>> IS_Qex_tim
-    80
-    >>> IS_TaR
-    np.int32(10800)
     '''
 
-    f = netCDF4.Dataset(Qex_ncf, 'r')
+    f = netCDF4.Dataset(fil_ncf, 'r')
 
     # -------------------------------------------------------------------------
     # Check dimensions exist
     # -------------------------------------------------------------------------
     if 'rivid' not in f.dimensions:
-        print('ERROR - rivid dimension does not exist in ' + Qex_ncf)
+        print('ERROR - rivid dimension does not exist in ' + fil_ncf)
         raise SystemExit(22)
 
     if 'time' not in f.dimensions:
-        print('ERROR - time dimension does not exist in ' + Qex_ncf)
+        print('ERROR - time dimension does not exist in ' + fil_ncf)
         raise SystemExit(22)
 
     if 'nv' not in f.dimensions:
-        print('ERROR - nv dimension does not exist in ' + Qex_ncf)
+        print('ERROR - nv dimension does not exist in ' + fil_ncf)
         raise SystemExit(22)
 
     if len(f.dimensions['nv']) != 2:
-        print('ERROR - nv dimension is not 2 ' + Qex_ncf)
+        print('ERROR - nv dimension is not 2 ' + fil_ncf)
         raise SystemExit(22)
 
     # -------------------------------------------------------------------------
     # Check variables exist
     # -------------------------------------------------------------------------
     if 'rivid' not in f.variables:
-        print('ERROR - rivid variable does not exist in ' + Qex_ncf)
+        print('ERROR - rivid variable does not exist in ' + fil_ncf)
         raise SystemExit(22)
 
     if 'lon' not in f.variables:
-        print('ERROR - lon variable does not exist in ' + Qex_ncf)
+        print('ERROR - lon variable does not exist in ' + fil_ncf)
         raise SystemExit(22)
 
     if 'lat' not in f.variables:
-        print('ERROR - lat variable does not exist in ' + Qex_ncf)
+        print('ERROR - lat variable does not exist in ' + fil_ncf)
         raise SystemExit(22)
 
     if 'time' not in f.variables:
-        print('ERROR - time variable does not exist in ' + Qex_ncf)
+        print('ERROR - time variable does not exist in ' + fil_ncf)
         raise SystemExit(22)
 
     if 'time_bnds' not in f.variables:
-        print('ERROR - time_bnds variable does not exist in ' + Qex_ncf)
+        print('ERROR - time_bnds variable does not exist in ' + fil_ncf)
         raise SystemExit(22)
 
-    if 'Qext' not in f.variables:
-        print('ERROR - Qext variable does not exist in ' + Qex_ncf)
+    if 'Qext' not in f.variables and 'Qout' not in f.variables:
+        print('ERROR - No known main variable exist in ' + fil_ncf)
         raise SystemExit(22)
 
     # -------------------------------------------------------------------------
@@ -168,16 +158,7 @@ def Qex_mdt(
     IM_Qex_tim = np.array(IM_tmp, dtype=np.int32)
     # Retrieving variables in two steps to better inform mypy
 
-    IS_Qex_tim = len(IV_Qex_tim)
-    IS_TaR = IM_Qex_tim[0, 1] - IM_Qex_tim[0, 0]
-    # Using IM_Qex_tim rather than IV_Qex_tim which may have only one timestep
-
-    if IS_TaR == 0:
-        print('ERROR - Values of time_bnds lead to IS_TaR=0 in ' + Qex_ncf)
-        raise SystemExit(22)
-
-    return (IV_Qex_tot, ZV_lon_tot, ZV_lat_tot, IV_Qex_tim, IM_Qex_tim,
-            IS_Qex_tim, IS_TaR)
+    return IV_Qex_tot, ZV_lon_tot, ZV_lat_tot, IV_Qex_tim, IM_Qex_tim
 
 
 # *****************************************************************************
