@@ -50,7 +50,7 @@ def main() -> None:
 
     nml_yml = args.namelist
 
-    print('Namelist file: '+nml_yml)
+    print(f'Namelist file: {nml_yml}')
 
     # -------------------------------------------------------------------------
     # Read namelist into a dictionary and assign to local variables

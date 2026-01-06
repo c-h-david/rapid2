@@ -64,12 +64,13 @@ def main() -> None:
     dir_str = args.dir
     fil_str = args.fil
 
-    print('Transforming data from ', lsm_ncf,
-          'for', con_csv,
-          'with', pos_csv,
-          'and', bnd_csv,
-          'to', dir_str,
-          'as', fil_str)
+    print(f'Transforming data from  {lsm_ncf} '
+          f'for {con_csv} '
+          f'with {pos_csv} '
+          f'and {bnd_csv} '
+          f'to {dir_str} '
+          f'as {fil_str}'
+          )
 
     # -------------------------------------------------------------------------
     # Skip if file already exists
@@ -151,13 +152,13 @@ def main() -> None:
     c = netCDF4.Dataset(lsm_ncf, 'r')
 
     IS_lsm_lon = len(c.dimensions['lon'])
-    print('  . The number of longitudes is: '+str(IS_lsm_lon))
+    print(f'  . The number of longitudes is: {IS_lsm_lon}')
 
     IS_lsm_lat = len(c.dimensions['lat'])
-    print('  . The number of latitudes is: '+str(IS_lsm_lat))
+    print(f'  . The number of latitudes is: {IS_lsm_lat}')
 
     IS_lsm_tim = len(c.dimensions['time'])
-    print('  . The number of time steps is: '+str(IS_lsm_tim))
+    print(f'  . The number of time steps is: {IS_lsm_tim}')
 
     ZS_fll_rsf = netCDF4.default_fillvals['f4']
     if 'Qs_acc' in c.variables:
@@ -173,7 +174,7 @@ def main() -> None:
         var = c.variables['Qsb_acc']
         if '_FillValue' in var.ncattrs():
             ZS_fll_rsb = var._FillValue
-            print('  . The fill value for Qsb_acc is: '+str(ZS_fll_rsb))
+            print(f'  . The fill value for Qsb_acc is: {ZS_fll_rsb}')
     else:
         raise ValueError('Qsb_acc variable missing')
 

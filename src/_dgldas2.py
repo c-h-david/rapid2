@@ -53,11 +53,12 @@ def main() -> None:
     dir_str = args.dir
     fil_str = args.fil
 
-    print('Download data from GLDAS', vsn_str,
-          'for', mod_str,
-          'and', tim_str,
-          'to', dir_str,
-          'as', fil_str)
+    print(f'Download data from GLDAS{vsn_str} '
+          f'for {mod_str} '
+          f'and {tim_str} '
+          f'to {dir_str} '
+          f'as {fil_str}'
+          )
 
     # -------------------------------------------------------------------------
     # Skip if file already exists
@@ -83,7 +84,7 @@ def main() -> None:
 
     short_name = exp_str + '_' + mod_str + res_str + '_' + frq_str
 
-    print('- Search', short_name, vsn_str, tim_str, 'max=300')
+    print(f'- Search {short_name} {vsn_str} {tim_str} max=300')
 
     GV_rem = earthaccess.search_data(
                                      short_name=short_name,
@@ -95,7 +96,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Download
     # -------------------------------------------------------------------------
-    print('- Download', len(GV_rem), 'files')
+    print(f'- Download {len(GV_rem)} files')
     earthaccess.download(GV_rem, dir_str)
 
     # -------------------------------------------------------------------------

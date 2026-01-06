@@ -42,8 +42,8 @@ def main() -> None:
     Qex_ncf = args.output
 
     print('Converting (from/to):')
-    print(' - ', m3r_ncf)
-    print(' - ', Qex_ncf)
+    print(f' - {m3r_ncf}')
+    print(f' - {Qex_ncf}')
 
     # -------------------------------------------------------------------------
     # Skip if file already exists
@@ -94,7 +94,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Create Qex file
     # -------------------------------------------------------------------------
-    print('The transformation will divide by the value: ', IS_TaR)
+    print(f'The transformation will divide by the value: {IS_TaR}')
 
     Qex_new(IV_m3r_tot, ZV_lon_tot, ZV_lat_tot, Qex_ncf)
 

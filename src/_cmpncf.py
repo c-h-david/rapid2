@@ -47,10 +47,10 @@ def main() -> None:
     rel_str = args.rel
     abs_str = args.abs
 
-    print('Comparing ', old_ncf,
-          'with', new_ncf,
-          'relative tolerance', rel_str,
-          'absolute tolerance', abs_str,
+    print(f'Comparing{old_ncf} '
+          f'with {new_ncf} '
+          f'relative tolerance {rel_str} '
+          f'absolute tolerance {abs_str}'
           )
 
     ZS_rel = np.float64(rel_str)
@@ -67,8 +67,8 @@ def main() -> None:
      IV_tim_new, IM_tim_new,
      ) = Qex_mdt(new_ncf)
 
-    print('temp', ZS_rel)
-    print('temp', ZS_abs)
+    print(ZS_rel)
+    print(ZS_abs)
 
 
 # *****************************************************************************

@@ -42,8 +42,8 @@ def main() -> None:
     Q00_ncf = args.output
 
     print('Creating (from/to):')
-    print(' - ', Qex_ncf)
-    print(' - ', Q00_ncf)
+    print(f' - {Qex_ncf}')
+    print(f' - {Q00_ncf}')
 
     # -------------------------------------------------------------------------
     # Skip if file already exists

@@ -250,6 +250,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/*.py`          | Added import sys. |
 | `./src/*.py`                 | Used f-strings in warnings and errors. |
 | `./src/rapid2/*.py`          | Used f-strings in warnings and errors. |
+| `./src/*.py`                 | Used f-strings in print statements. |
+| `./src/rapid2/*.py`          | Used f-strings in print statements. |
 
 ### Removed
 

@@ -49,9 +49,9 @@ def main() -> None:
     Qex_ncf = args.output
 
     print('Creating (from/to):')
-    print(' - ', ZV_mea)
-    print(' - ', ZV_amp)
-    print(' - ', Qex_ncf)
+    print(f' - [ZV_mea}')
+    print(f' - {ZV_amp}')
+    print(f' - {Qex_ncf}')
 
     # -------------------------------------------------------------------------
     # Skip if file already exists
