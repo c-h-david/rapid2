@@ -113,7 +113,7 @@ def main() -> None:
 
         if not os.path.exists(YS_loc):
             print('ERROR: file not downloaded:', YS_loc)
-            raise SystemExit(22)
+            sys.exit(1)
         else:
             ZS_loc = os.path.getsize(YS_loc)/1024**2
             YV_loc.append(YS_loc)
@@ -124,7 +124,7 @@ def main() -> None:
                   'Local file', YS_loc,
                   'Remote size', ZS_rem,
                   'Local size', ZS_loc)
-            raise SystemExit(22)
+            sys.exit(1)
 
     # -------------------------------------------------------------------------
     # Concatenate files

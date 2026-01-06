@@ -98,7 +98,7 @@ def main() -> None:
 
     if IS_TaR == 0:
         print('ERROR - Values of time_bnds lead to IS_TaR = 0')
-        raise SystemExit(22)
+        sys.exit(1)
 
     IS_mus = stp_cor(IS_TaR, IS_dtR)
 

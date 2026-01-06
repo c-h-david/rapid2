@@ -50,7 +50,7 @@ def bas_vec(
                 IV_riv_bas = np.append(IV_riv_bas, np.int32(row[0]))
     except IOError:
         print('ERROR - Unable to open '+bas_csv)
-        raise SystemExit(22)
+        sys.exit(1)
 
     return IV_riv_bas
 

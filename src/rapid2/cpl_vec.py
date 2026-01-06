@@ -70,7 +70,7 @@ def cpl_vec(
                 IV_riv_1bj = np.append(IV_riv_1bj, np.int32(row[3]))
     except IOError:
         print('ERROR - Unable to open '+cpl_csv)
-        raise SystemExit(22)
+        sys.exit(1)
 
     return IV_riv_tot, ZV_riv_skm, IV_riv_1bi, IV_riv_1bj
 

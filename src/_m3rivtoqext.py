@@ -59,27 +59,27 @@ def main() -> None:
 
     if 'm3_riv' not in d.variables:
         print('ERROR - m3_riv variable does not exist in ' + m3r_ncf)
-        raise SystemExit(22)
+        sys.exit(1)
 
     if 'rivid' not in d.variables:
         print('ERROR - rivid variable does not exist in ' + m3r_ncf)
-        raise SystemExit(22)
+        sys.exit(1)
 
     if 'lon' not in d.variables:
         print('ERROR - lon variable does not exist in ' + m3r_ncf)
-        raise SystemExit(22)
+        sys.exit(1)
 
     if 'lat' not in d.variables:
         print('ERROR - lat variable does not exist in ' + m3r_ncf)
-        raise SystemExit(22)
+        sys.exit(1)
 
     if 'time' not in d.variables:
         print('ERROR - time variable does not exist in ' + m3r_ncf)
-        raise SystemExit(22)
+        sys.exit(1)
 
     if 'time_bnds' not in d.variables:
         print('ERROR - time_bnds variable does not exist in ' + m3r_ncf)
-        raise SystemExit(22)
+        sys.exit(1)
 
     IV_m3r_tot = d.variables['rivid'][:]
     ZV_lon_tot = d.variables['lon'][:]

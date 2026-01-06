@@ -59,19 +59,19 @@ def main() -> None:
 
     if 'rivid' not in f.variables:
         print('ERROR - rivid variable does not exist in ' + Qex_ncf)
-        raise SystemExit(22)
+        sys.exit(1)
 
     if 'lon' not in f.variables:
         print('ERROR - lon variable does not exist in ' + Qex_ncf)
-        raise SystemExit(22)
+        sys.exit(1)
 
     if 'lat' not in f.variables:
         print('ERROR - lat variable does not exist in ' + Qex_ncf)
-        raise SystemExit(22)
+        sys.exit(1)
 
     if 'time' not in f.variables:
         print('ERROR - time variable does not exist in ' + Qex_ncf)
-        raise SystemExit(22)
+        sys.exit(1)
 
     IV_Qex_tot = f.variables['rivid'][:]
     ZV_lon_tot = f.variables['lon'][:]

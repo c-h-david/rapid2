@@ -244,6 +244,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/Qex_mdt.py`    | Moved time step computation for broader use. |
 | `./src/_rapid2.py`           | Moved time step computation for broader use. |
 | `./src/_cmpncf.py`           | Used refactored metadata function. |
+| `./src/*.py`                 | Changed raise SystemExit(22) to sys.exit(1). |
+| `./src/rapid2/*.py`          | Changed raise SystemExit(22) to sys.exit(1). |
 
 ### Removed
 
