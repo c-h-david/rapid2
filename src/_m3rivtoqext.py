@@ -49,7 +49,7 @@ def main() -> None:
     # Skip if file already exists
     # -------------------------------------------------------------------------
     if os.path.isfile(Qex_ncf):
-        print('WARNING: Output file exists. Skipping without error.')
+        print(f'WARNING - File already exists {Qex_ncf}. Exit without error')
         sys.exit(0)
 
     # -------------------------------------------------------------------------
@@ -58,27 +58,27 @@ def main() -> None:
     d = netCDF4.Dataset(m3r_ncf, 'r')
 
     if 'm3_riv' not in d.variables:
-        print('ERROR - m3_riv variable does not exist in ' + m3r_ncf)
+        print(f'ERROR - m3_riv variable does not exist in {m3r_ncf}')
         sys.exit(1)
 
     if 'rivid' not in d.variables:
-        print('ERROR - rivid variable does not exist in ' + m3r_ncf)
+        print(f'ERROR - rivid variable does not exist in {m3r_ncf}')
         sys.exit(1)
 
     if 'lon' not in d.variables:
-        print('ERROR - lon variable does not exist in ' + m3r_ncf)
+        print(f'ERROR - lon variable does not exist in {m3r_ncf}')
         sys.exit(1)
 
     if 'lat' not in d.variables:
-        print('ERROR - lat variable does not exist in ' + m3r_ncf)
+        print(f'ERROR - lat variable does not exist in {m3r_ncf}')
         sys.exit(1)
 
     if 'time' not in d.variables:
-        print('ERROR - time variable does not exist in ' + m3r_ncf)
+        print(f'ERROR - time variable does not exist in {m3r_ncf}')
         sys.exit(1)
 
     if 'time_bnds' not in d.variables:
-        print('ERROR - time_bnds variable does not exist in ' + m3r_ncf)
+        print(f'ERROR - time_bnds variable does not exist in {m3r_ncf}')
         sys.exit(1)
 
     IV_m3r_tot = d.variables['rivid'][:]

@@ -58,7 +58,7 @@ def con_vec(
                 IV_riv_tot = np.append(IV_riv_tot, np.int32(row[0]))
                 IV_dwn_tot = np.append(IV_dwn_tot, np.int32(row[1]))
     except IOError:
-        print('ERROR - Unable to open '+con_csv)
+        print(f'ERROR - Unable to open {con_csv}')
         sys.exit(1)
 
     return IV_riv_tot, IV_dwn_tot

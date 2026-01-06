@@ -98,9 +98,10 @@ def chk_top(
         IS_dwn = IV_dwn_tot[JS_riv_tot]
         if IS_dwn != 0:
             if IS_dwn in IM_hsh_bas and IS_riv not in IM_hsh_bas:
-                print('WARNING - connectivity: ' + str(IS_riv) +
-                      ' is upstream of ' + str(IS_dwn) +
-                      ' but is not in basin file')
+                print(f'WARNING - connectivity: {IS_riv} '
+                      f'is upstream of {IS_dwn} '
+                      f'but is not in basin file'
+                      )
 
     # -------------------------------------------------------------------------
     # Check for missing connections downstream
@@ -109,9 +110,10 @@ def chk_top(
         IS_dwn = IV_dwn_tot[IM_hsh_tot[IS_riv]]
         if IS_dwn != 0:
             if IS_dwn not in IM_hsh_bas:
-                print('WARNING - connectivity: ' + str(IS_dwn) +
-                      ' is downstream of ' + str(IS_riv) +
-                      ' but is not in basin file')
+                print(f'WARNING - connectivity: {IS_dwn} '
+                      f'is downstream of {IS_riv} '
+                      f'but is not in basin file'
+                      )
 
     # -------------------------------------------------------------------------
     # Check sorting from upstream to downstream

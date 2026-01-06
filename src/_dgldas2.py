@@ -65,7 +65,7 @@ def main() -> None:
     YS_cmb = os.path.join(dir_str, fil_str)
 
     if os.path.exists(YS_cmb):
-        print(f'WARNING: File already exists: {YS_cmb}. Exiting without error')
+        print(f'WARNING - File already exists {YS_cmb}. Exit without error')
         sys.exit(0)
 
     # -------------------------------------------------------------------------
@@ -112,18 +112,19 @@ def main() -> None:
         YS_loc = os.path.join(dir_str, YS_rem)
 
         if not os.path.exists(YS_loc):
-            print('ERROR: file not downloaded:', YS_loc)
+            print(f'ERROR - file not downloaded: {YS_loc}')
             sys.exit(1)
         else:
             ZS_loc = os.path.getsize(YS_loc)/1024**2
             YV_loc.append(YS_loc)
 
         if abs(ZS_rem-ZS_loc) >= 1e-15:
-            print('ERROR:',
-                  'Remote file', YS_rem,
-                  'Local file', YS_loc,
-                  'Remote size', ZS_rem,
-                  'Local size', ZS_loc)
+            print(f'ERROR - '
+                  f'Remote file {YS_rem}, '
+                  f'Local file {YS_loc}, '
+                  f'Remote size {ZS_rem}, '
+                  f'Local size {ZS_loc}'
+                  )
             sys.exit(1)
 
     # -------------------------------------------------------------------------

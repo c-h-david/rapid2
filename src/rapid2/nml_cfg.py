@@ -99,7 +99,7 @@ def nml_cfg(
         return nml_dic
 
     except IOError:
-        print('ERROR - Unable to open '+nml_yml)
+        print(f'ERROR - Unable to open {nml_yml}')
         sys.exit(1)
 
 

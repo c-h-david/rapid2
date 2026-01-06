@@ -77,7 +77,7 @@ def main() -> None:
     Qex_ncf = os.path.join(dir_str, fil_str)
 
     if os.path.exists(Qex_ncf):
-        print(f'WARNING: File already exists: {Qex_ncf}. Exit without error')
+        print(f'WARNING - File already exists {Qex_ncf}. Exit without error')
         sys.exit(0)
 
     # -------------------------------------------------------------------------

@@ -64,7 +64,7 @@ def crd_vec(
                 ZV_lon_tot = np.append(ZV_lon_tot, np.float64(row[1]))
                 ZV_lat_tot = np.append(ZV_lat_tot, np.float64(row[2]))
     except IOError:
-        print('ERROR - Unable to open '+crd_csv)
+        print(f'ERROR - Unable to open {crd_csv}')
         sys.exit(1)
 
     return IV_riv_tot, ZV_lon_tot, ZV_lat_tot

@@ -49,7 +49,7 @@ def main() -> None:
     # Skip if file already exists
     # -------------------------------------------------------------------------
     if os.path.isfile(Q00_ncf):
-        print('WARNING: Output file exists. Skipping without error.')
+        print(f'WARNING - File already exists {Q00_ncf}. Exit without error')
         sys.exit(0)
 
     # -------------------------------------------------------------------------
@@ -58,19 +58,19 @@ def main() -> None:
     f = netCDF4.Dataset(Qex_ncf, 'r')
 
     if 'rivid' not in f.variables:
-        print('ERROR - rivid variable does not exist in ' + Qex_ncf)
+        print(f'ERROR - rivid variable does not exist in {Qex_ncf}')
         sys.exit(1)
 
     if 'lon' not in f.variables:
-        print('ERROR - lon variable does not exist in ' + Qex_ncf)
+        print(f'ERROR - lon variable does not exist in {Qex_ncf}')
         sys.exit(1)
 
     if 'lat' not in f.variables:
-        print('ERROR - lat variable does not exist in ' + Qex_ncf)
+        print(f'ERROR - lat variable does not exist in {Qex_ncf}')
         sys.exit(1)
 
     if 'time' not in f.variables:
-        print('ERROR - time variable does not exist in ' + Qex_ncf)
+        print(f'ERROR - time variable does not exist in {Qex_ncf}')
         sys.exit(1)
 
     IV_Qex_tot = f.variables['rivid'][:]

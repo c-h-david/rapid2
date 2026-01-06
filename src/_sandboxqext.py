@@ -57,7 +57,7 @@ def main() -> None:
     # Skip if file already exists
     # -------------------------------------------------------------------------
     if os.path.isfile(Qex_ncf):
-        print('WARNING: Output file exists. Skipping without error.')
+        print(f'WARNING - File already exists {Qex_ncf}. Exit without error')
         sys.exit(0)
 
     # -------------------------------------------------------------------------
@@ -78,11 +78,11 @@ def main() -> None:
     # Check size of provided mean and amplitude arrays
     # -------------------------------------------------------------------------
     if len(ZV_mea) != IS_riv_tot:
-        print('ERROR: Mean array not of size 5.')
+        print('ERROR - Mean array not of size 5.')
         sys.exit(1)
 
     if len(ZV_amp) != IS_riv_tot:
-        print('ERROR: Amplitude array not of size 5.')
+        print('ERROR - Amplitude array not of size 5.')
         sys.exit(1)
 
     # -------------------------------------------------------------------------

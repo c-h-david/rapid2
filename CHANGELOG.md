@@ -248,6 +248,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/*.py`          | Changed raise SystemExit(22) to sys.exit(1). |
 | `./src/*.py`                 | Added import sys. |
 | `./src/rapid2/*.py`          | Added import sys. |
+| `./src/*.py`                 | Used f-strings in warnings and errors. |
+| `./src/rapid2/*.py`          | Used f-strings in warnings and errors. |
 
 ### Removed
 
