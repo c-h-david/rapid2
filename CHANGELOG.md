@@ -252,6 +252,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/*.py`          | Used f-strings in warnings and errors. |
 | `./src/*.py`                 | Used f-strings in print statements. |
 | `./src/rapid2/*.py`          | Used f-strings in print statements. |
+| `./src/_sandboxqext.py`      | Fixed typo. |
 
 ### Removed
 

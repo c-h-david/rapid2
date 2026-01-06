@@ -49,7 +49,7 @@ def main() -> None:
     Qex_ncf = args.output
 
     print('Creating (from/to):')
-    print(f' - [ZV_mea}')
+    print(f' - {ZV_mea}')
     print(f' - {ZV_amp}')
     print(f' - {Qex_ncf}')
 
