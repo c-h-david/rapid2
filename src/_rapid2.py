@@ -133,13 +133,22 @@ def main() -> None:
     # Run simulations
     # -------------------------------------------------------------------------
     for JS_Qex_tim in range(IS_Qex_tim):
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Compute Qout
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         ZV_Qex_avg = f.variables['Qext'][JS_Qex_tim][IV_bas_tot]
 
         ZV_Qou_avg, ZV_Qou_fin = mus_rte(ZM_Lin, ZM_Qex, ZM_Qou, IS_mus,
                                          ZV_Qou_ini, ZV_Qex_avg)
         ZV_Qou_ini = ZV_Qou_fin
 
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Populate Qout, time, and time_bnds
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         g.variables['Qout'][JS_Qex_tim, :] = ZV_Qou_avg[:]
+        g.variables['time'][JS_Qex_tim] = IV_Qex_tim[JS_Qex_tim]
+        g.variables['time_bnds'][JS_Qex_tim, :] = IM_Qex_tim[JS_Qex_tim, :]
 
     # -------------------------------------------------------------------------
     # Save final discharge state
