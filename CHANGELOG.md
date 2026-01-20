@@ -254,6 +254,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/*.py`          | Used f-strings in print statements. |
 | `./src/_sandboxqext.py`      | Fixed typo. |
 | `./src/_cmpncf.py`           | Added comparison of metadata. |
+| `./src/_cmpncf.py`           | Added comparison of main variable. |
 
 ### Removed
 
