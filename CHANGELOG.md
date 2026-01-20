@@ -256,6 +256,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_cmpncf.py`           | Added comparison of metadata. |
 | `./src/_cmpncf.py`           | Added comparison of main variable. |
 | `./src/_rapid2.py`           | Fixed bug: populate time and time bounds. |
+| `./src/_cmpncf.py`           | Fixed bug: check actual presence of mask. |
 
 ### Removed
 

@@ -116,6 +116,9 @@ def main() -> None:
     if np.array_equal(IV_tim_old, IV_tim_new):
         print('The time values are the same')
     else:
+        print(IV_tim_old)
+        print('-------')
+        print(IV_tim_new)
         print('ERROR - The time values differ')
         sys.exit(1)
 
@@ -180,11 +183,11 @@ def main() -> None:
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Converting masked values to -9999
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        if isinstance(ZV_old, MaskedArray):
+        if isinstance(ZV_old, MaskedArray) and np.any(ZV_old.mask):
             ZV_old = ZV_old.filled(fill_value=-9999)  # type: ignore
             # 'filled triggers mypy
             BS_msk_old = True
-        if isinstance(ZV_new, MaskedArray):
+        if isinstance(ZV_new, MaskedArray) and np.any(ZV_new.mask):
             ZV_new = ZV_new.filled(fill_value=-9999)  # type: ignore
             # 'filled triggers mypy
             BS_msk_new = True
