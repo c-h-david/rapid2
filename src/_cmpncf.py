@@ -116,9 +116,6 @@ def main() -> None:
     if np.array_equal(IV_tim_old, IV_tim_new):
         print('The time values are the same')
     else:
-        print(IV_tim_old)
-        print('-------')
-        print(IV_tim_new)
         print('ERROR - The time values differ')
         sys.exit(1)
 

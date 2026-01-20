@@ -258,6 +258,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_rapid2.py`           | Fixed bug: populate time and time bounds. |
 | `./src/_cmpncf.py`           | Fixed bug: check actual presence of mask. |
 | `./pyproject.toml`           | Added cmpncf executable. |
+| `./src/_cmpncf.py`           | Removed unnecessary runtime log. |
 
 ### Removed
 
