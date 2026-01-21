@@ -195,7 +195,7 @@ For sensitive matters that cannot be shared publicly, contact
 [URL_GHA_CL]: https://github.com/c-h-david/rapid2/actions/workflows/CL.yml
 [URL_GHA_CI]: https://github.com/c-h-david/rapid2/actions/workflows/CI.yml
 [URL_GHA_CD]: https://github.com/c-h-david/rapid2/actions/workflows/CD.yml
-[URL_DKRIMG]: https://hub.docker.com/r/chdavid/rapid/tags
+[URL_DKRIMG]: https://hub.docker.com/r/chdavid/rapid2/tags
 
 [URL_RAPHUB]: http://rapid-hub.org/
 [URL_DISCUS]: https://github.com/c-h-david/rapid2/discussions

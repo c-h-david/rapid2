@@ -259,6 +259,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_cmpncf.py`           | Fixed bug: check actual presence of mask. |
 | `./pyproject.toml`           | Added cmpncf executable. |
 | `./src/_cmpncf.py`           | Removed unnecessary runtime log. |
+| `./README.md`                | Fixed URL for Docker images. |
 
 ### Removed
 
