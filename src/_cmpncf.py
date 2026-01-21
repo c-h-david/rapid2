@@ -141,6 +141,8 @@ def main() -> None:
         else:
             print('ERROR - The time_bnds values differ')
             sys.exit(1)
+    else:
+        print(f'WARNING - time_bnds variable missing: skipping comparison')
 
     # -------------------------------------------------------------------------
     # Get main variable in netCDF files

@@ -263,6 +263,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_cmpncf.py`           | Made time bounds optional where appropriate. |
 | `./src/_rapid2.py`           | Made time bounds optional where appropriate. |
 | `./src/rapid2/Qex_mdt.py`    | Made time bounds optional where appropriate. |
+| `./src/_cmpncf.py`           | Added warning when time bounds missing. |
 
 ### Removed
 
