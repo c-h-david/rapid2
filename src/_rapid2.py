@@ -93,6 +93,10 @@ def main() -> None:
      IV_Qex_tim, IM_Qex_tim,
      ) = Qex_mdt(Qex_ncf)
 
+    if IM_Qex_tim is None:
+        print('ERROR - Qex_mdt returned None for IM_Qex_tim')
+        sys.exit(1)
+
     IS_Qex_tim = len(IV_Qex_tim)
     IS_TaR = IM_Qex_tim[0, 1] - IM_Qex_tim[0, 0]
     # Using IM_Qex_tim rather than IV_Qex_tim which may have only one timestep

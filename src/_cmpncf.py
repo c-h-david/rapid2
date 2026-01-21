@@ -113,18 +113,6 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Compare other metadata values
     # -------------------------------------------------------------------------
-    if np.array_equal(IV_tim_old, IV_tim_new):
-        print('The time values are the same')
-    else:
-        print('ERROR - The time values differ')
-        sys.exit(1)
-
-    if np.array_equal(IM_tim_old, IM_tim_new):
-        print('The time_bnds values are the same')
-    else:
-        print('ERROR - The time_bnds values differ')
-        sys.exit(1)
-
     if np.array_equal(ZV_lon_old, ZV_lon_new):
         print('The longitude values are the same')
     else:
@@ -136,6 +124,23 @@ def main() -> None:
     else:
         print('ERROR - The latitude values differ')
         sys.exit(1)
+
+    if np.array_equal(IV_tim_old, IV_tim_new):
+        print('The time values are the same')
+    else:
+        print('ERROR - The time values differ')
+        sys.exit(1)
+
+    if (IM_tim_old is None) != (IM_tim_new is None):
+        print('ERROR - time_bnds present in only one file')
+        sys.exit(1)
+
+    if (IM_tim_old is not None) and (IM_tim_new is not None):
+        if np.array_equal(IM_tim_old, IM_tim_new):
+            print('The time_bnds values are the same')
+        else:
+            print('ERROR - The time_bnds values differ')
+            sys.exit(1)
 
     # -------------------------------------------------------------------------
     # Get main variable in netCDF files

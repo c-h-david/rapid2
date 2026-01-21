@@ -260,6 +260,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./pyproject.toml`           | Added cmpncf executable. |
 | `./src/_cmpncf.py`           | Removed unnecessary runtime log. |
 | `./README.md`                | Fixed URL for Docker images. |
+| `./src/_cmpncf.py`           | Made time bounds optional where appropriate. |
+| `./src/_rapid2.py`           | Made time bounds optional where appropriate. |
+| `./src/rapid2/Qex_mdt.py`    | Made time bounds optional where appropriate. |
 
 ### Removed
 

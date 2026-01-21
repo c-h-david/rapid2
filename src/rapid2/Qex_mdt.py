@@ -10,6 +10,7 @@
 # *****************************************************************************
 # Import Python modules
 # *****************************************************************************
+from typing import Optional
 import numpy as np
 import numpy.typing as npt
 import netCDF4  # type: ignore[import-untyped]
@@ -26,7 +27,7 @@ def Qex_mdt(
                        npt.NDArray[np.float64],
                        npt.NDArray[np.float64],
                        npt.NDArray[np.int32],
-                       npt.NDArray[np.int32],
+                       Optional[npt.NDArray[np.int32]],
                        ]:
     '''Get metadata from a RAPID netCDF file.
 
@@ -128,10 +129,6 @@ def Qex_mdt(
         print(f'ERROR - time variable does not exist in {fil_ncf}')
         sys.exit(1)
 
-    if 'time_bnds' not in f.variables:
-        print(f'ERROR - time_bnds variable does not exist in {fil_ncf}')
-        sys.exit(1)
-
     if 'Qext' not in f.variables and 'Qout' not in f.variables:
         print(f'ERROR - No known main variable exist in {fil_ncf}')
         sys.exit(1)
@@ -155,9 +152,12 @@ def Qex_mdt(
     IV_Qex_tim = np.array(IV_tmp, dtype=np.int32)
     # Retrieving variables in two steps to better inform mypy
 
-    IM_tmp = f.variables['time_bnds'][:].filled()
-    IM_Qex_tim = np.array(IM_tmp, dtype=np.int32)
-    # Retrieving variables in two steps to better inform mypy
+    if 'time_bnds' in f.variables:
+        IM_tmp = f.variables['time_bnds'][:].filled()
+        IM_Qex_tim = np.array(IM_tmp, dtype=np.int32)
+        # Retrieving variables in two steps to better inform mypy
+    else:
+        IM_Qex_tim = None
 
     return IV_Qex_tot, ZV_lon_tot, ZV_lat_tot, IV_Qex_tim, IM_Qex_tim
 
