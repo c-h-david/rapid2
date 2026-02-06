@@ -57,23 +57,57 @@ def k_x_vec(
      array([0.25, 0.25, 0.25, 0.25, 0.25]))
     '''
 
-    ZV_kpr_tot = np.empty(0, dtype=np.float64)
+    # -------------------------------------------------------------------------
+    # Count the number of elements
+    # -------------------------------------------------------------------------
+    try:
+        with open(kpr_csv, 'r') as csvfile:
+            IS_riv_tot = sum(1 for _ in csvfile)
+    except IOError:
+        print(f'ERROR - Unable to open {kpr_csv}')
+        sys.exit(1)
+
+    # -------------------------------------------------------------------------
+    # Allocate array sizes
+    # -------------------------------------------------------------------------
+    ZV_kpr_tot = np.empty(IS_riv_tot, dtype=np.float64)
+
+    # -------------------------------------------------------------------------
+    # Populate arrays
+    # -------------------------------------------------------------------------
     try:
         with open(kpr_csv, 'r') as csvfile:
             csvreader = csv.reader(csvfile)
-            for row in csvreader:
-                ZV_kpr_tot = np.append(ZV_kpr_tot, np.float64(row[0]))
+            for JS_riv_tot, row in enumerate(csvreader):
+                ZV_kpr_tot[JS_riv_tot] = np.float64(row[0])
     except IOError:
         print(f'ERROR - Unable to open {kpr_csv}')
         sys.exit(1)
     ZV_kpr_bas = ZV_kpr_tot[IV_bas_tot]
 
-    ZV_xpr_tot = np.empty(0, dtype=np.float64)
+    # -------------------------------------------------------------------------
+    # Count the number of elements
+    # -------------------------------------------------------------------------
+    try:
+        with open(xpr_csv, 'r') as csvfile:
+            IS_riv_tot = sum(1 for _ in csvfile)
+    except IOError:
+        print(f'ERROR - Unable to open {xpr_csv}')
+        sys.exit(1)
+
+    # -------------------------------------------------------------------------
+    # Allocate array sizes
+    # -------------------------------------------------------------------------
+    ZV_xpr_tot = np.empty(IS_riv_tot, dtype=np.float64)
+
+    # -------------------------------------------------------------------------
+    # Populate arrays
+    # -------------------------------------------------------------------------
     try:
         with open(xpr_csv, 'r') as csvfile:
             csvreader = csv.reader(csvfile)
-            for row in csvreader:
-                ZV_xpr_tot = np.append(ZV_xpr_tot, np.float64(row[0]))
+            for JS_riv_tot, row in enumerate(csvreader):
+                ZV_xpr_tot[JS_riv_tot] = np.float64(row[0])
     except IOError:
         print(f'ERROR - Unable to open {xpr_csv}')
         sys.exit(1)

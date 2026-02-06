@@ -266,6 +266,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_cmpncf.py`           | Added warning when time bounds missing. |
 | `./src/rapid2/Qex_mdt.py`    | Moved checks on nv dimension. |
 | `./src/_cmpncf.py`           | Fixed f-string. |
+| `./src/rapid2/bas_vec.py`    | Counted rows first for better allocation. |
+| `./src/rapid2/con_vec.py`    | Counted rows first for better allocation. |
+| `./src/rapid2/cpl_vec.py`    | Counted rows first for better allocation. |
+| `./src/rapid2/crd_vec.py`    | Counted rows first for better allocation. |
+| `./src/rapid2/k_x_vec.py`    | Counted rows first for better allocation. |
 
 ### Removed
 

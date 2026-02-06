@@ -57,18 +57,35 @@ def cpl_vec(
      array([2, 2, 2, 1, 1], dtype=int32))
     '''
 
-    IV_riv_tot = np.empty(0, dtype=np.int32)
-    ZV_riv_skm = np.empty(0, dtype=np.float64)
-    IV_riv_1bi = np.empty(0, dtype=np.int32)
-    IV_riv_1bj = np.empty(0, dtype=np.int32)
+    # -------------------------------------------------------------------------
+    # Count the number of elements
+    # -------------------------------------------------------------------------
+    try:
+        with open(cpl_csv, 'r') as csvfile:
+            IS_riv_tot = sum(1 for _ in csvfile)
+    except IOError:
+        print(f'ERROR - Unable to open {cpl_csv}')
+        sys.exit(1)
+
+    # -------------------------------------------------------------------------
+    # Allocate array sizes
+    # -------------------------------------------------------------------------
+    IV_riv_tot = np.empty(IS_riv_tot, dtype=np.int32)
+    ZV_riv_skm = np.empty(IS_riv_tot, dtype=np.float64)
+    IV_riv_1bi = np.empty(IS_riv_tot, dtype=np.int32)
+    IV_riv_1bj = np.empty(IS_riv_tot, dtype=np.int32)
+
+    # -------------------------------------------------------------------------
+    # Populate arrays
+    # -------------------------------------------------------------------------
     try:
         with open(cpl_csv, 'r') as csvfile:
             csvreader = csv.reader(csvfile)
-            for row in csvreader:
-                IV_riv_tot = np.append(IV_riv_tot, np.int32(row[0]))
-                ZV_riv_skm = np.append(ZV_riv_skm, np.float64(row[1]))
-                IV_riv_1bi = np.append(IV_riv_1bi, np.int32(row[2]))
-                IV_riv_1bj = np.append(IV_riv_1bj, np.int32(row[3]))
+            for JS_riv_tot, row in enumerate(csvreader):
+                IV_riv_tot[JS_riv_tot] = np.int32(row[0])
+                ZV_riv_skm[JS_riv_tot] = np.float64(row[1])
+                IV_riv_1bi[JS_riv_tot] = np.int32(row[2])
+                IV_riv_1bj[JS_riv_tot] = np.int32(row[3])
     except IOError:
         print(f'ERROR - Unable to open {cpl_csv}')
         sys.exit(1)

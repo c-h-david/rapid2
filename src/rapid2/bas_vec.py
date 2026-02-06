@@ -43,12 +43,29 @@ def bas_vec(
     array([10, 20, 30, 40, 50], dtype=int32)
     '''
 
-    IV_riv_bas = np.empty(0, dtype=np.int32)
+    # -------------------------------------------------------------------------
+    # Count the number of elements
+    # -------------------------------------------------------------------------
+    try:
+        with open(bas_csv, 'r') as csvfile:
+            IS_riv_bas = sum(1 for _ in csvfile)
+    except IOError:
+        print(f'ERROR - Unable to open {bas_csv}')
+        sys.exit(1)
+
+    # -------------------------------------------------------------------------
+    # Allocate array sizes
+    # -------------------------------------------------------------------------
+    IV_riv_bas = np.empty(IS_riv_bas, dtype=np.int32)
+
+    # -------------------------------------------------------------------------
+    # Populate arrays
+    # -------------------------------------------------------------------------
     try:
         with open(bas_csv, 'r') as csvfile:
             csvreader = csv.reader(csvfile)
-            for row in csvreader:
-                IV_riv_bas = np.append(IV_riv_bas, np.int32(row[0]))
+            for JS_riv_bas, row in enumerate(csvreader):
+                IV_riv_bas[JS_riv_bas] = np.int32(row[0])
     except IOError:
         print(f'ERROR - Unable to open {bas_csv}')
         sys.exit(1)
