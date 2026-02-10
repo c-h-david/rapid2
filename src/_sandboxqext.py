@@ -15,6 +15,8 @@ import os
 import sys
 import netCDF4  # type: ignore[import-untyped]
 import numpy as np
+
+from rapid2 import __version__
 from rapid2.Qex_new import Qex_new
 
 
@@ -26,7 +28,15 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Initialize the argument parser and add valid arguments
     # -------------------------------------------------------------------------
-    parser = argparse.ArgumentParser(description='Create Qext for sandbox')
+    parser = argparse.ArgumentParser(
+        description='Generate synthetic external inflow data for sandbox testing',
+        epilog='\nExamples:\n'
+               '  sandboxqext -m 10 20 30 40 50 -a 5 5 5 5 5 -o Qext_sandbox.nc\n'
+               '  sandboxqext --mean 10 20 30 40 50 --amplitude 5 5 5 5 5 --output Qext.nc\n'
+    )
+
+    parser.add_argument('--version', action='version',
+                        version=f'rapid2 {__version__}')
 
     parser.add_argument('-m', '--mean', type=float, required=True,
                         nargs=5,

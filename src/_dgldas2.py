@@ -16,6 +16,8 @@ import sys
 import earthaccess
 import netCDF4  # type: ignore[import-untyped]
 
+from rapid2 import __version__
+
 
 # *****************************************************************************
 # Main
@@ -25,7 +27,15 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Initialize the argument parser and add valid arguments
     # -------------------------------------------------------------------------
-    parser = argparse.ArgumentParser(description='Download GLDAS2 data')
+    parser = argparse.ArgumentParser(
+        description='Download and process GLDAS2 land surface model data from NASA',
+        epilog='\nExamples:\n'
+               '  dgldas2 -v 2.1 -m NOAH -t 2020-01 -d ./data -f gldas_2020_01.nc\n'
+               '  dgldas2 --vsn 2.1 --mod NOAH --tim 2020-01 --dir ./data --fil gldas.nc\n'
+    )
+
+    parser.add_argument('--version', action='version',
+                        version=f'rapid2 {__version__}')
 
     parser.add_argument('-v', '--vsn', type=str, required=True,
                         help='Specify the version number')

@@ -14,6 +14,8 @@ import argparse
 import os
 import sys
 import netCDF4  # type: ignore[import-untyped]
+
+from rapid2 import __version__
 from rapid2.Qex_new import Qex_new
 
 
@@ -25,7 +27,15 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Initialize the argument parser and add valid arguments
     # -------------------------------------------------------------------------
-    parser = argparse.ArgumentParser(description='Convert m3_riv to Qext')
+    parser = argparse.ArgumentParser(
+        description='Convert discharge volume (m3_riv) to external inflow rate (Qext)',
+        epilog='\nExamples:\n'
+               '  m3rivtoqext -i input_m3_riv.nc -o output_Qext.nc\n'
+               '  m3rivtoqext --input m3_riv.nc --output Qext.nc\n'
+    )
+
+    parser.add_argument('--version', action='version',
+                        version=f'rapid2 {__version__}')
 
     parser.add_argument('-i', '--input', type=str, required=True,
                         help='Specify the input m3_riv file')

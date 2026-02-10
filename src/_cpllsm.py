@@ -15,7 +15,9 @@ import os.path
 import sys
 import netCDF4  # type: ignore[import-untyped]
 import numpy as np
+from tqdm import tqdm
 
+from rapid2 import __version__
 from rapid2.con_vec import con_vec
 from rapid2.crd_vec import crd_vec
 from rapid2.cpl_vec import cpl_vec
@@ -32,7 +34,15 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Initialize the argument parser and add valid arguments
     # -------------------------------------------------------------------------
-    parser = argparse.ArgumentParser(description='LSM data to RAPID input')
+    parser = argparse.ArgumentParser(
+        description='Transform Land Surface Model data to RAPID external inflow input',
+        epilog='\nExamples:\n'
+               '  cpllsm -l gldas.nc -c connect.csv -p coords.csv -b binding.csv -d out/ -f result.nc\n'
+               '  cpllsm --lsm data.nc --con connect.csv --pos coords.csv --bnd bind.csv --dir output/ --fil Qext.nc\n'
+    )
+
+    parser.add_argument('--version', action='version',
+                        version=f'rapid2 {__version__}')
 
     parser.add_argument('-l', '--lsm', type=str, required=True,
                         help='Specify the LSM file')
@@ -204,23 +214,7 @@ def main() -> None:
     IV_riv_0bj = IV_riv_1bj3 - 1
     # Shift to 0-based indexing; entries becoming −1 have 0 area (chk_cpl.py).
 
-    thresholds = set(range(0, 101, 25))
-    # Define 25% thresholds from 0% to 100% included
-
-    for JS_lsm_tim in range(IS_lsm_tim):
-
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Print progress
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        JS_pct = int(100 * JS_lsm_tim / IS_lsm_tim)
-        if JS_pct in thresholds:
-            print(f' . Completed {JS_pct}%')
-            thresholds.remove(JS_pct)
-        # Print if JS_pct is in thresholds, remove after to print only once
-
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Print progress
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    for JS_lsm_tim in tqdm(range(IS_lsm_tim), desc="Processing LSM data"):
         ZM_lsm_rsf = c.variables['Qs_acc'][JS_lsm_tim][:][:]
         ZM_lsm_rsb = c.variables['Qsb_acc'][JS_lsm_tim][:][:]
         # netCDF data are stored following: c.variables[var][time][lat][lon]
@@ -240,8 +234,6 @@ def main() -> None:
         # Make sure the masked values are replaced by 0
         Qex[JS_lsm_tim, :] = ZV_riv_Qex[:]
         # netCDF data are stored following: g.variables[m3_riv][time][rivid]
-
-    print(' . Completed 100%')
 
     time[:] = c.variables['time'][:]
     time_bnds[:] = c.variables['time_bnds'][:]
