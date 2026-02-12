@@ -13,7 +13,9 @@
 import argparse
 import netCDF4  # type: ignore[import-untyped]
 import sys
+from tqdm import tqdm
 
+from rapid2 import __version__
 from rapid2.nml_cfg import nml_cfg
 from rapid2.con_vec import con_vec
 from rapid2.bas_vec import bas_vec
@@ -38,7 +40,15 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Initialize the argument parser and add valid arguments
     # -------------------------------------------------------------------------
-    parser = argparse.ArgumentParser(description='This is RAPID2')
+    parser = argparse.ArgumentParser(
+        description='Routing Application for Programmed Integration of Discharge (RAPID)',
+        epilog='\nExamples:\n'
+               '  rapid2 -nl namelist_Sandbox.yml\n'
+               '  rapid2 --namelist namelist_Sandbox.yml\n'
+    )
+
+    parser.add_argument('--version', action='version',
+                        version=f'rapid2 {__version__}')
 
     parser.add_argument('-nl', '--namelist', type=str, required=True,
                         help='Specify the namelist value')
@@ -136,7 +146,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Run simulations
     # -------------------------------------------------------------------------
-    for JS_Qex_tim in range(IS_Qex_tim):
+    for JS_Qex_tim in tqdm(range(IS_Qex_tim), desc="Computing discharge"):
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Compute Qout
