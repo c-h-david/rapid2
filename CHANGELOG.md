@@ -271,6 +271,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/cpl_vec.py`    | Counted rows first for better allocation. |
 | `./src/rapid2/crd_vec.py`    | Counted rows first for better allocation. |
 | `./src/rapid2/k_x_vec.py`    | Counted rows first for better allocation. |
+| `./requirement.pip`          | Added version, examples, progress to CLI. |
+| `./src/_cmpncf.py`           | Added version, examples, progress to CLI. |
+| `./src/_cpllsm.py`           | Added version, examples, progress to CLI. |
+| `./src/_dgldas2.py`          | Added version, examples, progress to CLI. |
+| `./src/_m3rivtoqext.py`      | Added version, examples, progress to CLI. |
+| `./src/_rapid2.py`           | Added version, examples, progress to CLI. |
+| `./src/_sandboxqext.py`      | Added version, examples, progress to CLI. |
+| `./src/_zeroqinit.py`        | Added version, examples, progress to CLI. |
+| `./src/rapid2/__init__.py`   | Added version, examples, progress to CLI. |
 
 ### Removed
 
