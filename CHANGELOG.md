@@ -280,6 +280,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_sandboxqext.py`      | Added version, examples, progress to CLI. |
 | `./src/_zeroqinit.py`        | Added version, examples, progress to CLI. |
 | `./src/rapid2/__init__.py`   | Added version, examples, progress to CLI. |
+| `./pyproject.toml`           | Changed version to 2.0.0-beta. |
 
 ### Removed
 

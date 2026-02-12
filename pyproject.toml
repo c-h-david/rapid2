@@ -18,7 +18,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "rapid2"
-version = "2.0.0"
+version = "2.0.0-beta"
 license = {file = "LICENSE"}
 description = "Routing Application for Programmed Integration of Discharge"
 authors = [{name = "Cedric H. David", email = "cedric.david@jpl.nasa.gov"}]
