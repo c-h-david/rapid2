@@ -291,6 +291,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_rapid2.py`           | Cleaned CLI part for line width. |
 | `./src/_sandboxqext.py`      | Cleaned CLI part for line width. |
 | `./src/_zeroqinit.py`        | Cleaned CLI part for line width. |
+| `./TESTING.md`               | Reorganized for consistency. |
 
 ### Removed
 
