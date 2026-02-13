@@ -284,6 +284,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./pyproject.toml`           | Used 2.0.0.dev1 as placeholder for now. |
 | `./.github/workflows/CI.yml` | Activated on PR. |
 | `./.github/workflows/CL.yml` | Activated on PR. |
+| `./src/_cmpncf.py`           | Cleaned CLI part for line width. |
+| `./src/_cpllsm.py`           | Cleaned CLI part for line width. |
+| `./src/_dgldas2.py`          | Cleaned CLI part for line width. |
+| `./src/_m3rivtoqext.py`      | Cleaned CLI part for line width. |
+| `./src/_rapid2.py`           | Cleaned CLI part for line width. |
+| `./src/_sandboxqext.py`      | Cleaned CLI part for line width. |
+| `./src/_zeroqinit.py`        | Cleaned CLI part for line width. |
 
 ### Removed
 
