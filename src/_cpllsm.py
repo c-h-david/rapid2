@@ -15,7 +15,7 @@ import os.path
 import sys
 import netCDF4  # type: ignore[import-untyped]
 import numpy as np
-from tqdm import tqdm
+from tqdm import tqdm  # type: ignore[import-untyped]
 
 from rapid2 import __version__
 from rapid2.con_vec import con_vec
@@ -35,10 +35,14 @@ def main() -> None:
     # Initialize the argument parser and add valid arguments
     # -------------------------------------------------------------------------
     parser = argparse.ArgumentParser(
-        description='Transform Land Surface Model data to RAPID external inflow input',
+        description='Transform Land Surface Model data to RAPID '
+                    'external inflow input',
         epilog='\nExamples:\n'
-               '  cpllsm -l gldas.nc -c connect.csv -p coords.csv -b binding.csv -d out/ -f result.nc\n'
-               '  cpllsm --lsm data.nc --con connect.csv --pos coords.csv --bnd bind.csv --dir output/ --fil Qext.nc\n'
+               '  cpllsm -l gldas.nc -c connect.csv -p coords.csv '
+               '-b binding.csv -d out/ -f result.nc\n'
+               '  cpllsm --lsm data.nc --con connect.csv '
+               '--pos coords.csv --bnd bind.csv --dir output/ '
+               '--fil Qext.nc\n'
     )
 
     parser.add_argument('--version', action='version',
