@@ -299,6 +299,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./pyproject.toml`           | Added ruff config section to pyproj.toml. |
 | `./.github/workflows/CL.yml` | Added ruff config section to pyproj.toml. |
 | `./requirement.pip`          | Added ruff config section to pyproj.toml. |
+| `./TESTING.md`               | Added info and link to pyproj.toml. |
 
 ### Removed
 

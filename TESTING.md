@@ -14,7 +14,7 @@ pymarkdown scan *.md
 ```
 
 > We enforce a maximum line width of 79 characters using the
-> [.pymarkdown.yml][URL_CFG_MD]
+> [`.pymarkdown.yml`][URL_CFG_MD]
 > configuration file.
 
 ### Yaml linter
@@ -26,7 +26,7 @@ yamllint .*.yml .github/*/*.yml
 ```
 
 > We enforce a maximum line width of 79 characters using the
-> [.yamllint.yml][URL_CFG_YM]
+> [`.yamllint.yml`][URL_CFG_YM]
 > configuration file.
 
 ### Dockerfile linter
@@ -66,7 +66,10 @@ We use `ruff` to lint our python files.
 ruff check .
 ```
 
-> The maximum line width is 79 characters by default.
+> We enforce a maximum line width of 79 characters and python version 3.11
+using the
+> [`pyproj.toml`][URL_CFG_PY]
+> configuration file.
 
 ### Python type checker
 
@@ -75,6 +78,10 @@ We use `mypy` to check dynamic and static typing.
 ```bash
 mypy .
 ```
+
+> We enforce strict typing and python version 3.11 using the
+> [`pyproj.toml`][URL_CFG_PY]
+> configuration file.
 
 ## Runtime testing
 
@@ -95,3 +102,4 @@ To be added.
 
 [URL_CFG_MD]: https://github.com/c-h-david/rapid2/blob/main/.pymarkdown.yml
 [URL_CFG_YM]: https://github.com/c-h-david/rapid2/blob/main/.yamllint.yml
+[URL_CFG_PY]: https://github.com/c-h-david/rapid2/blob/main/pyproj.toml
