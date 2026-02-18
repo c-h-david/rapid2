@@ -39,6 +39,13 @@ cmpncf = "_cmpncf:main"
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.pip"]}
 
+[tool.ruff]
+line-length = 79
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F"]
+
 [tool.mypy]
 python_version = "3.11"
 strict = true

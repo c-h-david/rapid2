@@ -60,10 +60,10 @@ awk 'length>79 {print FILENAME ":"FNR">79"; exit 1}' *.sh tst/*.sh
 
 ### Python linter
 
-We use `flake8` to lint our python files.
+We use `ruff` to lint our python files.
 
 ```bash
-flake8 src/*.py src/rapid2/*.py
+ruff check .
 ```
 
 > The maximum line width is 79 characters by default.
