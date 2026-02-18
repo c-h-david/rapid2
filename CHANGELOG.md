@@ -307,6 +307,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_*.py`                | Sorted imports. |
 | `./src/rapid2/*.py`          | Sorted imports. |
 | `./pyproject.toml`           | Added import sorting rules for linting. |
+| `./src/_*.py`                | Formatted with ruff. |
 
 ### Removed
 

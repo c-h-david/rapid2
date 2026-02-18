@@ -37,35 +37,54 @@ def main() -> None:
     # -------------------------------------------------------------------------
     parser = argparse.ArgumentParser(
         description='Transform Land Surface Model data to RAPID '
-                    'external inflow input',
+        'external inflow input',
         epilog='\nExamples:\n'
-               '  cpllsm -l gldas.nc -c connect.csv -p coords.csv '
-               '-b binding.csv -d out/ -f result.nc\n'
-               '  cpllsm --lsm data.nc --con connect.csv '
-               '--pos coords.csv --bnd bind.csv --dir output/ '
-               '--fil Qext.nc\n'
+        '  cpllsm -l gldas.nc -c connect.csv -p coords.csv '
+        '-b binding.csv -d out/ -f result.nc\n'
+        '  cpllsm --lsm data.nc --con connect.csv '
+        '--pos coords.csv --bnd bind.csv --dir output/ '
+        '--fil Qext.nc\n',
     )
 
-    parser.add_argument('--version', action='version',
-                        version=f'rapid2 {__version__}')
+    parser.add_argument(
+        '--version', action='version', version=f'rapid2 {__version__}'
+    )
 
-    parser.add_argument('-l', '--lsm', type=str, required=True,
-                        help='Specify the LSM file')
+    parser.add_argument(
+        '-l', '--lsm', type=str, required=True, help='Specify the LSM file'
+    )
 
-    parser.add_argument('-c', '--con', type=str, required=True,
-                        help='Specify the connectivity file')
+    parser.add_argument(
+        '-c',
+        '--con',
+        type=str,
+        required=True,
+        help='Specify the connectivity file',
+    )
 
-    parser.add_argument('-p', '--pos', type=str, required=True,
-                        help='Specify the position points (coordinates)')
+    parser.add_argument(
+        '-p',
+        '--pos',
+        type=str,
+        required=True,
+        help='Specify the position points (coordinates)',
+    )
 
-    parser.add_argument('-b', '--bnd', type=str, required=True,
-                        help='Specify the binding (coupling) file')
+    parser.add_argument(
+        '-b',
+        '--bnd',
+        type=str,
+        required=True,
+        help='Specify the binding (coupling) file',
+    )
 
-    parser.add_argument('-d', '--dir', type=str, required=True,
-                        help='Specify the directory')
+    parser.add_argument(
+        '-d', '--dir', type=str, required=True, help='Specify the directory'
+    )
 
-    parser.add_argument('-f', '--fil', type=str, required=True,
-                        help='Specify the file name')
+    parser.add_argument(
+        '-f', '--fil', type=str, required=True, help='Specify the file name'
+    )
 
     # -------------------------------------------------------------------------
     # Parse arguments and assign to variables
@@ -79,13 +98,14 @@ def main() -> None:
     dir_str = args.dir
     fil_str = args.fil
 
-    print(f'Transforming data from  {lsm_ncf} '
-          f'for {con_csv} '
-          f'with {pos_csv} '
-          f'and {bnd_csv} '
-          f'to {dir_str} '
-          f'as {fil_str}'
-          )
+    print(
+        f'Transforming data from  {lsm_ncf} '
+        f'for {con_csv} '
+        f'with {pos_csv} '
+        f'and {bnd_csv} '
+        f'to {dir_str} '
+        f'as {fil_str}'
+    )
 
     # -------------------------------------------------------------------------
     # Skip if file already exists
@@ -114,9 +134,9 @@ def main() -> None:
     IV_riv_tot1, IV_dwn_tot1 = con_vec(con_csv)
     IS_riv_tot1 = len(IV_riv_tot1)
     print(
-         '  . The number of river reaches in connectivity file is: '
-         f'{IS_riv_tot1}'
-         )
+        '  . The number of river reaches in connectivity file is: '
+        f'{IS_riv_tot1}'
+    )
 
     # -------------------------------------------------------------------------
     # Read coordinate file
@@ -126,9 +146,8 @@ def main() -> None:
     IV_riv_tot2, ZV_lon_tot2, ZV_lat_tot2 = crd_vec(pos_csv)
     IS_riv_tot2 = len(IV_riv_tot2)
     print(
-         '  . The number of river reaches in coordinate file is: '
-         f'{IS_riv_tot2}'
-         )
+        f'  . The number of river reaches in coordinate file is: {IS_riv_tot2}'
+    )
 
     # -------------------------------------------------------------------------
     # Read coupling file
@@ -138,9 +157,8 @@ def main() -> None:
     IV_riv_tot3, ZV_riv_skm3, IV_riv_1bi3, IV_riv_1bj3 = cpl_vec(bnd_csv)
     IS_riv_tot3 = len(IV_riv_tot3)
     print(
-         '  . The number of river reaches in coupling file is: '
-         f'{IS_riv_tot3}'
-         )
+        f'  . The number of river reaches in coupling file is: {IS_riv_tot3}'
+    )
 
     # -------------------------------------------------------------------------
     # Check that IDs are the same
@@ -210,7 +228,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     print('- Populate dynamic data')
 
-    ZV_riv_scl = 1000*ZV_riv_skm3
+    ZV_riv_scl = 1000 * ZV_riv_skm3
     # Scale by 1000: the multiplication of 0.001 m/mm and 1,000,000 m2/km2
 
     # TODO: check scaling for time step duration to make flow units.
@@ -219,11 +237,11 @@ def main() -> None:
     IV_riv_0bj = IV_riv_1bj3 - 1
     # Shift to 0-based indexing; entries becoming −1 have 0 area (chk_cpl.py).
 
-    for JS_lsm_tim in tqdm(range(IS_lsm_tim), desc="Processing LSM data"):
+    for JS_lsm_tim in tqdm(range(IS_lsm_tim), desc='Processing LSM data'):
         ZM_lsm_rsf = c.variables['Qs_acc'][JS_lsm_tim][:][:]
         ZM_lsm_rsb = c.variables['Qsb_acc'][JS_lsm_tim][:][:]
         # netCDF data are stored following: c.variables[var][time][lat][lon]
-        ZM_lsm_run = ZM_lsm_rsf+ZM_lsm_rsb
+        ZM_lsm_run = ZM_lsm_rsf + ZM_lsm_rsb
         # ZM_lsm_run is of type 'np.ma.core.MaskedArray' or 'np.ndarray'
         # The units of runoff in GLDAS2 are kg*m-2, which is equivalent to mm
 
@@ -231,7 +249,7 @@ def main() -> None:
         # This uses the multidimensional list-of-locations indexing capability.
         # All values at given i and j indices can be obtained by giving two
         # lists of j and i indices.
-        ZV_riv_Qex = ZV_riv_Qex*ZV_riv_scl
+        ZV_riv_Qex = ZV_riv_Qex * ZV_riv_scl
         # Scaling accounting for area and units.
 
         if isinstance(ZV_riv_Qex, np.ma.MaskedArray):

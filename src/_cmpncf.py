@@ -31,28 +31,51 @@ def main() -> None:
     # -------------------------------------------------------------------------
     parser = argparse.ArgumentParser(
         description='Compare RAPID output files for regression testing '
-                    'and validation',
+        'and validation',
         epilog='\nExamples:\n'
-               '  cmpncf -o old_output.nc -n new_output.nc '
-               '-r 0.01 -a 0.001\n'
-               '  cmpncf --old baseline.nc --new current.nc '
-               '--rel 1e-6 --abs 1e-9\n'
+        '  cmpncf -o old_output.nc -n new_output.nc '
+        '-r 0.01 -a 0.001\n'
+        '  cmpncf --old baseline.nc --new current.nc '
+        '--rel 1e-6 --abs 1e-9\n',
     )
 
-    parser.add_argument('--version', action='version',
-                        version=f'rapid2 {__version__}')
+    parser.add_argument(
+        '--version', action='version', version=f'rapid2 {__version__}'
+    )
 
-    parser.add_argument('-o', '--old', type=str, required=True,
-                        help='Specify the old netCDF file')
+    parser.add_argument(
+        '-o',
+        '--old',
+        type=str,
+        required=True,
+        help='Specify the old netCDF file',
+    )
 
-    parser.add_argument('-n', '--new', type=str, required=True,
-                        help='Specify the new netCDF file')
+    parser.add_argument(
+        '-n',
+        '--new',
+        type=str,
+        required=True,
+        help='Specify the new netCDF file',
+    )
 
-    parser.add_argument('-r', '--rel', type=str, required=False, default='0',
-                        help='Specify relative tolerance')
+    parser.add_argument(
+        '-r',
+        '--rel',
+        type=str,
+        required=False,
+        default='0',
+        help='Specify relative tolerance',
+    )
 
-    parser.add_argument('-a', '--abs', type=str, required=False, default='0',
-                        help='Specify the absolute tolerance')
+    parser.add_argument(
+        '-a',
+        '--abs',
+        type=str,
+        required=False,
+        default='0',
+        help='Specify the absolute tolerance',
+    )
 
     # -------------------------------------------------------------------------
     # Parse arguments and assign to variables
@@ -64,11 +87,12 @@ def main() -> None:
     rel_str = args.rel
     abs_str = args.abs
 
-    print(f'Comparing {old_ncf} '
-          f'with {new_ncf} '
-          f'relative tolerance {rel_str} '
-          f'absolute tolerance {abs_str}'
-          )
+    print(
+        f'Comparing {old_ncf} '
+        f'with {new_ncf} '
+        f'relative tolerance {rel_str} '
+        f'absolute tolerance {abs_str}'
+    )
 
     ZS_rtl = np.float64(rel_str)
     ZS_atl = np.float64(abs_str)
@@ -76,13 +100,21 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Get metadata in netCDF files
     # -------------------------------------------------------------------------
-    (IV_riv_old, ZV_lon_old, ZV_lat_old,
-     IV_tim_old, IM_tim_old,
-     ) = Qex_mdt(old_ncf)
+    (
+        IV_riv_old,
+        ZV_lon_old,
+        ZV_lat_old,
+        IV_tim_old,
+        IM_tim_old,
+    ) = Qex_mdt(old_ncf)
 
-    (IV_riv_new, ZV_lon_new, ZV_lat_new,
-     IV_tim_new, IM_tim_new,
-     ) = Qex_mdt(new_ncf)
+    (
+        IV_riv_new,
+        ZV_lon_new,
+        ZV_lat_new,
+        IV_tim_new,
+        IM_tim_new,
+    ) = Qex_mdt(new_ncf)
 
     # -------------------------------------------------------------------------
     # Compare dimension sizes
@@ -91,18 +123,20 @@ def main() -> None:
         IS_riv_tot = len(IV_riv_old)
         print(f'Common number of river reaches: {IS_riv_tot}')
     else:
-        print(f'ERROR - The number of river reaches differs: '
-              f'{len(IV_riv_old)} <> {len(IV_riv_new)}'
-              )
+        print(
+            f'ERROR - The number of river reaches differs: '
+            f'{len(IV_riv_old)} <> {len(IV_riv_new)}'
+        )
         sys.exit(1)
 
     if len(IV_tim_old) == len(IV_tim_new):
         IS_tim = len(IV_tim_old)
         print(f'Common number of time steps   : {IS_tim}')
     else:
-        print(f'ERROR - The number of time steps differs: '
-              f'{len(IV_tim_old)} <> {len(IV_tim_new)}'
-              )
+        print(
+            f'ERROR - The number of time steps differs: '
+            f'{len(IV_tim_old)} <> {len(IV_tim_new)}'
+        )
         sys.exit(1)
 
     # -------------------------------------------------------------------------
@@ -216,12 +250,12 @@ def main() -> None:
         # Also tried using map(operator.sub,V,W) or [x-y for x,y in zip(V,W)],
         # but this still results in slow computations.
         # The best performance seems to be with Numpy.
-        ZV_mag_dif = np.absolute(ZV_old-ZV_new)
+        ZV_mag_dif = np.absolute(ZV_old - ZV_new)
         ZS_adf_max = max(np.max(ZV_mag_dif), ZS_adf_max)
 
-        ZS_rdf = np.sqrt(np.sum(ZV_mag_dif*ZV_mag_dif)
-                         / np.sum(ZV_old*ZV_old)
-                         )
+        ZS_rdf = np.sqrt(
+            np.sum(ZV_mag_dif * ZV_mag_dif) / np.sum(ZV_old * ZV_old)
+        )
         ZS_rdf_max = max(ZS_rdf, ZS_rdf_max)
 
     # ------------------------------------------------------------------------
@@ -234,8 +268,8 @@ def main() -> None:
     if BS_msk_old or BS_msk_new:
         print('-------------------------------')
 
-    print('Max relative difference       :'+'{0:.2e}'.format(ZS_rdf_max))
-    print('Max absolute difference       :'+'{0:.2e}'.format(ZS_adf_max))
+    print('Max relative difference       :' + '{0:.2e}'.format(ZS_rdf_max))
+    print('Max absolute difference       :' + '{0:.2e}'.format(ZS_adf_max))
     print('-------------------------------')
 
     if ZS_rdf_max > ZS_rtl:

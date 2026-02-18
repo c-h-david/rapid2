@@ -43,17 +43,23 @@ def main() -> None:
     # -------------------------------------------------------------------------
     parser = argparse.ArgumentParser(
         description='Routing Application for Programmed Integration '
-                    'of Discharge (RAPID)',
+        'of Discharge (RAPID)',
         epilog='\nExamples:\n'
-               '  rapid2 -nl namelist_Sandbox.yml\n'
-               '  rapid2 --namelist namelist_Sandbox.yml\n'
+        '  rapid2 -nl namelist_Sandbox.yml\n'
+        '  rapid2 --namelist namelist_Sandbox.yml\n',
     )
 
-    parser.add_argument('--version', action='version',
-                        version=f'rapid2 {__version__}')
+    parser.add_argument(
+        '--version', action='version', version=f'rapid2 {__version__}'
+    )
 
-    parser.add_argument('-nl', '--namelist', type=str, required=True,
-                        help='Specify the namelist value')
+    parser.add_argument(
+        '-nl',
+        '--namelist',
+        type=str,
+        required=True,
+        help='Specify the namelist value',
+    )
 
     # -------------------------------------------------------------------------
     # Parse arguments and assign to variables
@@ -101,9 +107,13 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Extract metadata of external inflow, get time step correspondance
     # -------------------------------------------------------------------------
-    (IV_Qex_tot, ZV_lon_tot, ZV_lat_tot,
-     IV_Qex_tim, IM_Qex_tim,
-     ) = Qex_mdt(Qex_ncf)
+    (
+        IV_Qex_tot,
+        ZV_lon_tot,
+        ZV_lat_tot,
+        IV_Qex_tim,
+        IM_Qex_tim,
+    ) = Qex_mdt(Qex_ncf)
 
     if IM_Qex_tim is None:
         print('ERROR - Qex_mdt returned None for IM_Qex_tim')
@@ -128,8 +138,12 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Populate metadata for discharge output files
     # -------------------------------------------------------------------------
-    Qou_new(IV_riv_tot[IV_bas_tot], ZV_lon_tot[IV_bas_tot],
-            ZV_lat_tot[IV_bas_tot], Qou_ncf)
+    Qou_new(
+        IV_riv_tot[IV_bas_tot],
+        ZV_lon_tot[IV_bas_tot],
+        ZV_lat_tot[IV_bas_tot],
+        Qou_ncf,
+    )
     Qfi_new(IV_Qex_tot, ZV_lon_tot, ZV_lat_tot, Qfi_ncf)
 
     # -------------------------------------------------------------------------
@@ -148,15 +162,15 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Run simulations
     # -------------------------------------------------------------------------
-    for JS_Qex_tim in tqdm(range(IS_Qex_tim), desc="Computing discharge"):
-
+    for JS_Qex_tim in tqdm(range(IS_Qex_tim), desc='Computing discharge'):
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Compute Qout
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         ZV_Qex_avg = f.variables['Qext'][JS_Qex_tim][IV_bas_tot]
 
-        ZV_Qou_avg, ZV_Qou_fin = mus_rte(ZM_Lin, ZM_Qex, ZM_Qou, IS_mus,
-                                         ZV_Qou_ini, ZV_Qex_avg)
+        ZV_Qou_avg, ZV_Qou_fin = mus_rte(
+            ZM_Lin, ZM_Qex, ZM_Qou, IS_mus, ZV_Qou_ini, ZV_Qex_avg
+        )
         ZV_Qou_ini = ZV_Qou_fin
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

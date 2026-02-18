@@ -30,20 +30,31 @@ def main() -> None:
     # -------------------------------------------------------------------------
     parser = argparse.ArgumentParser(
         description='Convert discharge volume (m3_riv) to external '
-                    'inflow rate (Qext)',
+        'inflow rate (Qext)',
         epilog='\nExamples:\n'
-               '  m3rivtoqext -i input_m3_riv.nc -o output_Qext.nc\n'
-               '  m3rivtoqext --input m3_riv.nc --output Qext.nc\n'
+        '  m3rivtoqext -i input_m3_riv.nc -o output_Qext.nc\n'
+        '  m3rivtoqext --input m3_riv.nc --output Qext.nc\n',
     )
 
-    parser.add_argument('--version', action='version',
-                        version=f'rapid2 {__version__}')
+    parser.add_argument(
+        '--version', action='version', version=f'rapid2 {__version__}'
+    )
 
-    parser.add_argument('-i', '--input', type=str, required=True,
-                        help='Specify the input m3_riv file')
+    parser.add_argument(
+        '-i',
+        '--input',
+        type=str,
+        required=True,
+        help='Specify the input m3_riv file',
+    )
 
-    parser.add_argument('-o', '--output', type=str, required=True,
-                        help='Specify the output Qext file')
+    parser.add_argument(
+        '-o',
+        '--output',
+        type=str,
+        required=True,
+        help='Specify the output Qext file',
+    )
 
     # -------------------------------------------------------------------------
     # Parse arguments and assign to variables

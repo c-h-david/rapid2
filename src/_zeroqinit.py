@@ -30,20 +30,31 @@ def main() -> None:
     # -------------------------------------------------------------------------
     parser = argparse.ArgumentParser(
         description='Create initial discharge file with zero values '
-                    'for model cold start',
+        'for model cold start',
         epilog='\nExamples:\n'
-               '  zeroqinit -i Qext_file.nc -o Qinit_zeros.nc\n'
-               '  zeroqinit --input Qext.nc --output Qinit.nc\n'
+        '  zeroqinit -i Qext_file.nc -o Qinit_zeros.nc\n'
+        '  zeroqinit --input Qext.nc --output Qinit.nc\n',
     )
 
-    parser.add_argument('--version', action='version',
-                        version=f'rapid2 {__version__}')
+    parser.add_argument(
+        '--version', action='version', version=f'rapid2 {__version__}'
+    )
 
-    parser.add_argument('-i', '--input', type=str, required=True,
-                        help='Specify the input Qext file')
+    parser.add_argument(
+        '-i',
+        '--input',
+        type=str,
+        required=True,
+        help='Specify the input Qext file',
+    )
 
-    parser.add_argument('-o', '--output', type=str, required=True,
-                        help='Specify the output Qinit file')
+    parser.add_argument(
+        '-o',
+        '--output',
+        type=str,
+        required=True,
+        help='Specify the output Qinit file',
+    )
 
     # -------------------------------------------------------------------------
     # Parse arguments and assign to variables

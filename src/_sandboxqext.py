@@ -31,27 +31,43 @@ def main() -> None:
     # -------------------------------------------------------------------------
     parser = argparse.ArgumentParser(
         description='Generate synthetic external inflow data '
-                    'for sandbox testing',
+        'for sandbox testing',
         epilog='\nExamples:\n'
-               '  sandboxqext -m 10 20 30 40 50 -a 5 5 5 5 5 '
-               '-o Qext_sandbox.nc\n'
-               '  sandboxqext --mean 10 20 30 40 50 --amplitude 5 5 5 5 5 '
-               '--output Qext.nc\n'
+        '  sandboxqext -m 10 20 30 40 50 -a 5 5 5 5 5 '
+        '-o Qext_sandbox.nc\n'
+        '  sandboxqext --mean 10 20 30 40 50 --amplitude 5 5 5 5 5 '
+        '--output Qext.nc\n',
     )
 
-    parser.add_argument('--version', action='version',
-                        version=f'rapid2 {__version__}')
+    parser.add_argument(
+        '--version', action='version', version=f'rapid2 {__version__}'
+    )
 
-    parser.add_argument('-m', '--mean', type=float, required=True,
-                        nargs=5,
-                        help='Specify five mean values: m1 m2 m3 m4 m5')
+    parser.add_argument(
+        '-m',
+        '--mean',
+        type=float,
+        required=True,
+        nargs=5,
+        help='Specify five mean values: m1 m2 m3 m4 m5',
+    )
 
-    parser.add_argument('-a', '--amplitude', type=float, required=True,
-                        nargs=5,
-                        help='Specify five amplitude values: a1 a2 a3 a4 a5')
+    parser.add_argument(
+        '-a',
+        '--amplitude',
+        type=float,
+        required=True,
+        nargs=5,
+        help='Specify five amplitude values: a1 a2 a3 a4 a5',
+    )
 
-    parser.add_argument('-o', '--output', type=str, required=True,
-                        help='Specify the output Qext file')
+    parser.add_argument(
+        '-o',
+        '--output',
+        type=str,
+        required=True,
+        help='Specify the output Qext file',
+    )
 
     # -------------------------------------------------------------------------
     # Parse arguments and assign to variables
@@ -123,8 +139,9 @@ def main() -> None:
     # The 1e-7 avoids np.sign(0) = 0
 
     f.title = 'Sandbox dataset for RAPID2'
-    f.institution = ('Jet Propulsion Laboratory, '
-                     'California Institute of Technology')
+    f.institution = (
+        'Jet Propulsion Laboratory, California Institute of Technology'
+    )
 
     # -------------------------------------------------------------------------
     # Close file
