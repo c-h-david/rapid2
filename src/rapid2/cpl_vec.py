@@ -21,14 +21,14 @@ import numpy.typing as npt
 # Connectivity function
 # *****************************************************************************
 def cpl_vec(
-            cpl_csv: str
-            ) -> tuple[
-                       npt.NDArray[np.int32],
-                       npt.NDArray[np.float64],
-                       npt.NDArray[np.int32],
-                       npt.NDArray[np.int32]
-                       ]:
-    '''Read coupling file.
+    cpl_csv: str,
+) -> tuple[
+    npt.NDArray[np.int32],
+    npt.NDArray[np.float64],
+    npt.NDArray[np.int32],
+    npt.NDArray[np.int32],
+]:
+    """Read coupling file.
 
     Create arrays for river IDs, catchment area, i, and j indices.
 
@@ -56,7 +56,7 @@ def cpl_vec(
      array([1., 1., 1., 1., 1.]),\
      array([1, 1, 1, 1, 1], dtype=int32),\
      array([2, 2, 2, 1, 1], dtype=int32))
-    '''
+    """
 
     # -------------------------------------------------------------------------
     # Count the number of elements

@@ -14,9 +14,9 @@
 import importlib.metadata
 
 try:
-    __version__ = importlib.metadata.version("rapid2")
+    __version__ = importlib.metadata.version('rapid2')
 except importlib.metadata.PackageNotFoundError:
-    __version__ = "unknown"
+    __version__ = 'unknown'
 
 
 # *****************************************************************************

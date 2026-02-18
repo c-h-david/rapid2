@@ -21,12 +21,12 @@ from rapid2.rud_new import rud_new
 # Make lateral inflow volume (Qou) file
 # *****************************************************************************
 def Qou_new(
-            IV_riv_bas: npt.NDArray[np.int32],
-            ZV_lon_bas: npt.NDArray[np.float64],
-            ZV_lat_bas: npt.NDArray[np.float64],
-            Qou_ncf: str,
-            ) -> None:
-    '''Create a lateral inflow file with basic metadata.
+    IV_riv_bas: npt.NDArray[np.int32],
+    ZV_lon_bas: npt.NDArray[np.float64],
+    ZV_lat_bas: npt.NDArray[np.float64],
+    Qou_ncf: str,
+) -> None:
+    """Create a lateral inflow file with basic metadata.
 
     Create a lateral inflow file that includes basic metadata and populated
     values for river ID, longitude, and latitude.
@@ -68,7 +68,7 @@ def Qou_new(
     True
     >>> import os
     >>> os.remove(Qou_ncf)
-    '''
+    """
 
     # -------------------------------------------------------------------------
     # Create rudimentary file
@@ -90,24 +90,40 @@ def Qou_new(
     # -------------------------------------------------------------------------
     ZS_fill = float(1e20)
 
-    Qout = f.createVariable('Qout', 'float32', ('time', 'rivid',),
-                            fill_value=ZS_fill)
+    Qout = f.createVariable(
+        'Qout',
+        'float32',
+        (
+            'time',
+            'rivid',
+        ),
+        fill_value=ZS_fill,
+    )
     Qout.long_name = 'mean river water outflow downstream of each river reach'
     Qout.units = 'm3 s-1'
     Qout.coordinates = 'lon lat'
     Qout.grid_mapping = 'crs'
     Qout.cell_methods = 'time: mean'
 
-    time_bnds = f.createVariable('time_bnds', 'int32', ('time', 'nv',))
+    time_bnds = f.createVariable(
+        'time_bnds',
+        'int32',
+        (
+            'time',
+            'nv',
+        ),
+    )
     time_bnds.long_name = 'time bounds'
 
     time = f.variables['time']
     time.bounds = 'time_bnds'
 
-    Qout_bia = f.createVariable('Qout_bia', 'float32', 'rivid',
-                                fill_value=ZS_fill)
-    Qout_bia.long_name = ('mean river water outflow error downstream of each '
-                          'river reach')
+    Qout_bia = f.createVariable(
+        'Qout_bia', 'float32', 'rivid', fill_value=ZS_fill
+    )
+    Qout_bia.long_name = (
+        'mean river water outflow error downstream of each river reach'
+    )
     Qout_bia.units = 'm3 s-1'
     Qout_bia.coordinates = 'lon lat'
     Qout_bia.grid_mapping = 'crs'
@@ -115,10 +131,12 @@ def Qou_new(
     Qout_bia.window = 'applicable to entire period of simulation'
     Qout_bia.interval = 'temporal resolution does not impact computation'
 
-    Qout_var = f.createVariable('Qout_var', 'float32', 'rivid',
-                                fill_value=ZS_fill)
-    Qout_var.long_name = ('variance of river water outflow error downstream '
-                          'of each river reach')
+    Qout_var = f.createVariable(
+        'Qout_var', 'float32', 'rivid', fill_value=ZS_fill
+    )
+    Qout_var.long_name = (
+        'variance of river water outflow error downstream of each river reach'
+    )
     Qout_var.units = 'm6 s-2'
     Qout_var.coordinates = 'lon lat'
     Qout_var.grid_mapping = 'crs'
@@ -126,10 +144,13 @@ def Qou_new(
     Qout_var.window = 'applicable to entire period of simulation'
     Qout_var.interval = 'typically same temporal resolution as observations'
 
-    Qout_cov = f.createVariable('Qout_cov', 'float32', 'rivid',
-                                fill_value=ZS_fill)
-    Qout_cov.long_name = ('indicative covariance between river water outflow '
-                          'error at a given reach and at another')
+    Qout_cov = f.createVariable(
+        'Qout_cov', 'float32', 'rivid', fill_value=ZS_fill
+    )
+    Qout_cov.long_name = (
+        'indicative covariance between river water outflow '
+        'error at a given reach and at another'
+    )
     Qout_cov.units = 'm6 s-2'
     Qout_cov.coordinates = 'lon lat'
     Qout_cov.grid_mapping = 'crs'

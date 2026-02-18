@@ -18,11 +18,11 @@ import numpy.typing as npt
 # Check IDs
 # *****************************************************************************
 def chk_cpl(
-            ZV_riv_skm: npt.NDArray[np.float64],
-            IV_riv_1bi: npt.NDArray[np.int32],
-            IV_riv_1bj: npt.NDArray[np.int32],
-            ) -> None:
-    '''Check coupling values.
+    ZV_riv_skm: npt.NDArray[np.float64],
+    IV_riv_1bi: npt.NDArray[np.int32],
+    IV_riv_1bj: npt.NDArray[np.int32],
+) -> None:
+    """Check coupling values.
 
     Check that the coupling arrays are consistent.
 
@@ -41,7 +41,7 @@ def chk_cpl(
 
     Examples
     --------
-    >>> ZV_riv_skm = np.array([1., 1., 1., 1., 1.])
+    >>> ZV_riv_skm = np.array([1.0, 1.0, 1.0, 1.0, 1.0])
     >>> IV_riv_1bi = np.array([1, 1, 1, 1, 1], dtype=np.int32)
     >>> IV_riv_1bj = np.array([2, 2, 2, 1, 1], dtype=np.int32)
     >>> chk_cpl(ZV_riv_skm, IV_riv_1bi, IV_riv_1bj)
@@ -53,9 +53,9 @@ def chk_cpl(
     >>> chk_cpl(ZV_riv_skm, IV_riv_1bi, IV_riv_1bj)
     Traceback (most recent call last):
     ValueError: Non-null area found for null i index
-    >>> ZV_riv_skm = np.array([1., 1., 1., 1., 0.])
+    >>> ZV_riv_skm = np.array([1.0, 1.0, 1.0, 1.0, 0.0])
     >>> chk_cpl(ZV_riv_skm, IV_riv_1bi, IV_riv_1bj)
-    '''
+    """
 
     if ZV_riv_skm.size != IV_riv_1bi.size:
         raise ValueError('The arrays have different sizes')

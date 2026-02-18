@@ -12,19 +12,19 @@
 # *****************************************************************************
 import numpy as np
 from scipy.sparse import (  # type: ignore[import-untyped]
-                          csc_matrix,
-                          identity,
-                          )
+    csc_matrix,
+    identity,
+)
 
 
 # *****************************************************************************
 # Muskingum routing matrices
 # *****************************************************************************
 def inv_mat(
-            ZM_Net: csc_matrix,
-            ZM_C1m: csc_matrix,
-            ) -> csc_matrix:
-    '''Create inverse Muskingum matrix.
+    ZM_Net: csc_matrix,
+    ZM_C1m: csc_matrix,
+) -> csc_matrix:
+    """Create inverse Muskingum matrix.
 
     Create the inverse of the matrix used in matrix-based Muskingum method.
 
@@ -59,7 +59,7 @@ def inv_mat(
            [-0.25  , -0.25  ,  1.    ,  0.    ,  0.    ],
            [ 0.    ,  0.    ,  0.    ,  1.    ,  0.    ],
            [ 0.0625,  0.0625, -0.25  , -0.25  ,  1.    ]])
-    '''
+    """
 
     IS_riv_bas = ZM_Net.shape[0]
     ZM_Idt = identity(IS_riv_bas, format='csc', dtype=np.float64)

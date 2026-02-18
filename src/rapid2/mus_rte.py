@@ -14,25 +14,22 @@ import numpy as np
 import numpy.typing as npt
 from scipy.sparse import csc_matrix  # type: ignore[import-untyped]
 from scipy.sparse.linalg import (  # type: ignore[import-untyped]
-                                 spsolve_triangular,
-                                 )
+    spsolve_triangular,
+)
 
 
 # *****************************************************************************
 # Muskingum routing
 # *****************************************************************************
 def mus_rte(
-            ZM_Lin: csc_matrix,
-            ZM_Qex: csc_matrix,
-            ZM_Qou: csc_matrix,
-            IS_mus: int,
-            ZV_Qou_ini: npt.NDArray[np.float64],
-            ZV_Qex_avg: npt.NDArray[np.float64]
-            ) -> tuple[
-                       npt.NDArray[np.float64],
-                       npt.NDArray[np.float64]
-                       ]:
-    '''Perform matrix-based Muskingum routing for a given number of timesteps.
+    ZM_Lin: csc_matrix,
+    ZM_Qex: csc_matrix,
+    ZM_Qou: csc_matrix,
+    IS_mus: int,
+    ZV_Qou_ini: npt.NDArray[np.float64],
+    ZV_Qex_avg: npt.NDArray[np.float64],
+) -> tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]:
+    """Perform matrix-based Muskingum routing for a given number of timesteps.
 
     Given the three matrices of the matrix-based Muskingum method, a number of
     timesteps, initial values of discharge, and lateral inflow; compute the
@@ -97,7 +94,7 @@ def mus_rte(
     array([1.     , 1.     , 1.125  , 1.     , 1.09375])
     >>> ZV_Qou_fin
     array([1.      , 1.      , 1.46875 , 1.      , 1.390625])
-    '''
+    """
 
     ZV_Qou = ZV_Qou_ini
     ZV_avg = np.zeros(len(ZV_Qou_ini))
@@ -117,8 +114,9 @@ def mus_rte(
         # ---------------------------------------------------------------------
         # Routing
         # ---------------------------------------------------------------------
-        ZV_Qou = spsolve_triangular(ZM_Lin, ZV_rhs,
-                                    lower=True, unit_diagonal=True)
+        ZV_Qou = spsolve_triangular(
+            ZM_Lin, ZV_rhs, lower=True, unit_diagonal=True
+        )
     ZV_avg = ZV_avg / IS_mus
 
     ZV_Qou_avg = ZV_avg

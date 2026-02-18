@@ -12,25 +12,21 @@
 # *****************************************************************************
 import numpy as np
 from scipy.sparse import (  # type: ignore[import-untyped]
-                          csc_matrix,
-                          identity,
-                          )
+    csc_matrix,
+    identity,
+)
 
 
 # *****************************************************************************
 # Muskingum routing matrices
 # *****************************************************************************
 def rte_mat(
-            ZM_Net: csc_matrix,
-            ZM_C1m: csc_matrix,
-            ZM_C2m: csc_matrix,
-            ZM_C3m: csc_matrix
-            ) -> tuple[
-                       csc_matrix,
-                       csc_matrix,
-                       csc_matrix
-                       ]:
-    '''Create routing matrices.
+    ZM_Net: csc_matrix,
+    ZM_C1m: csc_matrix,
+    ZM_C2m: csc_matrix,
+    ZM_C3m: csc_matrix,
+) -> tuple[csc_matrix, csc_matrix, csc_matrix]:
+    """Create routing matrices.
 
     Create the three matrices used in the matrix-based Muskingum method.
 
@@ -95,7 +91,7 @@ def rte_mat(
            [0.375, 0.375, 0.875, 0.   , 0.   ],
            [0.   , 0.   , 0.   , 0.875, 0.   ],
            [0.   , 0.   , 0.375, 0.375, 0.875]])
-    '''
+    """
 
     IS_riv_bas = ZM_Net.shape[0]
     ZM_Idt = identity(IS_riv_bas, format='csc', dtype=np.float64)

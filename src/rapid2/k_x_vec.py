@@ -21,14 +21,9 @@ import numpy.typing as npt
 # Muskingum k and x function
 # *****************************************************************************
 def k_x_vec(
-            kpr_csv: str,
-            xpr_csv: str,
-            IV_bas_tot: npt.NDArray[np.int32]
-            ) -> tuple[
-                       npt.NDArray[np.float64],
-                       npt.NDArray[np.float64]
-                       ]:
-    '''Read k and x parameter files.
+    kpr_csv: str, xpr_csv: str, IV_bas_tot: npt.NDArray[np.int32]
+) -> tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]:
+    """Read k and x parameter files.
 
     Create two arrays for parameters k and x in the basin.
 
@@ -56,7 +51,7 @@ def k_x_vec(
     >>> k_x_vec(kpr_csv, xpr_csv, IV_bas_tot) # doctest: +NORMALIZE_WHITESPACE
     (array([9000., 9000., 9000., 9000., 9000.]),\
      array([0.25, 0.25, 0.25, 0.25, 0.25]))
-    '''
+    """
 
     # -------------------------------------------------------------------------
     # Count the number of elements

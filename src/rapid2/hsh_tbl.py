@@ -18,14 +18,9 @@ import numpy.typing as npt
 # Hash tables function
 # *****************************************************************************
 def hsh_tbl(
-            IV_riv_tot: npt.NDArray[np.int32],
-            IV_riv_bas: npt.NDArray[np.int32]
-            ) -> tuple[
-                       dict[np.int32, int],
-                       dict[np.int32, int],
-                       npt.NDArray[np.int32]
-                       ]:
-    '''Create two hash tables and an indexing array.
+    IV_riv_tot: npt.NDArray[np.int32], IV_riv_bas: npt.NDArray[np.int32]
+) -> tuple[dict[np.int32, int], dict[np.int32, int], npt.NDArray[np.int32]]:
+    """Create two hash tables and an indexing array.
 
     Create one hash table linking river ID to index in connectivity file,
     create one hash table linking river ID to index in basin file, and create
@@ -64,7 +59,7 @@ def hsh_tbl(
        np.int32(40): 3,\
        np.int32(50): 4},\
       array([0, 1, 2, 3, 4], dtype=int32))
-    '''
+    """
 
     IS_riv_tot = len(IV_riv_tot)
     IM_hsh_tot = {}

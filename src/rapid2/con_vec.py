@@ -21,12 +21,9 @@ import numpy.typing as npt
 # Connectivity function
 # *****************************************************************************
 def con_vec(
-            con_csv: str
-            ) -> tuple[
-                       npt.NDArray[np.int32],
-                       npt.NDArray[np.int32]
-                       ]:
-    '''Read connectivity file.
+    con_csv: str,
+) -> tuple[npt.NDArray[np.int32], npt.NDArray[np.int32]]:
+    """Read connectivity file.
 
     Create two arrays of river IDs based on connectivity file.
 
@@ -48,7 +45,7 @@ def con_vec(
     >>> con_vec(con_csv) # doctest: +NORMALIZE_WHITESPACE
     (array([10, 20, 30, 40, 50], dtype=int32),\
      array([30, 30, 50, 50,  0], dtype=int32))
-    '''
+    """
 
     # -------------------------------------------------------------------------
     # Count the number of elements

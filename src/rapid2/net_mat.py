@@ -19,12 +19,12 @@ from scipy.sparse import csc_matrix  # type: ignore[import-untyped]
 # Network matrix function
 # *****************************************************************************
 def net_mat(
-            IV_dwn_tot: npt.NDArray[np.int32],
-            IM_hsh_tot: dict[np.int32, int],
-            IV_riv_bas: npt.NDArray[np.int32],
-            IM_hsh_bas: dict[np.int32, int]
-            ) -> csc_matrix:
-    '''Create network matrix.
+    IV_dwn_tot: npt.NDArray[np.int32],
+    IM_hsh_tot: dict[np.int32, int],
+    IV_riv_bas: npt.NDArray[np.int32],
+    IM_hsh_bas: dict[np.int32, int],
+) -> csc_matrix:
+    """Create network matrix.
 
     Create network matrix for basin within domain.
 
@@ -64,7 +64,7 @@ def net_mat(
            [1, 1, 0, 0, 0],
            [0, 0, 0, 0, 0],
            [0, 0, 1, 1, 0]])
-    '''
+    """
 
     IS_riv_bas = len(IV_riv_bas)
     IV_row = []
@@ -79,9 +79,10 @@ def net_mat(
             IV_col.append(JS_riv_bas)
             ZV_val.append(1)
 
-    ZM_Net = csc_matrix((ZV_val, (IV_row, IV_col)),
-                        shape=(IS_riv_bas, IS_riv_bas),
-                        )
+    ZM_Net = csc_matrix(
+        (ZV_val, (IV_row, IV_col)),
+        shape=(IS_riv_bas, IS_riv_bas),
+    )
 
     return ZM_Net
 

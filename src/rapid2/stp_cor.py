@@ -16,11 +16,8 @@ import numpy as np
 # *****************************************************************************
 # Time step correspondance
 # *****************************************************************************
-def stp_cor(
-            IS_TaR: np.int32,
-            IS_dtR: np.int32
-            ) -> int:
-    '''Read basin file.
+def stp_cor(IS_TaR: np.int32, IS_dtR: np.int32) -> int:
+    """Read basin file.
 
     Create one array of river IDs based on basin file.
 
@@ -47,10 +44,10 @@ def stp_cor(
     >>> stp_cor(IS_TaR, IS_dtR)
     Traceback (most recent call last):
     ValueError: quotient of time steps is not an integer
-    '''
+    """
 
-    if round(IS_TaR/IS_dtR) == IS_TaR/IS_dtR:
-        IS_mus = round(IS_TaR/IS_dtR)
+    if round(IS_TaR / IS_dtR) == IS_TaR / IS_dtR:
+        IS_mus = round(IS_TaR / IS_dtR)
     else:
         raise ValueError('quotient of time steps is not an integer')
 

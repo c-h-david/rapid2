@@ -12,27 +12,27 @@
 # *****************************************************************************
 import numpy as np
 from scipy.sparse import (  # type: ignore[import-untyped]
-                          csc_matrix,
-                          identity,
-                          )
+    csc_matrix,
+    identity,
+)
 from scipy.sparse.linalg import (  # type: ignore[import-untyped]
-                                 spsolve,
-                                 )
+    spsolve,
+)
 
 
 # *****************************************************************************
 # Matrices for average over a window
 # *****************************************************************************
 def wdw_mat(
-            ZM_Lin: csc_matrix,
-            ZM_Qex: csc_matrix,
-            ZM_Qou: csc_matrix,
-            IS_wdw: np.int32,
-            ) -> tuple[
-                       csc_matrix,
-                       csc_matrix,
-                       ]:
-    '''Create routing matrices for average discharge over a given window.
+    ZM_Lin: csc_matrix,
+    ZM_Qex: csc_matrix,
+    ZM_Qou: csc_matrix,
+    IS_wdw: np.int32,
+) -> tuple[
+    csc_matrix,
+    csc_matrix,
+]:
+    """Create routing matrices for average discharge over a given window.
 
     Create two matrices such that Qbar = ZM_Aem @ Qebar + ZM_A0m @ Q0 for
     assimilation over a given window of time steps.
@@ -96,7 +96,7 @@ def wdw_mat(
     >>> ZV_Qou_avg = ZM_Aem @ ZV_Qex_avg + ZM_A0m @ ZV_Qou_ini
     >>> ZV_Qou_avg
     array([1.     , 1.     , 1.125  , 1.     , 1.09375])
-    '''
+    """
 
     # -------------------------------------------------------------------------
     # Start with some initial variables
@@ -111,7 +111,7 @@ def wdw_mat(
     ZM_Aem = csc_matrix((IS_riv_bas, IS_riv_bas))
     ZM_tmp = ZM_Bet
     for JS_wdw in range(IS_wdw):
-        ZM_Aem = ZM_Aem + (IS_wdw-1-JS_wdw)*ZM_tmp
+        ZM_Aem = ZM_Aem + (IS_wdw - 1 - JS_wdw) * ZM_tmp
         ZM_tmp = spsolve(ZM_Lin, ZM_Qou @ ZM_tmp)
         # spsolve refactorizes ZM_Lin at each iteration (suboptimal, need fix)
     ZM_Aem = ZM_Aem / IS_wdw

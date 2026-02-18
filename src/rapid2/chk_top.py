@@ -18,13 +18,13 @@ import numpy.typing as npt
 # Check topology
 # *****************************************************************************
 def chk_top(
-            IV_riv_bas: npt.NDArray[np.int32],
-            IM_hsh_bas: dict[np.int32, int],
-            IV_riv_tot: npt.NDArray[np.int32],
-            IV_dwn_tot: npt.NDArray[np.int32],
-            IM_hsh_tot: dict[np.int32, int]
-            ) -> None:
-    '''Check topology.
+    IV_riv_bas: npt.NDArray[np.int32],
+    IM_hsh_bas: dict[np.int32, int],
+    IV_riv_tot: npt.NDArray[np.int32],
+    IV_dwn_tot: npt.NDArray[np.int32],
+    IM_hsh_tot: dict[np.int32, int],
+) -> None:
+    """Check topology.
 
     Check missing connections upstream and downstream as well as adequate sort.
 
@@ -87,7 +87,7 @@ def chk_top(
     Traceback (most recent call last):
     ValueError: Sorting problem: 50 is downstream of 40 but is located above in
     basin file
-    '''
+    """
 
     # -------------------------------------------------------------------------
     # Check for missing connections upstream
@@ -98,10 +98,11 @@ def chk_top(
         IS_dwn = IV_dwn_tot[JS_riv_tot]
         if IS_dwn != 0:
             if IS_dwn in IM_hsh_bas and IS_riv not in IM_hsh_bas:
-                print(f'WARNING - connectivity: {IS_riv} '
-                      f'is upstream of {IS_dwn} '
-                      f'but is not in basin file'
-                      )
+                print(
+                    f'WARNING - connectivity: {IS_riv} '
+                    f'is upstream of {IS_dwn} '
+                    f'but is not in basin file'
+                )
 
     # -------------------------------------------------------------------------
     # Check for missing connections downstream
@@ -110,10 +111,11 @@ def chk_top(
         IS_dwn = IV_dwn_tot[IM_hsh_tot[IS_riv]]
         if IS_dwn != 0:
             if IS_dwn not in IM_hsh_bas:
-                print(f'WARNING - connectivity: {IS_dwn} '
-                      f'is downstream of {IS_riv} '
-                      f'but is not in basin file'
-                      )
+                print(
+                    f'WARNING - connectivity: {IS_dwn} '
+                    f'is downstream of {IS_riv} '
+                    f'but is not in basin file'
+                )
 
     # -------------------------------------------------------------------------
     # Check sorting from upstream to downstream
@@ -123,9 +125,13 @@ def chk_top(
         if IS_dwn != 0:
             if IS_dwn in IM_hsh_bas:
                 if IM_hsh_bas[IS_dwn] < IM_hsh_bas[IS_riv]:
-                    raise ValueError('Sorting problem: ' + str(IS_dwn) +
-                                     ' is downstream of ' + str(IS_riv) +
-                                     ' but is located above in basin file')
+                    raise ValueError(
+                        'Sorting problem: '
+                        + str(IS_dwn)
+                        + ' is downstream of '
+                        + str(IS_riv)
+                        + ' but is located above in basin file'
+                    )
 
 
 # *****************************************************************************

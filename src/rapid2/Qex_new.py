@@ -21,12 +21,12 @@ from rapid2.rud_new import rud_new
 # Make external inflow volume (Qex) file
 # *****************************************************************************
 def Qex_new(
-            IV_riv_tot: npt.NDArray[np.int32],
-            ZV_lon_tot: npt.NDArray[np.float64],
-            ZV_lat_tot: npt.NDArray[np.float64],
-            Qex_ncf: str,
-            ) -> None:
-    '''Create a external inflow file with basic metadata.
+    IV_riv_tot: npt.NDArray[np.int32],
+    ZV_lon_tot: npt.NDArray[np.float64],
+    ZV_lat_tot: npt.NDArray[np.float64],
+    Qex_ncf: str,
+) -> None:
+    """Create a external inflow file with basic metadata.
 
     Create a external inflow file that includes basic metadata and has
     populated values for river ID, longitude, and latitude.
@@ -68,7 +68,7 @@ def Qex_new(
     True
     >>> import os
     >>> os.remove(Qex_ncf)
-    '''
+    """
 
     # -------------------------------------------------------------------------
     # Create rudimentary file
@@ -90,24 +90,40 @@ def Qex_new(
     # -------------------------------------------------------------------------
     ZS_fill = float(1e20)
 
-    Qext = f.createVariable('Qext', 'float32', ('time', 'rivid',),
-                            fill_value=ZS_fill)
+    Qext = f.createVariable(
+        'Qext',
+        'float32',
+        (
+            'time',
+            'rivid',
+        ),
+        fill_value=ZS_fill,
+    )
     Qext.long_name = 'mean external water inflow upstream of each river reach'
     Qext.units = 'm3 s-1'
     Qext.coordinates = 'lon lat'
     Qext.grid_mapping = 'crs'
     Qext.cell_methods = 'time: mean'
 
-    time_bnds = f.createVariable('time_bnds', 'int32', ('time', 'nv',))
+    time_bnds = f.createVariable(
+        'time_bnds',
+        'int32',
+        (
+            'time',
+            'nv',
+        ),
+    )
     time_bnds.long_name = 'time bounds'
 
     time = f.variables['time']
     time.bounds = 'time_bnds'
 
-    Qext_bia = f.createVariable('Qext_bia', 'float32', 'rivid',
-                                fill_value=ZS_fill)
-    Qext_bia.long_name = ('mean external water inflow error upstream of each '
-                          'river reach')
+    Qext_bia = f.createVariable(
+        'Qext_bia', 'float32', 'rivid', fill_value=ZS_fill
+    )
+    Qext_bia.long_name = (
+        'mean external water inflow error upstream of each river reach'
+    )
     Qext_bia.units = 'm3 s-1'
     Qext_bia.coordinates = 'lon lat'
     Qext_bia.grid_mapping = 'crs'
@@ -115,10 +131,12 @@ def Qex_new(
     Qext_bia.window = 'applicable to entire period of simulation'
     Qext_bia.interval = 'temporal resolution does not impact computation'
 
-    Qext_var = f.createVariable('Qext_var', 'float32', 'rivid',
-                                fill_value=ZS_fill)
-    Qext_var.long_name = ('variance of external water inflow error upstream '
-                          'of each river reach')
+    Qext_var = f.createVariable(
+        'Qext_var', 'float32', 'rivid', fill_value=ZS_fill
+    )
+    Qext_var.long_name = (
+        'variance of external water inflow error upstream of each river reach'
+    )
     Qext_var.units = 'm6 s-2'
     Qext_var.coordinates = 'lon lat'
     Qext_var.grid_mapping = 'crs'
@@ -126,10 +144,13 @@ def Qex_new(
     Qext_var.window = 'applicable to entire period of simulation'
     Qext_var.interval = 'typically same temporal resolution as observations'
 
-    Qext_cov = f.createVariable('Qext_cov', 'float32', 'rivid',
-                                fill_value=ZS_fill)
-    Qext_cov.long_name = ('indicative covariance between external water '
-                          'inflow error at a given reach and at another')
+    Qext_cov = f.createVariable(
+        'Qext_cov', 'float32', 'rivid', fill_value=ZS_fill
+    )
+    Qext_cov.long_name = (
+        'indicative covariance between external water '
+        'inflow error at a given reach and at another'
+    )
     Qext_cov.units = 'm6 s-2'
     Qext_cov.coordinates = 'lon lat'
     Qext_cov.grid_mapping = 'crs'

@@ -20,10 +20,8 @@ import numpy.typing as npt
 # *****************************************************************************
 # Basin function
 # *****************************************************************************
-def bas_vec(
-            bas_csv: str
-            ) -> npt.NDArray[np.int32]:
-    '''Read basin file.
+def bas_vec(bas_csv: str) -> npt.NDArray[np.int32]:
+    """Read basin file.
 
     Create one array of river IDs based on basin file.
 
@@ -42,7 +40,7 @@ def bas_vec(
     >>> bas_csv = './input/Sandbox/riv_bas_id_Sandbox.csv'
     >>> bas_vec(bas_csv)
     array([10, 20, 30, 40, 50], dtype=int32)
-    '''
+    """
 
     # -------------------------------------------------------------------------
     # Count the number of elements

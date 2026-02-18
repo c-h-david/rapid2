@@ -21,12 +21,12 @@ from rapid2.rud_new import rud_new
 # Make lateral inflow volume (Qfi) file
 # *****************************************************************************
 def Qfi_new(
-            IV_riv_tot: npt.NDArray[np.int32],
-            ZV_lon_tot: npt.NDArray[np.float64],
-            ZV_lat_tot: npt.NDArray[np.float64],
-            Qfi_ncf: str,
-            ) -> None:
-    '''Create instantaneous discharge file populated with basic metadata.
+    IV_riv_tot: npt.NDArray[np.int32],
+    ZV_lon_tot: npt.NDArray[np.float64],
+    ZV_lat_tot: npt.NDArray[np.float64],
+    Qfi_ncf: str,
+) -> None:
+    """Create instantaneous discharge file populated with basic metadata.
 
     Create an instantaneous discharge file that includes basic metadata and has
     populated values for river ID, longitude, and latitude.
@@ -62,7 +62,7 @@ def Qfi_new(
     array([5. , 4.5, 3. , 2.5, 1. ])
     >>> import os
     >>> os.remove(Qfi_ncf)
-    '''
+    """
 
     # -------------------------------------------------------------------------
     # Create rudimentary file
@@ -79,10 +79,18 @@ def Qfi_new(
     # -------------------------------------------------------------------------
     ZS_fill = float(1e20)
 
-    Qout = f.createVariable('Qout', 'float64', ('time', 'rivid',),
-                            fill_value=ZS_fill)
-    Qout.long_name = ('instantaneous river water outflow downstream of each '
-                      'river reach')
+    Qout = f.createVariable(
+        'Qout',
+        'float64',
+        (
+            'time',
+            'rivid',
+        ),
+        fill_value=ZS_fill,
+    )
+    Qout.long_name = (
+        'instantaneous river water outflow downstream of each river reach'
+    )
     Qout.units = 'm3 s-1'
     Qout.coordinates = 'lon lat'
     Qout.grid_mapping = 'crs'

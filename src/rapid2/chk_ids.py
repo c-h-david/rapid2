@@ -18,10 +18,9 @@ import numpy.typing as npt
 # Check IDs
 # *****************************************************************************
 def chk_ids(
-            IV_riv_tot: npt.NDArray[np.int32],
-            IV_m3r_tot: npt.NDArray[np.int32]
-            ) -> None:
-    '''Check river IDs.
+    IV_riv_tot: npt.NDArray[np.int32], IV_m3r_tot: npt.NDArray[np.int32]
+) -> None:
+    """Check river IDs.
 
     Check that the array of river IDs in domain and in lateral inflow volume
     file are exactly the same and in the same order.
@@ -50,7 +49,7 @@ def chk_ids(
     >>> chk_ids(IV_riv_tot, IV_m3r_tot)
     Traceback (most recent call last):
     ValueError: The river IDs in con_csv and m3r_ncf differ
-    '''
+    """
 
     if IV_riv_tot.size != IV_m3r_tot.size:
         raise ValueError('The arrays have different sizes')

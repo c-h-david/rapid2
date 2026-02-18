@@ -21,12 +21,12 @@ import numpy.typing as npt
 # Make external inflow volume (rud) file
 # *****************************************************************************
 def rud_new(
-            IV_riv: npt.NDArray[np.int32],
-            ZV_lon: npt.NDArray[np.float64],
-            ZV_lat: npt.NDArray[np.float64],
-            rud_ncf: str,
-            ) -> None:
-    '''Create rudimentary netCDF file following CF conventions for RAPID.
+    IV_riv: npt.NDArray[np.int32],
+    ZV_lon: npt.NDArray[np.float64],
+    ZV_lat: npt.NDArray[np.float64],
+    rud_ncf: str,
+) -> None:
+    """Create rudimentary netCDF file following CF conventions for RAPID.
 
     Create a rudimentary netCDF file following the CF conventions for
     timeseries with basic metadata and populated values for river ID,
@@ -63,7 +63,7 @@ def rud_new(
     array([5. , 4.5, 3. , 2.5, 1. ])
     >>> import os
     >>> os.remove(rud_ncf)
-    '''
+    """
 
     # -------------------------------------------------------------------------
     # Get UTC date and time
@@ -110,7 +110,7 @@ def rud_new(
 
     crs = f.createVariable('crs', 'int32')
     crs.grid_mapping_name = 'latitude_longitude'
-    crs.semi_major_axis = 6378137.
+    crs.semi_major_axis = 6378137.0
     crs.inverse_flattening = 298.257222101
 
     # -------------------------------------------------------------------------

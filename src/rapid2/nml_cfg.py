@@ -20,10 +20,8 @@ import yaml  # type: ignore[import-untyped]
 # *****************************************************************************
 # Namelist function
 # *****************************************************************************
-def nml_cfg(
-            nml_yml: str
-            ) -> Dict[str, Any]:
-    '''Read YAML file with model configuration and return a dictionary.
+def nml_cfg(nml_yml: str) -> Dict[str, Any]:
+    """Read YAML file with model configuration and return a dictionary.
 
     Read a YAML namelist file with model configuration and return a dictionary
     with mandatory values. Optional values may be included as well.
@@ -60,7 +58,7 @@ def nml_cfg(
     './output/Sandbox/Qout_Sandbox_19700101_19700110_tst.nc4'
     >>> nml_dic['Qfi_ncf']
     './output/Sandbox/Qfinal_Sandbox_19700101_19700110_tst.nc4'
-    '''
+    """
 
     try:
         # ---------------------------------------------------------------------
@@ -72,19 +70,20 @@ def nml_cfg(
         # ---------------------------------------------------------------------
         # Check for required keys
         # ---------------------------------------------------------------------
-        req_key = {'Q00_ncf',
-                   'Qex_ncf',
-                   'con_csv',
-                   'kpr_csv',
-                   'xpr_csv',
-                   'bas_csv',
-                   'IS_dtR',
-                   'Qou_ncf',
-                   'Qfi_ncf',
-                   }
+        req_key = {
+            'Q00_ncf',
+            'Qex_ncf',
+            'con_csv',
+            'kpr_csv',
+            'xpr_csv',
+            'bas_csv',
+            'IS_dtR',
+            'Qou_ncf',
+            'Qfi_ncf',
+        }
         mis_key = req_key - nml_dic.keys()
         if mis_key:
-            raise ValueError('Missing required keys: '+str(mis_key))
+            raise ValueError('Missing required keys: ' + str(mis_key))
 
         # ---------------------------------------------------------------------
         # Check that timestep is integer and make it np.int32

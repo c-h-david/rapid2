@@ -22,15 +22,15 @@ import numpy.typing as npt
 # Metadata of external inflow
 # *****************************************************************************
 def Qex_mdt(
-            fil_ncf: str
-            ) -> tuple[
-                       npt.NDArray[np.int32],
-                       npt.NDArray[np.float64],
-                       npt.NDArray[np.float64],
-                       npt.NDArray[np.int32],
-                       Optional[npt.NDArray[np.int32]],
-                       ]:
-    '''Get metadata from a RAPID netCDF file.
+    fil_ncf: str,
+) -> tuple[
+    npt.NDArray[np.int32],
+    npt.NDArray[np.float64],
+    npt.NDArray[np.float64],
+    npt.NDArray[np.int32],
+    Optional[npt.NDArray[np.int32]],
+]:
+    """Get metadata from a RAPID netCDF file.
 
     Get metadata from a RAPID netCDF file: river IDs, longitudes, epoch time,
     epoch time bounds.
@@ -88,7 +88,7 @@ def Qex_mdt(
            702000, 712800, 723600, 734400, 745200, 756000, 766800, 777600,
            788400, 799200, 810000, 820800, 831600, 842400, 853200, 864000],
           dtype=int32)
-    '''
+    """
 
     f = netCDF4.Dataset(fil_ncf, 'r')
 

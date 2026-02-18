@@ -21,13 +21,11 @@ import numpy.typing as npt
 # Connectivity function
 # *****************************************************************************
 def crd_vec(
-            crd_csv: str
-            ) -> tuple[
-                       npt.NDArray[np.int32],
-                       npt.NDArray[np.float64],
-                       npt.NDArray[np.float64]
-                       ]:
-    '''Read coordinates file.
+    crd_csv: str,
+) -> tuple[
+    npt.NDArray[np.int32], npt.NDArray[np.float64], npt.NDArray[np.float64]
+]:
+    """Read coordinates file.
 
     Create arrays for river IDs, longitude, and latitude from coordinate file.
 
@@ -52,7 +50,7 @@ def crd_vec(
     (array([10, 20, 30, 40, 50], dtype=int32),\
      array([4.3 , 5.94, 5.12, 6.55, 4.3 ]),\
      array([8.2 , 8.2 , 5.12, 4.3 , 2.04]))
-    '''
+    """
 
     # -------------------------------------------------------------------------
     # Count the number of elements
