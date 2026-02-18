@@ -36,14 +36,18 @@ def main() -> None:
     # Initialize the argument parser and add valid arguments
     # -------------------------------------------------------------------------
     parser = argparse.ArgumentParser(
-        description="Transform Land Surface Model data to RAPID "
-        "external inflow input",
-        epilog="\nExamples:\n"
-        "  cpllsm -l gldas.nc -c connect.csv -p coords.csv "
-        "-b binding.csv -d out/ -f result.nc\n"
-        "  cpllsm --lsm data.nc --con connect.csv "
-        "--pos coords.csv --bnd bind.csv --dir output/ "
-        "--fil Qext.nc\n",
+        description=(
+            "Transform Land Surface Model data into RAPID external inflow "
+            "input."
+        ),
+        epilog=(
+            "examples:\n"
+            "  cpllsm -l gldas.nc -c connect.csv -p coords.csv "
+            "-b coupling.csv -d out/ -f Qext.nc\n"
+            "  cpllsm --lsm data.nc --con connect.csv --pos position.csv "
+            "--bnd bind.csv --dir output/ --fil Qext.nc"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
 
     parser.add_argument(
@@ -51,7 +55,7 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "-l", "--lsm", type=str, required=True, help="Specify the LSM file"
+        "-l", "--lsm", type=str, required=True, help="specify the LSM file"
     )
 
     parser.add_argument(
@@ -59,7 +63,7 @@ def main() -> None:
         "--con",
         type=str,
         required=True,
-        help="Specify the connectivity file",
+        help="specify the connectivity file",
     )
 
     parser.add_argument(
@@ -67,7 +71,7 @@ def main() -> None:
         "--pos",
         type=str,
         required=True,
-        help="Specify the position points (coordinates)",
+        help="specify the position points (coordinates)",
     )
 
     parser.add_argument(
@@ -75,15 +79,15 @@ def main() -> None:
         "--bnd",
         type=str,
         required=True,
-        help="Specify the binding (coupling) file",
+        help="specify the binding (coupling) file",
     )
 
     parser.add_argument(
-        "-d", "--dir", type=str, required=True, help="Specify the directory"
+        "-d", "--dir", type=str, required=True, help="specify the directory"
     )
 
     parser.add_argument(
-        "-f", "--fil", type=str, required=True, help="Specify the file name"
+        "-f", "--fil", type=str, required=True, help="specify the file name"
     )
 
     # -------------------------------------------------------------------------

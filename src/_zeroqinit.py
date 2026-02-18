@@ -29,11 +29,16 @@ def main() -> None:
     # Initialize the argument parser and add valid arguments
     # -------------------------------------------------------------------------
     parser = argparse.ArgumentParser(
-        description="Create initial discharge file with zero values "
-        "for model cold start",
-        epilog="\nExamples:\n"
-        "  zeroqinit -i Qext_file.nc -o Qinit_zeros.nc\n"
-        "  zeroqinit --input Qext.nc --output Qinit.nc\n",
+        description=(
+            "Create an initial discharge file with zero values for cold start "
+            "of model."
+        ),
+        epilog=(
+            "examples:\n"
+            "  zeroqinit -i Qext_file.nc -o Qinit_zeros.nc\n"
+            "  zeroqinit --input Qext.nc --output Qinit.nc"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
 
     parser.add_argument(
@@ -45,7 +50,7 @@ def main() -> None:
         "--input",
         type=str,
         required=True,
-        help="Specify the input Qext file",
+        help="specify the input Qext file",
     )
 
     parser.add_argument(
@@ -53,7 +58,7 @@ def main() -> None:
         "--output",
         type=str,
         required=True,
-        help="Specify the output Qinit file",
+        help="specify the output Qinit file",
     )
 
     # -------------------------------------------------------------------------

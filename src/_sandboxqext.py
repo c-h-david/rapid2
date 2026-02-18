@@ -30,13 +30,16 @@ def main() -> None:
     # Initialize the argument parser and add valid arguments
     # -------------------------------------------------------------------------
     parser = argparse.ArgumentParser(
-        description="Generate synthetic external inflow data "
-        "for sandbox testing",
-        epilog="\nExamples:\n"
-        "  sandboxqext -m 10 20 30 40 50 -a 5 5 5 5 5 "
-        "-o Qext_sandbox.nc\n"
-        "  sandboxqext --mean 10 20 30 40 50 --amplitude 5 5 5 5 5 "
-        "--output Qext.nc\n",
+        description=(
+            "Generate synthetic external inflow data for the RAPID Sandbox."
+        ),
+        epilog=(
+            "examples:\n"
+            "  sandboxqext -m 10 10 10 20 20 -a 1 1 1 2 2 -o Qext_sandbox.nc\n"
+            "  sandboxqext --mean 10 10 10 20 20 --amplitude 1 1 1 2 2 "
+            "--output Qext.nc"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
 
     parser.add_argument(
@@ -49,7 +52,7 @@ def main() -> None:
         type=float,
         required=True,
         nargs=5,
-        help="Specify five mean values: m1 m2 m3 m4 m5",
+        help="specify five mean values: m1 m2 m3 m4 m5",
     )
 
     parser.add_argument(
@@ -58,7 +61,7 @@ def main() -> None:
         type=float,
         required=True,
         nargs=5,
-        help="Specify five amplitude values: a1 a2 a3 a4 a5",
+        help="specify five amplitude values: a1 a2 a3 a4 a5",
     )
 
     parser.add_argument(
@@ -66,7 +69,7 @@ def main() -> None:
         "--output",
         type=str,
         required=True,
-        help="Specify the output Qext file",
+        help="specify the output Qext file",
     )
 
     # -------------------------------------------------------------------------

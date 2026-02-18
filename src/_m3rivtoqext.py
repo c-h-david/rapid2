@@ -29,11 +29,16 @@ def main() -> None:
     # Initialize the argument parser and add valid arguments
     # -------------------------------------------------------------------------
     parser = argparse.ArgumentParser(
-        description="Convert discharge volume (m3_riv) to external "
-        "inflow rate (Qext)",
-        epilog="\nExamples:\n"
-        "  m3rivtoqext -i input_m3_riv.nc -o output_Qext.nc\n"
-        "  m3rivtoqext --input m3_riv.nc --output Qext.nc\n",
+        description=(
+            "Convert external inflow volume (m3_riv) to external inflow "
+            "rate (Qext)."
+        ),
+        epilog=(
+            "examples:\n"
+            "  m3rivtoqext -i m3_riv.nc -o Qext.nc\n"
+            "  m3rivtoqext --input m3_riv.nc --output Qext.nc"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
 
     parser.add_argument(
@@ -45,7 +50,7 @@ def main() -> None:
         "--input",
         type=str,
         required=True,
-        help="Specify the input m3_riv file",
+        help="specify the input m3_riv file",
     )
 
     parser.add_argument(
@@ -53,7 +58,7 @@ def main() -> None:
         "--output",
         type=str,
         required=True,
-        help="Specify the output Qext file",
+        help="specify the output Qext file",
     )
 
     # -------------------------------------------------------------------------

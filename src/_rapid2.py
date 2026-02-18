@@ -42,11 +42,16 @@ def main() -> None:
     # Initialize the argument parser and add valid arguments
     # -------------------------------------------------------------------------
     parser = argparse.ArgumentParser(
-        description="Routing Application for Programmed Integration "
-        "of Discharge (RAPID)",
-        epilog="\nExamples:\n"
-        "  rapid2 -nl namelist_Sandbox.yml\n"
-        "  rapid2 --namelist namelist_Sandbox.yml\n",
+        description=(
+            "Routing Application for Programmed Integration of Discharge "
+            "(RAPID)."
+        ),
+        epilog=(
+            "examples:\n"
+            "  rapid2 -nl namelist_Sandbox.yml\n"
+            "  rapid2 --namelist namelist_Sandbox.yml"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
 
     parser.add_argument(
@@ -58,7 +63,7 @@ def main() -> None:
         "--namelist",
         type=str,
         required=True,
-        help="Specify the namelist value",
+        help="specify the namelist file",
     )
 
     # -------------------------------------------------------------------------

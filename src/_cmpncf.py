@@ -30,13 +30,17 @@ def main() -> None:
     # Initialize the argument parser and add valid arguments
     # -------------------------------------------------------------------------
     parser = argparse.ArgumentParser(
-        description="Compare RAPID output files for regression testing "
-        "and validation",
-        epilog="\nExamples:\n"
-        "  cmpncf -o old_output.nc -n new_output.nc "
-        "-r 0.01 -a 0.001\n"
-        "  cmpncf --old baseline.nc --new current.nc "
-        "--rel 1e-6 --abs 1e-9\n",
+        description=(
+            "Compare RAPID input/output netCDF files for numerical regression "
+            "testing."
+        ),
+        epilog=(
+            "examples:\n"
+            "  cmpncf -o old_output.nc -n new_output.nc -r 0.01 -a 0.001\n"
+            "  cmpncf --old baseline.nc --new current.nc --rel 1e-6 "
+            "--abs 1e-9\n"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
 
     parser.add_argument(
@@ -48,7 +52,7 @@ def main() -> None:
         "--old",
         type=str,
         required=True,
-        help="Specify the old netCDF file",
+        help="specify the old netCDF file",
     )
 
     parser.add_argument(
@@ -56,7 +60,7 @@ def main() -> None:
         "--new",
         type=str,
         required=True,
-        help="Specify the new netCDF file",
+        help="specify the new netCDF file",
     )
 
     parser.add_argument(
@@ -65,7 +69,7 @@ def main() -> None:
         type=str,
         required=False,
         default="0",
-        help="Specify relative tolerance",
+        help="specify the relative tolerance",
     )
 
     parser.add_argument(
@@ -74,7 +78,7 @@ def main() -> None:
         type=str,
         required=False,
         default="0",
-        help="Specify the absolute tolerance",
+        help="specify the absolute tolerance",
     )
 
     # -------------------------------------------------------------------------

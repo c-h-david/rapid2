@@ -314,6 +314,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./pyproject.toml`           | Added formatting rules for ruff. |
 | `./.github/workflows/CL.yml` | Added formatting check with ruff. |
 | `./TESTING.md`               | Added formatting check with ruff. |
+| `./src/_*.py`                | Cleaned up CLI text and code. |
 
 ### Removed
 

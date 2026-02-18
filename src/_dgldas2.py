@@ -29,13 +29,18 @@ def main() -> None:
     # Initialize the argument parser and add valid arguments
     # -------------------------------------------------------------------------
     parser = argparse.ArgumentParser(
-        description="Download and process GLDAS2 land surface model "
-        "data from NASA",
-        epilog="\nExamples:\n"
-        "  dgldas2 -v 2.1 -m NOAH -t 2020-01 -d ./data "
-        "-f gldas_2020_01.nc\n"
-        "  dgldas2 --vsn 2.1 --mod NOAH --tim 2020-01 "
-        "--dir ./data --fil gldas.nc\n",
+        description=(
+            "Download and preprocess GLDAS-2 land surface model data from "
+            "NASA EarthData."
+        ),
+        epilog=(
+            "examples:\n"
+            "  dgldas2 -v 2.0 -m NOAH -t 2020-01 -d ./data "
+            "-f gldas_2020-01.nc\n"
+            "  dgldas2 --vsn 2.1 --mod VIC --tim 2020-01 --dir ./data "
+            "--fil gldas.nc"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
 
     parser.add_argument(
@@ -47,7 +52,7 @@ def main() -> None:
         "--vsn",
         type=str,
         required=True,
-        help="Specify the version number",
+        help="specify the version number",
     )
 
     parser.add_argument(
@@ -55,7 +60,7 @@ def main() -> None:
         "--mod",
         type=str,
         required=True,
-        help="Specify the land surface model",
+        help="specify the land surface model",
     )
 
     parser.add_argument(
@@ -63,15 +68,15 @@ def main() -> None:
         "--tim",
         type=str,
         required=True,
-        help="Specify the month in yyyy-mm",
+        help="specify the month in yyyy-mm",
     )
 
     parser.add_argument(
-        "-d", "--dir", type=str, required=True, help="Specify the directory"
+        "-d", "--dir", type=str, required=True, help="specify the directory"
     )
 
     parser.add_argument(
-        "-f", "--fil", type=str, required=True, help="Specify the file name"
+        "-f", "--fil", type=str, required=True, help="specify the file name"
     )
 
     # -------------------------------------------------------------------------
