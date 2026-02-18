@@ -44,7 +44,7 @@ line-length = 79
 target-version = "py311"
 
 [tool.ruff.lint]
-select = ["E", "F", "B"]
+select = ["E", "F", "I", "B"]
 
 [tool.mypy]
 python_version = "3.11"
