@@ -10,10 +10,11 @@
 # *****************************************************************************
 # Import Python modules
 # *****************************************************************************
+from datetime import datetime, timezone
+
+import netCDF4  # type: ignore[import-untyped]
 import numpy as np
 import numpy.typing as npt
-import netCDF4  # type: ignore[import-untyped]
-from datetime import datetime, timezone
 
 
 # *****************************************************************************

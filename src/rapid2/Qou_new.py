@@ -10,9 +10,10 @@
 # *****************************************************************************
 # Import Python modules
 # *****************************************************************************
+import netCDF4  # type: ignore[import-untyped]
 import numpy as np
 import numpy.typing as npt
-import netCDF4  # type: ignore[import-untyped]
+
 from rapid2.rud_new import rud_new
 
 

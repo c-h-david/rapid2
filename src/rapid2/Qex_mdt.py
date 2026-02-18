@@ -10,11 +10,12 @@
 # *****************************************************************************
 # Import Python modules
 # *****************************************************************************
+import sys
 from typing import Optional
+
+import netCDF4  # type: ignore[import-untyped]
 import numpy as np
 import numpy.typing as npt
-import netCDF4  # type: ignore[import-untyped]
-import sys
 
 
 # *****************************************************************************

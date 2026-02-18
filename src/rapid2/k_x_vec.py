@@ -11,9 +11,10 @@
 # Import Python modules
 # *****************************************************************************
 import csv
+import sys
+
 import numpy as np
 import numpy.typing as npt
-import sys
 
 
 # *****************************************************************************

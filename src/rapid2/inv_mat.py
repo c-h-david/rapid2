@@ -12,8 +12,8 @@
 # *****************************************************************************
 import numpy as np
 from scipy.sparse import (  # type: ignore[import-untyped]
-                          identity,
                           csc_matrix,
+                          identity,
                           )
 
 

@@ -10,10 +10,11 @@
 # *****************************************************************************
 # Import Python modules
 # *****************************************************************************
-from typing import Any, Dict
-import yaml  # type: ignore[import-untyped]
-import numpy as np
 import sys
+from typing import Any, Dict
+
+import numpy as np
+import yaml  # type: ignore[import-untyped]
 
 
 # *****************************************************************************

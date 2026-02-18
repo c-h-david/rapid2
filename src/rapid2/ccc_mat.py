@@ -13,8 +13,8 @@
 import numpy as np
 import numpy.typing as npt
 from scipy.sparse import (  # type: ignore[import-untyped]
-                          diags,
                           csc_matrix,
+                          diags,
                           )
 
 
