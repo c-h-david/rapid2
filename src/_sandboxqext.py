@@ -13,6 +13,7 @@
 import argparse
 import os
 import sys
+
 import netCDF4  # type: ignore[import-untyped]
 import numpy as np
 

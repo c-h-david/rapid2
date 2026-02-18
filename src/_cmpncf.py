@@ -12,9 +12,10 @@
 # *****************************************************************************
 import argparse
 import sys
+
+import netCDF4  # type: ignore[import-untyped]
 import numpy as np
 from numpy.ma import MaskedArray
-import netCDF4  # type: ignore[import-untyped]
 
 from rapid2 import __version__
 from rapid2.Qex_mdt import Qex_mdt

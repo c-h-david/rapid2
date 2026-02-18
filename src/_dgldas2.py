@@ -13,6 +13,7 @@
 import argparse
 import os
 import sys
+
 import earthaccess
 import netCDF4  # type: ignore[import-untyped]
 

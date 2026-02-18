@@ -13,6 +13,7 @@
 import argparse
 import os
 import sys
+
 import netCDF4  # type: ignore[import-untyped]
 
 from rapid2 import __version__

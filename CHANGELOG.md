@@ -304,6 +304,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/wdw_mat.py`    | Removed unused loop variable. |
 | `./src/rapid2/mus_rte.py`    | Removed unused loop variable. |
 | `./pyproject.toml`           | Added bugbear rules for linting. |
+| `./src/_*.py`                | Sorted imports. |
 
 ### Removed
 

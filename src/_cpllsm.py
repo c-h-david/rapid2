@@ -13,16 +13,17 @@
 import argparse
 import os.path
 import sys
+
 import netCDF4  # type: ignore[import-untyped]
 import numpy as np
 from tqdm import tqdm  # type: ignore[import-untyped]
 
 from rapid2 import __version__
-from rapid2.con_vec import con_vec
-from rapid2.crd_vec import crd_vec
-from rapid2.cpl_vec import cpl_vec
-from rapid2.chk_ids import chk_ids
 from rapid2.chk_cpl import chk_cpl
+from rapid2.chk_ids import chk_ids
+from rapid2.con_vec import con_vec
+from rapid2.cpl_vec import cpl_vec
+from rapid2.crd_vec import crd_vec
 from rapid2.Qex_new import Qex_new
 
 
