@@ -29,10 +29,13 @@ def main() -> None:
     # Initialize the argument parser and add valid arguments
     # -------------------------------------------------------------------------
     parser = argparse.ArgumentParser(
-        description='Compare RAPID output files for regression testing and validation',
+        description='Compare RAPID output files for regression testing '
+                    'and validation',
         epilog='\nExamples:\n'
-               '  cmpncf -o old_output.nc -n new_output.nc -r 0.01 -a 0.001\n'
-               '  cmpncf --old baseline.nc --new current.nc --rel 1e-6 --abs 1e-9\n'
+               '  cmpncf -o old_output.nc -n new_output.nc '
+               '-r 0.01 -a 0.001\n'
+               '  cmpncf --old baseline.nc --new current.nc '
+               '--rel 1e-6 --abs 1e-9\n'
     )
 
     parser.add_argument('--version', action='version',

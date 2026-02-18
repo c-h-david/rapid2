@@ -13,7 +13,7 @@
 import argparse
 import netCDF4  # type: ignore[import-untyped]
 import sys
-from tqdm import tqdm
+from tqdm import tqdm  # type: ignore[import-untyped]
 
 from rapid2 import __version__
 from rapid2.nml_cfg import nml_cfg
@@ -41,7 +41,8 @@ def main() -> None:
     # Initialize the argument parser and add valid arguments
     # -------------------------------------------------------------------------
     parser = argparse.ArgumentParser(
-        description='Routing Application for Programmed Integration of Discharge (RAPID)',
+        description='Routing Application for Programmed Integration '
+                    'of Discharge (RAPID)',
         epilog='\nExamples:\n'
                '  rapid2 -nl namelist_Sandbox.yml\n'
                '  rapid2 --namelist namelist_Sandbox.yml\n'

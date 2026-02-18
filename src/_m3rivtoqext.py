@@ -28,7 +28,8 @@ def main() -> None:
     # Initialize the argument parser and add valid arguments
     # -------------------------------------------------------------------------
     parser = argparse.ArgumentParser(
-        description='Convert discharge volume (m3_riv) to external inflow rate (Qext)',
+        description='Convert discharge volume (m3_riv) to external '
+                    'inflow rate (Qext)',
         epilog='\nExamples:\n'
                '  m3rivtoqext -i input_m3_riv.nc -o output_Qext.nc\n'
                '  m3rivtoqext --input m3_riv.nc --output Qext.nc\n'

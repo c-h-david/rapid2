@@ -29,10 +29,13 @@ def main() -> None:
     # Initialize the argument parser and add valid arguments
     # -------------------------------------------------------------------------
     parser = argparse.ArgumentParser(
-        description='Generate synthetic external inflow data for sandbox testing',
+        description='Generate synthetic external inflow data '
+                    'for sandbox testing',
         epilog='\nExamples:\n'
-               '  sandboxqext -m 10 20 30 40 50 -a 5 5 5 5 5 -o Qext_sandbox.nc\n'
-               '  sandboxqext --mean 10 20 30 40 50 --amplitude 5 5 5 5 5 --output Qext.nc\n'
+               '  sandboxqext -m 10 20 30 40 50 -a 5 5 5 5 5 '
+               '-o Qext_sandbox.nc\n'
+               '  sandboxqext --mean 10 20 30 40 50 --amplitude 5 5 5 5 5 '
+               '--output Qext.nc\n'
     )
 
     parser.add_argument('--version', action='version',
