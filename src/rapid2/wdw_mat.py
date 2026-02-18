@@ -121,7 +121,7 @@ def wdw_mat(
     # -------------------------------------------------------------------------
     ZM_A0m = csc_matrix((IS_riv_bas, IS_riv_bas))
     ZM_tmp = ZM_Idt
-    for JS_wdw in range(IS_wdw):
+    for _ in range(IS_wdw):
         ZM_A0m = ZM_A0m + ZM_tmp
         ZM_tmp = spsolve(ZM_Lin, ZM_Qou @ ZM_tmp)
         # spsolve refactorizes ZM_Lin at each iteration (suboptimal, need fix)

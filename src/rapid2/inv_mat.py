@@ -68,7 +68,7 @@ def inv_mat(
 
     ZM_Inv = ZM_Idt
     ZM_inc = ZM_C1N
-    for JS_riv_bas in range(IS_riv_bas):
+    for _ in range(IS_riv_bas):
         ZM_Inv = ZM_Inv + ZM_inc
         ZM_inc = ZM_inc @ ZM_C1N
 

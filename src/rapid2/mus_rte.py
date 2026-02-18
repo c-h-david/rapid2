@@ -103,7 +103,7 @@ def mus_rte(
     ZV_avg = np.zeros(len(ZV_Qou_ini))
     ZV_rh1 = ZM_Qex @ ZV_Qex_avg
 
-    for JS_mus in range(IS_mus):
+    for _ in range(IS_mus):
         # ---------------------------------------------------------------------
         # Updating average before routing to remain in [0, IS_mus - 1] range
         # ---------------------------------------------------------------------

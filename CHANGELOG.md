@@ -300,6 +300,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./.github/workflows/CL.yml` | Added ruff config section to pyproj.toml. |
 | `./requirement.pip`          | Added ruff config section to pyproj.toml. |
 | `./TESTING.md`               | Added info and link to pyproj.toml. |
+| `./src/rapid2/inv_mat.py`    | Removed unused loop variable. |
+| `./src/rapid2/wdw_mat.py`    | Removed unused loop variable. |
+| `./src/rapid2/mus_rte.py`    | Removed unused loop variable. |
 
 ### Removed
 
