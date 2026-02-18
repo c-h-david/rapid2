@@ -292,6 +292,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_sandboxqext.py`      | Cleaned CLI part for line width. |
 | `./src/_zeroqinit.py`        | Cleaned CLI part for line width. |
 | `./TESTING.md`               | Reorganized for consistency. |
+| `./TESTING.md`               | Added mypy config section to pyproj.toml. |
+| `./pyproject.toml`           | Added mypy config section to pyproj.toml. |
+| `./.github/workflows/CL.yml` | Added mypy config section to pyproj.toml. |
 
 ### Removed
 

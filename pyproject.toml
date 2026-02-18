@@ -27,9 +27,6 @@ dynamic = ["dependencies"]
 [project.urls]
 Repository = "https://github.com/c-h-david/rapid2.git"
 
-[tool.setuptools.dynamic]
-dependencies = {file = ["requirements.pip"]}
-
 [project.scripts]
 rapid2 = "_rapid2:main"
 dgldas2 = "_dgldas2:main"
@@ -38,6 +35,14 @@ zeroqinit = "_zeroqinit:main"
 sandboxqext = "_sandboxqext:main"
 cpllsm = "_cpllsm:main"
 cmpncf = "_cmpncf:main"
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.pip"]}
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+exclude = ["build"]
 
 
 # *****************************************************************************

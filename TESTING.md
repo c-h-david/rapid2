@@ -73,7 +73,7 @@ flake8 src/*.py src/rapid2/*.py
 We use `mypy` to check dynamic and static typing.
 
 ```bash
-mypy --strict src/*.py src/rapid2/*.py
+mypy .
 ```
 
 ## Runtime testing
