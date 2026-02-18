@@ -36,54 +36,54 @@ def main() -> None:
     # Initialize the argument parser and add valid arguments
     # -------------------------------------------------------------------------
     parser = argparse.ArgumentParser(
-        description='Transform Land Surface Model data to RAPID '
-        'external inflow input',
-        epilog='\nExamples:\n'
-        '  cpllsm -l gldas.nc -c connect.csv -p coords.csv '
-        '-b binding.csv -d out/ -f result.nc\n'
-        '  cpllsm --lsm data.nc --con connect.csv '
-        '--pos coords.csv --bnd bind.csv --dir output/ '
-        '--fil Qext.nc\n',
+        description="Transform Land Surface Model data to RAPID "
+        "external inflow input",
+        epilog="\nExamples:\n"
+        "  cpllsm -l gldas.nc -c connect.csv -p coords.csv "
+        "-b binding.csv -d out/ -f result.nc\n"
+        "  cpllsm --lsm data.nc --con connect.csv "
+        "--pos coords.csv --bnd bind.csv --dir output/ "
+        "--fil Qext.nc\n",
     )
 
     parser.add_argument(
-        '--version', action='version', version=f'rapid2 {__version__}'
+        "--version", action="version", version=f"rapid2 {__version__}"
     )
 
     parser.add_argument(
-        '-l', '--lsm', type=str, required=True, help='Specify the LSM file'
+        "-l", "--lsm", type=str, required=True, help="Specify the LSM file"
     )
 
     parser.add_argument(
-        '-c',
-        '--con',
+        "-c",
+        "--con",
         type=str,
         required=True,
-        help='Specify the connectivity file',
+        help="Specify the connectivity file",
     )
 
     parser.add_argument(
-        '-p',
-        '--pos',
+        "-p",
+        "--pos",
         type=str,
         required=True,
-        help='Specify the position points (coordinates)',
+        help="Specify the position points (coordinates)",
     )
 
     parser.add_argument(
-        '-b',
-        '--bnd',
+        "-b",
+        "--bnd",
         type=str,
         required=True,
-        help='Specify the binding (coupling) file',
+        help="Specify the binding (coupling) file",
     )
 
     parser.add_argument(
-        '-d', '--dir', type=str, required=True, help='Specify the directory'
+        "-d", "--dir", type=str, required=True, help="Specify the directory"
     )
 
     parser.add_argument(
-        '-f', '--fil', type=str, required=True, help='Specify the file name'
+        "-f", "--fil", type=str, required=True, help="Specify the file name"
     )
 
     # -------------------------------------------------------------------------
@@ -99,12 +99,12 @@ def main() -> None:
     fil_str = args.fil
 
     print(
-        f'Transforming data from  {lsm_ncf} '
-        f'for {con_csv} '
-        f'with {pos_csv} '
-        f'and {bnd_csv} '
-        f'to {dir_str} '
-        f'as {fil_str}'
+        f"Transforming data from  {lsm_ncf} "
+        f"for {con_csv} "
+        f"with {pos_csv} "
+        f"and {bnd_csv} "
+        f"to {dir_str} "
+        f"as {fil_str}"
     )
 
     # -------------------------------------------------------------------------
@@ -113,7 +113,7 @@ def main() -> None:
     Qex_ncf = os.path.join(dir_str, fil_str)
 
     if os.path.exists(Qex_ncf):
-        print(f'WARNING - File already exists {Qex_ncf}. Exit without error')
+        print(f"WARNING - File already exists {Qex_ncf}. Exit without error")
         sys.exit(0)
 
     # -------------------------------------------------------------------------
@@ -123,110 +123,110 @@ def main() -> None:
         with open(lsm_ncf):
             pass
     except IOError:
-        print(f'ERROR - Unable to open {lsm_ncf}')
+        print(f"ERROR - Unable to open {lsm_ncf}")
         sys.exit(1)
 
     # -------------------------------------------------------------------------
     # Read connectivity file
     # -------------------------------------------------------------------------
-    print('- Read connectivity file')
+    print("- Read connectivity file")
 
     IV_riv_tot1, IV_dwn_tot1 = con_vec(con_csv)
     IS_riv_tot1 = len(IV_riv_tot1)
     print(
-        '  . The number of river reaches in connectivity file is: '
-        f'{IS_riv_tot1}'
+        "  . The number of river reaches in connectivity file is: "
+        f"{IS_riv_tot1}"
     )
 
     # -------------------------------------------------------------------------
     # Read coordinate file
     # -------------------------------------------------------------------------
-    print('- Read coordinate file')
+    print("- Read coordinate file")
 
     IV_riv_tot2, ZV_lon_tot2, ZV_lat_tot2 = crd_vec(pos_csv)
     IS_riv_tot2 = len(IV_riv_tot2)
     print(
-        f'  . The number of river reaches in coordinate file is: {IS_riv_tot2}'
+        f"  . The number of river reaches in coordinate file is: {IS_riv_tot2}"
     )
 
     # -------------------------------------------------------------------------
     # Read coupling file
     # -------------------------------------------------------------------------
-    print('- Read coupling file')
+    print("- Read coupling file")
 
     IV_riv_tot3, ZV_riv_skm3, IV_riv_1bi3, IV_riv_1bj3 = cpl_vec(bnd_csv)
     IS_riv_tot3 = len(IV_riv_tot3)
     print(
-        f'  . The number of river reaches in coupling file is: {IS_riv_tot3}'
+        f"  . The number of river reaches in coupling file is: {IS_riv_tot3}"
     )
 
     # -------------------------------------------------------------------------
     # Check that IDs are the same
     # -------------------------------------------------------------------------
-    print('- Check that IDs are the same')
+    print("- Check that IDs are the same")
 
     chk_ids(IV_riv_tot1, IV_riv_tot2)
     chk_ids(IV_riv_tot1, IV_riv_tot3)
-    print(' . IDs are the same')
+    print(" . IDs are the same")
 
     # -------------------------------------------------------------------------
     # Check consistency of coupling file
     # -------------------------------------------------------------------------
-    print('- Check consisitency of coupling file')
+    print("- Check consisitency of coupling file")
 
     chk_cpl(ZV_riv_skm3, IV_riv_1bi3, IV_riv_1bj3)
-    print(' . OK')
+    print(" . OK")
 
     # -------------------------------------------------------------------------
     # Read LSM metadata
     # -------------------------------------------------------------------------
-    print('- Read LSM metadata')
+    print("- Read LSM metadata")
 
-    c = netCDF4.Dataset(lsm_ncf, 'r')
+    c = netCDF4.Dataset(lsm_ncf, "r")
 
-    IS_lsm_lon = len(c.dimensions['lon'])
-    print(f'  . The number of longitudes is: {IS_lsm_lon}')
+    IS_lsm_lon = len(c.dimensions["lon"])
+    print(f"  . The number of longitudes is: {IS_lsm_lon}")
 
-    IS_lsm_lat = len(c.dimensions['lat'])
-    print(f'  . The number of latitudes is: {IS_lsm_lat}')
+    IS_lsm_lat = len(c.dimensions["lat"])
+    print(f"  . The number of latitudes is: {IS_lsm_lat}")
 
-    IS_lsm_tim = len(c.dimensions['time'])
-    print(f'  . The number of time steps is: {IS_lsm_tim}')
+    IS_lsm_tim = len(c.dimensions["time"])
+    print(f"  . The number of time steps is: {IS_lsm_tim}")
 
-    ZS_fll_rsf = netCDF4.default_fillvals['f4']
-    if 'Qs_acc' in c.variables:
-        var = c.variables['Qs_acc']
-        if '_FillValue' in var.ncattrs():
+    ZS_fll_rsf = netCDF4.default_fillvals["f4"]
+    if "Qs_acc" in c.variables:
+        var = c.variables["Qs_acc"]
+        if "_FillValue" in var.ncattrs():
             ZS_fll_rsf = var._FillValue
-            print(f'  . The fill value for Qs_acc is: {ZS_fll_rsf}')
+            print(f"  . The fill value for Qs_acc is: {ZS_fll_rsf}")
     else:
-        raise ValueError('Qs_acc variable missing')
+        raise ValueError("Qs_acc variable missing")
 
-    ZS_fll_rsb = netCDF4.default_fillvals['f4']
-    if 'Qsb_acc' in c.variables:
-        var = c.variables['Qsb_acc']
-        if '_FillValue' in var.ncattrs():
+    ZS_fll_rsb = netCDF4.default_fillvals["f4"]
+    if "Qsb_acc" in c.variables:
+        var = c.variables["Qsb_acc"]
+        if "_FillValue" in var.ncattrs():
             ZS_fll_rsb = var._FillValue
-            print(f'  . The fill value for Qsb_acc is: {ZS_fll_rsb}')
+            print(f"  . The fill value for Qsb_acc is: {ZS_fll_rsb}")
     else:
-        raise ValueError('Qsb_acc variable missing')
+        raise ValueError("Qsb_acc variable missing")
 
     # -------------------------------------------------------------------------
     # Create Qext file
     # -------------------------------------------------------------------------
-    print('- Create Qext file')
+    print("- Create Qext file")
 
     Qex_new(IV_riv_tot2, ZV_lon_tot2, ZV_lat_tot2, Qex_ncf)
 
-    f = netCDF4.Dataset(Qex_ncf, 'a')
-    Qex = f.variables['Qext']
-    time = f.variables['time']
-    time_bnds = f.variables['time_bnds']
+    f = netCDF4.Dataset(Qex_ncf, "a")
+    Qex = f.variables["Qext"]
+    time = f.variables["time"]
+    time_bnds = f.variables["time_bnds"]
 
     # -------------------------------------------------------------------------
     # Populate dynamic data
     # -------------------------------------------------------------------------
-    print('- Populate dynamic data')
+    print("- Populate dynamic data")
 
     ZV_riv_scl = 1000 * ZV_riv_skm3
     # Scale by 1000: the multiplication of 0.001 m/mm and 1,000,000 m2/km2
@@ -237,9 +237,9 @@ def main() -> None:
     IV_riv_0bj = IV_riv_1bj3 - 1
     # Shift to 0-based indexing; entries becoming −1 have 0 area (chk_cpl.py).
 
-    for JS_lsm_tim in tqdm(range(IS_lsm_tim), desc='Processing LSM data'):
-        ZM_lsm_rsf = c.variables['Qs_acc'][JS_lsm_tim][:][:]
-        ZM_lsm_rsb = c.variables['Qsb_acc'][JS_lsm_tim][:][:]
+    for JS_lsm_tim in tqdm(range(IS_lsm_tim), desc="Processing LSM data"):
+        ZM_lsm_rsf = c.variables["Qs_acc"][JS_lsm_tim][:][:]
+        ZM_lsm_rsb = c.variables["Qsb_acc"][JS_lsm_tim][:][:]
         # netCDF data are stored following: c.variables[var][time][lat][lon]
         ZM_lsm_run = ZM_lsm_rsf + ZM_lsm_rsb
         # ZM_lsm_run is of type 'np.ma.core.MaskedArray' or 'np.ndarray'
@@ -258,8 +258,8 @@ def main() -> None:
         Qex[JS_lsm_tim, :] = ZV_riv_Qex[:]
         # netCDF data are stored following: g.variables[m3_riv][time][rivid]
 
-    time[:] = c.variables['time'][:]
-    time_bnds[:] = c.variables['time_bnds'][:]
+    time[:] = c.variables["time"][:]
+    time_bnds[:] = c.variables["time_bnds"][:]
     # From the LSM netCDF file
     c.close()
 
@@ -267,7 +267,7 @@ def main() -> None:
 # *****************************************************************************
 # If executed as a script
 # *****************************************************************************
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
 
 

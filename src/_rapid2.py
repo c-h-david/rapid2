@@ -42,23 +42,23 @@ def main() -> None:
     # Initialize the argument parser and add valid arguments
     # -------------------------------------------------------------------------
     parser = argparse.ArgumentParser(
-        description='Routing Application for Programmed Integration '
-        'of Discharge (RAPID)',
-        epilog='\nExamples:\n'
-        '  rapid2 -nl namelist_Sandbox.yml\n'
-        '  rapid2 --namelist namelist_Sandbox.yml\n',
+        description="Routing Application for Programmed Integration "
+        "of Discharge (RAPID)",
+        epilog="\nExamples:\n"
+        "  rapid2 -nl namelist_Sandbox.yml\n"
+        "  rapid2 --namelist namelist_Sandbox.yml\n",
     )
 
     parser.add_argument(
-        '--version', action='version', version=f'rapid2 {__version__}'
+        "--version", action="version", version=f"rapid2 {__version__}"
     )
 
     parser.add_argument(
-        '-nl',
-        '--namelist',
+        "-nl",
+        "--namelist",
         type=str,
         required=True,
-        help='Specify the namelist value',
+        help="Specify the namelist value",
     )
 
     # -------------------------------------------------------------------------
@@ -68,26 +68,26 @@ def main() -> None:
 
     nml_yml = args.namelist
 
-    print(f'Namelist file: {nml_yml}')
+    print(f"Namelist file: {nml_yml}")
 
     # -------------------------------------------------------------------------
     # Read namelist into a dictionary and assign to local variables
     # -------------------------------------------------------------------------
     nml_dic = nml_cfg(nml_yml)
 
-    Q00_ncf = nml_dic['Q00_ncf']
-    Qex_ncf = nml_dic['Qex_ncf']
+    Q00_ncf = nml_dic["Q00_ncf"]
+    Qex_ncf = nml_dic["Qex_ncf"]
 
-    con_csv = nml_dic['con_csv']
-    kpr_csv = nml_dic['kpr_csv']
-    xpr_csv = nml_dic['xpr_csv']
+    con_csv = nml_dic["con_csv"]
+    kpr_csv = nml_dic["kpr_csv"]
+    xpr_csv = nml_dic["xpr_csv"]
 
-    bas_csv = nml_dic['bas_csv']
+    bas_csv = nml_dic["bas_csv"]
 
-    IS_dtR = nml_dic['IS_dtR']
+    IS_dtR = nml_dic["IS_dtR"]
 
-    Qou_ncf = nml_dic['Qou_ncf']
-    Qfi_ncf = nml_dic['Qfi_ncf']
+    Qou_ncf = nml_dic["Qou_ncf"]
+    Qfi_ncf = nml_dic["Qfi_ncf"]
 
     # -------------------------------------------------------------------------
     # River network
@@ -116,7 +116,7 @@ def main() -> None:
     ) = Qex_mdt(Qex_ncf)
 
     if IM_Qex_tim is None:
-        print('ERROR - Qex_mdt returned None for IM_Qex_tim')
+        print("ERROR - Qex_mdt returned None for IM_Qex_tim")
         sys.exit(1)
 
     IS_Qex_tim = len(IV_Qex_tim)
@@ -124,7 +124,7 @@ def main() -> None:
     # Using IM_Qex_tim rather than IV_Qex_tim which may have only one timestep
 
     if IS_TaR == 0:
-        print('ERROR - Values of time_bnds lead to IS_TaR = 0')
+        print("ERROR - Values of time_bnds lead to IS_TaR = 0")
         sys.exit(1)
 
     IS_mus = stp_cor(IS_TaR, IS_dtR)
@@ -149,24 +149,24 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Open files
     # -------------------------------------------------------------------------
-    e = netCDF4.Dataset(Q00_ncf, 'r')
-    f = netCDF4.Dataset(Qex_ncf, 'r')
-    g = netCDF4.Dataset(Qou_ncf, 'a')
-    h = netCDF4.Dataset(Qfi_ncf, 'a')
+    e = netCDF4.Dataset(Q00_ncf, "r")
+    f = netCDF4.Dataset(Qex_ncf, "r")
+    g = netCDF4.Dataset(Qou_ncf, "a")
+    h = netCDF4.Dataset(Qfi_ncf, "a")
 
     # -------------------------------------------------------------------------
     # Read initial discharge state
     # -------------------------------------------------------------------------
-    ZV_Qou_ini = e.variables['Qout'][0, IV_bas_tot]
+    ZV_Qou_ini = e.variables["Qout"][0, IV_bas_tot]
 
     # -------------------------------------------------------------------------
     # Run simulations
     # -------------------------------------------------------------------------
-    for JS_Qex_tim in tqdm(range(IS_Qex_tim), desc='Computing discharge'):
+    for JS_Qex_tim in tqdm(range(IS_Qex_tim), desc="Computing discharge"):
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Compute Qout
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        ZV_Qex_avg = f.variables['Qext'][JS_Qex_tim][IV_bas_tot]
+        ZV_Qex_avg = f.variables["Qext"][JS_Qex_tim][IV_bas_tot]
 
         ZV_Qou_avg, ZV_Qou_fin = mus_rte(
             ZM_Lin, ZM_Qex, ZM_Qou, IS_mus, ZV_Qou_ini, ZV_Qex_avg
@@ -176,22 +176,22 @@ def main() -> None:
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Populate Qout, time, and time_bnds
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        g.variables['Qout'][JS_Qex_tim, :] = ZV_Qou_avg[:]
-        g.variables['time'][JS_Qex_tim] = IV_Qex_tim[JS_Qex_tim]
-        g.variables['time_bnds'][JS_Qex_tim, :] = IM_Qex_tim[JS_Qex_tim, :]
+        g.variables["Qout"][JS_Qex_tim, :] = ZV_Qou_avg[:]
+        g.variables["time"][JS_Qex_tim] = IV_Qex_tim[JS_Qex_tim]
+        g.variables["time_bnds"][JS_Qex_tim, :] = IM_Qex_tim[JS_Qex_tim, :]
 
     # -------------------------------------------------------------------------
     # Save final discharge state
     # -------------------------------------------------------------------------
-    h.variables['Qout'][0, IV_bas_tot] = ZV_Qou_fin[:]
+    h.variables["Qout"][0, IV_bas_tot] = ZV_Qou_fin[:]
 
     # -------------------------------------------------------------------------
     # Copy some global attributes
     # -------------------------------------------------------------------------
-    g.setncattr('title', f.getncattr('title'))
-    g.setncattr('institution', f.getncattr('institution'))
-    h.setncattr('title', f.getncattr('title'))
-    h.setncattr('institution', f.getncattr('institution'))
+    g.setncattr("title", f.getncattr("title"))
+    g.setncattr("institution", f.getncattr("institution"))
+    h.setncattr("title", f.getncattr("title"))
+    h.setncattr("institution", f.getncattr("institution"))
 
     # -------------------------------------------------------------------------
     # Close files
@@ -204,13 +204,13 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Done
     # -------------------------------------------------------------------------
-    print('Done')
+    print("Done")
 
 
 # *****************************************************************************
 # If executed as a script
 # *****************************************************************************
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
 
 

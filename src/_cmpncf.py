@@ -30,51 +30,51 @@ def main() -> None:
     # Initialize the argument parser and add valid arguments
     # -------------------------------------------------------------------------
     parser = argparse.ArgumentParser(
-        description='Compare RAPID output files for regression testing '
-        'and validation',
-        epilog='\nExamples:\n'
-        '  cmpncf -o old_output.nc -n new_output.nc '
-        '-r 0.01 -a 0.001\n'
-        '  cmpncf --old baseline.nc --new current.nc '
-        '--rel 1e-6 --abs 1e-9\n',
+        description="Compare RAPID output files for regression testing "
+        "and validation",
+        epilog="\nExamples:\n"
+        "  cmpncf -o old_output.nc -n new_output.nc "
+        "-r 0.01 -a 0.001\n"
+        "  cmpncf --old baseline.nc --new current.nc "
+        "--rel 1e-6 --abs 1e-9\n",
     )
 
     parser.add_argument(
-        '--version', action='version', version=f'rapid2 {__version__}'
+        "--version", action="version", version=f"rapid2 {__version__}"
     )
 
     parser.add_argument(
-        '-o',
-        '--old',
+        "-o",
+        "--old",
         type=str,
         required=True,
-        help='Specify the old netCDF file',
+        help="Specify the old netCDF file",
     )
 
     parser.add_argument(
-        '-n',
-        '--new',
+        "-n",
+        "--new",
         type=str,
         required=True,
-        help='Specify the new netCDF file',
+        help="Specify the new netCDF file",
     )
 
     parser.add_argument(
-        '-r',
-        '--rel',
+        "-r",
+        "--rel",
         type=str,
         required=False,
-        default='0',
-        help='Specify relative tolerance',
+        default="0",
+        help="Specify relative tolerance",
     )
 
     parser.add_argument(
-        '-a',
-        '--abs',
+        "-a",
+        "--abs",
         type=str,
         required=False,
-        default='0',
-        help='Specify the absolute tolerance',
+        default="0",
+        help="Specify the absolute tolerance",
     )
 
     # -------------------------------------------------------------------------
@@ -88,10 +88,10 @@ def main() -> None:
     abs_str = args.abs
 
     print(
-        f'Comparing {old_ncf} '
-        f'with {new_ncf} '
-        f'relative tolerance {rel_str} '
-        f'absolute tolerance {abs_str}'
+        f"Comparing {old_ncf} "
+        f"with {new_ncf} "
+        f"relative tolerance {rel_str} "
+        f"absolute tolerance {abs_str}"
     )
 
     ZS_rtl = np.float64(rel_str)
@@ -121,21 +121,21 @@ def main() -> None:
     # -------------------------------------------------------------------------
     if len(IV_riv_old) == len(IV_riv_new):
         IS_riv_tot = len(IV_riv_old)
-        print(f'Common number of river reaches: {IS_riv_tot}')
+        print(f"Common number of river reaches: {IS_riv_tot}")
     else:
         print(
-            f'ERROR - The number of river reaches differs: '
-            f'{len(IV_riv_old)} <> {len(IV_riv_new)}'
+            f"ERROR - The number of river reaches differs: "
+            f"{len(IV_riv_old)} <> {len(IV_riv_new)}"
         )
         sys.exit(1)
 
     if len(IV_tim_old) == len(IV_tim_new):
         IS_tim = len(IV_tim_old)
-        print(f'Common number of time steps   : {IS_tim}')
+        print(f"Common number of time steps   : {IS_tim}")
     else:
         print(
-            f'ERROR - The number of time steps differs: '
-            f'{len(IV_tim_old)} <> {len(IV_tim_new)}'
+            f"ERROR - The number of time steps differs: "
+            f"{len(IV_tim_old)} <> {len(IV_tim_new)}"
         )
         sys.exit(1)
 
@@ -143,10 +143,10 @@ def main() -> None:
     # Compare rivid values
     # -------------------------------------------------------------------------
     if np.array_equal(IV_riv_old, IV_riv_new):
-        print('The rivids and their sort are both the same')
+        print("The rivids and their sort are both the same")
     else:
         if np.array_equal(np.sort(IV_riv_old), np.sort(IV_riv_new)):
-            print('WARNING - The rivids are the same, but sorted differently')
+            print("WARNING - The rivids are the same, but sorted differently")
             IM_hsh = {}
             for JS_riv_tot in range(IS_riv_tot):
                 IM_hsh[IV_riv_new[JS_riv_tot]] = JS_riv_tot
@@ -154,59 +154,59 @@ def main() -> None:
             for JS_riv_tot in range(IS_riv_tot):
                 IV_loc.append(IM_hsh[IV_riv_old[JS_riv_tot]])
         else:
-            print('ERROR - The rivids differ')
+            print("ERROR - The rivids differ")
             sys.exit(1)
 
     # -------------------------------------------------------------------------
     # Compare other metadata values
     # -------------------------------------------------------------------------
     if np.array_equal(ZV_lon_old, ZV_lon_new):
-        print('The longitude values are the same')
+        print("The longitude values are the same")
     else:
-        print('ERROR - The longitude values differ')
+        print("ERROR - The longitude values differ")
         sys.exit(1)
 
     if np.array_equal(ZV_lat_old, ZV_lat_new):
-        print('The latitude values are the same')
+        print("The latitude values are the same")
     else:
-        print('ERROR - The latitude values differ')
+        print("ERROR - The latitude values differ")
         sys.exit(1)
 
     if np.array_equal(IV_tim_old, IV_tim_new):
-        print('The time values are the same')
+        print("The time values are the same")
     else:
-        print('ERROR - The time values differ')
+        print("ERROR - The time values differ")
         sys.exit(1)
 
     if (IM_tim_old is None) != (IM_tim_new is None):
-        print('ERROR - time_bnds present in only one file')
+        print("ERROR - time_bnds present in only one file")
         sys.exit(1)
 
     if (IM_tim_old is not None) and (IM_tim_new is not None):
         if np.array_equal(IM_tim_old, IM_tim_new):
-            print('The time_bnds values are the same')
+            print("The time_bnds values are the same")
         else:
-            print('ERROR - The time_bnds values differ')
+            print("ERROR - The time_bnds values differ")
             sys.exit(1)
     else:
-        print('WARNING - time_bnds variable missing: skipping comparison')
+        print("WARNING - time_bnds variable missing: skipping comparison")
 
     # -------------------------------------------------------------------------
     # Get main variable in netCDF files
     # -------------------------------------------------------------------------
-    old = netCDF4.Dataset(old_ncf, 'r')
-    new = netCDF4.Dataset(new_ncf, 'r')
+    old = netCDF4.Dataset(old_ncf, "r")
+    new = netCDF4.Dataset(new_ncf, "r")
 
     com_var = set(old.variables) & set(new.variables)
 
-    if 'Qext' in com_var:
-        ncf_var = 'Qext'
-    elif 'Qout' in com_var:
-        ncf_var = 'Qout'
+    if "Qext" in com_var:
+        ncf_var = "Qext"
+    elif "Qout" in com_var:
+        ncf_var = "Qout"
     else:
-        print('ERROR - Neither Qext nor Qout is common variable')
+        print("ERROR - Neither Qext nor Qout is common variable")
         sys.exit(1)
-    print(f'The main variable names are the same: {ncf_var}')
+    print(f"The main variable names are the same: {ncf_var}")
 
     # -------------------------------------------------------------------------
     # Compute differences
@@ -228,7 +228,7 @@ def main() -> None:
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         ZV_old = old.variables[ncf_var][JS_tim, :]
         ZV_new = new.variables[ncf_var][JS_tim, :]
-        if 'IV_loc' in locals():
+        if "IV_loc" in locals():
             ZV_new = ZV_new[IV_loc]
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -262,34 +262,34 @@ def main() -> None:
     # Print difference values and compare to tolerances
     # ------------------------------------------------------------------------
     if BS_msk_old:
-        print(f'WARNING - masked values replaced by -9999 in {old_ncf}')
+        print(f"WARNING - masked values replaced by -9999 in {old_ncf}")
     if BS_msk_new:
-        print(f'WARNING - masked values replaced by -9999 in {new_ncf}')
+        print(f"WARNING - masked values replaced by -9999 in {new_ncf}")
     if BS_msk_old or BS_msk_new:
-        print('-------------------------------')
+        print("-------------------------------")
 
-    print('Max relative difference       :' + '{0:.2e}'.format(ZS_rdf_max))
-    print('Max absolute difference       :' + '{0:.2e}'.format(ZS_adf_max))
-    print('-------------------------------')
+    print("Max relative difference       :" + "{0:.2e}".format(ZS_rdf_max))
+    print("Max absolute difference       :" + "{0:.2e}".format(ZS_adf_max))
+    print("-------------------------------")
 
     if ZS_rdf_max > ZS_rtl:
-        print('Unacceptable rel. difference!!!')
-        print('-------------------------------')
+        print("Unacceptable rel. difference!!!")
+        print("-------------------------------")
         sys.exit(1)
 
     if ZS_adf_max > ZS_atl:
-        print('Unacceptable abs. difference!!!')
-        print('-------------------------------')
+        print("Unacceptable abs. difference!!!")
+        print("-------------------------------")
         sys.exit(1)
 
-    print('netCDF files similar!!!')
-    print('-------------------------------')
+    print("netCDF files similar!!!")
+    print("-------------------------------")
 
 
 # *****************************************************************************
 # If executed as a script
 # *****************************************************************************
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
 
 
