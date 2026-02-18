@@ -84,15 +84,15 @@ def ccc_mat(
 
     ZV_C1m = IS_dtR / 2 - ZV_kpr_bas * ZV_xpr_bas
     ZV_C1m = ZV_C1m / ZV_den
-    ZM_C1m = diags(ZV_C1m, format='csc', dtype=np.float64)
+    ZM_C1m = diags(ZV_C1m, format="csc", dtype=np.float64)
 
     ZV_C2m = IS_dtR / 2 + ZV_kpr_bas * ZV_xpr_bas
     ZV_C2m = ZV_C2m / ZV_den
-    ZM_C2m = diags(ZV_C2m, format='csc', dtype=np.float64)
+    ZM_C2m = diags(ZV_C2m, format="csc", dtype=np.float64)
 
     ZV_C3m = -IS_dtR / 2 + ZV_kpr_bas * (1 - ZV_xpr_bas)
     ZV_C3m = ZV_C3m / ZV_den
-    ZM_C3m = diags(ZV_C3m, format='csc', dtype=np.float64)
+    ZM_C3m = diags(ZV_C3m, format="csc", dtype=np.float64)
 
     return ZM_C1m, ZM_C2m, ZM_C3m
 

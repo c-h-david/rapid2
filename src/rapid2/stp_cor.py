@@ -49,7 +49,7 @@ def stp_cor(IS_TaR: np.int32, IS_dtR: np.int32) -> int:
     if round(IS_TaR / IS_dtR) == IS_TaR / IS_dtR:
         IS_mus = round(IS_TaR / IS_dtR)
     else:
-        raise ValueError('quotient of time steps is not an integer')
+        raise ValueError("quotient of time steps is not an integer")
 
     return IS_mus
 

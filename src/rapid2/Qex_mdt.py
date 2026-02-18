@@ -90,70 +90,70 @@ def Qex_mdt(
           dtype=int32)
     """
 
-    f = netCDF4.Dataset(fil_ncf, 'r')
+    f = netCDF4.Dataset(fil_ncf, "r")
 
     # -------------------------------------------------------------------------
     # Check dimensions exist
     # -------------------------------------------------------------------------
-    if 'rivid' not in f.dimensions:
-        print(f'ERROR - rivid dimension does not exist in {fil_ncf}')
+    if "rivid" not in f.dimensions:
+        print(f"ERROR - rivid dimension does not exist in {fil_ncf}")
         sys.exit(1)
 
-    if 'time' not in f.dimensions:
-        print(f'ERROR - time dimension does not exist in {fil_ncf}')
+    if "time" not in f.dimensions:
+        print(f"ERROR - time dimension does not exist in {fil_ncf}")
         sys.exit(1)
 
     # -------------------------------------------------------------------------
     # Check variables exist
     # -------------------------------------------------------------------------
-    if 'rivid' not in f.variables:
-        print(f'ERROR - rivid variable does not exist in {fil_ncf}')
+    if "rivid" not in f.variables:
+        print(f"ERROR - rivid variable does not exist in {fil_ncf}")
         sys.exit(1)
 
-    if 'lon' not in f.variables:
-        print(f'ERROR - lon variable does not exist in {fil_ncf}')
+    if "lon" not in f.variables:
+        print(f"ERROR - lon variable does not exist in {fil_ncf}")
         sys.exit(1)
 
-    if 'lat' not in f.variables:
-        print(f'ERROR - lat variable does not exist in {fil_ncf}')
+    if "lat" not in f.variables:
+        print(f"ERROR - lat variable does not exist in {fil_ncf}")
         sys.exit(1)
 
-    if 'time' not in f.variables:
-        print(f'ERROR - time variable does not exist in {fil_ncf}')
+    if "time" not in f.variables:
+        print(f"ERROR - time variable does not exist in {fil_ncf}")
         sys.exit(1)
 
-    if 'Qext' not in f.variables and 'Qout' not in f.variables:
-        print(f'ERROR - No known main variable exist in {fil_ncf}')
+    if "Qext" not in f.variables and "Qout" not in f.variables:
+        print(f"ERROR - No known main variable exist in {fil_ncf}")
         sys.exit(1)
 
     # -------------------------------------------------------------------------
     # Retrieve variables
     # -------------------------------------------------------------------------
-    IV_tmp = f.variables['rivid'][:].filled()
+    IV_tmp = f.variables["rivid"][:].filled()
     IV_Qex_tot = np.array(IV_tmp, dtype=np.int32)
     # Retrieving variables in two steps to better inform mypy
 
-    ZV_tmp = f.variables['lon'][:].filled()
+    ZV_tmp = f.variables["lon"][:].filled()
     ZV_lon_tot = np.array(ZV_tmp, dtype=np.float64)
     # Retrieving variables in two steps to better inform mypy
 
-    ZV_tmp = f.variables['lat'][:].filled()
+    ZV_tmp = f.variables["lat"][:].filled()
     ZV_lat_tot = np.array(ZV_tmp, dtype=np.float64)
     # Retrieving variables in two steps to better inform mypy
 
-    IV_tmp = f.variables['time'][:].filled()
+    IV_tmp = f.variables["time"][:].filled()
     IV_Qex_tim = np.array(IV_tmp, dtype=np.int32)
     # Retrieving variables in two steps to better inform mypy
 
-    if 'time_bnds' in f.variables:
-        if 'nv' not in f.dimensions:
-            print(f'ERROR - nv dimension does not exist in {fil_ncf}')
+    if "time_bnds" in f.variables:
+        if "nv" not in f.dimensions:
+            print(f"ERROR - nv dimension does not exist in {fil_ncf}")
             sys.exit(1)
-        if len(f.dimensions['nv']) != 2:
-            print(f'ERROR - nv dimension is not of size 2 in {fil_ncf}')
+        if len(f.dimensions["nv"]) != 2:
+            print(f"ERROR - nv dimension is not of size 2 in {fil_ncf}")
             sys.exit(1)
 
-        IM_tmp = f.variables['time_bnds'][:].filled()
+        IM_tmp = f.variables["time_bnds"][:].filled()
         IM_Qex_tim = np.array(IM_tmp, dtype=np.int32)
         # Retrieving variables in two steps to better inform mypy
     else:

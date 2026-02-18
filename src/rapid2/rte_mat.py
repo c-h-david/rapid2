@@ -94,7 +94,7 @@ def rte_mat(
     """
 
     IS_riv_bas = ZM_Net.shape[0]
-    ZM_Idt = identity(IS_riv_bas, format='csc', dtype=np.float64)
+    ZM_Idt = identity(IS_riv_bas, format="csc", dtype=np.float64)
 
     ZM_Lin = ZM_Idt - ZM_C1m @ ZM_Net
     ZM_Qex = ZM_C1m + ZM_C2m

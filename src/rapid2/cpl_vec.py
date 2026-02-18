@@ -62,10 +62,10 @@ def cpl_vec(
     # Count the number of elements
     # -------------------------------------------------------------------------
     try:
-        with open(cpl_csv, 'r') as csvfile:
+        with open(cpl_csv, "r") as csvfile:
             IS_riv_tot = sum(1 for _ in csvfile)
     except IOError:
-        print(f'ERROR - Unable to open {cpl_csv}')
+        print(f"ERROR - Unable to open {cpl_csv}")
         sys.exit(1)
 
     # -------------------------------------------------------------------------
@@ -80,7 +80,7 @@ def cpl_vec(
     # Populate arrays
     # -------------------------------------------------------------------------
     try:
-        with open(cpl_csv, 'r') as csvfile:
+        with open(cpl_csv, "r") as csvfile:
             csvreader = csv.reader(csvfile)
             for JS_riv_tot, row in enumerate(csvreader):
                 IV_riv_tot[JS_riv_tot] = np.int32(row[0])
@@ -88,7 +88,7 @@ def cpl_vec(
                 IV_riv_1bi[JS_riv_tot] = np.int32(row[2])
                 IV_riv_1bj[JS_riv_tot] = np.int32(row[3])
     except IOError:
-        print(f'ERROR - Unable to open {cpl_csv}')
+        print(f"ERROR - Unable to open {cpl_csv}")
         sys.exit(1)
 
     return IV_riv_tot, ZV_riv_skm, IV_riv_1bi, IV_riv_1bj

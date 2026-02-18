@@ -52,10 +52,10 @@ def chk_ids(
     """
 
     if IV_riv_tot.size != IV_m3r_tot.size:
-        raise ValueError('The arrays have different sizes')
+        raise ValueError("The arrays have different sizes")
 
     if not np.all(IV_riv_tot - IV_m3r_tot == 0):
-        raise ValueError('The river IDs in con_csv and m3r_ncf differ')
+        raise ValueError("The river IDs in con_csv and m3r_ncf differ")
 
 
 # *****************************************************************************

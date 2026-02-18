@@ -51,20 +51,20 @@ def Qex_new(
     >>> IV_riv_tot = np.array([10, 20, 30, 40, 50], dtype=np.int32)
     >>> ZV_lon_tot = np.array([0.5, 2.0, 1.0, 2.0, 0.5])
     >>> ZV_lat_tot = np.array([5.0, 4.5, 3.0, 2.5, 1.0])
-    >>> Qex_ncf = './input/Sandbox/Qext_Sandbox_19700101_19700110_tst.nc4'
+    >>> Qex_ncf = "./input/Sandbox/Qext_Sandbox_19700101_19700110_tst.nc4"
     >>> Qex_new(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Qex_ncf)
-    >>> f = netCDF4.Dataset(Qex_ncf, 'r')
-    >>> f.variables['rivid'][:].filled()
+    >>> f = netCDF4.Dataset(Qex_ncf, "r")
+    >>> f.variables["rivid"][:].filled()
     array([10, 20, 30, 40, 50], dtype=int32)
-    >>> f.variables['lon'][:].filled()
+    >>> f.variables["lon"][:].filled()
     array([0.5, 2. , 1. , 2. , 0.5])
-    >>> f.variables['lat'][:].filled()
+    >>> f.variables["lat"][:].filled()
     array([5. , 4.5, 3. , 2.5, 1. ])
-    >>> 'nv' in f.dimensions
+    >>> "nv" in f.dimensions
     True
-    >>> all(var in f.variables for var in ['Qext', 'time_bnds'])
+    >>> all(var in f.variables for var in ["Qext", "time_bnds"])
     True
-    >>> all(var in f.variables for var in ['Qext_bia', 'Qext_var', 'Qext_cov'])
+    >>> all(var in f.variables for var in ["Qext_bia", "Qext_var", "Qext_cov"])
     True
     >>> import os
     >>> os.remove(Qex_ncf)
@@ -78,12 +78,12 @@ def Qex_new(
     # -------------------------------------------------------------------------
     # Open file to make changes
     # -------------------------------------------------------------------------
-    f = netCDF4.Dataset(Qex_ncf, 'a')
+    f = netCDF4.Dataset(Qex_ncf, "a")
 
     # -------------------------------------------------------------------------
     # Create dimensions
     # -------------------------------------------------------------------------
-    f.createDimension('nv', 2)
+    f.createDimension("nv", 2)
 
     # -------------------------------------------------------------------------
     # Create variables
@@ -91,72 +91,72 @@ def Qex_new(
     ZS_fill = float(1e20)
 
     Qext = f.createVariable(
-        'Qext',
-        'float32',
+        "Qext",
+        "float32",
         (
-            'time',
-            'rivid',
+            "time",
+            "rivid",
         ),
         fill_value=ZS_fill,
     )
-    Qext.long_name = 'mean external water inflow upstream of each river reach'
-    Qext.units = 'm3 s-1'
-    Qext.coordinates = 'lon lat'
-    Qext.grid_mapping = 'crs'
-    Qext.cell_methods = 'time: mean'
+    Qext.long_name = "mean external water inflow upstream of each river reach"
+    Qext.units = "m3 s-1"
+    Qext.coordinates = "lon lat"
+    Qext.grid_mapping = "crs"
+    Qext.cell_methods = "time: mean"
 
     time_bnds = f.createVariable(
-        'time_bnds',
-        'int32',
+        "time_bnds",
+        "int32",
         (
-            'time',
-            'nv',
+            "time",
+            "nv",
         ),
     )
-    time_bnds.long_name = 'time bounds'
+    time_bnds.long_name = "time bounds"
 
-    time = f.variables['time']
-    time.bounds = 'time_bnds'
+    time = f.variables["time"]
+    time.bounds = "time_bnds"
 
     Qext_bia = f.createVariable(
-        'Qext_bia', 'float32', 'rivid', fill_value=ZS_fill
+        "Qext_bia", "float32", "rivid", fill_value=ZS_fill
     )
     Qext_bia.long_name = (
-        'mean external water inflow error upstream of each river reach'
+        "mean external water inflow error upstream of each river reach"
     )
-    Qext_bia.units = 'm3 s-1'
-    Qext_bia.coordinates = 'lon lat'
-    Qext_bia.grid_mapping = 'crs'
-    Qext_bia.cell_methods = 'time: mean'
-    Qext_bia.window = 'applicable to entire period of simulation'
-    Qext_bia.interval = 'temporal resolution does not impact computation'
+    Qext_bia.units = "m3 s-1"
+    Qext_bia.coordinates = "lon lat"
+    Qext_bia.grid_mapping = "crs"
+    Qext_bia.cell_methods = "time: mean"
+    Qext_bia.window = "applicable to entire period of simulation"
+    Qext_bia.interval = "temporal resolution does not impact computation"
 
     Qext_var = f.createVariable(
-        'Qext_var', 'float32', 'rivid', fill_value=ZS_fill
+        "Qext_var", "float32", "rivid", fill_value=ZS_fill
     )
     Qext_var.long_name = (
-        'variance of external water inflow error upstream of each river reach'
+        "variance of external water inflow error upstream of each river reach"
     )
-    Qext_var.units = 'm6 s-2'
-    Qext_var.coordinates = 'lon lat'
-    Qext_var.grid_mapping = 'crs'
-    Qext_var.cell_methods = 'time: variance'
-    Qext_var.window = 'applicable to entire period of simulation'
-    Qext_var.interval = 'typically same temporal resolution as observations'
+    Qext_var.units = "m6 s-2"
+    Qext_var.coordinates = "lon lat"
+    Qext_var.grid_mapping = "crs"
+    Qext_var.cell_methods = "time: variance"
+    Qext_var.window = "applicable to entire period of simulation"
+    Qext_var.interval = "typically same temporal resolution as observations"
 
     Qext_cov = f.createVariable(
-        'Qext_cov', 'float32', 'rivid', fill_value=ZS_fill
+        "Qext_cov", "float32", "rivid", fill_value=ZS_fill
     )
     Qext_cov.long_name = (
-        'indicative covariance between external water '
-        'inflow error at a given reach and at another'
+        "indicative covariance between external water "
+        "inflow error at a given reach and at another"
     )
-    Qext_cov.units = 'm6 s-2'
-    Qext_cov.coordinates = 'lon lat'
-    Qext_cov.grid_mapping = 'crs'
-    Qext_cov.cell_methods = 'time: covariance'
-    Qext_cov.window = 'applicable to entire period of simulation'
-    Qext_cov.interval = 'typically same temporal resolution as observations'
+    Qext_cov.units = "m6 s-2"
+    Qext_cov.coordinates = "lon lat"
+    Qext_cov.grid_mapping = "crs"
+    Qext_cov.cell_methods = "time: covariance"
+    Qext_cov.window = "applicable to entire period of simulation"
+    Qext_cov.interval = "typically same temporal resolution as observations"
 
     # -------------------------------------------------------------------------
     # Close file

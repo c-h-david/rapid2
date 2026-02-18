@@ -62,7 +62,7 @@ def inv_mat(
     """
 
     IS_riv_bas = ZM_Net.shape[0]
-    ZM_Idt = identity(IS_riv_bas, format='csc', dtype=np.float64)
+    ZM_Idt = identity(IS_riv_bas, format="csc", dtype=np.float64)
 
     ZM_C1N = ZM_C1m @ ZM_Net
 

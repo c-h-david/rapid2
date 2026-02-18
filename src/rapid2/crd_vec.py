@@ -56,10 +56,10 @@ def crd_vec(
     # Count the number of elements
     # -------------------------------------------------------------------------
     try:
-        with open(crd_csv, 'r') as csvfile:
+        with open(crd_csv, "r") as csvfile:
             IS_riv_tot = sum(1 for _ in csvfile)
     except IOError:
-        print(f'ERROR - Unable to open {crd_csv}')
+        print(f"ERROR - Unable to open {crd_csv}")
         sys.exit(1)
 
     # -------------------------------------------------------------------------
@@ -73,14 +73,14 @@ def crd_vec(
     # Populate arrays
     # -------------------------------------------------------------------------
     try:
-        with open(crd_csv, 'r') as csvfile:
+        with open(crd_csv, "r") as csvfile:
             csvreader = csv.reader(csvfile)
             for JS_riv_tot, row in enumerate(csvreader):
                 IV_riv_tot[JS_riv_tot] = np.int32(row[0])
                 ZV_lon_tot[JS_riv_tot] = np.float64(row[1])
                 ZV_lat_tot[JS_riv_tot] = np.float64(row[2])
     except IOError:
-        print(f'ERROR - Unable to open {crd_csv}')
+        print(f"ERROR - Unable to open {crd_csv}")
         sys.exit(1)
 
     return IV_riv_tot, ZV_lon_tot, ZV_lat_tot

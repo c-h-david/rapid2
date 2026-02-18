@@ -102,7 +102,7 @@ def wdw_mat(
     # Start with some initial variables
     # -------------------------------------------------------------------------
     IS_riv_bas = ZM_Lin.shape[0]
-    ZM_Idt = identity(IS_riv_bas, format='csc', dtype=np.float64)
+    ZM_Idt = identity(IS_riv_bas, format="csc", dtype=np.float64)
     ZM_Bet = spsolve(ZM_Lin, ZM_Qex)
 
     # -------------------------------------------------------------------------

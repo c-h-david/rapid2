@@ -51,10 +51,10 @@ def con_vec(
     # Count the number of elements
     # -------------------------------------------------------------------------
     try:
-        with open(con_csv, 'r') as csvfile:
+        with open(con_csv, "r") as csvfile:
             IS_riv_tot = sum(1 for _ in csvfile)
     except IOError:
-        print(f'ERROR - Unable to open {con_csv}')
+        print(f"ERROR - Unable to open {con_csv}")
         sys.exit(1)
 
     # -------------------------------------------------------------------------
@@ -67,13 +67,13 @@ def con_vec(
     # Populate arrays
     # -------------------------------------------------------------------------
     try:
-        with open(con_csv, 'r') as csvfile:
+        with open(con_csv, "r") as csvfile:
             csvreader = csv.reader(csvfile)
             for JS_riv_tot, row in enumerate(csvreader):
                 IV_riv_tot[JS_riv_tot] = np.int32(row[0])
                 IV_dwn_tot[JS_riv_tot] = np.int32(row[1])
     except IOError:
-        print(f'ERROR - Unable to open {con_csv}')
+        print(f"ERROR - Unable to open {con_csv}")
         sys.exit(1)
 
     return IV_riv_tot, IV_dwn_tot

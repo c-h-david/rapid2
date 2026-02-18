@@ -310,6 +310,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_*.py`                | Formatted with ruff. |
 | `./src/rapid2/*.py`          | Formatted with ruff. |
 | `./src/_*.py`                | Changed quote style to double. |
+| `./src/rapid2/*.py`          | Changed quote style to double. |
 
 ### Removed
 

@@ -99,9 +99,9 @@ def chk_top(
         if IS_dwn != 0:
             if IS_dwn in IM_hsh_bas and IS_riv not in IM_hsh_bas:
                 print(
-                    f'WARNING - connectivity: {IS_riv} '
-                    f'is upstream of {IS_dwn} '
-                    f'but is not in basin file'
+                    f"WARNING - connectivity: {IS_riv} "
+                    f"is upstream of {IS_dwn} "
+                    f"but is not in basin file"
                 )
 
     # -------------------------------------------------------------------------
@@ -112,9 +112,9 @@ def chk_top(
         if IS_dwn != 0:
             if IS_dwn not in IM_hsh_bas:
                 print(
-                    f'WARNING - connectivity: {IS_dwn} '
-                    f'is downstream of {IS_riv} '
-                    f'but is not in basin file'
+                    f"WARNING - connectivity: {IS_dwn} "
+                    f"is downstream of {IS_riv} "
+                    f"but is not in basin file"
                 )
 
     # -------------------------------------------------------------------------
@@ -126,11 +126,11 @@ def chk_top(
             if IS_dwn in IM_hsh_bas:
                 if IM_hsh_bas[IS_dwn] < IM_hsh_bas[IS_riv]:
                     raise ValueError(
-                        'Sorting problem: '
+                        "Sorting problem: "
                         + str(IS_dwn)
-                        + ' is downstream of '
+                        + " is downstream of "
                         + str(IS_riv)
-                        + ' but is located above in basin file'
+                        + " but is located above in basin file"
                     )
 
 

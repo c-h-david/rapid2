@@ -57,10 +57,10 @@ def k_x_vec(
     # Count the number of elements
     # -------------------------------------------------------------------------
     try:
-        with open(kpr_csv, 'r') as csvfile:
+        with open(kpr_csv, "r") as csvfile:
             IS_riv_tot = sum(1 for _ in csvfile)
     except IOError:
-        print(f'ERROR - Unable to open {kpr_csv}')
+        print(f"ERROR - Unable to open {kpr_csv}")
         sys.exit(1)
 
     # -------------------------------------------------------------------------
@@ -72,12 +72,12 @@ def k_x_vec(
     # Populate arrays
     # -------------------------------------------------------------------------
     try:
-        with open(kpr_csv, 'r') as csvfile:
+        with open(kpr_csv, "r") as csvfile:
             csvreader = csv.reader(csvfile)
             for JS_riv_tot, row in enumerate(csvreader):
                 ZV_kpr_tot[JS_riv_tot] = np.float64(row[0])
     except IOError:
-        print(f'ERROR - Unable to open {kpr_csv}')
+        print(f"ERROR - Unable to open {kpr_csv}")
         sys.exit(1)
     ZV_kpr_bas = ZV_kpr_tot[IV_bas_tot]
 
@@ -85,10 +85,10 @@ def k_x_vec(
     # Count the number of elements
     # -------------------------------------------------------------------------
     try:
-        with open(xpr_csv, 'r') as csvfile:
+        with open(xpr_csv, "r") as csvfile:
             IS_riv_tot = sum(1 for _ in csvfile)
     except IOError:
-        print(f'ERROR - Unable to open {xpr_csv}')
+        print(f"ERROR - Unable to open {xpr_csv}")
         sys.exit(1)
 
     # -------------------------------------------------------------------------
@@ -100,12 +100,12 @@ def k_x_vec(
     # Populate arrays
     # -------------------------------------------------------------------------
     try:
-        with open(xpr_csv, 'r') as csvfile:
+        with open(xpr_csv, "r") as csvfile:
             csvreader = csv.reader(csvfile)
             for JS_riv_tot, row in enumerate(csvreader):
                 ZV_xpr_tot[JS_riv_tot] = np.float64(row[0])
     except IOError:
-        print(f'ERROR - Unable to open {xpr_csv}')
+        print(f"ERROR - Unable to open {xpr_csv}")
         sys.exit(1)
     ZV_xpr_bas = ZV_xpr_tot[IV_bas_tot]
 

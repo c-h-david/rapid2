@@ -51,14 +51,14 @@ def Qfi_new(
     >>> IV_riv_tot = np.array([10, 20, 30, 40, 50], dtype=np.int32)
     >>> ZV_lon_tot = np.array([0.5, 2.0, 1.0, 2.0, 0.5])
     >>> ZV_lat_tot = np.array([5.0, 4.5, 3.0, 2.5, 1.0])
-    >>> Qfi_ncf = './output/Sandbox/Qfinal_Sandbox_19700101_19700110_tst.nc4'
+    >>> Qfi_ncf = "./output/Sandbox/Qfinal_Sandbox_19700101_19700110_tst.nc4"
     >>> Qfi_new(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Qfi_ncf)
-    >>> f = netCDF4.Dataset(Qfi_ncf, 'r')
-    >>> f.variables['rivid'][:].filled()
+    >>> f = netCDF4.Dataset(Qfi_ncf, "r")
+    >>> f.variables["rivid"][:].filled()
     array([10, 20, 30, 40, 50], dtype=int32)
-    >>> f.variables['lon'][:].filled()
+    >>> f.variables["lon"][:].filled()
     array([0.5, 2. , 1. , 2. , 0.5])
-    >>> f.variables['lat'][:].filled()
+    >>> f.variables["lat"][:].filled()
     array([5. , 4.5, 3. , 2.5, 1. ])
     >>> import os
     >>> os.remove(Qfi_ncf)
@@ -72,7 +72,7 @@ def Qfi_new(
     # -------------------------------------------------------------------------
     # Open file to make changes
     # -------------------------------------------------------------------------
-    f = netCDF4.Dataset(Qfi_ncf, 'a')
+    f = netCDF4.Dataset(Qfi_ncf, "a")
 
     # -------------------------------------------------------------------------
     # Create variables
@@ -80,21 +80,21 @@ def Qfi_new(
     ZS_fill = float(1e20)
 
     Qout = f.createVariable(
-        'Qout',
-        'float64',
+        "Qout",
+        "float64",
         (
-            'time',
-            'rivid',
+            "time",
+            "rivid",
         ),
         fill_value=ZS_fill,
     )
     Qout.long_name = (
-        'instantaneous river water outflow downstream of each river reach'
+        "instantaneous river water outflow downstream of each river reach"
     )
-    Qout.units = 'm3 s-1'
-    Qout.coordinates = 'lon lat'
-    Qout.grid_mapping = 'crs'
-    Qout.cell_methods = 'time: point'
+    Qout.units = "m3 s-1"
+    Qout.coordinates = "lon lat"
+    Qout.grid_mapping = "crs"
+    Qout.cell_methods = "time: point"
 
     # -------------------------------------------------------------------------
     # Close file

@@ -38,25 +38,25 @@ def nml_cfg(nml_yml: str) -> Dict[str, Any]:
 
     Examples
     --------
-    >>> nml_yml = './input/Sandbox/namelist_Sandbox.yml'
+    >>> nml_yml = "./input/Sandbox/namelist_Sandbox.yml"
     >>> nml_dic = nml_cfg(nml_yml)
-    >>> nml_dic['Q00_ncf']
+    >>> nml_dic["Q00_ncf"]
     './input/Sandbox/Qinit_Sandbox_19700101_19700110.nc4'
-    >>> nml_dic['Qex_ncf']
+    >>> nml_dic["Qex_ncf"]
     './input/Sandbox/Qext_Sandbox_19700101_19700110.nc4'
-    >>> nml_dic['con_csv']
+    >>> nml_dic["con_csv"]
     './input/Sandbox/rapid_connect_Sandbox.csv'
-    >>> nml_dic['kpr_csv']
+    >>> nml_dic["kpr_csv"]
     './input/Sandbox/k_Sandbox.csv'
-    >>> nml_dic['xpr_csv']
+    >>> nml_dic["xpr_csv"]
     './input/Sandbox/x_Sandbox.csv'
-    >>> nml_dic['bas_csv']
+    >>> nml_dic["bas_csv"]
     './input/Sandbox/riv_bas_id_Sandbox.csv'
-    >>> nml_dic['IS_dtR']
+    >>> nml_dic["IS_dtR"]
     np.int32(900)
-    >>> nml_dic['Qou_ncf']
+    >>> nml_dic["Qou_ncf"]
     './output/Sandbox/Qout_Sandbox_19700101_19700110_tst.nc4'
-    >>> nml_dic['Qfi_ncf']
+    >>> nml_dic["Qfi_ncf"]
     './output/Sandbox/Qfinal_Sandbox_19700101_19700110_tst.nc4'
     """
 
@@ -64,34 +64,34 @@ def nml_cfg(nml_yml: str) -> Dict[str, Any]:
         # ---------------------------------------------------------------------
         # Load namelist
         # ---------------------------------------------------------------------
-        with open(nml_yml, 'r') as ymlfile:
+        with open(nml_yml, "r") as ymlfile:
             nml_dic: Dict[str, Any] = yaml.safe_load(ymlfile)
 
         # ---------------------------------------------------------------------
         # Check for required keys
         # ---------------------------------------------------------------------
         req_key = {
-            'Q00_ncf',
-            'Qex_ncf',
-            'con_csv',
-            'kpr_csv',
-            'xpr_csv',
-            'bas_csv',
-            'IS_dtR',
-            'Qou_ncf',
-            'Qfi_ncf',
+            "Q00_ncf",
+            "Qex_ncf",
+            "con_csv",
+            "kpr_csv",
+            "xpr_csv",
+            "bas_csv",
+            "IS_dtR",
+            "Qou_ncf",
+            "Qfi_ncf",
         }
         mis_key = req_key - nml_dic.keys()
         if mis_key:
-            raise ValueError('Missing required keys: ' + str(mis_key))
+            raise ValueError("Missing required keys: " + str(mis_key))
 
         # ---------------------------------------------------------------------
         # Check that timestep is integer and make it np.int32
         # ---------------------------------------------------------------------
-        if not isinstance(nml_dic['IS_dtR'], int):
-            raise ValueError('IS_dtR must be an integer')
+        if not isinstance(nml_dic["IS_dtR"], int):
+            raise ValueError("IS_dtR must be an integer")
 
-        nml_dic['IS_dtR'] = np.int32(nml_dic['IS_dtR'])
+        nml_dic["IS_dtR"] = np.int32(nml_dic["IS_dtR"])
 
         # ---------------------------------------------------------------------
         # Return dictionary
@@ -99,7 +99,7 @@ def nml_cfg(nml_yml: str) -> Dict[str, Any]:
         return nml_dic
 
     except IOError:
-        print(f'ERROR - Unable to open {nml_yml}')
+        print(f"ERROR - Unable to open {nml_yml}")
         sys.exit(1)
 
 

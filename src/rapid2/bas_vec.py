@@ -37,7 +37,7 @@ def bas_vec(bas_csv: str) -> npt.NDArray[np.int32]:
 
     Examples
     --------
-    >>> bas_csv = './input/Sandbox/riv_bas_id_Sandbox.csv'
+    >>> bas_csv = "./input/Sandbox/riv_bas_id_Sandbox.csv"
     >>> bas_vec(bas_csv)
     array([10, 20, 30, 40, 50], dtype=int32)
     """
@@ -46,10 +46,10 @@ def bas_vec(bas_csv: str) -> npt.NDArray[np.int32]:
     # Count the number of elements
     # -------------------------------------------------------------------------
     try:
-        with open(bas_csv, 'r') as csvfile:
+        with open(bas_csv, "r") as csvfile:
             IS_riv_bas = sum(1 for _ in csvfile)
     except IOError:
-        print(f'ERROR - Unable to open {bas_csv}')
+        print(f"ERROR - Unable to open {bas_csv}")
         sys.exit(1)
 
     # -------------------------------------------------------------------------
@@ -61,12 +61,12 @@ def bas_vec(bas_csv: str) -> npt.NDArray[np.int32]:
     # Populate arrays
     # -------------------------------------------------------------------------
     try:
-        with open(bas_csv, 'r') as csvfile:
+        with open(bas_csv, "r") as csvfile:
             csvreader = csv.reader(csvfile)
             for JS_riv_bas, row in enumerate(csvreader):
                 IV_riv_bas[JS_riv_bas] = np.int32(row[0])
     except IOError:
-        print(f'ERROR - Unable to open {bas_csv}')
+        print(f"ERROR - Unable to open {bas_csv}")
         sys.exit(1)
 
     return IV_riv_bas
