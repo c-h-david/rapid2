@@ -58,7 +58,7 @@ shellcheck *.sh tst/*.sh
 awk 'length>79 {print FILENAME ":"FNR">79"; exit 1}' *.sh tst/*.sh
 ```
 
-### Python linter
+### Python linter and formatter
 
 We use `ruff` to lint our python files.
 
@@ -66,8 +66,14 @@ We use `ruff` to lint our python files.
 ruff check .
 ```
 
-> We enforce a maximum line width of 79 characters and python version 3.11
-using the
+We also use `ruff` to check the formatting of our python files.
+
+```bash
+ruff format . --check
+```
+
+> We enforce a maximum line width of 79 characters, version 3.11 of python,
+> as well as standard options for linting and formatting using the
 > [`pyproj.toml`][URL_CFG_PY]
 > configuration file.
 

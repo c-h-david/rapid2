@@ -98,6 +98,7 @@ jobs:
           wc -L Dockerfile | awk '{exit $1 > 79}'
           awk 'length>79 {print FILENAME ":"FNR">79"; exit 1}' Dockerfile
           ruff check .
+          ruff format . --check
           mypy .
           shellcheck *.sh tst/*.sh
           awk 'length>79 {print FILENAME ":"FNR">79"; exit 1}' *.sh tst/*.sh

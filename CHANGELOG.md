@@ -312,6 +312,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_*.py`                | Changed quote style to double. |
 | `./src/rapid2/*.py`          | Changed quote style to double. |
 | `./pyproject.toml`           | Added formatting rules for ruff. |
+| `./.github/workflows/CL.yml` | Added formatting check with ruff. |
+| `./TESTING.md`               | Added formatting check with ruff. |
 
 ### Removed
 
