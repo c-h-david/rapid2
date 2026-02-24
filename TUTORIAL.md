@@ -36,11 +36,12 @@ River Basin.
 Download GLDAS version `2.1`, model `VIC`, for `2010-01`:
 
 ``` bash
-dgldas2 --vsn 2.1
-        --mod VIC
-        --tim 2010-01
-        --dir input/Tutorial
-        --fil GLDAS_2.1_VIC_2010-01.nc4
+dgldas2 \
+    --vsn 2.1 \
+    --mod VIC \
+    --tim 2010-01 \
+    --dir input/Tutorial \
+    --fil GLDAS_2.1_VIC_2010-01.nc4
 ```
 
 The new file is placed in `input/Tutorial`. Other files are also automatically
@@ -53,19 +54,21 @@ downloaded in that directory and removed after use.
 Convert the GLDAS runoff file into RAPID external inflow format:
 
 ``` bash
-cpllsm --lsm input/Tutorial/GLDAS_2.1_VIC_2010-01.nc4
-       --con input/Tutorial/rapid_connect_pfaf_74.csv
-       --pos input/Tutorial/coords_pfaf_74.csv
-       --bnd input/Tutorial/rapid_coupling_pfaf_74_GLDAS.csv
-       --dir input/Tutorial
-       --fil Qext_GLDAS_2.1_VIC_2010-01.nc4
+cpllsm \
+    --lsm input/Tutorial/GLDAS_2.1_VIC_2010-01.nc4 \
+    --con input/Tutorial/rapid_connect_pfaf_74.csv \
+    --pos input/Tutorial/coords_pfaf_74.csv \
+    --bnd input/Tutorial/rapid_coupling_pfaf_74_GLDAS.csv \
+    --dir input/Tutorial \
+    --fil Qext_GLDAS_2.1_VIC_2010-01.nc4
 ```
 
 ## 4. Create Cold Start File with `zeroqinit`
 
 ``` bash
-zeroqinit --input input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01.nc4
-          --output input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01.nc4
+zeroqinit \
+    --input input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01.nc4 \
+    --output input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01.nc4
 ```
 
 ## 5. Run the Routing Model with `rapid2`
@@ -77,10 +80,11 @@ rapid2 --namelist namelist_Sandbox.yml
 ## 6. Compare Output to Baseline with `cmpncf`
 
 ``` bash
-cmpncf --old input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01_GOLD.nc4
-       --new input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01.nc4
-       --rel 1e-6
-       --abs 1e-3
+cmpncf \
+    --old input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01_GOLD.nc4 \
+    --new input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01.nc4 \
+    --rel 1e-6 \
+    --abs 1e-3
 ```
 
 ## Current Known Challenges to Command Line Interface

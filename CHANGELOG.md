@@ -316,6 +316,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./.github/workflows/CL.yml` | Added formatting check with ruff. |
 | `./TESTING.md`               | Added formatting check with ruff. |
 | `./src/_*.py`                | Cleaned up CLI text and code. |
+| `./TUTORIAL.md`              | Added line continuations and 4-space indent. |
 
 ### Removed
 
