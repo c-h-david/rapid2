@@ -77,12 +77,20 @@ zeroqinit \
 rapid2 --namelist namelist_Sandbox.yml
 ```
 
-## 6. Compare Output to Baseline with `cmpncf`
+## 6. Compare Files to Baseline with `cmpncf`
 
 ``` bash
 cmpncf \
     --old input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01_GOLD.nc4 \
     --new input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01.nc4 \
+    --rel 1e-6 \
+    --abs 1e-3
+```
+
+```bash
+cmpncf \
+    --old input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01_GOLD.nc4 \
+    --new input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01.nc4 \
     --rel 1e-6 \
     --abs 1e-3
 ```
