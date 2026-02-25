@@ -1,7 +1,7 @@
 # Code of Conduct for Scientific Collaboration
 
-> DRAFT. Work in progress: consider contributing to its associated GitHub
-> issues at [NASA AMMOS][URL_AMMOS].
+> ⚠️  DRAFT. Work in progress: consider contributing to its associated GitHub
+> issue at [NASA AMMOS][URL_AMMOS].
 
 ## Overview
 

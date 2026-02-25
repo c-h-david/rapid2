@@ -318,6 +318,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_*.py`                | Cleaned up CLI text and code. |
 | `./TUTORIAL.md`              | Added line continuations and 4-space indent. |
 | `./TUTORIAL.md`              | Added comparison of Qext. |
+| `./CODE_OF_COLLAB.md`        | Cleaned foreword. |
 
 ### Removed
 
