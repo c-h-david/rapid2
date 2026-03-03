@@ -109,7 +109,7 @@ def main() -> None:
         print(f"ERROR - time_bnds variable does not exist in {m3r_ncf}")
         sys.exit(1)
 
-    IV_m3r_tot = d.variables["rivid"][:]
+    IV_riv_tot = d.variables["rivid"][:]
     ZV_lon_tot = d.variables["lon"][:]
     ZV_lat_tot = d.variables["lat"][:]
 
@@ -124,7 +124,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     print(f"The transformation will divide by the value: {IS_TaR}")
 
-    Qex_new(IV_m3r_tot, ZV_lon_tot, ZV_lat_tot, Qex_ncf)
+    Qex_new(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Qex_ncf)
 
     f = netCDF4.Dataset(Qex_ncf, "a")
 

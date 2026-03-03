@@ -339,6 +339,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/hsh_tbl.py`    | Renamed `IV_bas_tot` to `IV_idx_bas`. |
 | `./src/rapid2/k_x_vec.py`    | Renamed `IV_bas_tot` to `IV_idx_bas`. |
 | `./src/rapid2/chk_ids.py`    | Renamed `IV_m3r_tot` to `IV_riv_tmp`. |
+| `./src/_m3rivtoqext.py`      | Renamed `IV_m3r_tot` to `IV_riv_tot`. |
 
 ### Removed
 
