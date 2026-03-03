@@ -40,7 +40,7 @@ def hsh_tbl(
         The link from river ID to index in domain.
     IM_hsh_bas : dict[int32, int]
         The link from river ID to index in basin.
-    IV_bas_tot : ndarray[int32]
+    IV_idx_bas : ndarray[int32]
         The index in domain for river IDs in basin.
 
     Examples
@@ -73,14 +73,14 @@ def hsh_tbl(
         IM_hsh_bas[IV_riv_bas[JS_riv_bas]] = JS_riv_bas
     # IM_hsh_bas[IS_riv] = JS_riv_bas
 
-    IV_bas_tot = np.zeros(IS_riv_bas, dtype=np.int32)
+    IV_idx_bas = np.zeros(IS_riv_bas, dtype=np.int32)
     for JS_riv_bas in range(IS_riv_bas):
-        IV_bas_tot[JS_riv_bas] = IM_hsh_tot[IV_riv_bas[JS_riv_bas]]
+        IV_idx_bas[JS_riv_bas] = IM_hsh_tot[IV_riv_bas[JS_riv_bas]]
     # This array allows for index mapping such that IV_riv_tot[JS_riv_tot]
     #                                             = IV_riv_bas[JS_riv_bas]
-    # IV_bas_tot[JS_riv_bas] = JS_riv_tot
+    # IV_idx_bas[JS_riv_bas] = JS_riv_tot
 
-    return IM_hsh_tot, IM_hsh_bas, IV_bas_tot
+    return IM_hsh_tot, IM_hsh_bas, IV_idx_bas
 
 
 # *****************************************************************************

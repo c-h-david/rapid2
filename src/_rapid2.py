@@ -99,13 +99,13 @@ def main() -> None:
     # -------------------------------------------------------------------------
     IV_riv_tot, IV_dwn_tot = con_vec(con_csv)
     IV_riv_bas = bas_vec(bas_csv)
-    IM_hsh_tot, IM_hsh_bas, IV_bas_tot = hsh_tbl(IV_riv_tot, IV_riv_bas)
+    IM_hsh_tot, IM_hsh_bas, IV_idx_bas = hsh_tbl(IV_riv_tot, IV_riv_bas)
     ZM_Net = net_mat(IV_dwn_tot, IM_hsh_tot, IV_riv_bas, IM_hsh_bas)
 
     # -------------------------------------------------------------------------
     # Model parameters
     # -------------------------------------------------------------------------
-    ZV_kpr_bas, ZV_xpr_bas = k_x_vec(kpr_csv, xpr_csv, IV_bas_tot)
+    ZV_kpr_bas, ZV_xpr_bas = k_x_vec(kpr_csv, xpr_csv, IV_idx_bas)
     ZM_C1m, ZM_C2m, ZM_C3m = ccc_mat(ZV_kpr_bas, ZV_xpr_bas, IS_dtR)
     ZM_Lin, ZM_Qex, ZM_Qou = rte_mat(ZM_Net, ZM_C1m, ZM_C2m, ZM_C3m)
 
@@ -144,9 +144,9 @@ def main() -> None:
     # Populate metadata for discharge output files
     # -------------------------------------------------------------------------
     Qou_new(
-        IV_riv_tot[IV_bas_tot],
-        ZV_lon_tot[IV_bas_tot],
-        ZV_lat_tot[IV_bas_tot],
+        IV_riv_tot[IV_idx_bas],
+        ZV_lon_tot[IV_idx_bas],
+        ZV_lat_tot[IV_idx_bas],
         Qou_ncf,
     )
     Qfi_new(IV_Qex_tot, ZV_lon_tot, ZV_lat_tot, Qfi_ncf)
@@ -162,7 +162,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Read initial discharge state
     # -------------------------------------------------------------------------
-    ZV_Qou_ini = e.variables["Qout"][0, IV_bas_tot]
+    ZV_Qou_ini = e.variables["Qout"][0, IV_idx_bas]
 
     # -------------------------------------------------------------------------
     # Run simulations
@@ -171,7 +171,7 @@ def main() -> None:
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Compute Qout
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        ZV_Qex_avg = f.variables["Qext"][JS_Qex_tim][IV_bas_tot]
+        ZV_Qex_avg = f.variables["Qext"][JS_Qex_tim][IV_idx_bas]
 
         ZV_Qou_avg, ZV_Qou_fin = mus_rte(
             ZM_Lin, ZM_Qex, ZM_Qou, IS_mus, ZV_Qou_ini, ZV_Qex_avg
@@ -188,7 +188,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Save final discharge state
     # -------------------------------------------------------------------------
-    h.variables["Qout"][0, IV_bas_tot] = ZV_Qou_fin[:]
+    h.variables["Qout"][0, IV_idx_bas] = ZV_Qou_fin[:]
 
     # -------------------------------------------------------------------------
     # Copy some global attributes
