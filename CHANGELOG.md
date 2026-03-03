@@ -319,6 +319,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./TUTORIAL.md`              | Added line continuations and 4-space indent. |
 | `./TUTORIAL.md`              | Added comparison of Qext. |
 | `./CODE_OF_COLLAB.md`        | Cleaned foreword. |
+| `./src/rapid2/chk_cpl.py`    | Fixed type in docstrings description. |
+| `./src/rapid2/cpl_vec.py`    | Fixed type in docstrings description. |
 
 ### Removed
 

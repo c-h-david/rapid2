@@ -30,9 +30,9 @@ def chk_cpl(
     ----------
     ZV_riv_skm : ndarray[float64]
         The areas of contributing catchments to each river ID.
-    IV_riv_1bi : ndarray[float64]
+    IV_riv_1bi : ndarray[int32]
         The 1-based i index corresponding to each river ID in the LSM grid.
-    IV_riv_1bj : ndarray[float64]
+    IV_riv_1bj : ndarray[int32]
         The 1-based j index corresponding to each river ID in the LSM grid.
 
     Returns
