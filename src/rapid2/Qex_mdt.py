@@ -22,7 +22,7 @@ import numpy.typing as npt
 # Metadata of external inflow
 # *****************************************************************************
 def Qex_mdt(
-    fil_ncf: str,
+    std_ncf: str,
 ) -> tuple[
     npt.NDArray[np.int32],
     npt.NDArray[np.float64],
@@ -30,14 +30,14 @@ def Qex_mdt(
     npt.NDArray[np.int32],
     Optional[npt.NDArray[np.int32]],
 ]:
-    """Get metadata from a RAPID netCDF file.
+    """Get core metadata from a RAPID-compatible netCDF file.
 
-    Get metadata from a RAPID netCDF file: river IDs, longitudes, epoch time,
-    epoch time bounds.
+    Get standard metadata (river IDs, coordinates, time) from a
+    RAPID-compatible netCDF file.
 
     Parameters
     ----------
-    fil_ncf : str
+    std_ncf : str
         Path to the RAPID netCDF file.
 
     Returns
@@ -55,9 +55,9 @@ def Qex_mdt(
 
     Examples
     --------
-    >>> fil_ncf = './input/Sandbox/Qext_Sandbox_19700101_19700110.nc4'
+    >>> std_ncf = './input/Sandbox/Qext_Sandbox_19700101_19700110.nc4'
     >>> (IV_Qex_tot, ZV_lon_tot, ZV_lat_tot,\
-         IV_Qex_tim, IM_Qex_tim) = Qex_mdt(fil_ncf)
+         IV_Qex_tim, IM_Qex_tim) = Qex_mdt(std_ncf)
     >>> IV_Qex_tot
     array([10, 20, 30, 40, 50], dtype=int32)
     >>> ZV_lon_tot
@@ -90,40 +90,40 @@ def Qex_mdt(
           dtype=int32)
     """
 
-    f = netCDF4.Dataset(fil_ncf, "r")
+    f = netCDF4.Dataset(std_ncf, "r")
 
     # -------------------------------------------------------------------------
     # Check dimensions exist
     # -------------------------------------------------------------------------
     if "rivid" not in f.dimensions:
-        print(f"ERROR - rivid dimension does not exist in {fil_ncf}")
+        print(f"ERROR - rivid dimension does not exist in {std_ncf}")
         sys.exit(1)
 
     if "time" not in f.dimensions:
-        print(f"ERROR - time dimension does not exist in {fil_ncf}")
+        print(f"ERROR - time dimension does not exist in {std_ncf}")
         sys.exit(1)
 
     # -------------------------------------------------------------------------
     # Check variables exist
     # -------------------------------------------------------------------------
     if "rivid" not in f.variables:
-        print(f"ERROR - rivid variable does not exist in {fil_ncf}")
+        print(f"ERROR - rivid variable does not exist in {std_ncf}")
         sys.exit(1)
 
     if "lon" not in f.variables:
-        print(f"ERROR - lon variable does not exist in {fil_ncf}")
+        print(f"ERROR - lon variable does not exist in {std_ncf}")
         sys.exit(1)
 
     if "lat" not in f.variables:
-        print(f"ERROR - lat variable does not exist in {fil_ncf}")
+        print(f"ERROR - lat variable does not exist in {std_ncf}")
         sys.exit(1)
 
     if "time" not in f.variables:
-        print(f"ERROR - time variable does not exist in {fil_ncf}")
+        print(f"ERROR - time variable does not exist in {std_ncf}")
         sys.exit(1)
 
     if "Qext" not in f.variables and "Qout" not in f.variables:
-        print(f"ERROR - No known main variable exist in {fil_ncf}")
+        print(f"ERROR - No known main variable exist in {std_ncf}")
         sys.exit(1)
 
     # -------------------------------------------------------------------------
@@ -147,10 +147,10 @@ def Qex_mdt(
 
     if "time_bnds" in f.variables:
         if "nv" not in f.dimensions:
-            print(f"ERROR - nv dimension does not exist in {fil_ncf}")
+            print(f"ERROR - nv dimension does not exist in {std_ncf}")
             sys.exit(1)
         if len(f.dimensions["nv"]) != 2:
-            print(f"ERROR - nv dimension is not of size 2 in {fil_ncf}")
+            print(f"ERROR - nv dimension is not of size 2 in {std_ncf}")
             sys.exit(1)
 
         IM_tmp = f.variables["time_bnds"][:].filled()
