@@ -101,7 +101,7 @@ def main() -> None:
         print(f"ERROR - time variable does not exist in {Qex_ncf}")
         sys.exit(1)
 
-    IV_Qex_tot = f.variables["rivid"][:]
+    IV_riv_tot = f.variables["rivid"][:]
     ZV_lon_tot = f.variables["lon"][:]
     ZV_lat_tot = f.variables["lat"][:]
 
@@ -110,7 +110,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Create Qfi file
     # -------------------------------------------------------------------------
-    Qfi_new(IV_Qex_tot, ZV_lon_tot, ZV_lat_tot, Q00_ncf)
+    Qfi_new(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Q00_ncf)
 
     e = netCDF4.Dataset(Q00_ncf, "a")
 

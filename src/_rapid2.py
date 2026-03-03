@@ -113,7 +113,7 @@ def main() -> None:
     # Extract metadata of external inflow, get time step correspondance
     # -------------------------------------------------------------------------
     (
-        IV_Qex_tot,
+        IV_riv_tmp,
         ZV_lon_tot,
         ZV_lat_tot,
         IV_Qex_tim,
@@ -137,7 +137,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Check river IDs and upstream to downstream topology
     # -------------------------------------------------------------------------
-    chk_ids(IV_riv_tot, IV_Qex_tot)
+    chk_ids(IV_riv_tot, IV_riv_tmp)
     chk_top(IV_riv_bas, IM_hsh_bas, IV_riv_tot, IV_dwn_tot, IM_hsh_tot)
 
     # -------------------------------------------------------------------------
@@ -149,7 +149,12 @@ def main() -> None:
         ZV_lat_tot[IV_idx_bas],
         Qou_ncf,
     )
-    Qfi_new(IV_Qex_tot, ZV_lon_tot, ZV_lat_tot, Qfi_ncf)
+    Qfi_new(
+        IV_riv_tot,
+        ZV_lon_tot,
+        ZV_lat_tot,
+        Qfi_ncf,
+    )
 
     # -------------------------------------------------------------------------
     # Open files

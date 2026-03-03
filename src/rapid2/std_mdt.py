@@ -42,7 +42,7 @@ def std_mdt(
 
     Returns
     -------
-    IV_Qex_tot : ndarray[int32]
+    IV_riv_tot : ndarray[int32]
         The river IDs of the RAPID netCDF file.
     ZV_lon_tot : ndarray[float64]
         The longitudes of river IDs in the RAPID netCDF file.
@@ -56,9 +56,9 @@ def std_mdt(
     Examples
     --------
     >>> std_ncf = './input/Sandbox/Qext_Sandbox_19700101_19700110.nc4'
-    >>> (IV_Qex_tot, ZV_lon_tot, ZV_lat_tot,\
+    >>> (IV_riv_tot, ZV_lon_tot, ZV_lat_tot,\
          IV_Qex_tim, IM_Qex_tim) = std_mdt(std_ncf)
-    >>> IV_Qex_tot
+    >>> IV_riv_tot
     array([10, 20, 30, 40, 50], dtype=int32)
     >>> ZV_lon_tot
     array([4.3 , 5.94, 5.12, 6.55, 4.3 ])
@@ -130,7 +130,7 @@ def std_mdt(
     # Retrieve variables
     # -------------------------------------------------------------------------
     IV_tmp = f.variables["rivid"][:].filled()
-    IV_Qex_tot = np.array(IV_tmp, dtype=np.int32)
+    IV_riv_tot = np.array(IV_tmp, dtype=np.int32)
     # Retrieving variables in two steps to better inform mypy
 
     ZV_tmp = f.variables["lon"][:].filled()
@@ -159,7 +159,7 @@ def std_mdt(
     else:
         IM_Qex_tim = None
 
-    return IV_Qex_tot, ZV_lon_tot, ZV_lat_tot, IV_Qex_tim, IM_Qex_tim
+    return IV_riv_tot, ZV_lon_tot, ZV_lat_tot, IV_Qex_tim, IM_Qex_tim
 
 
 # *****************************************************************************
