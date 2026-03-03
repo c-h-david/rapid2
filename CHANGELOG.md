@@ -67,6 +67,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/wdw_mat.py`    | New file. |
 | `./src/_cmpncf.py`           | New file. |
 | `./TUTORIAL.md`              | New file. |
+| `./src/rapid2/skl_new.py`    | New file. |
 
 ### Changed
 
@@ -323,6 +324,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/cpl_vec.py`    | Fixed type in docstrings description. |
 | `./src/rapid2/Qex_mdt.py`    | Renamed `fil_ncf` to `std_ncf` for clarity. |
 | `./src/rapid2/rud_new.py`    | Renamed `rud_ncf` to `skl_ncf` for clarity. |
+| `./src/rapid2/Qex_new.py`    | Renamed `rud_new.py` to `skl_new.py`. |
+| `./src/rapid2/Qfi_new.py`    | Renamed `rud_new.py` to `skl_new.py`. |
+| `./src/rapid2/Qou_new.py`    | Renamed `rud_new.py` to `skl_new.py`. |
+| `./src/rapid2/skl_new.py`    | Renamed `rud_new.py` to `skl_new.py`. |
 
 ### Removed
 
@@ -331,3 +336,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/Qfi_mdt.py`    | Refactored m3riv into Qext. |
 | `./src/rapid2/fak_m3r.py`    | Refactored m3riv into Qext. |
 | `./src/rapid2/snd_Qex.py`    | Refactored into sandboxqext. |
+| `./src/rapid2/rud_new.py`    | Renamed `rud_new.py` to `skl_new.py`. |

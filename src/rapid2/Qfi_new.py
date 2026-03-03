@@ -14,7 +14,7 @@ import netCDF4  # type: ignore[import-untyped]
 import numpy as np
 import numpy.typing as npt
 
-from rapid2.rud_new import rud_new
+from rapid2.skl_new import skl_new
 
 
 # *****************************************************************************
@@ -65,9 +65,9 @@ def Qfi_new(
     """
 
     # -------------------------------------------------------------------------
-    # Create rudimentary file
+    # Create skeleton file
     # -------------------------------------------------------------------------
-    rud_new(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Qfi_ncf)
+    skl_new(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Qfi_ncf)
 
     # -------------------------------------------------------------------------
     # Open file to make changes

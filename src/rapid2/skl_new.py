@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # *****************************************************************************
-# rud_new.py
+# skl_new.py
 # *****************************************************************************
 
 # Author:
@@ -20,7 +20,7 @@ import numpy.typing as npt
 # *****************************************************************************
 # Make skeleton of RAPID-compatible netCDF file
 # *****************************************************************************
-def rud_new(
+def skl_new(
     IV_riv: npt.NDArray[np.int32],
     ZV_lon: npt.NDArray[np.float64],
     ZV_lat: npt.NDArray[np.float64],
@@ -53,7 +53,7 @@ def rud_new(
     >>> ZV_lon = np.array([0.5, 2.0, 1.0, 2.0, 0.5])
     >>> ZV_lat = np.array([5.0, 4.5, 3.0, 2.5, 1.0])
     >>> skl_ncf = "./input/Sandbox/skl_Sandbox_19700101_19700110_tst.nc4"
-    >>> rud_new(IV_riv, ZV_lon, ZV_lat, skl_ncf)
+    >>> skl_new(IV_riv, ZV_lon, ZV_lat, skl_ncf)
     >>> f = netCDF4.Dataset(skl_ncf, "r")
     >>> f.variables["rivid"][:].filled()
     array([10, 20, 30, 40, 50], dtype=int32)
