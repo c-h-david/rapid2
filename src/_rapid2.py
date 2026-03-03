@@ -27,7 +27,7 @@ from rapid2.k_x_vec import k_x_vec
 from rapid2.mus_rte import mus_rte
 from rapid2.net_mat import net_mat
 from rapid2.nml_cfg import nml_cfg
-from rapid2.Qex_mdt import Qex_mdt
+from rapid2.std_mdt import std_mdt
 from rapid2.Qfi_new import Qfi_new
 from rapid2.Qou_new import Qou_new
 from rapid2.rte_mat import rte_mat
@@ -118,10 +118,10 @@ def main() -> None:
         ZV_lat_tot,
         IV_Qex_tim,
         IM_Qex_tim,
-    ) = Qex_mdt(Qex_ncf)
+    ) = std_mdt(Qex_ncf)
 
     if IM_Qex_tim is None:
-        print("ERROR - Qex_mdt returned None for IM_Qex_tim")
+        print("ERROR - std_mdt returned None for IM_Qex_tim")
         sys.exit(1)
 
     IS_Qex_tim = len(IV_Qex_tim)

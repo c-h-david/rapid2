@@ -18,7 +18,7 @@ import numpy as np
 from numpy.ma import MaskedArray
 
 from rapid2 import __version__
-from rapid2.Qex_mdt import Qex_mdt
+from rapid2.std_mdt import std_mdt
 
 
 # *****************************************************************************
@@ -110,7 +110,7 @@ def main() -> None:
         ZV_lat_old,
         IV_tim_old,
         IM_tim_old,
-    ) = Qex_mdt(old_ncf)
+    ) = std_mdt(old_ncf)
 
     (
         IV_riv_new,
@@ -118,7 +118,7 @@ def main() -> None:
         ZV_lat_new,
         IV_tim_new,
         IM_tim_new,
-    ) = Qex_mdt(new_ncf)
+    ) = std_mdt(new_ncf)
 
     # -------------------------------------------------------------------------
     # Compare dimension sizes

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # *****************************************************************************
-# Qex_mdt.py
+# std_mdt.py
 # *****************************************************************************
 
 # Author:
@@ -21,7 +21,7 @@ import numpy.typing as npt
 # *****************************************************************************
 # Metadata of external inflow
 # *****************************************************************************
-def Qex_mdt(
+def std_mdt(
     std_ncf: str,
 ) -> tuple[
     npt.NDArray[np.int32],
@@ -57,7 +57,7 @@ def Qex_mdt(
     --------
     >>> std_ncf = './input/Sandbox/Qext_Sandbox_19700101_19700110.nc4'
     >>> (IV_Qex_tot, ZV_lon_tot, ZV_lat_tot,\
-         IV_Qex_tim, IM_Qex_tim) = Qex_mdt(std_ncf)
+         IV_Qex_tim, IM_Qex_tim) = std_mdt(std_ncf)
     >>> IV_Qex_tot
     array([10, 20, 30, 40, 50], dtype=int32)
     >>> ZV_lon_tot
