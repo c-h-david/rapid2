@@ -18,19 +18,19 @@ import numpy.typing as npt
 
 
 # *****************************************************************************
-# Make external inflow volume (rud) file
+# Make skeleton of RAPID-compatible netCDF file
 # *****************************************************************************
 def rud_new(
     IV_riv: npt.NDArray[np.int32],
     ZV_lon: npt.NDArray[np.float64],
     ZV_lat: npt.NDArray[np.float64],
-    rud_ncf: str,
+    skl_ncf: str,
 ) -> None:
-    """Create rudimentary netCDF file following CF conventions for RAPID.
+    """Create skeleton netCDF file following CF conventions for RAPID.
 
-    Create a rudimentary netCDF file following the CF conventions for
-    timeseries with basic metadata and populated values for river ID,
-    longitude, and latitude.
+    Create a skeleton netCDF file following the CF conventions for timeseries
+    with basic metadata and populated values for river ID, longitude, and
+    latitude.
 
     Parameters
     ----------
@@ -40,8 +40,8 @@ def rud_new(
         The longitudes related to river IDs.
     ZV_lat : ndarray[float64]
         The latitudes related to river IDs.
-    rud_ncf : str
-        Path to the rudimentary netCDF file.
+    skl_ncf : str
+        Path to the skeleton netCDF file.
 
     Returns
     -------
@@ -52,9 +52,9 @@ def rud_new(
     >>> IV_riv = np.array([10, 20, 30, 40, 50], dtype=np.int32)
     >>> ZV_lon = np.array([0.5, 2.0, 1.0, 2.0, 0.5])
     >>> ZV_lat = np.array([5.0, 4.5, 3.0, 2.5, 1.0])
-    >>> rud_ncf = "./input/Sandbox/rud_Sandbox_19700101_19700110_tst.nc4"
-    >>> rud_new(IV_riv, ZV_lon, ZV_lat, rud_ncf)
-    >>> f = netCDF4.Dataset(rud_ncf, "r")
+    >>> skl_ncf = "./input/Sandbox/skl_Sandbox_19700101_19700110_tst.nc4"
+    >>> rud_new(IV_riv, ZV_lon, ZV_lat, skl_ncf)
+    >>> f = netCDF4.Dataset(skl_ncf, "r")
     >>> f.variables["rivid"][:].filled()
     array([10, 20, 30, 40, 50], dtype=int32)
     >>> f.variables["lon"][:].filled()
@@ -62,7 +62,7 @@ def rud_new(
     >>> f.variables["lat"][:].filled()
     array([5. , 4.5, 3. , 2.5, 1. ])
     >>> import os
-    >>> os.remove(rud_ncf)
+    >>> os.remove(skl_ncf)
     """
 
     # -------------------------------------------------------------------------
@@ -73,7 +73,7 @@ def rud_new(
     # -------------------------------------------------------------------------
     # Create file
     # -------------------------------------------------------------------------
-    f = netCDF4.Dataset(rud_ncf, "w", format="NETCDF4")
+    f = netCDF4.Dataset(skl_ncf, "w", format="NETCDF4")
 
     # -------------------------------------------------------------------------
     # Create dimensions

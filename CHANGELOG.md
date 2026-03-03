@@ -322,6 +322,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/chk_cpl.py`    | Fixed type in docstrings description. |
 | `./src/rapid2/cpl_vec.py`    | Fixed type in docstrings description. |
 | `./src/rapid2/Qex_mdt.py`    | Renamed `fil_ncf` to `std_ncf` for clarity. |
+| `./src/rapid2/rud_new.py`    | Renamed `rud_ncf` to `skl_ncf` for clarity. |
 
 ### Removed
 
