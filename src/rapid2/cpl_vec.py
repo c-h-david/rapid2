@@ -41,11 +41,11 @@ def cpl_vec(
     -------
     IV_riv_tot : ndarray[int32]
         The river IDs of the domain.
-    ZV_riv_skm : ndarray[float64]
+    ZV_skm_tot : ndarray[float64]
         The areas of contributing catchments to each river ID.
-    IV_riv_1bi : ndarray[int32]
+    IV_1bi_tot : ndarray[int32]
         The 1-based i index corresponding to each river ID in the LSM grid.
-    IV_riv_1bj : ndarray[int32]
+    IV_1bj_tot : ndarray[int32]
         The 1-based j index corresponding to each river ID in the LSM grid.
 
     Examples
@@ -72,9 +72,9 @@ def cpl_vec(
     # Allocate array sizes
     # -------------------------------------------------------------------------
     IV_riv_tot = np.empty(IS_riv_tot, dtype=np.int32)
-    ZV_riv_skm = np.empty(IS_riv_tot, dtype=np.float64)
-    IV_riv_1bi = np.empty(IS_riv_tot, dtype=np.int32)
-    IV_riv_1bj = np.empty(IS_riv_tot, dtype=np.int32)
+    ZV_skm_tot = np.empty(IS_riv_tot, dtype=np.float64)
+    IV_1bi_tot = np.empty(IS_riv_tot, dtype=np.int32)
+    IV_1bj_tot = np.empty(IS_riv_tot, dtype=np.int32)
 
     # -------------------------------------------------------------------------
     # Populate arrays
@@ -84,14 +84,14 @@ def cpl_vec(
             csvreader = csv.reader(csvfile)
             for JS_riv_tot, row in enumerate(csvreader):
                 IV_riv_tot[JS_riv_tot] = np.int32(row[0])
-                ZV_riv_skm[JS_riv_tot] = np.float64(row[1])
-                IV_riv_1bi[JS_riv_tot] = np.int32(row[2])
-                IV_riv_1bj[JS_riv_tot] = np.int32(row[3])
+                ZV_skm_tot[JS_riv_tot] = np.float64(row[1])
+                IV_1bi_tot[JS_riv_tot] = np.int32(row[2])
+                IV_1bj_tot[JS_riv_tot] = np.int32(row[3])
     except IOError:
         print(f"ERROR - Unable to open {cpl_csv}")
         sys.exit(1)
 
-    return IV_riv_tot, ZV_riv_skm, IV_riv_1bi, IV_riv_1bj
+    return IV_riv_tot, ZV_skm_tot, IV_1bi_tot, IV_1bj_tot
 
 
 # *****************************************************************************

@@ -158,7 +158,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     print("- Read coupling file")
 
-    IV_riv_tot3, ZV_riv_skm3, IV_riv_1bi3, IV_riv_1bj3 = cpl_vec(bnd_csv)
+    IV_riv_tot3, ZV_skm_tot3, IV_1bi_tot3, IV_1bj_tot3 = cpl_vec(bnd_csv)
     IS_riv_tot3 = len(IV_riv_tot3)
     print(
         f"  . The number of river reaches in coupling file is: {IS_riv_tot3}"
@@ -178,7 +178,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     print("- Check consisitency of coupling file")
 
-    chk_cpl(ZV_riv_skm3, IV_riv_1bi3, IV_riv_1bj3)
+    chk_cpl(ZV_skm_tot3, IV_1bi_tot3, IV_1bj_tot3)
     print(" . OK")
 
     # -------------------------------------------------------------------------
@@ -232,13 +232,13 @@ def main() -> None:
     # -------------------------------------------------------------------------
     print("- Populate dynamic data")
 
-    ZV_riv_scl = 1000 * ZV_riv_skm3
+    ZV_riv_scl = 1000 * ZV_skm_tot3
     # Scale by 1000: the multiplication of 0.001 m/mm and 1,000,000 m2/km2
 
     # TODO: check scaling for time step duration to make flow units.
 
-    IV_riv_0bi = IV_riv_1bi3 - 1
-    IV_riv_0bj = IV_riv_1bj3 - 1
+    IV_0bi_tot = IV_1bi_tot3 - 1
+    IV_0bj_tot = IV_1bj_tot3 - 1
     # Shift to 0-based indexing; entries becoming −1 have 0 area (chk_cpl.py).
 
     for JS_lsm_tim in tqdm(range(IS_lsm_tim), desc="Processing LSM data"):
@@ -249,7 +249,7 @@ def main() -> None:
         # ZM_lsm_run is of type 'np.ma.core.MaskedArray' or 'np.ndarray'
         # The units of runoff in GLDAS2 are kg*m-2, which is equivalent to mm
 
-        ZV_riv_Qex = ZM_lsm_run[IV_riv_0bj, IV_riv_0bi]
+        ZV_riv_Qex = ZM_lsm_run[IV_0bj_tot, IV_0bi_tot]
         # This uses the multidimensional list-of-locations indexing capability.
         # All values at given i and j indices can be obtained by giving two
         # lists of j and i indices.

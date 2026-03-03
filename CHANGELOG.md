@@ -332,6 +332,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/std_mdt.py`    | Renamed `Qex_mdt.py` to `std_mdt.py`. |
 | `./src/_rapid2.py`           | Renamed `Qex_mdt.py` to `std_mdt.py`. |
 | `./src/_cmpncf.py`           | Renamed `Qex_mdt.py` to `std_mdt.py`. |
+| `./src/_cpllsm.py`           | Renamed variables for clarity. |
+| `./src/rapid2/cpl_vec.py`    | Renamed variables for clarity. |
+| `./src/rapid2/chk_cpl.py`    | Renamed variables for clarity. |
 
 ### Removed
 
