@@ -151,12 +151,12 @@ def main() -> None:
     else:
         if np.array_equal(np.sort(IV_riv_old), np.sort(IV_riv_new)):
             print("WARNING - The rivids are the same, but sorted differently")
-            IM_hsh = {}
+            IT_idx = {}
             for JS_riv_tot in range(IS_riv_tot):
-                IM_hsh[IV_riv_new[JS_riv_tot]] = JS_riv_tot
+                IT_idx[IV_riv_new[JS_riv_tot]] = JS_riv_tot
             IV_loc = []
             for JS_riv_tot in range(IS_riv_tot):
-                IV_loc.append(IM_hsh[IV_riv_old[JS_riv_tot]])
+                IV_loc.append(IT_idx[IV_riv_old[JS_riv_tot]])
         else:
             print("ERROR - The rivids differ")
             sys.exit(1)

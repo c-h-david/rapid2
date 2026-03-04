@@ -99,8 +99,8 @@ def main() -> None:
     # -------------------------------------------------------------------------
     IV_riv_tot, IV_dwn_tot = con_vec(con_csv)
     IV_riv_bas = bas_vec(bas_csv)
-    IM_hsh_tot, IM_hsh_bas, IV_idx_bas = hsh_tbl(IV_riv_tot, IV_riv_bas)
-    ZM_Net = net_mat(IV_dwn_tot, IM_hsh_tot, IV_riv_bas, IM_hsh_bas)
+    IT_idx_tot, IT_idx_bas, IV_idx_bas = hsh_tbl(IV_riv_tot, IV_riv_bas)
+    ZM_Net = net_mat(IV_dwn_tot, IT_idx_tot, IV_riv_bas, IT_idx_bas)
 
     # -------------------------------------------------------------------------
     # Model parameters
@@ -138,7 +138,7 @@ def main() -> None:
     # Check river IDs and upstream to downstream topology
     # -------------------------------------------------------------------------
     chk_ids(IV_riv_tot, IV_riv_tmp)
-    chk_top(IV_riv_bas, IM_hsh_bas, IV_riv_tot, IV_dwn_tot, IM_hsh_tot)
+    chk_top(IV_riv_bas, IT_idx_bas, IV_riv_tot, IV_dwn_tot, IT_idx_tot)
 
     # -------------------------------------------------------------------------
     # Populate metadata for discharge output files

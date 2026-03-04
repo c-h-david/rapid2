@@ -348,6 +348,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_sandboxqext.py`      | Renamed `Qex_tim` to `tim_all`. |
 | `./src/_zeroqinit.py`        | Renamed `Qex_tim` to `tim_all`. |
 | `./src/rapid2/std_mdt.py`    | Renamed `Qex_tim` to `tim_all`. |
+| `./src/_cmpncf.py`           | Renamed `IM_hsh` to `IT_idx`. |
+| `./src/_rapid2.py`           | Renamed `IM_hsh` to `IT_idx`. |
+| `./src/rapid2/chk_top.py`    | Renamed `IM_hsh` to `IT_idx`. |
+| `./src/rapid2/hsh_tbl.py`    | Renamed `IM_hsh` to `IT_idx`. |
+| `./src/rapid2/net_mat.py`    | Renamed `IM_hsh` to `IT_idx`. |
 
 ### Removed
 

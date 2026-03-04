@@ -20,9 +20,9 @@ from scipy.sparse import csc_matrix  # type: ignore[import-untyped]
 # *****************************************************************************
 def net_mat(
     IV_dwn_tot: npt.NDArray[np.int32],
-    IM_hsh_tot: dict[np.int32, int],
+    IT_idx_tot: dict[np.int32, int],
     IV_riv_bas: npt.NDArray[np.int32],
-    IM_hsh_bas: dict[np.int32, int],
+    IT_idx_bas: dict[np.int32, int],
 ) -> csc_matrix:
     """Create network matrix.
 
@@ -32,11 +32,11 @@ def net_mat(
     ----------
     IV_dwn_tot : ndarray[int32]
         The river IDs downstream of the river IDs in domain.
-    IM_hsh_tot : dict[int32, int]
+    IT_idx_tot : dict[int32, int]
         The link from river ID to index in domain.
     IV_riv_bas : ndarray[int32]
         The river IDs of the basin.
-    IM_hsh_bas : dict[int32, int]
+    IT_idx_bas : dict[int32, int]
         The link from river ID to index in basin.
 
     Returns
@@ -47,18 +47,18 @@ def net_mat(
     Examples
     --------
     >>> IV_dwn_tot = np.array([30, 30, 50, 50, 0], dtype=np.int32)
-    >>> IM_hsh_tot = {np.int32(10): 0,\
+    >>> IT_idx_tot = {np.int32(10): 0,\
                       np.int32(20): 1,\
                       np.int32(30): 2,\
                       np.int32(40): 3,\
                       np.int32(50): 4}
     >>> IV_riv_bas = np.array([10, 20, 30, 40, 50], dtype=np.int32)
-    >>> IM_hsh_bas = {np.int32(10): 0,\
+    >>> IT_idx_bas = {np.int32(10): 0,\
                       np.int32(20): 1,\
                       np.int32(30): 2,\
                       np.int32(40): 3,\
                       np.int32(50): 4}
-    >>> net_mat(IV_dwn_tot, IM_hsh_tot, IV_riv_bas, IM_hsh_bas).toarray()
+    >>> net_mat(IV_dwn_tot, IT_idx_tot, IV_riv_bas, IT_idx_bas).toarray()
     array([[0, 0, 0, 0, 0],
            [0, 0, 0, 0, 0],
            [1, 1, 0, 0, 0],
@@ -71,10 +71,10 @@ def net_mat(
     IV_col = []
     ZV_val = []
     for JS_riv_bas in range(IS_riv_bas):
-        JS_riv_tot = IM_hsh_tot[IV_riv_bas[JS_riv_bas]]
+        JS_riv_tot = IT_idx_tot[IV_riv_bas[JS_riv_bas]]
         IS_dwn = IV_dwn_tot[JS_riv_tot]
-        if IS_dwn != 0 and IS_dwn in IM_hsh_bas:
-            JS_riv_ba2 = IM_hsh_bas[IS_dwn]
+        if IS_dwn != 0 and IS_dwn in IT_idx_bas:
+            JS_riv_ba2 = IT_idx_bas[IS_dwn]
             IV_row.append(JS_riv_ba2)
             IV_col.append(JS_riv_bas)
             ZV_val.append(1)
