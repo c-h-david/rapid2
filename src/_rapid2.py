@@ -78,21 +78,21 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Read namelist into a dictionary and assign to local variables
     # -------------------------------------------------------------------------
-    nml_dic = nml_cfg(nml_yml)
+    AT_cfg = nml_cfg(nml_yml)
 
-    Q00_ncf = nml_dic["Q00_ncf"]
-    Qex_ncf = nml_dic["Qex_ncf"]
+    Q00_ncf = AT_cfg["Q00_ncf"]
+    Qex_ncf = AT_cfg["Qex_ncf"]
 
-    con_csv = nml_dic["con_csv"]
-    kpr_csv = nml_dic["kpr_csv"]
-    xpr_csv = nml_dic["xpr_csv"]
+    con_csv = AT_cfg["con_csv"]
+    kpr_csv = AT_cfg["kpr_csv"]
+    xpr_csv = AT_cfg["xpr_csv"]
 
-    bas_csv = nml_dic["bas_csv"]
+    bas_csv = AT_cfg["bas_csv"]
 
-    IS_dtR = nml_dic["IS_dtR"]
+    IS_dtR = AT_cfg["IS_dtR"]
 
-    Qou_ncf = nml_dic["Qou_ncf"]
-    Qfi_ncf = nml_dic["Qfi_ncf"]
+    Qou_ncf = AT_cfg["Qou_ncf"]
+    Qfi_ncf = AT_cfg["Qfi_ncf"]
 
     # -------------------------------------------------------------------------
     # River network

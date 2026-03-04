@@ -353,6 +353,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/chk_top.py`    | Renamed `IM_hsh` to `IT_idx`. |
 | `./src/rapid2/hsh_tbl.py`    | Renamed `IM_hsh` to `IT_idx`. |
 | `./src/rapid2/net_mat.py`    | Renamed `IM_hsh` to `IT_idx`. |
+| `./src/_rapid2.py`           | Renamed `nml_dic` to `AT_cfg`. |
+| `./src/rapid2/nml_cfg.py`    | Renamed `nml_dic` to `AT_cfg`. |
 
 ### Removed
 
