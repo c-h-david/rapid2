@@ -344,6 +344,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_zeroqinit.py`        | Renamed `IV_Qex_tot` to `IV_riv_tot`. |
 | `./src/rapid2/std_mdt.py`    | Renamed `IV_Qex_tot` to `IV_riv_tot`. |
 | `./src/_rapid2.py`           | Renamed `IV_Qex_tot` to `IV_riv_tmp`. |
+| `./src/_rapid2.py`           | Renamed `Qex_tim` to `tim_all`. |
+| `./src/_sandboxqext.py`      | Renamed `Qex_tim` to `tim_all`. |
+| `./src/_zeroqinit.py`        | Renamed `Qex_tim` to `tim_all`. |
+| `./src/rapid2/std_mdt.py`    | Renamed `Qex_tim` to `tim_all`. |
 
 ### Removed
 

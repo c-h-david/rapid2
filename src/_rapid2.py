@@ -116,17 +116,17 @@ def main() -> None:
         IV_riv_tmp,
         ZV_lon_tot,
         ZV_lat_tot,
-        IV_Qex_tim,
-        IM_Qex_tim,
+        IV_tim_all,
+        IM_tim_all,
     ) = std_mdt(Qex_ncf)
 
-    if IM_Qex_tim is None:
-        print("ERROR - std_mdt returned None for IM_Qex_tim")
+    if IM_tim_all is None:
+        print("ERROR - std_mdt returned None for IM_tim_all")
         sys.exit(1)
 
-    IS_Qex_tim = len(IV_Qex_tim)
-    IS_TaR = IM_Qex_tim[0, 1] - IM_Qex_tim[0, 0]
-    # Using IM_Qex_tim rather than IV_Qex_tim which may have only one timestep
+    IS_tim_all = len(IV_tim_all)
+    IS_TaR = IM_tim_all[0, 1] - IM_tim_all[0, 0]
+    # Using IM_tim_all rather than IV_tim_all which may have only one timestep
 
     if IS_TaR == 0:
         print("ERROR - Values of time_bnds lead to IS_TaR = 0")
@@ -172,11 +172,11 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Run simulations
     # -------------------------------------------------------------------------
-    for JS_Qex_tim in tqdm(range(IS_Qex_tim), desc="Computing discharge"):
+    for JS_tim_all in tqdm(range(IS_tim_all), desc="Computing discharge"):
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Compute Qout
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        ZV_Qex_avg = f.variables["Qext"][JS_Qex_tim][IV_idx_bas]
+        ZV_Qex_avg = f.variables["Qext"][JS_tim_all][IV_idx_bas]
 
         ZV_Qou_avg, ZV_Qou_fin = mus_rte(
             ZM_Lin, ZM_Qex, ZM_Qou, IS_mus, ZV_Qou_ini, ZV_Qex_avg
@@ -186,9 +186,9 @@ def main() -> None:
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Populate Qout, time, and time_bnds
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        g.variables["Qout"][JS_Qex_tim, :] = ZV_Qou_avg[:]
-        g.variables["time"][JS_Qex_tim] = IV_Qex_tim[JS_Qex_tim]
-        g.variables["time_bnds"][JS_Qex_tim, :] = IM_Qex_tim[JS_Qex_tim, :]
+        g.variables["Qout"][JS_tim_all, :] = ZV_Qou_avg[:]
+        g.variables["time"][JS_tim_all] = IV_tim_all[JS_tim_all]
+        g.variables["time_bnds"][JS_tim_all, :] = IM_tim_all[JS_tim_all, :]
 
     # -------------------------------------------------------------------------
     # Save final discharge state

@@ -99,13 +99,13 @@ def main() -> None:
     IV_riv_tot = np.array([10, 20, 30, 40, 50], dtype=np.int32)
     ZV_lon_tot = np.array([4.30, 5.94, 5.12, 6.55, 4.30])
     ZV_lat_tot = np.array([8.20, 8.20, 5.12, 4.30, 2.04])
-    IV_Qex_tim = np.array(range(80), dtype=np.int32) * np.int32(10800)
+    IV_tim_all = np.array(range(80), dtype=np.int32) * np.int32(10800)
 
     # -------------------------------------------------------------------------
     # Array sizes
     # -------------------------------------------------------------------------
     IS_riv_tot = len(IV_riv_tot)
-    IS_Qex_tim = len(IV_Qex_tim)
+    IS_tim_all = len(IV_tim_all)
 
     # -------------------------------------------------------------------------
     # Check size of provided mean and amplitude arrays
@@ -128,17 +128,17 @@ def main() -> None:
     # -------------------------------------------------------------------------
     f = netCDF4.Dataset(Qex_ncf, "a")
 
-    f.variables["time"][:] = IV_Qex_tim[:]
+    f.variables["time"][:] = IV_tim_all[:]
 
-    f.variables["time_bnds"][:, 0] = IV_Qex_tim[:]
-    f.variables["time_bnds"][:, 1] = IV_Qex_tim[:] + np.int32(10800)
+    f.variables["time_bnds"][:, 0] = IV_tim_all[:]
+    f.variables["time_bnds"][:, 1] = IV_tim_all[:] + np.int32(10800)
 
     Qex = f.variables["Qext"]
-    for JS_Qex_tim in range(IS_Qex_tim):
-        ZV_tmp = np.sign(np.sin(np.pi / 86400 * IV_Qex_tim[JS_Qex_tim] + 1e-7))
+    for JS_tim_all in range(IS_tim_all):
+        ZV_tmp = np.sign(np.sin(np.pi / 86400 * IV_tim_all[JS_tim_all] + 1e-7))
         ZV_tmp = ZV_tmp * ZV_amp
         ZV_tmp = ZV_tmp + ZV_mea
-        Qex[JS_Qex_tim, :] = ZV_tmp[:]
+        Qex[JS_tim_all, :] = ZV_tmp[:]
     # The 1e-7 avoids np.sign(0) = 0
 
     f.title = "Sandbox dataset for RAPID2"

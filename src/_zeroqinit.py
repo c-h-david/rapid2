@@ -105,7 +105,7 @@ def main() -> None:
     ZV_lon_tot = f.variables["lon"][:]
     ZV_lat_tot = f.variables["lat"][:]
 
-    IV_Qex_tim = f.variables["time"][:]
+    IV_tim_all = f.variables["time"][:]
 
     # -------------------------------------------------------------------------
     # Create Qfi file
@@ -115,7 +115,7 @@ def main() -> None:
     e = netCDF4.Dataset(Q00_ncf, "a")
 
     time = e.variables["time"]
-    time[0] = IV_Qex_tim[0]
+    time[0] = IV_tim_all[0]
 
     Q00 = e.variables["Qout"]
     Q00[0, :] = 0

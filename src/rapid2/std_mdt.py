@@ -48,23 +48,23 @@ def std_mdt(
         The longitudes of river IDs in the RAPID netCDF file.
     ZV_lat_tot : ndarray[float64]
         The latitudes of river IDs in the RAPID netCDF file.
-    IV_Qex_tim : ndarray[int32]
+    IV_tim_all : ndarray[int32]
         The epoch time values of the RAPID netCDF file.
-    IM_Qex_tim : ndarray[int32]
+    IM_tim_all : ndarray[int32]
         The epoch time bounds paired values of the RAPID netCDF file.
 
     Examples
     --------
     >>> std_ncf = './input/Sandbox/Qext_Sandbox_19700101_19700110.nc4'
     >>> (IV_riv_tot, ZV_lon_tot, ZV_lat_tot,\
-         IV_Qex_tim, IM_Qex_tim) = std_mdt(std_ncf)
+         IV_tim_all, IM_tim_all) = std_mdt(std_ncf)
     >>> IV_riv_tot
     array([10, 20, 30, 40, 50], dtype=int32)
     >>> ZV_lon_tot
     array([4.3 , 5.94, 5.12, 6.55, 4.3 ])
     >>> ZV_lat_tot
     array([8.2 , 8.2 , 5.12, 4.3 , 2.04])
-    >>> IV_Qex_tim
+    >>> IV_tim_all
     array([     0,  10800,  21600,  32400,  43200,  54000,  64800,  75600,
             86400,  97200, 108000, 118800, 129600, 140400, 151200, 162000,
            172800, 183600, 194400, 205200, 216000, 226800, 237600, 248400,
@@ -76,7 +76,7 @@ def std_mdt(
            691200, 702000, 712800, 723600, 734400, 745200, 756000, 766800,
            777600, 788400, 799200, 810000, 820800, 831600, 842400, 853200],
           dtype=int32)
-    >>> IM_Qex_tim[:, 1]
+    >>> IM_tim_all[:, 1]
     array([ 10800,  21600,  32400,  43200,  54000,  64800,  75600,  86400,
             97200, 108000, 118800, 129600, 140400, 151200, 162000, 172800,
            183600, 194400, 205200, 216000, 226800, 237600, 248400, 259200,
@@ -142,7 +142,7 @@ def std_mdt(
     # Retrieving variables in two steps to better inform mypy
 
     IV_tmp = f.variables["time"][:].filled()
-    IV_Qex_tim = np.array(IV_tmp, dtype=np.int32)
+    IV_tim_all = np.array(IV_tmp, dtype=np.int32)
     # Retrieving variables in two steps to better inform mypy
 
     if "time_bnds" in f.variables:
@@ -154,12 +154,12 @@ def std_mdt(
             sys.exit(1)
 
         IM_tmp = f.variables["time_bnds"][:].filled()
-        IM_Qex_tim = np.array(IM_tmp, dtype=np.int32)
+        IM_tim_all = np.array(IM_tmp, dtype=np.int32)
         # Retrieving variables in two steps to better inform mypy
     else:
-        IM_Qex_tim = None
+        IM_tim_all = None
 
-    return IV_riv_tot, ZV_lon_tot, ZV_lat_tot, IV_Qex_tim, IM_Qex_tim
+    return IV_riv_tot, ZV_lon_tot, ZV_lat_tot, IV_tim_all, IM_tim_all
 
 
 # *****************************************************************************
