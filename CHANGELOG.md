@@ -378,6 +378,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_rapid2.py`           | Aligned `TUTORIAL.md` and CLI epilog. |
 | `./src/_zeroqinit.py`        | Aligned `TUTORIAL.md` and CLI epilog. |
 | `./TUTORIAL.md`              | Aligned `TUTORIAL.md` and CLI epilog. |
+| `./src/_m3rivtoqext.py`      | Updated CLI. |
+| `./src/_sandboxqext.py`      | Updated CLI. |
 
 ### Removed
 

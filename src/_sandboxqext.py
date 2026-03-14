@@ -35,9 +35,8 @@ def main() -> None:
         ),
         epilog=(
             "examples:\n"
-            "  sandboxqext -m 10 10 10 20 20 -a 1 1 1 2 2 -o Qext_sandbox.nc\n"
-            "  sandboxqext --mean 10 10 10 20 20 --amplitude 1 1 1 2 2 "
-            "--output Qext.nc"
+            "  sandboxqext --mea 10 10 10 20 20 --amp 1 1 1 2 2 "
+            "--Qex Qext_Sandbox.nc"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
@@ -47,8 +46,7 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "-m",
-        "--mean",
+        "--mea",
         type=float,
         required=True,
         nargs=5,
@@ -56,8 +54,7 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "-a",
-        "--amplitude",
+        "--amp",
         type=float,
         required=True,
         nargs=5,
@@ -65,8 +62,7 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "-o",
-        "--output",
+        "--Qex",
         type=str,
         required=True,
         help="specify the output Qext file",
@@ -77,9 +73,9 @@ def main() -> None:
     # -------------------------------------------------------------------------
     args = parser.parse_args()
 
-    ZV_mea = np.array(args.mean, dtype=np.float32)
-    ZV_amp = np.array(args.amplitude, dtype=np.float32)
-    Qex_ncf = args.output
+    ZV_mea = np.array(args.mea, dtype=np.float32)
+    ZV_amp = np.array(args.amp, dtype=np.float32)
+    Qex_ncf = args.Qex
 
     print("Creating (from/to):")
     print(f" - {ZV_mea}")

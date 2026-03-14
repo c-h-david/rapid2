@@ -35,8 +35,7 @@ def main() -> None:
         ),
         epilog=(
             "examples:\n"
-            "  m3rivtoqext -i m3_riv.nc -o Qext.nc\n"
-            "  m3rivtoqext --input m3_riv.nc --output Qext.nc"
+            "  m3rivtoqext --m3r m3_riv.nc --Qex Qext.nc"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
@@ -46,16 +45,14 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "-i",
-        "--input",
+        "--m3r",
         type=str,
         required=True,
         help="specify the input m3_riv file",
     )
 
     parser.add_argument(
-        "-o",
-        "--output",
+        "--Qex",
         type=str,
         required=True,
         help="specify the output Qext file",
@@ -66,8 +63,8 @@ def main() -> None:
     # -------------------------------------------------------------------------
     args = parser.parse_args()
 
-    m3r_ncf = args.input
-    Qex_ncf = args.output
+    m3r_ncf = args.m3r
+    Qex_ncf = args.Qex
 
     print("Converting (from/to):")
     print(f" - {m3r_ncf}")
