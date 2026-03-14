@@ -105,7 +105,6 @@ At this stage, the tools remain separate commands rather than subcommands
 (e.g., like `git commit` or `git clone`). Unifying these under `rapid2` may be
 considered in the future.
 
-
 ## Opportunities for Growth
 
 This tutorial is intended to expand over time to include:
