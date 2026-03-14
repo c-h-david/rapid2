@@ -35,8 +35,7 @@ def main() -> None:
         ),
         epilog=(
             "examples:\n"
-            "  zeroqinit -i Qext_file.nc -o Qinit_zeros.nc\n"
-            "  zeroqinit --input Qext.nc --output Qinit.nc"
+            "  zeroqinit --Qex Qext.nc --Q00 Qinit.nc"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
@@ -46,16 +45,14 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "-i",
-        "--input",
+        "--Qex",
         type=str,
         required=True,
         help="specify the input Qext file",
     )
 
     parser.add_argument(
-        "-o",
-        "--output",
+        "--Q00",
         type=str,
         required=True,
         help="specify the output Qinit file",
@@ -66,8 +63,8 @@ def main() -> None:
     # -------------------------------------------------------------------------
     args = parser.parse_args()
 
-    Qex_ncf = args.input
-    Q00_ncf = args.output
+    Qex_ncf = args.Qex
+    Q00_ncf = args.Q00
 
     print("Creating (from/to):")
     print(f" - {Qex_ncf}")

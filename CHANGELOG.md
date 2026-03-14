@@ -368,6 +368,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_dgldas2.py`          | Harmonized with naming conventions. |
 | `./src/_cpllsm.py`           | Harmonized with naming conventions. |
 | `./src/_cpllsm.py`           | Fixed minor typos and formatting issues. |
+| `./src/_rapid2.py`           | Updated CLI. |
+| `./src/_zeroqinit.py`        | Updated CLI. |
 
 ### Removed
 
