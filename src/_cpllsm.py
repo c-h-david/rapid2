@@ -232,7 +232,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     print("- Populate dynamic data")
 
-    ZV_riv_scl = 1000 * ZV_skm_tot3
+    ZV_scl_tot = 1000 * ZV_skm_tot3
     # Scale by 1000: the multiplication of 0.001 m/mm and 1,000,000 m2/km2
 
     # TODO: check scaling for time step duration to make flow units.
@@ -253,7 +253,7 @@ def main() -> None:
         # This uses the multidimensional list-of-locations indexing capability.
         # All values at given i and j indices can be obtained by giving two
         # lists of j and i indices.
-        ZV_riv_Qex = ZV_riv_Qex * ZV_riv_scl
+        ZV_riv_Qex = ZV_riv_Qex * ZV_scl_tot
         # Scaling accounting for area and units.
 
         if isinstance(ZV_riv_Qex, np.ma.MaskedArray):
