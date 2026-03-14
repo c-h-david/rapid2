@@ -136,9 +136,7 @@ def main() -> None:
 
     IV_riv_tmp, ZV_lon_tot, ZV_lat_tot = crd_vec(crd_csv)
     chk_ids(IV_riv_tot, IV_riv_tmp)
-    print(
-        f"  . The river reaches are the same as in connectivity file"
-    )
+    print("  . The river reaches are the same as in connectivity file")
 
     # -------------------------------------------------------------------------
     # Read coupling file
@@ -147,9 +145,7 @@ def main() -> None:
 
     IV_riv_tmp, ZV_skm_tot, IV_1bi_tot, IV_1bj_tot = cpl_vec(cpl_csv)
     chk_ids(IV_riv_tot, IV_riv_tmp)
-    print(
-        f"  . The river reaches are the same as in connectivity file"
-    )
+    print("  . The river reaches are the same as in connectivity file")
 
     # -------------------------------------------------------------------------
     # Check consistency of coupling file
@@ -198,7 +194,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     print("- Create Qext file")
 
-    Qex_new(IV_riv_tot2, ZV_lon_tot, ZV_lat_tot, Qex_ncf)
+    Qex_new(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Qex_ncf)
 
     f = netCDF4.Dataset(Qex_ncf, "a")
     Qex = f.variables["Qext"]

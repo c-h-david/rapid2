@@ -69,10 +69,7 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "--lsm",
-        type=str,
-        required=True,
-        help="specify the LSM file name"
+        "--lsm", type=str, required=True, help="specify the LSM file name"
     )
 
     # -------------------------------------------------------------------------
@@ -187,9 +184,8 @@ def main() -> None:
         # Copy variables that are in YV_yes
         for name, var in t.variables.items():
             if name in YV_yes:
-                lsm_var = c.createVariable(
-                    name, var.datatype, var.dimensions
-                )
+                lsm_var = c.createVariable(name, var.datatype, var.dimensions)
+
                 lsm_var.setncatts(
                     {attr: var.getncattr(attr) for attr in var.ncattrs()}
                 )
@@ -219,13 +215,11 @@ def main() -> None:
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     with netCDF4.Dataset(lsm_ncf, "a") as c:
         if YS_phs == "2.0":
-            c.variables["time"][:] = (
-                c.variables["time"][:] * 60 - 694299600
-            )
+            c.variables["time"][:] = c.variables["time"][:] * 60 - 694299600
+
         if YS_phs == "2.1":
-            c.variables["time"][:] = (
-                c.variables["time"][:] * 60 + 946695600
-            )
+            c.variables["time"][:] = c.variables["time"][:] * 60 + 946695600
+
         c.variables["time"].units = "second since 1970-01-01 00:00:00 +00:00"
 
     # -------------------------------------------------------------------------
