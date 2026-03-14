@@ -42,10 +42,8 @@ def main() -> None:
         ),
         epilog=(
             "examples:\n"
-            "  cpllsm -l gldas.nc -c connect.csv -p coords.csv "
-            "-b coupling.csv -d out/ -f Qext.nc\n"
-            "  cpllsm --lsm data.nc --con connect.csv --pos position.csv "
-            "--bnd bind.csv --dir output/ --fil Qext.nc"
+            "  cpllsm --lsm data.nc --con connect.csv --crd coords.csv "
+            "--cpl coupling.csv --fil Qext.nc"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
@@ -55,11 +53,10 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "-l", "--lsm", type=str, required=True, help="specify the LSM file"
+        "--lsm", type=str, required=True, help="specify the LSM file"
     )
 
     parser.add_argument(
-        "-c",
         "--con",
         type=str,
         required=True,
@@ -67,27 +64,21 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "-p",
-        "--pos",
+        "--crd",
         type=str,
         required=True,
-        help="specify the position points (coordinates)",
+        help="specify the coordinates",
     )
 
     parser.add_argument(
-        "-b",
-        "--bnd",
+        "--cpl",
         type=str,
         required=True,
-        help="specify the binding (coupling) file",
+        help="specify the coupling file",
     )
 
     parser.add_argument(
-        "-d", "--dir", type=str, required=True, help="specify the directory"
-    )
-
-    parser.add_argument(
-        "-f", "--fil", type=str, required=True, help="specify the file name"
+        "--Qex", type=str, required=True, help="specify the file name"
     )
 
     # -------------------------------------------------------------------------
@@ -97,25 +88,21 @@ def main() -> None:
 
     lsm_ncf = args.lsm
     con_csv = args.con
-    pos_csv = args.pos
-    bnd_csv = args.bnd
-    dir_str = args.dir
-    fil_str = args.fil
+    crd_csv = args.crd
+    cpl_csv = args.cpl
+    Qex_ncf = args.Qex
 
     print(
         f"Transforming data from  {lsm_ncf} "
         f"for {con_csv} "
-        f"with {pos_csv} "
-        f"and {bnd_csv} "
-        f"to {dir_str} "
-        f"as {fil_str}"
+        f"with {crd_csv} "
+        f"and {cpl_csv} "
+        f"as {Qex_ncf}"
     )
 
     # -------------------------------------------------------------------------
     # Skip if file already exists
     # -------------------------------------------------------------------------
-    Qex_ncf = os.path.join(dir_str, fil_str)
-
     if os.path.exists(Qex_ncf):
         print(f"WARNING - File already exists {Qex_ncf}. Exit without error")
         sys.exit(0)
@@ -135,11 +122,11 @@ def main() -> None:
     # -------------------------------------------------------------------------
     print("- Read connectivity file")
 
-    IV_riv_tot1, IV_dwn_tot1 = con_vec(con_csv)
-    IS_riv_tot1 = len(IV_riv_tot1)
+    IV_riv_tot, IV_dwn_tot = con_vec(con_csv)
+    IS_riv_tot = len(IV_riv_tot)
     print(
         "  . The number of river reaches in connectivity file is: "
-        f"{IS_riv_tot1}"
+        f"{IS_riv_tot}"
     )
 
     # -------------------------------------------------------------------------
@@ -147,10 +134,10 @@ def main() -> None:
     # -------------------------------------------------------------------------
     print("- Read coordinate file")
 
-    IV_riv_tot2, ZV_lon_tot2, ZV_lat_tot2 = crd_vec(pos_csv)
-    IS_riv_tot2 = len(IV_riv_tot2)
+    IV_riv_tmp, ZV_lon_tot, ZV_lat_tot = crd_vec(crd_csv)
+    chk_ids(IV_riv_tot, IV_riv_tmp)
     print(
-        f"  . The number of river reaches in coordinate file is: {IS_riv_tot2}"
+        f"  . The river reaches are the same as in connectivity file"
     )
 
     # -------------------------------------------------------------------------
@@ -158,27 +145,18 @@ def main() -> None:
     # -------------------------------------------------------------------------
     print("- Read coupling file")
 
-    IV_riv_tot3, ZV_skm_tot3, IV_1bi_tot3, IV_1bj_tot3 = cpl_vec(bnd_csv)
-    IS_riv_tot3 = len(IV_riv_tot3)
+    IV_riv_tmp, ZV_skm_tot, IV_1bi_tot, IV_1bj_tot = cpl_vec(cpl_csv)
+    chk_ids(IV_riv_tot, IV_riv_tmp)
     print(
-        f"  . The number of river reaches in coupling file is: {IS_riv_tot3}"
+        f"  . The river reaches are the same as in connectivity file"
     )
-
-    # -------------------------------------------------------------------------
-    # Check that IDs are the same
-    # -------------------------------------------------------------------------
-    print("- Check that IDs are the same")
-
-    chk_ids(IV_riv_tot1, IV_riv_tot2)
-    chk_ids(IV_riv_tot1, IV_riv_tot3)
-    print(" . IDs are the same")
 
     # -------------------------------------------------------------------------
     # Check consistency of coupling file
     # -------------------------------------------------------------------------
     print("- Check consisitency of coupling file")
 
-    chk_cpl(ZV_skm_tot3, IV_1bi_tot3, IV_1bj_tot3)
+    chk_cpl(ZV_skm_tot, IV_1bi_tot, IV_1bj_tot)
     print(" . OK")
 
     # -------------------------------------------------------------------------
@@ -220,7 +198,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     print("- Create Qext file")
 
-    Qex_new(IV_riv_tot2, ZV_lon_tot2, ZV_lat_tot2, Qex_ncf)
+    Qex_new(IV_riv_tot2, ZV_lon_tot, ZV_lat_tot, Qex_ncf)
 
     f = netCDF4.Dataset(Qex_ncf, "a")
     Qex = f.variables["Qext"]
@@ -232,13 +210,13 @@ def main() -> None:
     # -------------------------------------------------------------------------
     print("- Populate dynamic data")
 
-    ZV_scl_tot = 1000 * ZV_skm_tot3
+    ZV_scl_tot = 1000 * ZV_skm_tot
     # Scale by 1000: the multiplication of 0.001 m/mm and 1,000,000 m2/km2
 
     # TODO: check scaling for time step duration to make flow units.
 
-    IV_0bi_tot = IV_1bi_tot3 - 1
-    IV_0bj_tot = IV_1bj_tot3 - 1
+    IV_0bi_tot = IV_1bi_tot - 1
+    IV_0bj_tot = IV_1bj_tot - 1
     # Shift to 0-based indexing; entries becoming −1 have 0 area (chk_cpl.py).
 
     for JS_tim_all in tqdm(range(IS_tim_all), desc="Processing LSM data"):

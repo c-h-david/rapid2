@@ -366,6 +366,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/std_mdt.py`    | Harmonized netCDF4 Dataset variables. |
 | `./src/_cpllsm.py`           | Harmonized netCDF4 Dataset variables. |
 | `./src/_dgldas2.py`          | Harmonized with naming conventions. |
+| `./src/_cpllsm.py`           | Harmonized with naming conventions. |
 
 ### Removed
 
