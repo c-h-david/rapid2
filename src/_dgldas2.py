@@ -35,10 +35,10 @@ def main() -> None:
         ),
         epilog=(
             "examples:\n"
-            "  dgldas2 -v 2.0 -m NOAH -t 2020-01 -d ./data "
-            "-f gldas_2020-01.nc\n"
-            "  dgldas2 --vsn 2.1 --mod VIC --tim 2020-01 --dir ./data "
-            "--fil gldas.nc"
+            "  dgldas2 --phs 2.0 --mod NOAH --tim 2020-01 "
+            "--lsm gldas_2020-01.nc\n"
+            "  dgldas2 --phs 2.1 --mod VIC --tim 2020-01 "
+            "--lsm gldas.nc"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
@@ -48,15 +48,13 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "-v",
-        "--vsn",
+        "--phs",
         type=str,
         required=True,
-        help="specify the version number",
+        help="specify the phase number",
     )
 
     parser.add_argument(
-        "-m",
         "--mod",
         type=str,
         required=True,
@@ -64,7 +62,6 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "-t",
         "--tim",
         type=str,
         required=True,
@@ -72,11 +69,10 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "-d", "--dir", type=str, required=True, help="specify the directory"
-    )
-
-    parser.add_argument(
-        "-f", "--fil", type=str, required=True, help="specify the file name"
+        "--lsm",
+        type=str,
+        required=True,
+        help="specify the LSM file name"
     )
 
     # -------------------------------------------------------------------------
@@ -84,27 +80,23 @@ def main() -> None:
     # -------------------------------------------------------------------------
     args = parser.parse_args()
 
-    vsn_str = args.vsn
-    mod_str = args.mod
-    tim_str = args.tim
-    dir_str = args.dir
-    fil_str = args.fil
+    YS_phs = args.phs
+    YS_mod = args.mod
+    YS_tim = args.tim
+    lsm_ncf = args.lsm
 
     print(
-        f"Download data from GLDAS{vsn_str} "
-        f"for {mod_str} "
-        f"and {tim_str} "
-        f"to {dir_str} "
-        f"as {fil_str}"
+        f"Download data from GLDAS{YS_phs} "
+        f"for {YS_mod} "
+        f"and {YS_tim} "
+        f"as {lsm_ncf}"
     )
 
     # -------------------------------------------------------------------------
     # Skip if file already exists
     # -------------------------------------------------------------------------
-    YS_cmb = os.path.join(dir_str, fil_str)
-
-    if os.path.exists(YS_cmb):
-        print(f"WARNING - File already exists {YS_cmb}. Exit without error")
+    if os.path.exists(lsm_ncf):
+        print(f"WARNING - File already exists {lsm_ncf}. Exit without error")
         sys.exit(0)
 
     # -------------------------------------------------------------------------
@@ -116,52 +108,54 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Search
     # -------------------------------------------------------------------------
-    exp_str = "GLDAS"
-    res_str = "10"
-    frq_str = "3H"
+    YS_exp = "GLDAS"
+    YS_res = "10"
+    YS_frq = "3H"
 
-    short_name = exp_str + "_" + mod_str + res_str + "_" + frq_str
+    YS_nam = YS_exp + "_" + YS_mod + YS_res + "_" + YS_frq
 
-    print(f"- Search {short_name} {vsn_str} {tim_str} max=300")
+    print(f"- Search {YS_nam} {YS_phs} {YS_tim} max=300")
 
-    GV_rem = earthaccess.search_data(
-        short_name=short_name,
-        version=vsn_str,
-        temporal=(tim_str, tim_str),
+    AV_rem = earthaccess.search_data(
+        short_name=YS_nam,
+        version=YS_phs,
+        temporal=(YS_tim, YS_tim),
         count=300,
     )
 
     # -------------------------------------------------------------------------
     # Download
     # -------------------------------------------------------------------------
-    print(f"- Download {len(GV_rem)} files")
-    earthaccess.download(GV_rem, dir_str)
+    print(f"- Download {len(AV_rem)} files")
+
+    YS_dir = os.path.dirname(lsm_ncf)
+    earthaccess.download(AV_rem, YS_dir)
 
     # -------------------------------------------------------------------------
     # Check files
     # -------------------------------------------------------------------------
     print("- Check files")
 
-    IS_rem = len(GV_rem)
+    IS_rem = len(AV_rem)
 
     YV_loc = []
     for JS_rem in range(IS_rem):
-        YS_rem = GV_rem[JS_rem]["meta"]["native-id"].split(":", 1)[1]
-        ZS_rem = GV_rem[JS_rem]["size"]
-        YS_loc = os.path.join(dir_str, YS_rem)
+        YS_rem = AV_rem[JS_rem]["meta"]["native-id"].split(":", 1)[1]
+        ZS_rem = AV_rem[JS_rem]["size"]
+        tmp_ncf = os.path.join(YS_dir, YS_rem)
 
-        if not os.path.exists(YS_loc):
-            print(f"ERROR - file not downloaded: {YS_loc}")
+        if not os.path.exists(tmp_ncf):
+            print(f"ERROR - file not downloaded: {tmp_ncf}")
             sys.exit(1)
         else:
-            ZS_loc = os.path.getsize(YS_loc) / 1024**2
-            YV_loc.append(YS_loc)
+            ZS_loc = os.path.getsize(tmp_ncf) / 1024**2
+            YV_loc.append(tmp_ncf)
 
         if abs(ZS_rem - ZS_loc) >= 1e-15:
             print(
                 f"ERROR - "
                 f"Remote file {YS_rem}, "
-                f"Local file {YS_loc}, "
+                f"Local file {tmp_ncf}, "
                 f"Remote size {ZS_rem}, "
                 f"Local size {ZS_loc}"
             )
@@ -178,24 +172,25 @@ def main() -> None:
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Open first file to create the output structure
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    tmp_ncf = YV_loc[0]
     with (
-        netCDF4.Dataset(YV_loc[0], "r") as src,
-        netCDF4.Dataset(YS_cmb, "w") as dst,
+        netCDF4.Dataset(tmp_ncf, "r") as t,
+        netCDF4.Dataset(lsm_ncf, "w") as c,
     ):
         # Copy global attributes
-        dst.setncatts({attr: src.getncattr(attr) for attr in src.ncattrs()})
+        c.setncatts({attr: t.getncattr(attr) for attr in t.ncattrs()})
 
         # Copy dimensions (time should be unlimited)
-        for name, dim in src.dimensions.items():
-            dst.createDimension(name, None if dim.isunlimited() else len(dim))
+        for name, dim in t.dimensions.items():
+            c.createDimension(name, None if dim.isunlimited() else len(dim))
 
         # Copy variables that are in YV_yes
-        for name, var in src.variables.items():
+        for name, var in t.variables.items():
             if name in YV_yes:
-                dst_var = dst.createVariable(
+                lsm_var = c.createVariable(
                     name, var.datatype, var.dimensions
                 )
-                dst_var.setncatts(
+                lsm_var.setncatts(
                     {attr: var.getncattr(attr) for attr in var.ncattrs()}
                 )
 
@@ -203,46 +198,46 @@ def main() -> None:
     # Append data from all files
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     JS_tim = 0
-    for YS_loc in YV_loc:
+    for tmp_ncf in YV_loc:
         with (
-            netCDF4.Dataset(YS_loc, "r") as src,
-            netCDF4.Dataset(YS_cmb, "a") as dst,
+            netCDF4.Dataset(tmp_ncf, "r") as t,
+            netCDF4.Dataset(lsm_ncf, "a") as c,
         ):
-            IS_siz = src.dimensions["time"].size
-            for name, var in src.variables.items():
+            IS_siz = t.dimensions["time"].size
+            for name, var in t.variables.items():
                 if name in YV_yes:
                     if "time" in var.dimensions:
-                        beg = JS_tim
-                        end = JS_tim + IS_siz
-                        dst.variables[name][beg:end] = var[:]
+                        JS_idx_beg = JS_tim
+                        JS_idx_end = JS_tim + IS_siz
+                        c.variables[name][JS_idx_beg:JS_idx_end] = var[:]
                     else:
-                        dst.variables[name][:] = var[:]
+                        c.variables[name][:] = var[:]
             JS_tim += IS_siz
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Update time
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    with netCDF4.Dataset(YS_cmb, "a") as dst:
-        if vsn_str == "2.0":
-            dst.variables["time"][:] = (
-                dst.variables["time"][:] * 60 - 694299600
+    with netCDF4.Dataset(lsm_ncf, "a") as c:
+        if YS_phs == "2.0":
+            c.variables["time"][:] = (
+                c.variables["time"][:] * 60 - 694299600
             )
-        if vsn_str == "2.1":
-            dst.variables["time"][:] = (
-                dst.variables["time"][:] * 60 + 946695600
+        if YS_phs == "2.1":
+            c.variables["time"][:] = (
+                c.variables["time"][:] * 60 + 946695600
             )
-        dst.variables["time"].units = "second since 1970-01-01 00:00:00 +00:00"
+        c.variables["time"].units = "second since 1970-01-01 00:00:00 +00:00"
 
     # -------------------------------------------------------------------------
     # Delete files
     # -------------------------------------------------------------------------
     print("- Delete files")
 
-    for YS_loc in YV_loc:
+    for tmp_ncf in YV_loc:
         try:
-            os.remove(YS_loc)
+            os.remove(tmp_ncf)
         except OSError as e:
-            print(f"Error deleting {YS_loc}: {e}")
+            print(f"Error deleting {tmp_ncf}: {e}")
 
 
 # *****************************************************************************
