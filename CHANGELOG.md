@@ -380,6 +380,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./TUTORIAL.md`              | Aligned `TUTORIAL.md` and CLI epilog. |
 | `./src/_m3rivtoqext.py`      | Updated CLI. |
 | `./src/_sandboxqext.py`      | Updated CLI. |
+| `./src/_m3rivtoqext.py`      | Updated CLI epilog. |
+| `./src/_sandboxqext.py`      | Updated CLI epilog. |
 
 ### Removed
 

@@ -35,7 +35,7 @@ def main() -> None:
         ),
         epilog=(
             "examples:\n"
-            "  m3rivtoqext --m3r m3_riv.nc --Qex Qext.nc"
+            "  m3rivtoqext --m3r m3_riv_San_Guad.nc4 --Qex Qext_San_Guad.nc4"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
