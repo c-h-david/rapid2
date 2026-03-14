@@ -113,11 +113,11 @@ def main() -> None:
     ZV_lon_tot = d.variables["lon"][:]
     ZV_lat_tot = d.variables["lat"][:]
 
-    IV_m3r_tim = d.variables["time"][:]
-    IM_m3r_tim = d.variables["time_bnds"][:]
+    IV_tim_all = d.variables["time"][:]
+    IM_tim_all = d.variables["time_bnds"][:]
 
-    IS_m3r_tim = len(IV_m3r_tim)
-    IS_TaR = IM_m3r_tim[0, 1] - IM_m3r_tim[0, 0]
+    IS_tim_all = len(IV_tim_all)
+    IS_TaR = IM_tim_all[0, 1] - IM_tim_all[0, 0]
 
     # -------------------------------------------------------------------------
     # Create Qex file
@@ -128,12 +128,12 @@ def main() -> None:
 
     f = netCDF4.Dataset(Qex_ncf, "a")
 
-    f.variables["time"][:] = IV_m3r_tim
-    f.variables["time_bnds"][:] = IM_m3r_tim
+    f.variables["time"][:] = IV_tim_all
+    f.variables["time_bnds"][:] = IM_tim_all
     Qex = f.variables["Qext"]
 
-    for JS_m3r_tim in range(IS_m3r_tim):
-        Qex[JS_m3r_tim, :] = d.variables["m3_riv"][JS_m3r_tim, :] / IS_TaR
+    for JS_tim_all in range(IS_tim_all):
+        Qex[JS_tim_all, :] = d.variables["m3_riv"][JS_tim_all, :] / IS_TaR
 
     # -------------------------------------------------------------------------
     # Close files

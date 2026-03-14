@@ -356,6 +356,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_rapid2.py`           | Renamed `nml_dic` to `AT_cfg`. |
 | `./src/rapid2/nml_cfg.py`    | Renamed `nml_dic` to `AT_cfg`. |
 | `./src/_rapid2.py`           | Sorted imports. |
+| `./src/_m3rivtoqext.py`      | Renamed `_m3r_tim` to `_tim_all`. |
 
 ### Removed
 
