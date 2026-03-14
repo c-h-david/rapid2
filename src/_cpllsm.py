@@ -249,17 +249,17 @@ def main() -> None:
         # ZM_lsm_run is of type 'np.ma.core.MaskedArray' or 'np.ndarray'
         # The units of runoff in GLDAS2 are kg*m-2, which is equivalent to mm
 
-        ZV_riv_Qex = ZM_lsm_run[IV_0bj_tot, IV_0bi_tot]
+        ZV_Qex_tot = ZM_lsm_run[IV_0bj_tot, IV_0bi_tot]
         # This uses the multidimensional list-of-locations indexing capability.
         # All values at given i and j indices can be obtained by giving two
         # lists of j and i indices.
-        ZV_riv_Qex = ZV_riv_Qex * ZV_scl_tot
+        ZV_Qex_tot = ZV_Qex_tot * ZV_scl_tot
         # Scaling accounting for area and units.
 
-        if isinstance(ZV_riv_Qex, np.ma.MaskedArray):
-            ZV_riv_Qex = np.where(ZV_riv_Qex.mask, 0, ZV_riv_Qex.data)
+        if isinstance(ZV_Qex_tot, np.ma.MaskedArray):
+            ZV_Qex_tot = np.where(ZV_Qex_tot.mask, 0, ZV_Qex_tot.data)
         # Make sure the masked values are replaced by 0
-        Qex[JS_lsm_tim, :] = ZV_riv_Qex[:]
+        Qex[JS_lsm_tim, :] = ZV_Qex_tot[:]
         # netCDF data are stored following: g.variables[m3_riv][time][rivid]
 
     time[:] = c.variables["time"][:]
