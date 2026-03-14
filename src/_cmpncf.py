@@ -198,10 +198,10 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Get main variable in netCDF files
     # -------------------------------------------------------------------------
-    old = netCDF4.Dataset(old_ncf, "r")
-    new = netCDF4.Dataset(new_ncf, "r")
+    o = netCDF4.Dataset(old_ncf, "r")
+    n = netCDF4.Dataset(new_ncf, "r")
 
-    com_var = set(old.variables) & set(new.variables)
+    com_var = set(o.variables) & set(n.variables)
 
     if "Qext" in com_var:
         ncf_var = "Qext"
@@ -230,8 +230,8 @@ def main() -> None:
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Getting values
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        ZV_old = old.variables[ncf_var][JS_tim, :]
-        ZV_new = new.variables[ncf_var][JS_tim, :]
+        ZV_old = o.variables[ncf_var][JS_tim, :]
+        ZV_new = n.variables[ncf_var][JS_tim, :]
         if "IV_loc" in locals():
             ZV_new = ZV_new[IV_loc]
 
