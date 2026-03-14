@@ -385,6 +385,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./TUTORIAL.md`              | Removed blank line. |
 | `./src/_sandboxqext.py`      | Fixed generic `tmp` w/o content triplet. |
 | `./src/rapid2/std_mdt.py`    | Fixed generic `tmp` w/o content triplet. |
+| `./src/rapid2/chk_cpl.py`    | Renamed null-index arrays. |
 
 ### Removed
 

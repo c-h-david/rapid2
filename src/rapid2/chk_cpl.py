@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # *****************************************************************************
-# chk_ids.py
+# chk_cpl.py
 # *****************************************************************************
 
 # Author:
@@ -63,11 +63,11 @@ def chk_cpl(
     if ZV_skm_tot.size != IV_1bj_tot.size:
         raise ValueError("The arrays have different sizes")
 
-    IV_1bi_000 = (IV_1bi_tot == 0).astype(np.int32)
-    IV_1bj_000 = (IV_1bj_tot == 0).astype(np.int32)
-    # These two lists contain 1 where the 1-based index is null, 0 otherwise
+    BV_1bi_nul = (IV_1bi_tot == 0)
+    BV_1bj_nul = (IV_1bj_tot == 0)
+    # These lists contain True where the 1-based index is null, False otherwise
 
-    if not np.array_equal(IV_1bi_000, IV_1bj_000):
+    if not np.array_equal(BV_1bi_nul, BV_1bj_nul):
         raise ValueError("The locations where i and j both equal zero differ")
     # Check that zero positions match
 
