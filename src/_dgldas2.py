@@ -216,9 +216,15 @@ def main() -> None:
     with netCDF4.Dataset(lsm_ncf, "a") as c:
         if YS_phs == "2.0":
             c.variables["time"][:] = c.variables["time"][:] * 60 - 694299600
+            c.variables["time_bnds"][:] = (
+                c.variables["time_bnds"][:] * 60 - 694299600
+            )
 
         if YS_phs == "2.1":
             c.variables["time"][:] = c.variables["time"][:] * 60 + 946695600
+            c.variables["time_bnds"][:] = (
+                c.variables["time_bnds"][:] * 60 + 946695600
+            )
 
         c.variables["time"].units = "second since 1970-01-01 00:00:00 +00:00"
 
