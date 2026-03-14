@@ -35,10 +35,8 @@ def main() -> None:
         ),
         epilog=(
             "examples:\n"
-            "  dgldas2 --phs 2.0 --mod NOAH --tim 2020-01 "
-            "--lsm gldas_2020-01.nc\n"
-            "  dgldas2 --phs 2.1 --mod VIC --tim 2020-01 "
-            "--lsm gldas.nc"
+            "  dgldas2 --phs 2.1 --mod VIC --tim 2010-01 "
+            "--lsm input/Tutorial/GLDAS_2.1_VIC_2010-01.nc4"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )

@@ -35,7 +35,8 @@ def main() -> None:
         ),
         epilog=(
             "examples:\n"
-            "  zeroqinit --Qex Qext.nc --Q00 Qinit.nc"
+            "  zeroqinit --Qex input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01.nc4 "
+            "--Q00 input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01.nc4"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )

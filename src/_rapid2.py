@@ -48,7 +48,7 @@ def main() -> None:
         ),
         epilog=(
             "examples:\n"
-            "  rapid2 --nml namelist_Sandbox.yml"
+            "  rapid2 --nml input/Tutorial/namelist_Tutorial.yml"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )

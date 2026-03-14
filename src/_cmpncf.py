@@ -36,8 +36,14 @@ def main() -> None:
         ),
         epilog=(
             "examples:\n"
-            "  cmpncf --old baseline.nc --new current.nc --rtl 1e-6 "
-            "--atl 1e-9\n"
+            "  cmpncf "
+            "--old input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01_GOLD.nc4 "
+            "--new input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01.nc4 "
+            "--rtl 1e-6 --atl 1e-3\n"
+            "  cmpncf "
+            "--old input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01_GOLD.nc4 "
+            "--new input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01.nc4 "
+            "--rtl 1e-6 --atl 1e-3"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )

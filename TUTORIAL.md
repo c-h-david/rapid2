@@ -37,11 +37,10 @@ Download GLDAS version `2.1`, model `VIC`, for `2010-01`:
 
 ``` bash
 dgldas2 \
-    --vsn 2.1 \
+    --phs 2.1 \
     --mod VIC \
     --tim 2010-01 \
-    --dir input/Tutorial \
-    --fil GLDAS_2.1_VIC_2010-01.nc4
+    --lsm input/Tutorial/GLDAS_2.1_VIC_2010-01.nc4
 ```
 
 The new file is placed in `input/Tutorial`. Other files are also automatically
@@ -57,24 +56,23 @@ Convert the GLDAS runoff file into RAPID external inflow format:
 cpllsm \
     --lsm input/Tutorial/GLDAS_2.1_VIC_2010-01.nc4 \
     --con input/Tutorial/rapid_connect_pfaf_74.csv \
-    --pos input/Tutorial/coords_pfaf_74.csv \
-    --bnd input/Tutorial/rapid_coupling_pfaf_74_GLDAS.csv \
-    --dir input/Tutorial \
-    --fil Qext_GLDAS_2.1_VIC_2010-01.nc4
+    --crd input/Tutorial/coords_pfaf_74.csv \
+    --cpl input/Tutorial/rapid_coupling_pfaf_74_GLDAS.csv \
+    --Qex input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01.nc4
 ```
 
 ## 4. Create Cold Start File with `zeroqinit`
 
 ``` bash
 zeroqinit \
-    --input input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01.nc4 \
-    --output input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01.nc4
+    --Qex input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01.nc4 \
+    --Q00 input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01.nc4
 ```
 
 ## 5. Run the Routing Model with `rapid2`
 
 ``` bash
-rapid2 --namelist namelist_Sandbox.yml
+rapid2 --nml input/Tutorial/namelist_Tutorial.yml
 ```
 
 ## 6. Compare Files to Baseline with `cmpncf`
@@ -83,33 +81,30 @@ rapid2 --namelist namelist_Sandbox.yml
 cmpncf \
     --old input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01_GOLD.nc4 \
     --new input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01.nc4 \
-    --rel 1e-6 \
-    --abs 1e-3
+    --rtl 1e-6 \
+    --atl 1e-3
 ```
 
 ```bash
 cmpncf \
     --old input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01_GOLD.nc4 \
     --new input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01.nc4 \
-    --rel 1e-6 \
-    --abs 1e-3
+    --rtl 1e-6 \
+    --atl 1e-3
 ```
 
 ## Current Known Challenges to Command Line Interface
-
-The current command-line interface includes many options, some of which overlap
-or duplicate functionality. A future goal is to reduce the number of options to
-the minimal set necessary for clarity and ease of use.
-
-At this stage, the tools remain separate commands rather than subcommands
-(e.g., like `git commit` or `git clone`). Unifying these under `rapid2` may be
-considered in the future.
 
 The near-term focus is on:
 
 - Clear, consistent runtime options
 - Short, intuitive 3-letter flags
 - Minimalistic and readable design
+
+At this stage, the tools remain separate commands rather than subcommands
+(e.g., like `git commit` or `git clone`). Unifying these under `rapid2` may be
+considered in the future.
+
 
 ## Opportunities for Growth
 

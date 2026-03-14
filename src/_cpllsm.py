@@ -42,8 +42,11 @@ def main() -> None:
         ),
         epilog=(
             "examples:\n"
-            "  cpllsm --lsm data.nc --con connect.csv --crd coords.csv "
-            "--cpl coupling.csv --fil Qext.nc"
+            "  cpllsm --lsm input/Tutorial/GLDAS_2.1_VIC_2010-01.nc4 "
+            "--con input/Tutorial/rapid_connect_pfaf_74.csv "
+            "--crd input/Tutorial/coords_pfaf_74.csv "
+            "--cpl input/Tutorial/rapid_coupling_pfaf_74_GLDAS.csv "
+            "--Qex input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01.nc4"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )

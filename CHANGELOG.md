@@ -372,6 +372,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_zeroqinit.py`        | Updated CLI. |
 | `./src/_dgldas2.py`          | Fixed `time_bnds` computation. |
 | `./src/_cmpncf.py`           | Updated CLI. |
+| `./src/_cmpncf.py`           | Aligned `TUTORIAL.md` and CLI epilog. |
+| `./src/_cpllsm.py`           | Aligned `TUTORIAL.md` and CLI epilog. |
+| `./src/_dgldas2.py`          | Aligned `TUTORIAL.md` and CLI epilog. |
+| `./src/_rapid2.py`           | Aligned `TUTORIAL.md` and CLI epilog. |
+| `./src/_zeroqinit.py`        | Aligned `TUTORIAL.md` and CLI epilog. |
+| `./TUTORIAL.md`              | Aligned `TUTORIAL.md` and CLI epilog. |
 
 ### Removed
 
