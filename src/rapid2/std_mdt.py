@@ -90,70 +90,70 @@ def std_mdt(
           dtype=int32)
     """
 
-    f = netCDF4.Dataset(std_ncf, "r")
+    s = netCDF4.Dataset(std_ncf, "r")
 
     # -------------------------------------------------------------------------
     # Check dimensions exist
     # -------------------------------------------------------------------------
-    if "rivid" not in f.dimensions:
+    if "rivid" not in s.dimensions:
         print(f"ERROR - rivid dimension does not exist in {std_ncf}")
         sys.exit(1)
 
-    if "time" not in f.dimensions:
+    if "time" not in s.dimensions:
         print(f"ERROR - time dimension does not exist in {std_ncf}")
         sys.exit(1)
 
     # -------------------------------------------------------------------------
     # Check variables exist
     # -------------------------------------------------------------------------
-    if "rivid" not in f.variables:
+    if "rivid" not in s.variables:
         print(f"ERROR - rivid variable does not exist in {std_ncf}")
         sys.exit(1)
 
-    if "lon" not in f.variables:
+    if "lon" not in s.variables:
         print(f"ERROR - lon variable does not exist in {std_ncf}")
         sys.exit(1)
 
-    if "lat" not in f.variables:
+    if "lat" not in s.variables:
         print(f"ERROR - lat variable does not exist in {std_ncf}")
         sys.exit(1)
 
-    if "time" not in f.variables:
+    if "time" not in s.variables:
         print(f"ERROR - time variable does not exist in {std_ncf}")
         sys.exit(1)
 
-    if "Qext" not in f.variables and "Qout" not in f.variables:
+    if "Qext" not in s.variables and "Qout" not in s.variables:
         print(f"ERROR - No known main variable exist in {std_ncf}")
         sys.exit(1)
 
     # -------------------------------------------------------------------------
     # Retrieve variables
     # -------------------------------------------------------------------------
-    IV_tmp = f.variables["rivid"][:].filled()
+    IV_tmp = s.variables["rivid"][:].filled()
     IV_riv_tot = np.array(IV_tmp, dtype=np.int32)
     # Retrieving variables in two steps to better inform mypy
 
-    ZV_tmp = f.variables["lon"][:].filled()
+    ZV_tmp = s.variables["lon"][:].filled()
     ZV_lon_tot = np.array(ZV_tmp, dtype=np.float64)
     # Retrieving variables in two steps to better inform mypy
 
-    ZV_tmp = f.variables["lat"][:].filled()
+    ZV_tmp = s.variables["lat"][:].filled()
     ZV_lat_tot = np.array(ZV_tmp, dtype=np.float64)
     # Retrieving variables in two steps to better inform mypy
 
-    IV_tmp = f.variables["time"][:].filled()
+    IV_tmp = s.variables["time"][:].filled()
     IV_tim_all = np.array(IV_tmp, dtype=np.int32)
     # Retrieving variables in two steps to better inform mypy
 
-    if "time_bnds" in f.variables:
-        if "nv" not in f.dimensions:
+    if "time_bnds" in s.variables:
+        if "nv" not in s.dimensions:
             print(f"ERROR - nv dimension does not exist in {std_ncf}")
             sys.exit(1)
-        if len(f.dimensions["nv"]) != 2:
+        if len(s.dimensions["nv"]) != 2:
             print(f"ERROR - nv dimension is not of size 2 in {std_ncf}")
             sys.exit(1)
 
-        IM_tmp = f.variables["time_bnds"][:].filled()
+        IM_tmp = s.variables["time_bnds"][:].filled()
         IM_tim_all = np.array(IM_tmp, dtype=np.int32)
         # Retrieving variables in two steps to better inform mypy
     else:

@@ -54,12 +54,12 @@ def skl_new(
     >>> ZV_lat = np.array([5.0, 4.5, 3.0, 2.5, 1.0])
     >>> skl_ncf = "./input/Sandbox/skl_Sandbox_19700101_19700110_tst.nc4"
     >>> skl_new(IV_riv, ZV_lon, ZV_lat, skl_ncf)
-    >>> f = netCDF4.Dataset(skl_ncf, "r")
-    >>> f.variables["rivid"][:].filled()
+    >>> s = netCDF4.Dataset(skl_ncf, "r")
+    >>> s.variables["rivid"][:].filled()
     array([10, 20, 30, 40, 50], dtype=int32)
-    >>> f.variables["lon"][:].filled()
+    >>> s.variables["lon"][:].filled()
     array([0.5, 2. , 1. , 2. , 0.5])
-    >>> f.variables["lat"][:].filled()
+    >>> s.variables["lat"][:].filled()
     array([5. , 4.5, 3. , 2.5, 1. ])
     >>> import os
     >>> os.remove(skl_ncf)
@@ -73,42 +73,42 @@ def skl_new(
     # -------------------------------------------------------------------------
     # Create file
     # -------------------------------------------------------------------------
-    f = netCDF4.Dataset(skl_ncf, "w", format="NETCDF4")
+    s = netCDF4.Dataset(skl_ncf, "w", format="NETCDF4")
 
     # -------------------------------------------------------------------------
     # Create dimensions
     # -------------------------------------------------------------------------
-    f.createDimension("time", None)
-    f.createDimension("rivid", len(IV_riv))
+    s.createDimension("time", None)
+    s.createDimension("rivid", len(IV_riv))
 
     # -------------------------------------------------------------------------
     # Create variables
     # -------------------------------------------------------------------------
-    time = f.createVariable("time", "int32", ("time",))
+    time = s.createVariable("time", "int32", ("time",))
     time.standard_name = "time"
     time.long_name = "time"
     time.units = "seconds since 1970-01-01 00:00:00 +00:00"
     time.axis = "T"
     time.calendar = "gregorian"
 
-    rivid = f.createVariable("rivid", "int32", ("rivid",))
+    rivid = s.createVariable("rivid", "int32", ("rivid",))
     rivid.long_name = "unique identifier for each river each"
     rivid.units = "1"
     rivid.cf_role = "timeseries_id"
 
-    lon = f.createVariable("lon", "float64", ("rivid",))
+    lon = s.createVariable("lon", "float64", ("rivid",))
     lon.standard_name = "longitude"
     lon.long_name = "longitude of a point related to each river reach"
     lon.units = "degrees_east"
     lon.axis = "X"
 
-    lat = f.createVariable("lat", "float64", ("rivid",))
+    lat = s.createVariable("lat", "float64", ("rivid",))
     lat.standard_name = "latitude"
     lat.long_name = "latitude of a point related to each river reach"
     lat.units = "degrees_north"
     lat.axis = "Y"
 
-    crs = f.createVariable("crs", "int32")
+    crs = s.createVariable("crs", "int32")
     crs.grid_mapping_name = "latitude_longitude"
     crs.semi_major_axis = 6378137.0
     crs.inverse_flattening = 298.257222101
@@ -123,19 +123,19 @@ def skl_new(
     # -------------------------------------------------------------------------
     # Metadata in netCDF global attributes
     # -------------------------------------------------------------------------
-    f.Conventions = "CF-1.6"
-    f.title = ""
-    f.institution = ""
-    f.source = "RAPID2"
-    f.history = "date created: " + YS_dat
-    f.references = "https://github.com/c-h-david/rapid2/"
-    f.comment = ""
-    f.featureType = "timeSeries"
+    s.Conventions = "CF-1.6"
+    s.title = ""
+    s.institution = ""
+    s.source = "RAPID2"
+    s.history = "date created: " + YS_dat
+    s.references = "https://github.com/c-h-david/rapid2/"
+    s.comment = ""
+    s.featureType = "timeSeries"
 
     # -------------------------------------------------------------------------
     # Close file
     # -------------------------------------------------------------------------
-    f.close()
+    s.close()
     # Closing the new netCDF file allows populating all data
 
 

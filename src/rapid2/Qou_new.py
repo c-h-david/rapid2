@@ -53,18 +53,18 @@ def Qou_new(
     >>> ZV_lat_bas = np.array([5.0, 4.5, 3.0, 2.5, 1.0])
     >>> Qou_ncf = "./output/Sandbox/Qout_Sandbox_19700101_19700110_tst.nc4"
     >>> Qou_new(IV_riv_bas, ZV_lon_bas, ZV_lat_bas, Qou_ncf)
-    >>> f = netCDF4.Dataset(Qou_ncf, "r")
-    >>> f.variables["rivid"][:].filled()
+    >>> g = netCDF4.Dataset(Qou_ncf, "r")
+    >>> g.variables["rivid"][:].filled()
     array([10, 20, 30, 40, 50], dtype=int32)
-    >>> f.variables["lon"][:].filled()
+    >>> g.variables["lon"][:].filled()
     array([0.5, 2. , 1. , 2. , 0.5])
-    >>> f.variables["lat"][:].filled()
+    >>> g.variables["lat"][:].filled()
     array([5. , 4.5, 3. , 2.5, 1. ])
-    >>> "nv" in f.dimensions
+    >>> "nv" in g.dimensions
     True
-    >>> all(var in f.variables for var in ["Qout", "time_bnds"])
+    >>> all(var in g.variables for var in ["Qout", "time_bnds"])
     True
-    >>> all(var in f.variables for var in ["Qout_bia", "Qout_var", "Qout_cov"])
+    >>> all(var in g.variables for var in ["Qout_bia", "Qout_var", "Qout_cov"])
     True
     >>> import os
     >>> os.remove(Qou_ncf)
@@ -78,19 +78,19 @@ def Qou_new(
     # -------------------------------------------------------------------------
     # Open file to make changes
     # -------------------------------------------------------------------------
-    f = netCDF4.Dataset(Qou_ncf, "a")
+    g = netCDF4.Dataset(Qou_ncf, "a")
 
     # -------------------------------------------------------------------------
     # Create dimensions
     # -------------------------------------------------------------------------
-    f.createDimension("nv", 2)
+    g.createDimension("nv", 2)
 
     # -------------------------------------------------------------------------
     # Create variables
     # -------------------------------------------------------------------------
     ZS_fill = float(1e20)
 
-    Qout = f.createVariable(
+    Qout = g.createVariable(
         "Qout",
         "float32",
         (
@@ -105,7 +105,7 @@ def Qou_new(
     Qout.grid_mapping = "crs"
     Qout.cell_methods = "time: mean"
 
-    time_bnds = f.createVariable(
+    time_bnds = g.createVariable(
         "time_bnds",
         "int32",
         (
@@ -115,10 +115,10 @@ def Qou_new(
     )
     time_bnds.long_name = "time bounds"
 
-    time = f.variables["time"]
+    time = g.variables["time"]
     time.bounds = "time_bnds"
 
-    Qout_bia = f.createVariable(
+    Qout_bia = g.createVariable(
         "Qout_bia", "float32", "rivid", fill_value=ZS_fill
     )
     Qout_bia.long_name = (
@@ -131,7 +131,7 @@ def Qou_new(
     Qout_bia.window = "applicable to entire period of simulation"
     Qout_bia.interval = "temporal resolution does not impact computation"
 
-    Qout_var = f.createVariable(
+    Qout_var = g.createVariable(
         "Qout_var", "float32", "rivid", fill_value=ZS_fill
     )
     Qout_var.long_name = (
@@ -144,7 +144,7 @@ def Qou_new(
     Qout_var.window = "applicable to entire period of simulation"
     Qout_var.interval = "typically same temporal resolution as observations"
 
-    Qout_cov = f.createVariable(
+    Qout_cov = g.createVariable(
         "Qout_cov", "float32", "rivid", fill_value=ZS_fill
     )
     Qout_cov.long_name = (
@@ -161,7 +161,7 @@ def Qou_new(
     # -------------------------------------------------------------------------
     # Close file
     # -------------------------------------------------------------------------
-    f.close()
+    g.close()
     # Closing the new netCDF file allows populating all data
 
 

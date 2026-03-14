@@ -53,12 +53,12 @@ def Qfi_new(
     >>> ZV_lat_tot = np.array([5.0, 4.5, 3.0, 2.5, 1.0])
     >>> Qfi_ncf = "./output/Sandbox/Qfinal_Sandbox_19700101_19700110_tst.nc4"
     >>> Qfi_new(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Qfi_ncf)
-    >>> f = netCDF4.Dataset(Qfi_ncf, "r")
-    >>> f.variables["rivid"][:].filled()
+    >>> h = netCDF4.Dataset(Qfi_ncf, "r")
+    >>> h.variables["rivid"][:].filled()
     array([10, 20, 30, 40, 50], dtype=int32)
-    >>> f.variables["lon"][:].filled()
+    >>> h.variables["lon"][:].filled()
     array([0.5, 2. , 1. , 2. , 0.5])
-    >>> f.variables["lat"][:].filled()
+    >>> h.variables["lat"][:].filled()
     array([5. , 4.5, 3. , 2.5, 1. ])
     >>> import os
     >>> os.remove(Qfi_ncf)
@@ -72,14 +72,14 @@ def Qfi_new(
     # -------------------------------------------------------------------------
     # Open file to make changes
     # -------------------------------------------------------------------------
-    f = netCDF4.Dataset(Qfi_ncf, "a")
+    h = netCDF4.Dataset(Qfi_ncf, "a")
 
     # -------------------------------------------------------------------------
     # Create variables
     # -------------------------------------------------------------------------
     ZS_fill = float(1e20)
 
-    Qout = f.createVariable(
+    Qout = h.createVariable(
         "Qout",
         "float64",
         (
@@ -99,7 +99,7 @@ def Qfi_new(
     # -------------------------------------------------------------------------
     # Close file
     # -------------------------------------------------------------------------
-    f.close()
+    h.close()
     # Closing the new netCDF file allows populating all data
 
 
