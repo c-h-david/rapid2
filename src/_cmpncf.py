@@ -36,9 +36,8 @@ def main() -> None:
         ),
         epilog=(
             "examples:\n"
-            "  cmpncf -o old_output.nc -n new_output.nc -r 0.01 -a 0.001\n"
-            "  cmpncf --old baseline.nc --new current.nc --rel 1e-6 "
-            "--abs 1e-9\n"
+            "  cmpncf --old baseline.nc --new current.nc --rtl 1e-6 "
+            "--atl 1e-9\n"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
@@ -48,7 +47,6 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "-o",
         "--old",
         type=str,
         required=True,
@@ -56,7 +54,6 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "-n",
         "--new",
         type=str,
         required=True,
@@ -64,8 +61,7 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "-r",
-        "--rel",
+        "--rtl",
         type=str,
         required=False,
         default="0",
@@ -73,8 +69,7 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "-a",
-        "--abs",
+        "--atl",
         type=str,
         required=False,
         default="0",
@@ -88,18 +83,18 @@ def main() -> None:
 
     old_ncf = args.old
     new_ncf = args.new
-    rel_str = args.rel
-    abs_str = args.abs
+    YS_rtl = args.rtl
+    YS_atl = args.atl
 
     print(
         f"Comparing {old_ncf} "
         f"with {new_ncf} "
-        f"relative tolerance {rel_str} "
-        f"absolute tolerance {abs_str}"
+        f"relative tolerance {YS_rtl} "
+        f"absolute tolerance {YS_atl}"
     )
 
-    ZS_rtl = np.float64(rel_str)
-    ZS_atl = np.float64(abs_str)
+    ZS_rtl = np.float64(YS_rtl)
+    ZS_atl = np.float64(YS_atl)
 
     # -------------------------------------------------------------------------
     # Get metadata in netCDF files

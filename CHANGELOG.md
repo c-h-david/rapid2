@@ -371,6 +371,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_rapid2.py`           | Updated CLI. |
 | `./src/_zeroqinit.py`        | Updated CLI. |
 | `./src/_dgldas2.py`          | Fixed `time_bnds` computation. |
+| `./src/_cmpncf.py`           | Updated CLI. |
 
 ### Removed
 
