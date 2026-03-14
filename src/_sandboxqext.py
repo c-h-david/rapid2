@@ -131,10 +131,10 @@ def main() -> None:
 
     Qex = f.variables["Qext"]
     for JS_tim_all in range(IS_tim_all):
-        ZV_tmp = np.sign(np.sin(np.pi / 86400 * IV_tim_all[JS_tim_all] + 1e-7))
-        ZV_tmp = ZV_tmp * ZV_amp
-        ZV_tmp = ZV_tmp + ZV_mea
-        Qex[JS_tim_all, :] = ZV_tmp[:]
+        ZV_Qex = np.sign(np.sin(np.pi / 86400 * IV_tim_all[JS_tim_all] + 1e-7))
+        ZV_Qex = ZV_Qex * ZV_amp
+        ZV_Qex = ZV_Qex + ZV_mea
+        Qex[JS_tim_all, :] = ZV_Qex[:]
     # The 1e-7 avoids np.sign(0) = 0
 
     f.title = "Sandbox dataset for RAPID2"

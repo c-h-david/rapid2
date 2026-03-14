@@ -129,20 +129,20 @@ def std_mdt(
     # -------------------------------------------------------------------------
     # Retrieve variables
     # -------------------------------------------------------------------------
-    IV_tmp = s.variables["rivid"][:].filled()
-    IV_riv_tot = np.array(IV_tmp, dtype=np.int32)
+    IV_riv_tmp = s.variables["rivid"][:].filled()
+    IV_riv_tot = np.array(IV_riv_tmp, dtype=np.int32)
     # Retrieving variables in two steps to better inform mypy
 
-    ZV_tmp = s.variables["lon"][:].filled()
-    ZV_lon_tot = np.array(ZV_tmp, dtype=np.float64)
+    ZV_lon_tmp = s.variables["lon"][:].filled()
+    ZV_lon_tot = np.array(ZV_lon_tmp, dtype=np.float64)
     # Retrieving variables in two steps to better inform mypy
 
-    ZV_tmp = s.variables["lat"][:].filled()
-    ZV_lat_tot = np.array(ZV_tmp, dtype=np.float64)
+    ZV_lat_tmp = s.variables["lat"][:].filled()
+    ZV_lat_tot = np.array(ZV_lat_tmp, dtype=np.float64)
     # Retrieving variables in two steps to better inform mypy
 
-    IV_tmp = s.variables["time"][:].filled()
-    IV_tim_all = np.array(IV_tmp, dtype=np.int32)
+    IV_tim_tmp = s.variables["time"][:].filled()
+    IV_tim_all = np.array(IV_tim_tmp, dtype=np.int32)
     # Retrieving variables in two steps to better inform mypy
 
     if "time_bnds" in s.variables:
@@ -153,7 +153,7 @@ def std_mdt(
             print(f"ERROR - nv dimension is not of size 2 in {std_ncf}")
             sys.exit(1)
 
-        IM_tmp = s.variables["time_bnds"][:].filled()
+        IM_tim_tmp = s.variables["time_bnds"][:].filled()
         IM_tim_all = np.array(IM_tmp, dtype=np.int32)
         # Retrieving variables in two steps to better inform mypy
     else:
