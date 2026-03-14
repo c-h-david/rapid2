@@ -359,6 +359,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_m3rivtoqext.py`      | Renamed `_m3r_tim` to `_tim_all`. |
 | `./src/_cpllsm.py`           | Renamed `ZV_riv_scl` to `ZV_scl_tot`. |
 | `./src/_cpllsm.py`           | Renamed `ZV_riv_Qex` to `ZV_Qex_tot`. |
+| `./src/_cpllsm.py`           | Renamed `_lsm_xxx` to `_xxx_lsm`. |
 
 ### Removed
 

@@ -188,14 +188,14 @@ def main() -> None:
 
     c = netCDF4.Dataset(lsm_ncf, "r")
 
-    IS_lsm_lon = len(c.dimensions["lon"])
-    print(f"  . The number of longitudes is: {IS_lsm_lon}")
+    IS_lon_lsm = len(c.dimensions["lon"])
+    print(f"  . The number of longitudes is: {IS_lon_lsm}")
 
-    IS_lsm_lat = len(c.dimensions["lat"])
-    print(f"  . The number of latitudes is: {IS_lsm_lat}")
+    IS_lat_lsm = len(c.dimensions["lat"])
+    print(f"  . The number of latitudes is: {IS_lat_lsm}")
 
-    IS_lsm_tim = len(c.dimensions["time"])
-    print(f"  . The number of time steps is: {IS_lsm_tim}")
+    IS_tim_all = len(c.dimensions["time"])
+    print(f"  . The number of time steps is: {IS_tim_all}")
 
     ZS_fll_rsf = netCDF4.default_fillvals["f4"]
     if "Qs_acc" in c.variables:
@@ -241,15 +241,15 @@ def main() -> None:
     IV_0bj_tot = IV_1bj_tot3 - 1
     # Shift to 0-based indexing; entries becoming −1 have 0 area (chk_cpl.py).
 
-    for JS_lsm_tim in tqdm(range(IS_lsm_tim), desc="Processing LSM data"):
-        ZM_lsm_rsf = c.variables["Qs_acc"][JS_lsm_tim][:][:]
-        ZM_lsm_rsb = c.variables["Qsb_acc"][JS_lsm_tim][:][:]
+    for JS_tim_all in tqdm(range(IS_tim_all), desc="Processing LSM data"):
+        ZM_rsf_lsm = c.variables["Qs_acc"][JS_tim_all][:][:]
+        ZM_rsb_lsm = c.variables["Qsb_acc"][JS_tim_all][:][:]
         # netCDF data are stored following: c.variables[var][time][lat][lon]
-        ZM_lsm_run = ZM_lsm_rsf + ZM_lsm_rsb
-        # ZM_lsm_run is of type 'np.ma.core.MaskedArray' or 'np.ndarray'
+        ZM_run_lsm = ZM_rsf_lsm + ZM_rsb_lsm
+        # ZM_run_lsm is of type 'np.ma.core.MaskedArray' or 'np.ndarray'
         # The units of runoff in GLDAS2 are kg*m-2, which is equivalent to mm
 
-        ZV_Qex_tot = ZM_lsm_run[IV_0bj_tot, IV_0bi_tot]
+        ZV_Qex_tot = ZM_run_lsm[IV_0bj_tot, IV_0bi_tot]
         # This uses the multidimensional list-of-locations indexing capability.
         # All values at given i and j indices can be obtained by giving two
         # lists of j and i indices.
@@ -259,7 +259,7 @@ def main() -> None:
         if isinstance(ZV_Qex_tot, np.ma.MaskedArray):
             ZV_Qex_tot = np.where(ZV_Qex_tot.mask, 0, ZV_Qex_tot.data)
         # Make sure the masked values are replaced by 0
-        Qex[JS_lsm_tim, :] = ZV_Qex_tot[:]
+        Qex[JS_tim_all, :] = ZV_Qex_tot[:]
         # netCDF data are stored following: g.variables[m3_riv][time][rivid]
 
     time[:] = c.variables["time"][:]
