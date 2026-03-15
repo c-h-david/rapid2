@@ -19,12 +19,12 @@ import numpy as np
 from tqdm import tqdm  # type: ignore[import-untyped]
 
 from rapid2 import __version__
-from rapid2.cpl_chk import cpl_chk
-from rapid2.riv_chk import riv_chk
 from rapid2.con_vec import con_vec
+from rapid2.cpl_chk import cpl_chk
 from rapid2.cpl_vec import cpl_vec
 from rapid2.crd_vec import crd_vec
 from rapid2.Qex_new import Qex_new
+from rapid2.riv_chk import riv_chk
 
 
 # *****************************************************************************

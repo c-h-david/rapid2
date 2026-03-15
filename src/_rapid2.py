@@ -19,8 +19,6 @@ from tqdm import tqdm  # type: ignore[import-untyped]
 from rapid2 import __version__
 from rapid2.bas_vec import bas_vec
 from rapid2.ccc_mat import ccc_mat
-from rapid2.riv_chk import riv_chk
-from rapid2.top_chk import top_chk
 from rapid2.con_vec import con_vec
 from rapid2.idx_tbl import idx_tbl
 from rapid2.k_x_vec import k_x_vec
@@ -29,9 +27,11 @@ from rapid2.net_mat import net_mat
 from rapid2.nml_tbl import nml_tbl
 from rapid2.Qfi_new import Qfi_new
 from rapid2.Qou_new import Qou_new
+from rapid2.riv_chk import riv_chk
 from rapid2.rte_mat import rte_mat
 from rapid2.std_mdt import std_mdt
 from rapid2.stp_cor import stp_cor
+from rapid2.top_chk import top_chk
 
 
 # *****************************************************************************
