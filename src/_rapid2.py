@@ -26,7 +26,7 @@ from rapid2.idx_tbl import idx_tbl
 from rapid2.k_x_vec import k_x_vec
 from rapid2.mus_rte import mus_rte
 from rapid2.net_mat import net_mat
-from rapid2.nml_cfg import nml_cfg
+from rapid2.nml_tbl import nml_tbl
 from rapid2.Qfi_new import Qfi_new
 from rapid2.Qou_new import Qou_new
 from rapid2.rte_mat import rte_mat
@@ -77,7 +77,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Read namelist into a dictionary and assign to local variables
     # -------------------------------------------------------------------------
-    AT_cfg = nml_cfg(nml_yml)
+    AT_cfg = nml_tbl(nml_yml)
 
     Q00_ncf = AT_cfg["Q00_ncf"]
     Qex_ncf = AT_cfg["Qex_ncf"]

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # *****************************************************************************
-# nml_cfg.py
+# nml_tbl.py
 # *****************************************************************************
 
 # Author:
@@ -20,7 +20,7 @@ import yaml  # type: ignore[import-untyped]
 # *****************************************************************************
 # Namelist function
 # *****************************************************************************
-def nml_cfg(nml_yml: str) -> Dict[str, Any]:
+def nml_tbl(nml_yml: str) -> Dict[str, Any]:
     """Read YAML file with model configuration and return a dictionary.
 
     Read a YAML namelist file with model configuration and return a dictionary
@@ -39,7 +39,7 @@ def nml_cfg(nml_yml: str) -> Dict[str, Any]:
     Examples
     --------
     >>> nml_yml = "./input/Sandbox/namelist_Sandbox.yml"
-    >>> AT_cfg = nml_cfg(nml_yml)
+    >>> AT_cfg = nml_tbl(nml_yml)
     >>> AT_cfg["Q00_ncf"]
     './input/Sandbox/Qinit_Sandbox_19700101_19700110.nc4'
     >>> AT_cfg["Qex_ncf"]

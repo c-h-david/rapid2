@@ -390,6 +390,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/chk_cpl.py`    | Reformatted. |
 | `./src/_rapid2.py`           | Renamed `hsh_tbl` to `idx_tbl`. |
 | `./src/rapid2/idx_tbl.py`    | Renamed `hsh_tbl` to `idx_tbl`. |
+| `./src/_rapid2.py`           | Renamed `nml_cfg` to `nml_tbl`. |
+| `./src/rapid2/nml_tbl.py`    | Renamed `nml_cfg` to `nml_tbl`. |
 
 ### Removed
 
@@ -401,3 +403,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/rud_new.py`    | Renamed `rud_new.py` to `skl_new.py`. |
 | `./src/rapid2/Qex_mdt.py`    | Renamed `Qex_mdt.py` to `std_mdt.py`. |
 | `./src/rapid2/hsh_tbl.py`    | Renamed `hsh_tbl` to `idx_tbl`. |
+| `./src/rapid2/nml_cfg.py`    | Renamed `nml_cfg` to `nml_tbl`. |
