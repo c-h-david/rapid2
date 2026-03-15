@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # *****************************************************************************
-# chk_ids.py
+# riv_chk.py
 # *****************************************************************************
 
 # Author:
@@ -17,7 +17,7 @@ import numpy.typing as npt
 # *****************************************************************************
 # Check IDs
 # *****************************************************************************
-def chk_ids(
+def riv_chk(
     IV_riv_tot: npt.NDArray[np.int32],
     IV_riv_tmp: npt.NDArray[np.int32],
 ) -> None:
@@ -41,13 +41,13 @@ def chk_ids(
     --------
     >>> IV_riv_tot = np.array([10, 20, 30, 40, 50], dtype=np.int32)
     >>> IV_riv_tmp = np.array([10, 20, 30, 40, 50], dtype=np.int32)
-    >>> chk_ids(IV_riv_tot, IV_riv_tmp)
+    >>> riv_chk(IV_riv_tot, IV_riv_tmp)
     >>> IV_riv_tmp = np.array([10, 20], dtype=np.int32)
-    >>> chk_ids(IV_riv_tot, IV_riv_tmp)
+    >>> riv_chk(IV_riv_tot, IV_riv_tmp)
     Traceback (most recent call last):
     ValueError: The river ID arrays have different sizes
     >>> IV_riv_tmp = np.array([50, 40, 30, 20, 10], dtype=np.int32)
-    >>> chk_ids(IV_riv_tot, IV_riv_tmp)
+    >>> riv_chk(IV_riv_tot, IV_riv_tmp)
     Traceback (most recent call last):
     ValueError: The river ID arrays have different elements
     """

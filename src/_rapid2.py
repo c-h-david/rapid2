@@ -19,7 +19,7 @@ from tqdm import tqdm  # type: ignore[import-untyped]
 from rapid2 import __version__
 from rapid2.bas_vec import bas_vec
 from rapid2.ccc_mat import ccc_mat
-from rapid2.chk_ids import chk_ids
+from rapid2.riv_chk import riv_chk
 from rapid2.chk_top import chk_top
 from rapid2.con_vec import con_vec
 from rapid2.idx_tbl import idx_tbl
@@ -136,7 +136,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Check river IDs and upstream to downstream topology
     # -------------------------------------------------------------------------
-    chk_ids(IV_riv_tot, IV_riv_tmp)
+    riv_chk(IV_riv_tot, IV_riv_tmp)
     chk_top(IV_riv_bas, IT_idx_bas, IV_riv_tot, IV_dwn_tot, IT_idx_tot)
 
     # -------------------------------------------------------------------------
