@@ -22,7 +22,7 @@ from rapid2.ccc_mat import ccc_mat
 from rapid2.chk_ids import chk_ids
 from rapid2.chk_top import chk_top
 from rapid2.con_vec import con_vec
-from rapid2.hsh_tbl import hsh_tbl
+from rapid2.idx_tbl import idx_tbl
 from rapid2.k_x_vec import k_x_vec
 from rapid2.mus_rte import mus_rte
 from rapid2.net_mat import net_mat
@@ -98,7 +98,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     IV_riv_tot, IV_dwn_tot = con_vec(con_csv)
     IV_riv_bas = bas_vec(bas_csv)
-    IT_idx_tot, IT_idx_bas, IV_idx_bas = hsh_tbl(IV_riv_tot, IV_riv_bas)
+    IT_idx_tot, IT_idx_bas, IV_idx_bas = idx_tbl(IV_riv_tot, IV_riv_bas)
     ZM_Net = net_mat(IV_dwn_tot, IT_idx_tot, IV_riv_bas, IT_idx_bas)
 
     # -------------------------------------------------------------------------
