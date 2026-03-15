@@ -397,6 +397,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_rapid2.py`           | Renamed `chk_ids` to `riv_chk`. |
 | `./src/_cpllsm.py`           | Renamed `chk_ids` to `riv_chk`. |
 | `./src/rapid2/riv_chk.py`    | Renamed `chk_ids` to `riv_chk`. |
+| `./src/_rapid2.py`           | Renamed `chk_top` to `top_chk`. |
+| `./src/rapid2/top_chk.py`    | Renamed `chk_top` to `top_chk`. |
 
 ### Removed
 
@@ -411,3 +413,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/nml_cfg.py`    | Renamed `nml_cfg` to `nml_tbl`. |
 | `./src/rapid2/chk_cpl.py`    | Renamed `chk_cpl` to `cpl_chk`. |
 | `./src/rapid2/chk_ids.py`    | Renamed `chk_ids` to `riv_chk`. |
+| `./src/rapid2/chk_top.py`    | Renamed `chk_top` to `top_chk`. |
