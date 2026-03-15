@@ -154,7 +154,7 @@ def std_mdt(
             sys.exit(1)
 
         IM_tim_tmp = s.variables["time_bnds"][:].filled()
-        IM_tim_all = np.array(IM_tmp, dtype=np.int32)
+        IM_tim_all = np.array(IM_tmp_tmp, dtype=np.int32)
         # Retrieving variables in two steps to better inform mypy
     else:
         IM_tim_all = None
