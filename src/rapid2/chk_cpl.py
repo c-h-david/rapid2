@@ -63,8 +63,8 @@ def chk_cpl(
     if ZV_skm_tot.size != IV_1bj_tot.size:
         raise ValueError("The arrays have different sizes")
 
-    BV_1bi_nul = (IV_1bi_tot == 0)
-    BV_1bj_nul = (IV_1bj_tot == 0)
+    BV_1bi_nul = IV_1bi_tot == 0
+    BV_1bj_nul = IV_1bj_tot == 0
     # These lists contain True where the 1-based index is null, False otherwise
 
     if not np.array_equal(BV_1bi_nul, BV_1bj_nul):

@@ -387,6 +387,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/std_mdt.py`    | Fixed generic `tmp` w/o content triplet. |
 | `./src/rapid2/chk_cpl.py`    | Renamed null-index arrays. |
 | `./src/rapid2/std_mdt.py`    | Fixed typo. |
+| `./src/rapid2/chk_cpl.py`    | Reformatted. |
 
 ### Removed
 
