@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # *****************************************************************************
-# chk_cpl.py
+# cpl_chk.py
 # *****************************************************************************
 
 # Author:
@@ -17,7 +17,7 @@ import numpy.typing as npt
 # *****************************************************************************
 # Check IDs
 # *****************************************************************************
-def chk_cpl(
+def cpl_chk(
     ZV_skm_tot: npt.NDArray[np.float64],
     IV_1bi_tot: npt.NDArray[np.int32],
     IV_1bj_tot: npt.NDArray[np.int32],
@@ -44,17 +44,17 @@ def chk_cpl(
     >>> ZV_skm_tot = np.array([1.0, 1.0, 1.0, 1.0, 1.0])
     >>> IV_1bi_tot = np.array([1, 1, 1, 1, 1], dtype=np.int32)
     >>> IV_1bj_tot = np.array([2, 2, 2, 1, 1], dtype=np.int32)
-    >>> chk_cpl(ZV_skm_tot, IV_1bi_tot, IV_1bj_tot)
+    >>> cpl_chk(ZV_skm_tot, IV_1bi_tot, IV_1bj_tot)
     >>> IV_1bj_tot = np.array([2, 2, 2, 1, 0], dtype=np.int32)
-    >>> chk_cpl(ZV_skm_tot, IV_1bi_tot, IV_1bj_tot)
+    >>> cpl_chk(ZV_skm_tot, IV_1bi_tot, IV_1bj_tot)
     Traceback (most recent call last):
     ValueError: The locations where i and j both equal zero differ
     >>> IV_1bi_tot = np.array([1, 1, 1, 1, 0], dtype=np.int32)
-    >>> chk_cpl(ZV_skm_tot, IV_1bi_tot, IV_1bj_tot)
+    >>> cpl_chk(ZV_skm_tot, IV_1bi_tot, IV_1bj_tot)
     Traceback (most recent call last):
     ValueError: Non-null area found for null i index
     >>> ZV_skm_tot = np.array([1.0, 1.0, 1.0, 1.0, 0.0])
-    >>> chk_cpl(ZV_skm_tot, IV_1bi_tot, IV_1bj_tot)
+    >>> cpl_chk(ZV_skm_tot, IV_1bi_tot, IV_1bj_tot)
     """
 
     if ZV_skm_tot.size != IV_1bi_tot.size:
