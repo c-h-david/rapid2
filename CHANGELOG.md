@@ -401,6 +401,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/top_chk.py`    | Renamed `chk_top` to `top_chk`. |
 | `./src/_rapid2.py`           | Sorted imports. |
 | `./src/_cpllsm.py`           | Sorted imports. |
+| `./src/_rapid2.py`           | Renamed `stp_cor` to `mus_int`. |
+| `./src/rapid2/mus_int.py`    | Renamed `stp_cor` to `mus_int`. |
 
 ### Removed
 
@@ -416,3 +418,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/chk_cpl.py`    | Renamed `chk_cpl` to `cpl_chk`. |
 | `./src/rapid2/chk_ids.py`    | Renamed `chk_ids` to `riv_chk`. |
 | `./src/rapid2/chk_top.py`    | Renamed `chk_top` to `top_chk`. |
+| `./src/rapid2/stp_cor.py`    | Renamed `stp_cor` to `mus_int`. |

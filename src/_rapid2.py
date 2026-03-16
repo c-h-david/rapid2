@@ -22,6 +22,7 @@ from rapid2.ccc_mat import ccc_mat
 from rapid2.con_vec import con_vec
 from rapid2.idx_tbl import idx_tbl
 from rapid2.k_x_vec import k_x_vec
+from rapid2.mus_int import mus_int
 from rapid2.mus_rte import mus_rte
 from rapid2.net_mat import net_mat
 from rapid2.nml_tbl import nml_tbl
@@ -30,7 +31,6 @@ from rapid2.Qou_new import Qou_new
 from rapid2.riv_chk import riv_chk
 from rapid2.rte_mat import rte_mat
 from rapid2.std_mdt import std_mdt
-from rapid2.stp_cor import stp_cor
 from rapid2.top_chk import top_chk
 
 
@@ -131,7 +131,7 @@ def main() -> None:
         print("ERROR - Values of time_bnds lead to IS_TaR = 0")
         sys.exit(1)
 
-    IS_mus = stp_cor(IS_TaR, IS_dtR)
+    IS_mus = mus_int(IS_TaR, IS_dtR)
 
     # -------------------------------------------------------------------------
     # Check river IDs and upstream to downstream topology

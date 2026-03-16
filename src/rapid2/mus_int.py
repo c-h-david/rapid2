@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # *****************************************************************************
-# stp_cor.py
+# mus_int.py
 # *****************************************************************************
 
 # Author:
@@ -16,7 +16,7 @@ import numpy as np
 # *****************************************************************************
 # Time step correspondance
 # *****************************************************************************
-def stp_cor(IS_TaR: np.int32, IS_dtR: np.int32) -> int:
+def mus_int(IS_TaR: np.int32, IS_dtR: np.int32) -> int:
     """Read basin file.
 
     Create one array of river IDs based on basin file.
@@ -37,11 +37,11 @@ def stp_cor(IS_TaR: np.int32, IS_dtR: np.int32) -> int:
     --------
     >>> IS_TaR = np.int32(10800)
     >>> IS_dtR = np.int32(900)
-    >>> stp_cor(IS_TaR, IS_dtR)
+    >>> mus_int(IS_TaR, IS_dtR)
     12
     >>> IS_TaR = np.int32(10800)
     >>> IS_dtR = np.int32(800)
-    >>> stp_cor(IS_TaR, IS_dtR)
+    >>> mus_int(IS_TaR, IS_dtR)
     Traceback (most recent call last):
     ValueError: quotient of time steps is not an integer
     """
