@@ -406,6 +406,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_rapid2.py`           | Removed `riv_chk()`. |
 | `./src/_cpllsm.py`           | Removed `riv_chk()`. |
 | `./src/_rapid2.py`           | Removed `mus_int()`. |
+| `./src/_cpllsm.py`           | Removed extra import. |
 
 ### Removed
 
