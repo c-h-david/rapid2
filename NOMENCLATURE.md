@@ -1,0 +1,233 @@
+# Nomenclature
+
+This document defines the canonical naming system used in RAPID2 for data
+structures, files, and functions. The goal is to ensure consistency, clarity,
+and quick recognition across the codebase.
+
+RAPID2 uses groups of one, three, or four semantic characters to unify names
+across structures, files, and functions. This document serves as a quick
+reference for these naming conventions.
+
+## Semantic singleton
+
+> These are used exclusively as prefixes in data structure names.
+
+### `<type>`
+
+| Code | Meaning            | Notes                                           |
+| ---- | ------------------ | ----------------------------------------------- |
+| `I`  | Integer            | Used for IDs, counters, and totals.             |
+| `J`  | Integer (iterated) | Used exclusively for loop indices.              |
+| `Z`  | Float              | Used for discharge, coordinates, parameters.    |
+| `Y`  | String/character   | Used for variable names and text labels.        |
+| `B`  | Boolean            | Used for logical masks and status flags.        |
+| `A`  | Any type           | Generic type for heterogeneous content.         |
+
+### `<structure1>`
+
+| Code | Meaning            | Notes                                           |
+| ---- | ------------------ | ----------------------------------------------- |
+| `S`  | Scalar (0-D)       | A single, independent value.                    |
+| `V`  | Vector (1-D)       | A 1-dimensional sequence or array of values.    |
+| `M`  | Matrix (2-D)       | A 2-dimensional sequence or grid of values.     |
+| `T`  | Table/Dictionary   | A mapping of keys to values (hash tables).      |
+
+## Semantic Triplets
+
+> These triplets appear consistently in the naming of data structures, files,
+> and functions to define the subject or target.
+
+### `<quantity>`
+
+| Code | Meaning            | Notes                                           |
+| ---- | ------------------ | ----------------------------------------------- |
+| `riv`| River ID           | Unique identifier for each river reach.         |
+| `Qex`| External inflow    | Flow of water entering from the exterior.       |
+| `Qou`| Outflow discharge  | Flow of water exiting each river reach.         |
+| `Vol`| Volume             | Volume of water stored in the river reach.      |
+| `skm`| Contributing area  | Area of the contributing catchment in sq km.    |
+| `tim`| Time               | Time stamps for simulation steps.               |
+| `0bi`| Zero-based index   | First dimension index (Python-native).          |
+| `0bj`| Zero-based index   | Second dimension index (Python-native).         |
+| `1bi`| One-based index    | First dimension index (Fortran-native).         |
+| `1bj`| One-based index    | Second dimension index (Fortran-native).        |
+
+### `<dataset>`
+
+> Datasets represent file origins. A dataset can share its name with its
+> primary quantity (e.g., `Qou`), or use a unique triplet for its context.
+
+| Code | Meaning            | Notes                                           |
+| ---- | ------------------ | ----------------------------------------------- |
+| `nml`| Namelist           | Configuration and input file paths.             |
+| `bas`| Basin              | Subset of the full routing network.             |
+| `con`| Connectivity       | Topology of the river network.                  |
+| `cpl`| Coupling           | Land surface model to river network mapping.    |
+| `crd`| Coordinates        | Geospatial longitude and latitude data.         |
+| `skl`| Skeleton           | Empty netCDF file structure for initialization. |
+| `std`| Standard           | Core metadata like time and coordinates.        |
+| `Q00`| Initial outflow    | Initial outflow state of the network.           |
+| `Qfi`| Final outflow      | Final outflow state of the network.             |
+
+### `<qualifier>`
+
+| Code | Meaning            | Notes                                           |
+| ---- | ------------------ | ----------------------------------------------- |
+| `tot`| Total network      | Array length equals `IS_riv_tot`.               |
+| `bas`| Basin              | Array length equals `IS_riv_bas`.               |
+| `prv`| Previous value     | Previous state of a dynamic variable.           |
+| `now`| Current value      | Current state of a dynamic variable.            |
+| `avg`| Average value      | Time-averaged dynamic variable.                 |
+
+### `<concept>`
+
+> Algorithmic abstractions related to linear algebra and routing physics.
+
+| Code | Meaning            | Notes                                           |
+| ---- | ------------------ | ----------------------------------------------- |
+| `Net`| Network matrix     | Represents topological connectivity.            |
+| `CCC`| Muskingum CCC      | C1, C2, and C3 Muskingum parameter matrices.    |
+| `Lin`| Linear system      | Matrices solving the Muskingum update.          |
+| `Inv`| Inverse matrix     | Inverted Muskinguym linear system matrix.       |
+| `Wdw`| Time window        | Temporal window for data assimilation.          |
+
+### `<scheme>`
+
+| Code | Meaning            | Notes                                           |
+| ---- | ------------------ | ----------------------------------------------- |
+| `mus`| Muskingum          | The Muskingum routing physics engine.           |
+
+### `<structure2>` (Memory Destinations)
+
+| Code | Meaning            | Notes                                           |
+| ---- | ------------------ | ----------------------------------------------- |
+| `vec`| Vector             | Assembled 1-dimensional array in memory.        |
+| `mat`| Matrix             | Assembled 2-dimensional sparse matrix.          |
+| `tbl`| Table              | Assembled dictionary or hash table.             |
+
+### `<format>` (Disk Destinations)
+
+| Code | Meaning            | Notes                                           |
+| ---- | ------------------ | ----------------------------------------------- |
+| `csv`| Comma Separated    | Used for tabular text data and parameters.      |
+| `ncf`| NetCDF             | Used for scientific multi-dimensional data.     |
+| `yml`| YAML               | Used for model configuration inputs.            |
+
+## Semantic Quadruplets
+
+### `<verb>`
+
+> Exactly four characters dictating the function's action and destination.
+
+| Code | Meaning            | Notes                                           |
+| ---- | ------------------ | ----------------------------------------------- |
+|`read`| Disk --> Memory    | Loads static data from files into RAM.          |
+|`make`| Memory --> Memory  | Assembles arrays into complex structures.       |
+|`prep`| Memory --> Disk    | Initializes a file with static data.            |
+|`chck`| Memory --> Void    | Check arrays from file; raises error or logs.   |
+|`calc`| Memory --> Scalar  | Computes one-time mathematical constants.       |
+|`updt`| State --> State    | Advances physics through the time loop.         |
+|`assm`| State --> State    | Assimilates observations to correct states.     |
+
+## Data Structure Names
+
+**Pattern:** `<type><structure1>_<quantity>_[<qualifier>]`
+**or:** `<type><structure1>_<concept>`
+
+**Examples:**
+
+| Code             | Meaning            | Notes                               |
+| ---------------- | ------------------ | ----------------------------------- |
+| `IV_riv_tot`     | Total river IDs    | Integer vector of all river IDs.    |
+| `IV_tim_all`     | All time stamps    | Integer vector of all time stamps.  |
+| `ZV_lat_tot`     | Total latitudes    | Float vector of all latitudes.      |
+| `ZM_Net`         | Network matrix     | Float matrix of network connect.    |
+
+## File Names
+
+**Pattern:** `<dataset>_<format>`
+
+**Examples:**
+
+| Code             | Meaning            | Notes                               |
+| ---------------- | ------------------ | ----------------------------------- |
+| `bas_csv`        | Basin info         | CSV file with subset of river IDs.  |
+| `Qex_ncf`        | External inflow    | NetCDF file containing forcing data.|
+| `nml_yml`        | Namelist           | YAML file for model configuration.  |
+
+## Function Names
+
+**When to write a function:** To protect the clarity of this nomenclature,
+functions should only be created for heavy I/O, complex assembly (e.g., matrix
+multiplication), or physics routines. Simple 1-line operations—like checking
+if two arrays are equal, or dividing two scalars to find a ratio—should
+remain inline in the main script to reduce cognitive load.
+
+### Readers (Disk -> Memory)
+
+**Pattern:** `read_<dataset>_<structure2>()`
+
+**Examples:**
+
+| Code             | Meaning            | Notes                               |
+| ---------------- | ------------------ | ----------------------------------- |
+| `read_bas_vec()` | Read basin vector  | Loads basin IDs into a 1D array.    |
+| `read_con_vec()` | Read connectivity  | Loads connectivity into 1D arrays.  |
+| `read_cpl_vec()` | Read coupling      | Loads mapping indices into arrays.  |
+| `read_nml_tbl()` | Read namelist      | Loads configuration into a dict.    |
+
+### Makers (Memory -> Memory)
+
+**Pattern:** `make_<quantity>_<structure2>()`
+**or:** `make_<concept>_<structure2>()`
+
+**Examples:**
+
+| Code             | Meaning            | Notes                               |
+| ---------------- | ------------------ | ----------------------------------- |
+| `make_0bi_tbl()` | Make 0-base index  | Builds dictionary mapping to 0bi.   |
+| `make_net_mat()` | Make network mat   | Assembles connectivity matrix.      |
+| `make_ccc_mat()` | Make CCC matrix    | Assembles C1, C2, C3 matrices.      |
+| `make_lin_mat()` | Make linear mat    | Assembles linear routing system.    |
+
+### Preparers (Memory -> Disk)
+
+**Pattern:** `prep_<dataset>_<format>()`
+
+**Examples:**
+
+| Code             | Meaning            | Notes                               |
+| ---------------- | ------------------ | ----------------------------------- |
+| `prep_skl_ncf()` | Prepare skeleton   | Initializes `skl_ncf` file.         |
+| `prep_Qou_ncf()` | Prepare Qou file   | Initializes `Qou_ncf` file.         |
+
+### Checkers (Memory -> Void)
+
+**Pattern:** `chck_<dataset>()`
+
+**Examples:**
+
+| Code             | Meaning            | Notes                               |
+| ---------------- | ------------------ | ----------------------------------- |
+| `chck_bas()`     | Check basin.       | Validates upstream/downstream sort. |
+| `chck_cpl()`     | Check coupling     | Validates null indices and areas.   |
+
+### Updaters (State -> State)
+
+**Pattern:** `updt_<concept>_<quantity>()`
+
+**Examples:**
+
+| Code             | Meaning            | Notes                               |
+| ---------------- | ------------------ | ----------------------------------- |
+| `updt_mus_Qou()` | Update Muskingum   | Routes `Qou` flow forward.          |
+
+### Assimilators (State -> State)
+
+**Pattern:** `assm_<concept>_<quantity>()`
+
+**Examples:**
+
+| Code             | Meaning            | Notes                               |
+| ---------------- | ------------------ | ----------------------------------- |
+| `assm_mus_Qex()` | Assimilate Kalman  | Corrects `Qex` using observations.  |
