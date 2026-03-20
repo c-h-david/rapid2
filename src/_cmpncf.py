@@ -18,7 +18,7 @@ import numpy as np
 from numpy.ma import MaskedArray
 
 from rapid2 import __version__
-from rapid2.std_mdt import std_mdt
+from rapid2.read_std_vec import read_std_vec
 
 
 # *****************************************************************************
@@ -111,7 +111,7 @@ def main() -> None:
         ZV_lat_old,
         IV_tim_old,
         IM_tim_old,
-    ) = std_mdt(old_ncf)
+    ) = read_std_vec(old_ncf)
 
     (
         IV_riv_new,
@@ -119,7 +119,7 @@ def main() -> None:
         ZV_lat_new,
         IV_tim_new,
         IM_tim_new,
-    ) = std_mdt(new_ncf)
+    ) = read_std_vec(new_ncf)
 
     # -------------------------------------------------------------------------
     # Compare dimension sizes

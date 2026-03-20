@@ -19,10 +19,10 @@ import numpy as np
 from tqdm import tqdm  # type: ignore[import-untyped]
 
 from rapid2 import __version__
-from rapid2.con_vec import con_vec
+from rapid2.read_con_vec import read_con_vec
 from rapid2.cpl_chk import cpl_chk
-from rapid2.cpl_vec import cpl_vec
-from rapid2.crd_vec import crd_vec
+from rapid2.read_cpl_vec import read_cpl_vec
+from rapid2.read_crd_vec import read_crd_vec
 from rapid2.Qex_new import Qex_new
 
 
@@ -124,7 +124,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     print("- Read connectivity file")
 
-    IV_riv_tot, IV_dwn_tot = con_vec(con_csv)
+    IV_riv_tot, IV_dwn_tot = read_con_vec(con_csv)
     IS_riv_tot = len(IV_riv_tot)
     print(
         "  . The number of river reaches in connectivity file is: "
@@ -136,7 +136,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     print("- Read coordinate file")
 
-    IV_riv_tmp, ZV_lon_tot, ZV_lat_tot = crd_vec(crd_csv)
+    IV_riv_tmp, ZV_lon_tot, ZV_lat_tot = read_crd_vec(crd_csv)
     np.testing.assert_array_equal(IV_riv_tot, IV_riv_tmp)
     print("  . The river reaches are the same as in connectivity file")
 
@@ -145,7 +145,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     print("- Read coupling file")
 
-    IV_riv_tmp, ZV_skm_tot, IV_1bi_tot, IV_1bj_tot = cpl_vec(cpl_csv)
+    IV_riv_tmp, ZV_skm_tot, IV_1bi_tot, IV_1bj_tot = read_cpl_vec(cpl_csv)
     np.testing.assert_array_equal(IV_riv_tot, IV_riv_tmp)
     print("  . The river reaches are the same as in connectivity file")
 

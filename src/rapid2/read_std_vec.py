@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # *****************************************************************************
-# std_mdt.py
+# read_std_vec.py
 # *****************************************************************************
 
 # Author:
@@ -21,7 +21,7 @@ import numpy.typing as npt
 # *****************************************************************************
 # Metadata of external inflow
 # *****************************************************************************
-def std_mdt(
+def read_std_vec(
     std_ncf: str,
 ) -> tuple[
     npt.NDArray[np.int32],
@@ -57,7 +57,7 @@ def std_mdt(
     --------
     >>> std_ncf = './input/Sandbox/Qext_Sandbox_19700101_19700110.nc4'
     >>> (IV_riv_tot, ZV_lon_tot, ZV_lat_tot,\
-         IV_tim_all, IM_tim_all) = std_mdt(std_ncf)
+         IV_tim_all, IM_tim_all) = read_std_vec(std_ncf)
     >>> IV_riv_tot
     array([10, 20, 30, 40, 50], dtype=int32)
     >>> ZV_lon_tot

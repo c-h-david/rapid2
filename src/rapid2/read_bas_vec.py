@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # *****************************************************************************
-# crd_vec.py
+# read_bas_vec.py
 # *****************************************************************************
 
 # Author:
-# Cedric H. David, 2025-2025
+# Cedric H. David, 2024-2024
 
 
 # *****************************************************************************
@@ -18,72 +18,58 @@ import numpy.typing as npt
 
 
 # *****************************************************************************
-# Connectivity function
+# Basin function
 # *****************************************************************************
-def crd_vec(
-    crd_csv: str,
-) -> tuple[
-    npt.NDArray[np.int32], npt.NDArray[np.float64], npt.NDArray[np.float64]
-]:
-    """Read coordinates file.
+def read_bas_vec(bas_csv: str) -> npt.NDArray[np.int32]:
+    """Read basin file.
 
-    Create arrays for river IDs, longitude, and latitude from coordinate file.
+    Create one array of river IDs based on basin file.
 
     Parameters
     ----------
-    crd_csv : str
-        Path to the coordinate file.
+    bas_csv : str
+        Path to the basin file.
 
     Returns
     -------
-    IV_riv_tot : ndarray[int32]
-        The river IDs of the domain.
-    ZV_lon_tot : ndarray[float64]
-        The longitudes of individual points related to each river ID.
-    ZV_lat_tot : ndarray[float64]
-        The latitudes of individual points related to each river ID.
+    IV_riv_bas : ndarray[int32]
+        The river IDs of the basin.
 
     Examples
     --------
-    >>> crd_csv = './input/Sandbox/coords_Sandbox.csv'
-    >>> crd_vec(crd_csv) # doctest: +NORMALIZE_WHITESPACE
-    (array([10, 20, 30, 40, 50], dtype=int32),\
-     array([4.3 , 5.94, 5.12, 6.55, 4.3 ]),\
-     array([8.2 , 8.2 , 5.12, 4.3 , 2.04]))
+    >>> bas_csv = "./input/Sandbox/riv_bas_id_Sandbox.csv"
+    >>> read_bas_vec(bas_csv)
+    array([10, 20, 30, 40, 50], dtype=int32)
     """
 
     # -------------------------------------------------------------------------
     # Count the number of elements
     # -------------------------------------------------------------------------
     try:
-        with open(crd_csv, "r") as csvfile:
-            IS_riv_tot = sum(1 for _ in csvfile)
+        with open(bas_csv, "r") as csvfile:
+            IS_riv_bas = sum(1 for _ in csvfile)
     except IOError:
-        print(f"ERROR - Unable to open {crd_csv}")
+        print(f"ERROR - Unable to open {bas_csv}")
         sys.exit(1)
 
     # -------------------------------------------------------------------------
     # Allocate array sizes
     # -------------------------------------------------------------------------
-    IV_riv_tot = np.empty(IS_riv_tot, dtype=np.int32)
-    ZV_lon_tot = np.empty(IS_riv_tot, dtype=np.float64)
-    ZV_lat_tot = np.empty(IS_riv_tot, dtype=np.float64)
+    IV_riv_bas = np.empty(IS_riv_bas, dtype=np.int32)
 
     # -------------------------------------------------------------------------
     # Populate arrays
     # -------------------------------------------------------------------------
     try:
-        with open(crd_csv, "r") as csvfile:
+        with open(bas_csv, "r") as csvfile:
             csvreader = csv.reader(csvfile)
-            for JS_riv_tot, row in enumerate(csvreader):
-                IV_riv_tot[JS_riv_tot] = np.int32(row[0])
-                ZV_lon_tot[JS_riv_tot] = np.float64(row[1])
-                ZV_lat_tot[JS_riv_tot] = np.float64(row[2])
+            for JS_riv_bas, row in enumerate(csvreader):
+                IV_riv_bas[JS_riv_bas] = np.int32(row[0])
     except IOError:
-        print(f"ERROR - Unable to open {crd_csv}")
+        print(f"ERROR - Unable to open {bas_csv}")
         sys.exit(1)
 
-    return IV_riv_tot, ZV_lon_tot, ZV_lat_tot
+    return IV_riv_bas
 
 
 # *****************************************************************************

@@ -411,6 +411,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_rapid2.py`           | Renamed variables. |
 | `./src/rapid2/mus_rte.py`    | Renamed variables. |
 | `./CONTRIBUTING.md`          | Added naming conventions. |
+| `./src/*.py`                 | Renamed readers. |
+| `./src/rapid2/*.py`          | Renamed readers. |
 
 ### Removed
 

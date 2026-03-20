@@ -17,18 +17,18 @@ import numpy as np
 from tqdm import tqdm  # type: ignore[import-untyped]
 
 from rapid2 import __version__
-from rapid2.bas_vec import bas_vec
+from rapid2.read_bas_vec import read_bas_vec
 from rapid2.ccc_mat import ccc_mat
-from rapid2.con_vec import con_vec
+from rapid2.read_con_vec import read_con_vec
 from rapid2.idx_tbl import idx_tbl
 from rapid2.k_x_vec import k_x_vec
 from rapid2.mus_rte import mus_rte
 from rapid2.net_mat import net_mat
-from rapid2.nml_tbl import nml_tbl
+from rapid2.read_nml_tbl import read_nml_tbl
 from rapid2.Qfi_new import Qfi_new
 from rapid2.Qou_new import Qou_new
 from rapid2.rte_mat import rte_mat
-from rapid2.std_mdt import std_mdt
+from rapid2.read_std_vec import read_std_vec
 from rapid2.top_chk import top_chk
 
 
@@ -75,7 +75,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Read namelist into a dictionary and assign to local variables
     # -------------------------------------------------------------------------
-    AT_cfg = nml_tbl(nml_yml)
+    AT_cfg = read_nml_tbl(nml_yml)
 
     Q00_ncf = AT_cfg["Q00_ncf"]
     Qex_ncf = AT_cfg["Qex_ncf"]
@@ -94,8 +94,8 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # River network
     # -------------------------------------------------------------------------
-    IV_riv_tot, IV_dwn_tot = con_vec(con_csv)
-    IV_riv_bas = bas_vec(bas_csv)
+    IV_riv_tot, IV_dwn_tot = read_con_vec(con_csv)
+    IV_riv_bas = read_bas_vec(bas_csv)
     IT_idx_tot, IT_idx_bas, IV_idx_bas = idx_tbl(IV_riv_tot, IV_riv_bas)
     ZM_Net = net_mat(IV_dwn_tot, IT_idx_tot, IV_riv_bas, IT_idx_bas)
 
@@ -115,7 +115,7 @@ def main() -> None:
         ZV_lat_tot,
         IV_tim_all,
         IM_tim_all,
-    ) = std_mdt(Qex_ncf)
+    ) = read_std_vec(Qex_ncf)
 
     # -------------------------------------------------------------------------
     # Get time step correspondance
@@ -123,7 +123,7 @@ def main() -> None:
     IS_tim_all = len(IV_tim_all)
 
     if IM_tim_all is None:
-        raise ValueError("std_mdt returned None for IM_tim_all")
+        raise ValueError("read_std_vec returned None for IM_tim_all")
 
     IS_TaR = IM_tim_all[0, 1] - IM_tim_all[0, 0]
     # Using IM_tim_all rather than IV_tim_all which may have only one timestep

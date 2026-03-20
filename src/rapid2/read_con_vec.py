@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # *****************************************************************************
-# cpl_vec.py
+# read_con_vec.py
 # *****************************************************************************
 
 # Author:
-# Cedric H. David, 2025-2025
+# Cedric H. David, 2024-2024
 
 
 # *****************************************************************************
@@ -20,78 +20,63 @@ import numpy.typing as npt
 # *****************************************************************************
 # Connectivity function
 # *****************************************************************************
-def cpl_vec(
-    cpl_csv: str,
-) -> tuple[
-    npt.NDArray[np.int32],
-    npt.NDArray[np.float64],
-    npt.NDArray[np.int32],
-    npt.NDArray[np.int32],
-]:
-    """Read coupling file.
+def read_con_vec(
+    con_csv: str,
+) -> tuple[npt.NDArray[np.int32], npt.NDArray[np.int32]]:
+    """Read connectivity file.
 
-    Create arrays for river IDs, catchment area, i, and j indices.
+    Create two arrays of river IDs based on connectivity file.
 
     Parameters
     ----------
-    cpl_csv : str
-        Path to the coupling file.
+    con_csv : str
+        Path to the connectivity file.
 
     Returns
     -------
     IV_riv_tot : ndarray[int32]
         The river IDs of the domain.
-    ZV_skm_tot : ndarray[float64]
-        The areas of contributing catchments to each river ID.
-    IV_1bi_tot : ndarray[int32]
-        The 1-based i index corresponding to each river ID in the LSM grid.
-    IV_1bj_tot : ndarray[int32]
-        The 1-based j index corresponding to each river ID in the LSM grid.
+    IV_dwn_tot : ndarray[int32]
+        The river IDs downstream of the river IDs in domain.
 
     Examples
     --------
-    >>> cpl_csv = './input/Sandbox/rapid_coupling_Sandbox.csv'
-    >>> cpl_vec(cpl_csv) # doctest: +NORMALIZE_WHITESPACE
+    >>> con_csv = './input/Sandbox/rapid_connect_Sandbox.csv'
+    >>> read_con_vec(con_csv) # doctest: +NORMALIZE_WHITESPACE
     (array([10, 20, 30, 40, 50], dtype=int32),\
-     array([1., 1., 1., 1., 1.]),\
-     array([1, 1, 1, 1, 1], dtype=int32),\
-     array([2, 2, 2, 1, 1], dtype=int32))
+     array([30, 30, 50, 50,  0], dtype=int32))
     """
 
     # -------------------------------------------------------------------------
     # Count the number of elements
     # -------------------------------------------------------------------------
     try:
-        with open(cpl_csv, "r") as csvfile:
+        with open(con_csv, "r") as csvfile:
             IS_riv_tot = sum(1 for _ in csvfile)
     except IOError:
-        print(f"ERROR - Unable to open {cpl_csv}")
+        print(f"ERROR - Unable to open {con_csv}")
         sys.exit(1)
 
     # -------------------------------------------------------------------------
     # Allocate array sizes
     # -------------------------------------------------------------------------
     IV_riv_tot = np.empty(IS_riv_tot, dtype=np.int32)
-    ZV_skm_tot = np.empty(IS_riv_tot, dtype=np.float64)
-    IV_1bi_tot = np.empty(IS_riv_tot, dtype=np.int32)
-    IV_1bj_tot = np.empty(IS_riv_tot, dtype=np.int32)
+    IV_dwn_tot = np.empty(IS_riv_tot, dtype=np.int32)
 
     # -------------------------------------------------------------------------
     # Populate arrays
     # -------------------------------------------------------------------------
     try:
-        with open(cpl_csv, "r") as csvfile:
+        with open(con_csv, "r") as csvfile:
             csvreader = csv.reader(csvfile)
             for JS_riv_tot, row in enumerate(csvreader):
                 IV_riv_tot[JS_riv_tot] = np.int32(row[0])
-                ZV_skm_tot[JS_riv_tot] = np.float64(row[1])
-                IV_1bi_tot[JS_riv_tot] = np.int32(row[2])
-                IV_1bj_tot[JS_riv_tot] = np.int32(row[3])
+                IV_dwn_tot[JS_riv_tot] = np.int32(row[1])
     except IOError:
-        print(f"ERROR - Unable to open {cpl_csv}")
+        print(f"ERROR - Unable to open {con_csv}")
         sys.exit(1)
 
-    return IV_riv_tot, ZV_skm_tot, IV_1bi_tot, IV_1bj_tot
+    return IV_riv_tot, IV_dwn_tot
 
 
 # *****************************************************************************
