@@ -11,6 +11,7 @@
 # Import Python modules
 # *****************************************************************************
 import argparse
+import numpy as np
 import sys
 
 import netCDF4  # type: ignore[import-untyped]
@@ -28,7 +29,6 @@ from rapid2.net_mat import net_mat
 from rapid2.nml_tbl import nml_tbl
 from rapid2.Qfi_new import Qfi_new
 from rapid2.Qou_new import Qou_new
-from rapid2.riv_chk import riv_chk
 from rapid2.rte_mat import rte_mat
 from rapid2.std_mdt import std_mdt
 from rapid2.top_chk import top_chk
@@ -136,7 +136,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Check river IDs and upstream to downstream topology
     # -------------------------------------------------------------------------
-    riv_chk(IV_riv_tot, IV_riv_tmp)
+    np.testing.assert_array_equal(IV_riv_tot, IV_riv_tmp)
     top_chk(IV_riv_bas, IT_idx_bas, IV_riv_tot, IV_dwn_tot, IT_idx_tot)
 
     # -------------------------------------------------------------------------

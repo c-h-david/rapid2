@@ -11,6 +11,7 @@
 # Import Python modules
 # *****************************************************************************
 import argparse
+import numpy as np
 import os.path
 import sys
 
@@ -24,7 +25,6 @@ from rapid2.cpl_chk import cpl_chk
 from rapid2.cpl_vec import cpl_vec
 from rapid2.crd_vec import crd_vec
 from rapid2.Qex_new import Qex_new
-from rapid2.riv_chk import riv_chk
 
 
 # *****************************************************************************
@@ -138,7 +138,7 @@ def main() -> None:
     print("- Read coordinate file")
 
     IV_riv_tmp, ZV_lon_tot, ZV_lat_tot = crd_vec(crd_csv)
-    riv_chk(IV_riv_tot, IV_riv_tmp)
+    np.testing.assert_array_equal(IV_riv_tot, IV_riv_tmp)
     print("  . The river reaches are the same as in connectivity file")
 
     # -------------------------------------------------------------------------
@@ -147,7 +147,7 @@ def main() -> None:
     print("- Read coupling file")
 
     IV_riv_tmp, ZV_skm_tot, IV_1bi_tot, IV_1bj_tot = cpl_vec(cpl_csv)
-    riv_chk(IV_riv_tot, IV_riv_tmp)
+    np.testing.assert_array_equal(IV_riv_tot, IV_riv_tmp)
     print("  . The river reaches are the same as in connectivity file")
 
     # -------------------------------------------------------------------------
