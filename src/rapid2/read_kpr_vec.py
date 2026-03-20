@@ -41,9 +41,9 @@ def read_kpr_vec(
 
     Examples
     --------
-    >>> kpr_csv = './input/Sandbox/k_Sandbox.csv'
+    >>> kpr_csv = "./input/Sandbox/k_Sandbox.csv"
     >>> IV_idx_bas = np.array([0, 1, 2, 3, 4], dtype=np.int32)
-    >>> read_kpr_vec(kpr_csv, IV_idx_bas) # doctest: +NORMALIZE_WHITESPACE
+    >>> read_kpr_vec(kpr_csv, IV_idx_bas)  # doctest: +NORMALIZE_WHITESPACE
     array([9000., 9000., 9000., 9000., 9000.])
     """
 

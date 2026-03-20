@@ -41,9 +41,9 @@ def read_xpr_vec(
 
     Examples
     --------
-    >>> xpr_csv = './input/Sandbox/x_Sandbox.csv'
+    >>> xpr_csv = "./input/Sandbox/x_Sandbox.csv"
     >>> IV_idx_bas = np.array([0, 1, 2, 3, 4], dtype=np.int32)
-    >>> read_xpr_vec(xpr_csv, IV_idx_bas) # doctest: +NORMALIZE_WHITESPACE
+    >>> read_xpr_vec(xpr_csv, IV_idx_bas)  # doctest: +NORMALIZE_WHITESPACE
     array([0.25, 0.25, 0.25, 0.25, 0.25])
     """
 

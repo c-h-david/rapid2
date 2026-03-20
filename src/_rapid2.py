@@ -17,20 +17,20 @@ import numpy as np
 from tqdm import tqdm  # type: ignore[import-untyped]
 
 from rapid2 import __version__
-from rapid2.read_bas_vec import read_bas_vec
-from rapid2.make_CCC_mat import make_CCC_mat
-from rapid2.read_con_vec import read_con_vec
+from rapid2.chck_bas import chck_bas
 from rapid2.make_0bi_tbl import make_0bi_tbl
-from rapid2.read_kpr_vec import read_kpr_vec
-from rapid2.updt_Mus_Qou import updt_Mus_Qou
+from rapid2.make_CCC_mat import make_CCC_mat
+from rapid2.make_Mus_mat import make_Mus_mat
 from rapid2.make_Net_mat import make_Net_mat
-from rapid2.read_nml_tbl import read_nml_tbl
 from rapid2.prep_Qfi_ncf import prep_Qfi_ncf
 from rapid2.prep_Qou_ncf import prep_Qou_ncf
-from rapid2.make_Mus_mat import make_Mus_mat
+from rapid2.read_bas_vec import read_bas_vec
+from rapid2.read_con_vec import read_con_vec
+from rapid2.read_kpr_vec import read_kpr_vec
+from rapid2.read_nml_tbl import read_nml_tbl
 from rapid2.read_std_vec import read_std_vec
-from rapid2.chck_bas import chck_bas
 from rapid2.read_xpr_vec import read_xpr_vec
+from rapid2.updt_Mus_Qou import updt_Mus_Qou
 
 
 # *****************************************************************************
