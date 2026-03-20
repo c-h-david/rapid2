@@ -423,6 +423,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/*.py`          | Renamed Updaters. |
 | `./src/*.py`                 | Linted after major renames. |
 | `./src/rapid2/*.py`          | Linted after major renames. |
+| `./src/*.py`                 | Renamed `idx` into `0bi`. |
+| `./src/rapid2/*.py`          | Renamed `idx` into `0bi`. |
 
 ### Removed
 

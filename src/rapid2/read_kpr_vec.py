@@ -21,7 +21,7 @@ import numpy.typing as npt
 # Muskingum k function
 # *****************************************************************************
 def read_kpr_vec(
-    kpr_csv: str, IV_idx_bas: npt.NDArray[np.int32]
+    kpr_csv: str, IV_0bi_bas: npt.NDArray[np.int32]
 ) -> npt.NDArray[np.float64]:
     """Read k parameter file.
 
@@ -31,7 +31,7 @@ def read_kpr_vec(
     ----------
     kpr_csv : str
         Path to the k parameter file.
-    IV_idx_bas : ndarray[int32]
+    IV_0bi_bas : ndarray[int32]
         The index in domain for river IDs in basin.
 
     Returns
@@ -42,8 +42,8 @@ def read_kpr_vec(
     Examples
     --------
     >>> kpr_csv = "./input/Sandbox/k_Sandbox.csv"
-    >>> IV_idx_bas = np.array([0, 1, 2, 3, 4], dtype=np.int32)
-    >>> read_kpr_vec(kpr_csv, IV_idx_bas)  # doctest: +NORMALIZE_WHITESPACE
+    >>> IV_0bi_bas = np.array([0, 1, 2, 3, 4], dtype=np.int32)
+    >>> read_kpr_vec(kpr_csv, IV_0bi_bas)  # doctest: +NORMALIZE_WHITESPACE
     array([9000., 9000., 9000., 9000., 9000.])
     """
 
@@ -73,7 +73,7 @@ def read_kpr_vec(
     except IOError:
         print(f"ERROR - Unable to open {kpr_csv}")
         sys.exit(1)
-    ZV_kpr_bas = ZV_kpr_tot[IV_idx_bas]
+    ZV_kpr_bas = ZV_kpr_tot[IV_0bi_bas]
 
     return ZV_kpr_bas
 

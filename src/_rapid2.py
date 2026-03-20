@@ -97,14 +97,14 @@ def main() -> None:
     # -------------------------------------------------------------------------
     IV_riv_tot, IV_dwn_tot = read_con_vec(con_csv)
     IV_riv_bas = read_bas_vec(bas_csv)
-    IT_idx_tot, IT_idx_bas, IV_idx_bas = make_0bi_tbl(IV_riv_tot, IV_riv_bas)
-    ZM_Net = make_Net_mat(IV_dwn_tot, IT_idx_tot, IV_riv_bas, IT_idx_bas)
+    IT_0bi_tot, IT_0bi_bas, IV_0bi_bas = make_0bi_tbl(IV_riv_tot, IV_riv_bas)
+    ZM_Net = make_Net_mat(IV_dwn_tot, IT_0bi_tot, IV_riv_bas, IT_0bi_bas)
 
     # -------------------------------------------------------------------------
     # Model parameters
     # -------------------------------------------------------------------------
-    ZV_kpr_bas = read_kpr_vec(kpr_csv, IV_idx_bas)
-    ZV_xpr_bas = read_xpr_vec(xpr_csv, IV_idx_bas)
+    ZV_kpr_bas = read_kpr_vec(kpr_csv, IV_0bi_bas)
+    ZV_xpr_bas = read_xpr_vec(xpr_csv, IV_0bi_bas)
     ZM_C1m, ZM_C2m, ZM_C3m = make_CCC_mat(ZV_kpr_bas, ZV_xpr_bas, IS_dtR)
     ZM_Lin, ZM_Qex, ZM_Qou = make_Mus_mat(ZM_Net, ZM_C1m, ZM_C2m, ZM_C3m)
 
@@ -142,15 +142,15 @@ def main() -> None:
     # Check river IDs and upstream to downstream topology
     # -------------------------------------------------------------------------
     np.testing.assert_array_equal(IV_riv_tot, IV_riv_tmp)
-    chck_bas(IV_riv_bas, IT_idx_bas, IV_riv_tot, IV_dwn_tot, IT_idx_tot)
+    chck_bas(IV_riv_bas, IT_0bi_bas, IV_riv_tot, IV_dwn_tot, IT_0bi_tot)
 
     # -------------------------------------------------------------------------
     # Populate metadata for discharge output files
     # -------------------------------------------------------------------------
     prep_Qou_ncf(
-        IV_riv_tot[IV_idx_bas],
-        ZV_lon_tot[IV_idx_bas],
-        ZV_lat_tot[IV_idx_bas],
+        IV_riv_tot[IV_0bi_bas],
+        ZV_lon_tot[IV_0bi_bas],
+        ZV_lat_tot[IV_0bi_bas],
         Qou_ncf,
     )
     prep_Qfi_ncf(
@@ -171,7 +171,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Read initial discharge state
     # -------------------------------------------------------------------------
-    ZV_Qou_prv = e.variables["Qout"][0, IV_idx_bas]
+    ZV_Qou_prv = e.variables["Qout"][0, IV_0bi_bas]
 
     # -------------------------------------------------------------------------
     # Run simulations
@@ -180,7 +180,7 @@ def main() -> None:
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Compute Qout
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        ZV_Qex_avg = f.variables["Qext"][JS_tim_all][IV_idx_bas]
+        ZV_Qex_avg = f.variables["Qext"][JS_tim_all][IV_0bi_bas]
 
         ZV_Qou_avg, ZV_Qou_now = updt_Mus_Qou(
             ZM_Lin, ZM_Qex, ZM_Qou, IS_mus, ZV_Qou_prv, ZV_Qex_avg
@@ -197,7 +197,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Save final discharge state
     # -------------------------------------------------------------------------
-    h.variables["Qout"][0, IV_idx_bas] = ZV_Qou_now[:]
+    h.variables["Qout"][0, IV_0bi_bas] = ZV_Qou_now[:]
 
     # -------------------------------------------------------------------------
     # Copy some global attributes

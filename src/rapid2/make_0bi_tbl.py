@@ -36,11 +36,11 @@ def make_0bi_tbl(
 
     Returns
     -------
-    IT_idx_tot : dict[int32, int]
+    IT_0bi_tot : dict[int32, int]
         The link from river ID to index in domain.
-    IT_idx_bas : dict[int32, int]
+    IT_0bi_bas : dict[int32, int]
         The link from river ID to index in basin.
-    IV_idx_bas : ndarray[int32]
+    IV_0bi_bas : ndarray[int32]
         The index in domain for river IDs in basin.
 
     Examples
@@ -62,25 +62,25 @@ def make_0bi_tbl(
     """
 
     IS_riv_tot = len(IV_riv_tot)
-    IT_idx_tot = {}
+    IT_0bi_tot = {}
     for JS_riv_tot in range(IS_riv_tot):
-        IT_idx_tot[IV_riv_tot[JS_riv_tot]] = JS_riv_tot
-    # IT_idx_tot[IS_riv] = JS_riv_tot
+        IT_0bi_tot[IV_riv_tot[JS_riv_tot]] = JS_riv_tot
+    # IT_0bi_tot[IS_riv] = JS_riv_tot
 
     IS_riv_bas = len(IV_riv_bas)
-    IT_idx_bas = {}
+    IT_0bi_bas = {}
     for JS_riv_bas in range(IS_riv_bas):
-        IT_idx_bas[IV_riv_bas[JS_riv_bas]] = JS_riv_bas
-    # IT_idx_bas[IS_riv] = JS_riv_bas
+        IT_0bi_bas[IV_riv_bas[JS_riv_bas]] = JS_riv_bas
+    # IT_0bi_bas[IS_riv] = JS_riv_bas
 
-    IV_idx_bas = np.zeros(IS_riv_bas, dtype=np.int32)
+    IV_0bi_bas = np.zeros(IS_riv_bas, dtype=np.int32)
     for JS_riv_bas in range(IS_riv_bas):
-        IV_idx_bas[JS_riv_bas] = IT_idx_tot[IV_riv_bas[JS_riv_bas]]
+        IV_0bi_bas[JS_riv_bas] = IT_0bi_tot[IV_riv_bas[JS_riv_bas]]
     # This array allows for index mapping such that IV_riv_tot[JS_riv_tot]
     #                                             = IV_riv_bas[JS_riv_bas]
-    # IV_idx_bas[JS_riv_bas] = JS_riv_tot
+    # IV_0bi_bas[JS_riv_bas] = JS_riv_tot
 
-    return IT_idx_tot, IT_idx_bas, IV_idx_bas
+    return IT_0bi_tot, IT_0bi_bas, IV_0bi_bas
 
 
 # *****************************************************************************

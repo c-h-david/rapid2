@@ -21,7 +21,7 @@ import numpy.typing as npt
 # Muskingum x function
 # *****************************************************************************
 def read_xpr_vec(
-    xpr_csv: str, IV_idx_bas: npt.NDArray[np.int32]
+    xpr_csv: str, IV_0bi_bas: npt.NDArray[np.int32]
 ) -> npt.NDArray[np.float64]:
     """Read x parameter file.
 
@@ -31,7 +31,7 @@ def read_xpr_vec(
     ----------
     xpr_csv : str
         Path to the x parameter file.
-    IV_idx_bas : ndarray[int32]
+    IV_0bi_bas : ndarray[int32]
         The index in domain for river IDs in basin.
 
     Returns
@@ -42,8 +42,8 @@ def read_xpr_vec(
     Examples
     --------
     >>> xpr_csv = "./input/Sandbox/x_Sandbox.csv"
-    >>> IV_idx_bas = np.array([0, 1, 2, 3, 4], dtype=np.int32)
-    >>> read_xpr_vec(xpr_csv, IV_idx_bas)  # doctest: +NORMALIZE_WHITESPACE
+    >>> IV_0bi_bas = np.array([0, 1, 2, 3, 4], dtype=np.int32)
+    >>> read_xpr_vec(xpr_csv, IV_0bi_bas)  # doctest: +NORMALIZE_WHITESPACE
     array([0.25, 0.25, 0.25, 0.25, 0.25])
     """
 
@@ -73,7 +73,7 @@ def read_xpr_vec(
     except IOError:
         print(f"ERROR - Unable to open {xpr_csv}")
         sys.exit(1)
-    ZV_xpr_bas = ZV_xpr_tot[IV_idx_bas]
+    ZV_xpr_bas = ZV_xpr_tot[IV_0bi_bas]
 
     return ZV_xpr_bas
 
