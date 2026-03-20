@@ -17,7 +17,7 @@ import numpy.typing as npt
 # *****************************************************************************
 # Check topology
 # *****************************************************************************
-def top_chk(
+def chck_bas(
     IV_riv_bas: npt.NDArray[np.int32],
     IT_idx_bas: dict[np.int32, int],
     IV_riv_tot: npt.NDArray[np.int32],
@@ -60,13 +60,13 @@ def top_chk(
                       np.int32(30): 2,\
                       np.int32(40): 3,\
                       np.int32(50): 4}
-    >>> top_chk(IV_riv_bas, IT_idx_bas, IV_riv_tot, IV_dwn_tot, IT_idx_tot)
+    >>> chck_bas(IV_riv_bas, IT_idx_bas, IV_riv_tot, IV_dwn_tot, IT_idx_tot)
     >>> IV_riv_bas = np.array([10, 20, 30, 40], dtype=np.int32)
     >>> IT_idx_bas = {np.int32(10): 0,\
                       np.int32(20): 1,\
                       np.int32(30): 2,\
                       np.int32(40): 3}
-    >>> top_chk(IV_riv_bas, IT_idx_bas, IV_riv_tot, IV_dwn_tot, IT_idx_tot)
+    >>> chck_bas(IV_riv_bas, IT_idx_bas, IV_riv_tot, IV_dwn_tot, IT_idx_tot)
     WARNING - connectivity: 50 is downstream of 30 but is not in basin file
     WARNING - connectivity: 50 is downstream of 40 but is not in basin file
     >>> IV_riv_bas = np.array([20, 30, 40, 50], dtype=np.int32)
@@ -74,7 +74,7 @@ def top_chk(
                       np.int32(30): 1,\
                       np.int32(40): 2,\
                       np.int32(50): 3}
-    >>> top_chk(IV_riv_bas, IT_idx_bas, IV_riv_tot, IV_dwn_tot, IT_idx_tot)
+    >>> chck_bas(IV_riv_bas, IT_idx_bas, IV_riv_tot, IV_dwn_tot, IT_idx_tot)
     WARNING - connectivity: 10 is upstream of 30 but is not in basin file
     >>> IV_riv_bas = np.array([50, 40, 30, 20, 10], dtype=np.int32)
     >>> IT_idx_bas = {np.int32(50): 0,\
@@ -82,7 +82,7 @@ def top_chk(
                       np.int32(30): 2,\
                       np.int32(20): 3,\
                       np.int32(10): 4}
-    >>> top_chk(IV_riv_bas, IT_idx_bas, IV_riv_tot, IV_dwn_tot,\
+    >>> chck_bas(IV_riv_bas, IT_idx_bas, IV_riv_tot, IV_dwn_tot,\
                 IT_idx_tot) # doctest: +NORMALIZE_WHITESPACE
     Traceback (most recent call last):
     ValueError: Sorting problem: 50 is downstream of 40 but is located above in

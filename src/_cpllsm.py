@@ -20,7 +20,7 @@ from tqdm import tqdm  # type: ignore[import-untyped]
 
 from rapid2 import __version__
 from rapid2.read_con_vec import read_con_vec
-from rapid2.cpl_chk import cpl_chk
+from rapid2.chck_cpl import chck_cpl
 from rapid2.read_cpl_vec import read_cpl_vec
 from rapid2.read_crd_vec import read_crd_vec
 from rapid2.prep_Qex_ncf import prep_Qex_ncf
@@ -154,7 +154,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     print("- Check consisitency of coupling file")
 
-    cpl_chk(ZV_skm_tot, IV_1bi_tot, IV_1bj_tot)
+    chck_cpl(ZV_skm_tot, IV_1bi_tot, IV_1bj_tot)
     print(" . OK")
 
     # -------------------------------------------------------------------------
@@ -215,7 +215,7 @@ def main() -> None:
 
     IV_0bi_tot = IV_1bi_tot - 1
     IV_0bj_tot = IV_1bj_tot - 1
-    # Shift to 0-based indexing; entries becoming −1 have 0 area (cpl_chk.py).
+    # Shift to 0-based indexing; entries becoming −1 have 0 area (chck_cpl.py).
 
     for JS_tim_all in tqdm(range(IS_tim_all), desc="Processing LSM data"):
         ZM_rsf_lsm = c.variables["Qs_acc"][JS_tim_all][:][:]

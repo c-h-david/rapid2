@@ -29,7 +29,7 @@ from rapid2.prep_Qfi_ncf import prep_Qfi_ncf
 from rapid2.prep_Qou_ncf import prep_Qou_ncf
 from rapid2.make_Mus_mat import make_Mus_mat
 from rapid2.read_std_vec import read_std_vec
-from rapid2.top_chk import top_chk
+from rapid2.chck_bas import chck_bas
 from rapid2.read_xpr_vec import read_xpr_vec
 
 
@@ -142,7 +142,7 @@ def main() -> None:
     # Check river IDs and upstream to downstream topology
     # -------------------------------------------------------------------------
     np.testing.assert_array_equal(IV_riv_tot, IV_riv_tmp)
-    top_chk(IV_riv_bas, IT_idx_bas, IV_riv_tot, IV_dwn_tot, IT_idx_tot)
+    chck_bas(IV_riv_bas, IT_idx_bas, IV_riv_tot, IV_dwn_tot, IT_idx_tot)
 
     # -------------------------------------------------------------------------
     # Populate metadata for discharge output files
