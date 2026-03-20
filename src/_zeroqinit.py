@@ -17,7 +17,7 @@ import sys
 import netCDF4  # type: ignore[import-untyped]
 
 from rapid2 import __version__
-from rapid2.Qfi_new import Qfi_new
+from rapid2.prep_Qfi_ncf import prep_Qfi_ncf
 
 
 # *****************************************************************************
@@ -108,7 +108,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Create Qfi file
     # -------------------------------------------------------------------------
-    Qfi_new(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Q00_ncf)
+    prep_Qfi_ncf(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Q00_ncf)
 
     e = netCDF4.Dataset(Q00_ncf, "a")
 

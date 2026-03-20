@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # *****************************************************************************
-# Qex_new.py
+# prep_Qex_ncf.py
 # *****************************************************************************
 
 # Author:
@@ -14,13 +14,13 @@ import netCDF4  # type: ignore[import-untyped]
 import numpy as np
 import numpy.typing as npt
 
-from rapid2.skl_new import skl_new
+from rapid2.prep_skl_ncf import prep_skl_ncf
 
 
 # *****************************************************************************
 # Make external inflow volume (Qex) file
 # *****************************************************************************
-def Qex_new(
+def prep_Qex_ncf(
     IV_riv_tot: npt.NDArray[np.int32],
     ZV_lon_tot: npt.NDArray[np.float64],
     ZV_lat_tot: npt.NDArray[np.float64],
@@ -52,7 +52,7 @@ def Qex_new(
     >>> ZV_lon_tot = np.array([0.5, 2.0, 1.0, 2.0, 0.5])
     >>> ZV_lat_tot = np.array([5.0, 4.5, 3.0, 2.5, 1.0])
     >>> Qex_ncf = "./input/Sandbox/Qext_Sandbox_19700101_19700110_tst.nc4"
-    >>> Qex_new(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Qex_ncf)
+    >>> prep_Qex_ncf(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Qex_ncf)
     >>> f = netCDF4.Dataset(Qex_ncf, "r")
     >>> f.variables["rivid"][:].filled()
     array([10, 20, 30, 40, 50], dtype=int32)
@@ -73,7 +73,7 @@ def Qex_new(
     # -------------------------------------------------------------------------
     # Create skeleton file
     # -------------------------------------------------------------------------
-    skl_new(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Qex_ncf)
+    prep_skl_ncf(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Qex_ncf)
 
     # -------------------------------------------------------------------------
     # Open file to make changes

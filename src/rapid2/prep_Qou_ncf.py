@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # *****************************************************************************
-# Qou_new.py
+# prep_Qou_ncf.py
 # *****************************************************************************
 
 # Author:
@@ -14,13 +14,13 @@ import netCDF4  # type: ignore[import-untyped]
 import numpy as np
 import numpy.typing as npt
 
-from rapid2.skl_new import skl_new
+from rapid2.prep_skl_ncf import prep_skl_ncf
 
 
 # *****************************************************************************
 # Make lateral inflow volume (Qou) file
 # *****************************************************************************
-def Qou_new(
+def prep_Qou_ncf(
     IV_riv_bas: npt.NDArray[np.int32],
     ZV_lon_bas: npt.NDArray[np.float64],
     ZV_lat_bas: npt.NDArray[np.float64],
@@ -52,7 +52,7 @@ def Qou_new(
     >>> ZV_lon_bas = np.array([0.5, 2.0, 1.0, 2.0, 0.5])
     >>> ZV_lat_bas = np.array([5.0, 4.5, 3.0, 2.5, 1.0])
     >>> Qou_ncf = "./output/Sandbox/Qout_Sandbox_19700101_19700110_tst.nc4"
-    >>> Qou_new(IV_riv_bas, ZV_lon_bas, ZV_lat_bas, Qou_ncf)
+    >>> prep_Qou_ncf(IV_riv_bas, ZV_lon_bas, ZV_lat_bas, Qou_ncf)
     >>> g = netCDF4.Dataset(Qou_ncf, "r")
     >>> g.variables["rivid"][:].filled()
     array([10, 20, 30, 40, 50], dtype=int32)
@@ -73,7 +73,7 @@ def Qou_new(
     # -------------------------------------------------------------------------
     # Create skeleton file
     # -------------------------------------------------------------------------
-    skl_new(IV_riv_bas, ZV_lon_bas, ZV_lat_bas, Qou_ncf)
+    prep_skl_ncf(IV_riv_bas, ZV_lon_bas, ZV_lat_bas, Qou_ncf)
 
     # -------------------------------------------------------------------------
     # Open file to make changes

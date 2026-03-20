@@ -415,6 +415,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/*.py`          | Renamed readers. |
 | `./src/*.py`                 | Renamed makers. |
 | `./src/rapid2/*.py`          | Renamed makers. |
+| `./src/*.py`                 | Renamed preparers. |
+| `./src/rapid2/*.py`          | Renamed preparers. |
 
 ### Removed
 

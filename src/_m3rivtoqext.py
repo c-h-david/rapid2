@@ -17,7 +17,7 @@ import sys
 import netCDF4  # type: ignore[import-untyped]
 
 from rapid2 import __version__
-from rapid2.Qex_new import Qex_new
+from rapid2.prep_Qex_ncf import prep_Qex_ncf
 
 
 # *****************************************************************************
@@ -121,7 +121,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     print(f"The transformation will divide by the value: {IS_TaR}")
 
-    Qex_new(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Qex_ncf)
+    prep_Qex_ncf(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Qex_ncf)
 
     f = netCDF4.Dataset(Qex_ncf, "a")
 

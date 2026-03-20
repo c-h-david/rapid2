@@ -23,7 +23,7 @@ from rapid2.read_con_vec import read_con_vec
 from rapid2.cpl_chk import cpl_chk
 from rapid2.read_cpl_vec import read_cpl_vec
 from rapid2.read_crd_vec import read_crd_vec
-from rapid2.Qex_new import Qex_new
+from rapid2.prep_Qex_ncf import prep_Qex_ncf
 
 
 # *****************************************************************************
@@ -196,7 +196,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     print("- Create Qext file")
 
-    Qex_new(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Qex_ncf)
+    prep_Qex_ncf(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Qex_ncf)
 
     f = netCDF4.Dataset(Qex_ncf, "a")
     Qex = f.variables["Qext"]

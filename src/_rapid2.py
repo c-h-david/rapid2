@@ -25,8 +25,8 @@ from rapid2.read_kpr_vec import read_kpr_vec
 from rapid2.mus_rte import mus_rte
 from rapid2.make_Net_mat import make_Net_mat
 from rapid2.read_nml_tbl import read_nml_tbl
-from rapid2.Qfi_new import Qfi_new
-from rapid2.Qou_new import Qou_new
+from rapid2.prep_Qfi_ncf import prep_Qfi_ncf
+from rapid2.prep_Qou_ncf import prep_Qou_ncf
 from rapid2.make_Mus_mat import make_Mus_mat
 from rapid2.read_std_vec import read_std_vec
 from rapid2.top_chk import top_chk
@@ -147,13 +147,13 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Populate metadata for discharge output files
     # -------------------------------------------------------------------------
-    Qou_new(
+    prep_Qou_ncf(
         IV_riv_tot[IV_idx_bas],
         ZV_lon_tot[IV_idx_bas],
         ZV_lat_tot[IV_idx_bas],
         Qou_ncf,
     )
-    Qfi_new(
+    prep_Qfi_ncf(
         IV_riv_tot,
         ZV_lon_tot,
         ZV_lat_tot,
