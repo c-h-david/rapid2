@@ -26,7 +26,7 @@ def mus_rte(
     ZM_Qex: csc_matrix,
     ZM_Qou: csc_matrix,
     IS_mus: int,
-    ZV_Qou_ini: npt.NDArray[np.float64],
+    ZV_Qou_prv: npt.NDArray[np.float64],
     ZV_Qex_avg: npt.NDArray[np.float64],
 ) -> tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]:
     """Perform matrix-based Muskingum routing for a given number of timesteps.
@@ -46,17 +46,17 @@ def mus_rte(
         The multiplicand matrix for ZV_Qou for the basin in right-hand side.
     IS_mus : int32
         The given number of Muskingum routing timesteps.
-    ZV_Qou_ini : ndarray[float64]
-        The initial value of discharge in the basin.
+    ZV_Qou_prv : ndarray[float64]
+        The instantaneous discharge in the basin before Muskingum timesteps.
     ZV_Qex_avg : ndarray[float64]
         The lateral inflow in the basin.
 
     Returns
     -------
     ZV_Qou_avg : ndarray[float64]
-        The average value of discharge in the basin after Muskingum timesteps.
-    ZV_Qou_fin : ndarray[float64]
-        The final value of discharge in the basin after Muskingum timesteps.
+        The average discharge in the basin after Muskingum timesteps.
+    ZV_Qou_now : ndarray[float64]
+        The instantaneous discharge in the basin after Muskingum timesteps.
 
     Examples
     --------
@@ -76,28 +76,28 @@ def mus_rte(
                                       [0.   , 0.   , 0.   , 0.875, 0.   ],\
                                       [0.   , 0.   , 0.375, 0.375, 0.875]]))
     >>> IS_mus = 2
-    >>> ZV_Qou_ini = np.array([0, 0, 0, 0, 0])
+    >>> ZV_Qou_prv = np.array([0, 0, 0, 0, 0])
     >>> ZV_Qex_avg = np.array([1, 1, 1, 1, 1])
-    >>> ZV_Qou_avg, ZV_Qou_fin = mus_rte(ZM_Lin, ZM_Qex, ZM_Qou, IS_mus,\
-                                         ZV_Qou_ini, ZV_Qex_avg\
+    >>> ZV_Qou_avg, ZV_Qou_now = mus_rte(ZM_Lin, ZM_Qex, ZM_Qou, IS_mus,\
+                                         ZV_Qou_prv, ZV_Qex_avg\
                                          )
     >>> ZV_Qou_avg
     array([0.0625   , 0.0625   , 0.03125  , 0.0625   , 0.0390625])
-    >>> ZV_Qou_fin
+    >>> ZV_Qou_now
     array([0.234375  , 0.234375  , 0.15625   , 0.234375  , 0.16601562])
-    >>> ZV_Qou_ini = np.array([1, 1, 1, 1, 1])
+    >>> ZV_Qou_prv = np.array([1, 1, 1, 1, 1])
     >>> ZV_Qex_avg = np.array([1, 1, 1, 1, 1])
-    >>> ZV_Qou_avg, ZV_Qou_fin = mus_rte(ZM_Lin, ZM_Qex, ZM_Qou, IS_mus,\
-                                         ZV_Qou_ini, ZV_Qex_avg\
+    >>> ZV_Qou_avg, ZV_Qou_now = mus_rte(ZM_Lin, ZM_Qex, ZM_Qou, IS_mus,\
+                                         ZV_Qou_prv, ZV_Qex_avg\
                                          )
     >>> ZV_Qou_avg
     array([1.     , 1.     , 1.125  , 1.     , 1.09375])
-    >>> ZV_Qou_fin
+    >>> ZV_Qou_now
     array([1.      , 1.      , 1.46875 , 1.      , 1.390625])
     """
 
-    ZV_Qou = ZV_Qou_ini
-    ZV_avg = np.zeros(len(ZV_Qou_ini))
+    ZV_Qou = ZV_Qou_prv
+    ZV_avg = np.zeros(len(ZV_Qou_prv))
     ZV_rh1 = ZM_Qex @ ZV_Qex_avg
 
     for _ in range(IS_mus):
@@ -120,9 +120,9 @@ def mus_rte(
     ZV_avg = ZV_avg / IS_mus
 
     ZV_Qou_avg = ZV_avg
-    ZV_Qou_fin = ZV_Qou
+    ZV_Qou_now = ZV_Qou
 
-    return ZV_Qou_avg, ZV_Qou_fin
+    return ZV_Qou_avg, ZV_Qou_now
 
 
 # *****************************************************************************

@@ -169,7 +169,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Read initial discharge state
     # -------------------------------------------------------------------------
-    ZV_Qou_ini = e.variables["Qout"][0, IV_idx_bas]
+    ZV_Qou_prv = e.variables["Qout"][0, IV_idx_bas]
 
     # -------------------------------------------------------------------------
     # Run simulations
@@ -180,10 +180,10 @@ def main() -> None:
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         ZV_Qex_avg = f.variables["Qext"][JS_tim_all][IV_idx_bas]
 
-        ZV_Qou_avg, ZV_Qou_fin = mus_rte(
-            ZM_Lin, ZM_Qex, ZM_Qou, IS_mus, ZV_Qou_ini, ZV_Qex_avg
+        ZV_Qou_avg, ZV_Qou_now = mus_rte(
+            ZM_Lin, ZM_Qex, ZM_Qou, IS_mus, ZV_Qou_prv, ZV_Qex_avg
         )
-        ZV_Qou_ini = ZV_Qou_fin
+        ZV_Qou_prv = ZV_Qou_now
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Populate Qout, time, and time_bnds
@@ -195,7 +195,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Save final discharge state
     # -------------------------------------------------------------------------
-    h.variables["Qout"][0, IV_idx_bas] = ZV_Qou_fin[:]
+    h.variables["Qout"][0, IV_idx_bas] = ZV_Qou_now[:]
 
     # -------------------------------------------------------------------------
     # Copy some global attributes
