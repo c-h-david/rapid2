@@ -410,6 +410,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_cpllsm.py`           | Removed extra import. |
 | `./src/_rapid2.py`           | Renamed variables. |
 | `./src/rapid2/mus_rte.py`    | Renamed variables. |
+| `./CONTRIBUTING.md`          | Added naming conventions. |
 
 ### Removed
 

@@ -31,6 +31,13 @@ scientific knowledge together to achieve meaningful impact while supporting the
 sustainability of scientific research. Read more in our
 [`CODE_OF_COLLAB.md`][URL_COLLAB], and make sure you follow to its terms.
 
+### Naming Conventions
+
+We rely on a strict, semantic grammar for all variables, files, and functions
+to standardize our code and ensure mathematical clarity. Before contributing,
+please ensure your code strictly adheres to the rules defined in our
+[`NOMENCLATURE.md`][URL_NOMENC].
+
 ### Communication Channels
 
 Before contributing changes to our project, it is a good idea to be familiar
@@ -90,5 +97,6 @@ flowchart TD
 [URL_LICENS]: https://github.com/c-h-david/rapid2/blob/main/LICENSE
 [URL_CONDUC]: https://github.com/c-h-david/rapid2/blob/main/CODE_OF_CONDUCT.md
 [URL_COLLAB]: https://github.com/c-h-david/rapid2/blob/main/CODE_OF_COLLAB.md
+[URL_NOMENC]: https://github.com/c-h-david/rapid2/blob/main/NOMENCLATURE.md
 [URL_ISSUES]: https://github.com/c-h-david/rapid2/issues
 [URL_DISCUS]: https://github.com/c-h-david/rapid2/discussions
