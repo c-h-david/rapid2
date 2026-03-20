@@ -11,10 +11,9 @@
 # Import Python modules
 # *****************************************************************************
 import argparse
-import numpy as np
-import sys
 
 import netCDF4  # type: ignore[import-untyped]
+import numpy as np
 from tqdm import tqdm  # type: ignore[import-untyped]
 
 from rapid2 import __version__
@@ -23,7 +22,6 @@ from rapid2.ccc_mat import ccc_mat
 from rapid2.con_vec import con_vec
 from rapid2.idx_tbl import idx_tbl
 from rapid2.k_x_vec import k_x_vec
-from rapid2.mus_int import mus_int
 from rapid2.mus_rte import mus_rte
 from rapid2.net_mat import net_mat
 from rapid2.nml_tbl import nml_tbl
@@ -109,7 +107,7 @@ def main() -> None:
     ZM_Lin, ZM_Qex, ZM_Qou = rte_mat(ZM_Net, ZM_C1m, ZM_C2m, ZM_C3m)
 
     # -------------------------------------------------------------------------
-    # Extract metadata of external inflow, get time step correspondance
+    # Extract metadata of external inflow
     # -------------------------------------------------------------------------
     (
         IV_riv_tmp,
@@ -119,19 +117,24 @@ def main() -> None:
         IM_tim_all,
     ) = std_mdt(Qex_ncf)
 
-    if IM_tim_all is None:
-        print("ERROR - std_mdt returned None for IM_tim_all")
-        sys.exit(1)
-
+    # -------------------------------------------------------------------------
+    # Get time step correspondance
+    # -------------------------------------------------------------------------
     IS_tim_all = len(IV_tim_all)
+
+    if IM_tim_all is None:
+        raise ValueError("std_mdt returned None for IM_tim_all")
+
     IS_TaR = IM_tim_all[0, 1] - IM_tim_all[0, 0]
     # Using IM_tim_all rather than IV_tim_all which may have only one timestep
 
     if IS_TaR == 0:
-        print("ERROR - Values of time_bnds lead to IS_TaR = 0")
-        sys.exit(1)
+        raise ValueError("Values of time_bnds lead to IS_TaR = 0")
 
-    IS_mus = mus_int(IS_TaR, IS_dtR)
+    if IS_TaR % IS_dtR == 0:
+        IS_mus = IS_TaR // IS_dtR
+    else:
+        raise ValueError("IS_TaR is not a multiple of IS_dtR")
 
     # -------------------------------------------------------------------------
     # Check river IDs and upstream to downstream topology
