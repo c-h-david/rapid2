@@ -22,7 +22,7 @@ from rapid2.make_CCC_mat import make_CCC_mat
 from rapid2.read_con_vec import read_con_vec
 from rapid2.make_0bi_tbl import make_0bi_tbl
 from rapid2.read_kpr_vec import read_kpr_vec
-from rapid2.mus_rte import mus_rte
+from rapid2.updt_Mus_Qou import updt_Mus_Qou
 from rapid2.make_Net_mat import make_Net_mat
 from rapid2.read_nml_tbl import read_nml_tbl
 from rapid2.prep_Qfi_ncf import prep_Qfi_ncf
@@ -182,7 +182,7 @@ def main() -> None:
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         ZV_Qex_avg = f.variables["Qext"][JS_tim_all][IV_idx_bas]
 
-        ZV_Qou_avg, ZV_Qou_now = mus_rte(
+        ZV_Qou_avg, ZV_Qou_now = updt_Mus_Qou(
             ZM_Lin, ZM_Qex, ZM_Qou, IS_mus, ZV_Qou_prv, ZV_Qex_avg
         )
         ZV_Qou_prv = ZV_Qou_now

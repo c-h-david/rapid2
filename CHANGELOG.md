@@ -419,6 +419,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/*.py`          | Renamed preparers. |
 | `./src/*.py`                 | Renamed checkers. |
 | `./src/rapid2/*.py`          | Renamed checkers. |
+| `./src/*.py`                 | Renamed Updaters. |
+| `./src/rapid2/*.py`          | Renamed Updaters. |
 
 ### Removed
 

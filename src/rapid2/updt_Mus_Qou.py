@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # *****************************************************************************
-# mus_rte.py
+# updt_Mus_Qou.py
 # *****************************************************************************
 
 # Author:
@@ -21,7 +21,7 @@ from scipy.sparse.linalg import (  # type: ignore[import-untyped]
 # *****************************************************************************
 # Muskingum routing
 # *****************************************************************************
-def mus_rte(
+def updt_Mus_Qou(
     ZM_Lin: csc_matrix,
     ZM_Qex: csc_matrix,
     ZM_Qou: csc_matrix,
@@ -78,7 +78,7 @@ def mus_rte(
     >>> IS_mus = 2
     >>> ZV_Qou_prv = np.array([0, 0, 0, 0, 0])
     >>> ZV_Qex_avg = np.array([1, 1, 1, 1, 1])
-    >>> ZV_Qou_avg, ZV_Qou_now = mus_rte(ZM_Lin, ZM_Qex, ZM_Qou, IS_mus,\
+    >>> ZV_Qou_avg, ZV_Qou_now = updt_Mus_Qou(ZM_Lin, ZM_Qex, ZM_Qou, IS_mus,\
                                          ZV_Qou_prv, ZV_Qex_avg\
                                          )
     >>> ZV_Qou_avg
@@ -87,7 +87,7 @@ def mus_rte(
     array([0.234375  , 0.234375  , 0.15625   , 0.234375  , 0.16601562])
     >>> ZV_Qou_prv = np.array([1, 1, 1, 1, 1])
     >>> ZV_Qex_avg = np.array([1, 1, 1, 1, 1])
-    >>> ZV_Qou_avg, ZV_Qou_now = mus_rte(ZM_Lin, ZM_Qex, ZM_Qou, IS_mus,\
+    >>> ZV_Qou_avg, ZV_Qou_now = updt_Mus_Qou(ZM_Lin, ZM_Qex, ZM_Qou, IS_mus,\
                                          ZV_Qou_prv, ZV_Qex_avg\
                                          )
     >>> ZV_Qou_avg
