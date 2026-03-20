@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # *****************************************************************************
-# k_x_vec.py
+# read_kpr_vec.py
 # *****************************************************************************
 
 # Author:
@@ -18,21 +18,19 @@ import numpy.typing as npt
 
 
 # *****************************************************************************
-# Muskingum k and x function
+# Muskingum k function
 # *****************************************************************************
-def k_x_vec(
-    kpr_csv: str, xpr_csv: str, IV_idx_bas: npt.NDArray[np.int32]
-) -> tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]:
-    """Read k and x parameter files.
+def read_kpr_vec(
+    kpr_csv: str, IV_idx_bas: npt.NDArray[np.int32]
+) -> npt.NDArray[np.float64]:
+    """Read k parameter file.
 
-    Create two arrays for parameters k and x in the basin.
+    Create an array for parameters k in the basin.
 
     Parameters
     ----------
     kpr_csv : str
         Path to the k parameter file.
-    xpr_csv : str
-        Path to the x parameter file.
     IV_idx_bas : ndarray[int32]
         The index in domain for river IDs in basin.
 
@@ -40,17 +38,13 @@ def k_x_vec(
     -------
     ZV_kpr_bas : ndarray[float64]
         The values of k in the basin.
-    ZV_xpr_bas : ndarray[float64]
-        The values of x in the basin.
 
     Examples
     --------
     >>> kpr_csv = './input/Sandbox/k_Sandbox.csv'
-    >>> xpr_csv = './input/Sandbox/x_Sandbox.csv'
     >>> IV_idx_bas = np.array([0, 1, 2, 3, 4], dtype=np.int32)
-    >>> k_x_vec(kpr_csv, xpr_csv, IV_idx_bas) # doctest: +NORMALIZE_WHITESPACE
-    (array([9000., 9000., 9000., 9000., 9000.]),\
-     array([0.25, 0.25, 0.25, 0.25, 0.25]))
+    >>> read_kpr_vec(kpr_csv, IV_idx_bas) # doctest: +NORMALIZE_WHITESPACE
+    array([9000., 9000., 9000., 9000., 9000.])
     """
 
     # -------------------------------------------------------------------------
@@ -81,35 +75,7 @@ def k_x_vec(
         sys.exit(1)
     ZV_kpr_bas = ZV_kpr_tot[IV_idx_bas]
 
-    # -------------------------------------------------------------------------
-    # Count the number of elements
-    # -------------------------------------------------------------------------
-    try:
-        with open(xpr_csv, "r") as csvfile:
-            IS_riv_tot = sum(1 for _ in csvfile)
-    except IOError:
-        print(f"ERROR - Unable to open {xpr_csv}")
-        sys.exit(1)
-
-    # -------------------------------------------------------------------------
-    # Allocate array sizes
-    # -------------------------------------------------------------------------
-    ZV_xpr_tot = np.empty(IS_riv_tot, dtype=np.float64)
-
-    # -------------------------------------------------------------------------
-    # Populate arrays
-    # -------------------------------------------------------------------------
-    try:
-        with open(xpr_csv, "r") as csvfile:
-            csvreader = csv.reader(csvfile)
-            for JS_riv_tot, row in enumerate(csvreader):
-                ZV_xpr_tot[JS_riv_tot] = np.float64(row[0])
-    except IOError:
-        print(f"ERROR - Unable to open {xpr_csv}")
-        sys.exit(1)
-    ZV_xpr_bas = ZV_xpr_tot[IV_idx_bas]
-
-    return ZV_kpr_bas, ZV_xpr_bas
+    return ZV_kpr_bas
 
 
 # *****************************************************************************

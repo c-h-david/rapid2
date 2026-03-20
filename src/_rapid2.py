@@ -21,7 +21,7 @@ from rapid2.read_bas_vec import read_bas_vec
 from rapid2.ccc_mat import ccc_mat
 from rapid2.read_con_vec import read_con_vec
 from rapid2.idx_tbl import idx_tbl
-from rapid2.k_x_vec import k_x_vec
+from rapid2.read_kpr_vec import read_kpr_vec
 from rapid2.mus_rte import mus_rte
 from rapid2.net_mat import net_mat
 from rapid2.read_nml_tbl import read_nml_tbl
@@ -30,6 +30,7 @@ from rapid2.Qou_new import Qou_new
 from rapid2.rte_mat import rte_mat
 from rapid2.read_std_vec import read_std_vec
 from rapid2.top_chk import top_chk
+from rapid2.read_xpr_vec import read_xpr_vec
 
 
 # *****************************************************************************
@@ -102,7 +103,8 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Model parameters
     # -------------------------------------------------------------------------
-    ZV_kpr_bas, ZV_xpr_bas = k_x_vec(kpr_csv, xpr_csv, IV_idx_bas)
+    ZV_kpr_bas = read_kpr_vec(kpr_csv, IV_idx_bas)
+    ZV_xpr_bas = read_xpr_vec(xpr_csv, IV_idx_bas)
     ZM_C1m, ZM_C2m, ZM_C3m = ccc_mat(ZV_kpr_bas, ZV_xpr_bas, IS_dtR)
     ZM_Lin, ZM_Qex, ZM_Qou = rte_mat(ZM_Net, ZM_C1m, ZM_C2m, ZM_C3m)
 
