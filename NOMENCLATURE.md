@@ -87,7 +87,7 @@ reference for these naming conventions.
 | ---- | ------------------ | ----------------------------------------------- |
 | `Net`| Network matrix     | Represents topological connectivity.            |
 | `CCC`| Muskingum CCC      | C1, C2, and C3 Muskingum parameter matrices.    |
-| `Lin`| Linear system      | Matrices solving the Muskingum update.          |
+| `Mus`| Muskingum matrices | Matrices solving the Muskingum update.          |
 | `Inv`| Inverse matrix     | Inverted Muskinguym linear system matrix.       |
 | `Wdw`| Time window        | Temporal window for data assimilation.          |
 
@@ -95,7 +95,7 @@ reference for these naming conventions.
 
 | Code | Meaning            | Notes                                           |
 | ---- | ------------------ | ----------------------------------------------- |
-| `mus`| Muskingum          | The Muskingum routing physics engine.           |
+| `Mus`| Muskingum          | The Muskingum routing physics engine.           |
 
 ### `<structure2>` (Memory Destinations)
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # *****************************************************************************
-# rte_mat.py
+# make_Mus_mat.py
 # *****************************************************************************
 
 # Author:
@@ -20,7 +20,7 @@ from scipy.sparse import (  # type: ignore[import-untyped]
 # *****************************************************************************
 # Muskingum routing matrices
 # *****************************************************************************
-def rte_mat(
+def make_Mus_mat(
     ZM_Net: csc_matrix,
     ZM_C1m: csc_matrix,
     ZM_C2m: csc_matrix,
@@ -72,7 +72,7 @@ def rte_mat(
                                       [0.   , 0.   , 0.875, 0.   , 0.   ],\
                                       [0.   , 0.   , 0.   , 0.875, 0.   ],\
                                       [0.   , 0.   , 0.   , 0.   , 0.875]]))
-    >>> ZM_Lin, ZM_Qex, ZM_Qou = rte_mat(ZM_Net, ZM_C1m, ZM_C2m, ZM_C3m)
+    >>> ZM_Lin, ZM_Qex, ZM_Qou = make_Mus_mat(ZM_Net, ZM_C1m, ZM_C2m, ZM_C3m)
     >>> ZM_Lin.toarray()
     array([[1.  , 0.  , 0.  , 0.  , 0.  ],
            [0.  , 1.  , 0.  , 0.  , 0.  ],

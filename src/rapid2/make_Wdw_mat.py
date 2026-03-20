@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # *****************************************************************************
-# wdw_mat.py
+# make_Wdw_mat.py
 # *****************************************************************************
 
 # Author:
@@ -23,7 +23,7 @@ from scipy.sparse.linalg import (  # type: ignore[import-untyped]
 # *****************************************************************************
 # Matrices for average over a window
 # *****************************************************************************
-def wdw_mat(
+def make_Wdw_mat(
     ZM_Lin: csc_matrix,
     ZM_Qex: csc_matrix,
     ZM_Qou: csc_matrix,
@@ -73,7 +73,7 @@ def wdw_mat(
                                       [0.   , 0.   , 0.   , 0.875, 0.   ],\
                                       [0.   , 0.   , 0.375, 0.375, 0.875]]))
     >>> IS_wdw = 2
-    >>> ZM_Aem, ZM_A0m = wdw_mat(ZM_Lin, ZM_Qex, ZM_Qou, IS_wdw)
+    >>> ZM_Aem, ZM_A0m = make_Wdw_mat(ZM_Lin, ZM_Qex, ZM_Qou, IS_wdw)
     >>> ZM_Aem.toarray()
     array([[ 0.0625    ,  0.        ,  0.        ,  0.        ,  0.        ],
            [ 0.        ,  0.0625    ,  0.        ,  0.        ,  0.        ],

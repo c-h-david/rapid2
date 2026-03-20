@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # *****************************************************************************
-# net_mat.py
+# make_Net_mat.py
 # *****************************************************************************
 
 # Author:
@@ -18,7 +18,7 @@ from scipy.sparse import csc_matrix  # type: ignore[import-untyped]
 # *****************************************************************************
 # Network matrix function
 # *****************************************************************************
-def net_mat(
+def make_Net_mat(
     IV_dwn_tot: npt.NDArray[np.int32],
     IT_idx_tot: dict[np.int32, int],
     IV_riv_bas: npt.NDArray[np.int32],
@@ -58,7 +58,7 @@ def net_mat(
                       np.int32(30): 2,\
                       np.int32(40): 3,\
                       np.int32(50): 4}
-    >>> net_mat(IV_dwn_tot, IT_idx_tot, IV_riv_bas, IT_idx_bas).toarray()
+    >>> make_Net_mat(IV_dwn_tot, IT_idx_tot, IV_riv_bas, IT_idx_bas).toarray()
     array([[0, 0, 0, 0, 0],
            [0, 0, 0, 0, 0],
            [1, 1, 0, 0, 0],

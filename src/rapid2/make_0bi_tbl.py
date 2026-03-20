@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # *****************************************************************************
-# idx_tbl.py
+# make_0bi_tbl.py
 # *****************************************************************************
 
 # Author:
@@ -17,7 +17,7 @@ import numpy.typing as npt
 # *****************************************************************************
 # Hash tables function
 # *****************************************************************************
-def idx_tbl(
+def make_0bi_tbl(
     IV_riv_tot: npt.NDArray[np.int32], IV_riv_bas: npt.NDArray[np.int32]
 ) -> tuple[dict[np.int32, int], dict[np.int32, int], npt.NDArray[np.int32]]:
     """Create two hash tables and an indexing array.
@@ -47,7 +47,7 @@ def idx_tbl(
     --------
     >>> IV_riv_tot = np.array([10, 20, 30, 40, 50], dtype=np.int32)
     >>> IV_riv_bas = np.array([10, 20, 30, 40, 50], dtype=np.int32)
-    >>> idx_tbl(IV_riv_tot, IV_riv_bas) # doctest: +NORMALIZE_WHITESPACE
+    >>> make_0bi_tbl(IV_riv_tot, IV_riv_bas) # doctest: +NORMALIZE_WHITESPACE
      ({np.int32(10): 0,\
        np.int32(20): 1,\
        np.int32(30): 2,\

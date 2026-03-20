@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # *****************************************************************************
-# inv_mat.py
+# make_Inv_mat.py
 # *****************************************************************************
 
 # Author:
@@ -20,7 +20,7 @@ from scipy.sparse import (  # type: ignore[import-untyped]
 # *****************************************************************************
 # Muskingum routing matrices
 # *****************************************************************************
-def inv_mat(
+def make_Inv_mat(
     ZM_Net: csc_matrix,
     ZM_C1m: csc_matrix,
 ) -> csc_matrix:
@@ -52,7 +52,7 @@ def inv_mat(
                                       [ 0.  ,  0.  , -0.25,  0.  ,  0.  ],\
                                       [ 0.  ,  0.  ,  0.  , -0.25,  0.  ],\
                                       [ 0.  ,  0.  ,  0.  ,  0.  , -0.25]]))
-    >>> ZM_Inv = inv_mat(ZM_Net, ZM_C1m)
+    >>> ZM_Inv = make_Inv_mat(ZM_Net, ZM_C1m)
     >>> ZM_Inv.toarray()
     array([[ 1.    ,  0.    ,  0.    ,  0.    ,  0.    ],
            [ 0.    ,  1.    ,  0.    ,  0.    ,  0.    ],

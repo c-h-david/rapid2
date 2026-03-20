@@ -18,16 +18,16 @@ from tqdm import tqdm  # type: ignore[import-untyped]
 
 from rapid2 import __version__
 from rapid2.read_bas_vec import read_bas_vec
-from rapid2.ccc_mat import ccc_mat
+from rapid2.make_CCC_mat import make_CCC_mat
 from rapid2.read_con_vec import read_con_vec
-from rapid2.idx_tbl import idx_tbl
+from rapid2.make_0bi_tbl import make_0bi_tbl
 from rapid2.read_kpr_vec import read_kpr_vec
 from rapid2.mus_rte import mus_rte
-from rapid2.net_mat import net_mat
+from rapid2.make_Net_mat import make_Net_mat
 from rapid2.read_nml_tbl import read_nml_tbl
 from rapid2.Qfi_new import Qfi_new
 from rapid2.Qou_new import Qou_new
-from rapid2.rte_mat import rte_mat
+from rapid2.make_Mus_mat import make_Mus_mat
 from rapid2.read_std_vec import read_std_vec
 from rapid2.top_chk import top_chk
 from rapid2.read_xpr_vec import read_xpr_vec
@@ -97,16 +97,16 @@ def main() -> None:
     # -------------------------------------------------------------------------
     IV_riv_tot, IV_dwn_tot = read_con_vec(con_csv)
     IV_riv_bas = read_bas_vec(bas_csv)
-    IT_idx_tot, IT_idx_bas, IV_idx_bas = idx_tbl(IV_riv_tot, IV_riv_bas)
-    ZM_Net = net_mat(IV_dwn_tot, IT_idx_tot, IV_riv_bas, IT_idx_bas)
+    IT_idx_tot, IT_idx_bas, IV_idx_bas = make_0bi_tbl(IV_riv_tot, IV_riv_bas)
+    ZM_Net = make_Net_mat(IV_dwn_tot, IT_idx_tot, IV_riv_bas, IT_idx_bas)
 
     # -------------------------------------------------------------------------
     # Model parameters
     # -------------------------------------------------------------------------
     ZV_kpr_bas = read_kpr_vec(kpr_csv, IV_idx_bas)
     ZV_xpr_bas = read_xpr_vec(xpr_csv, IV_idx_bas)
-    ZM_C1m, ZM_C2m, ZM_C3m = ccc_mat(ZV_kpr_bas, ZV_xpr_bas, IS_dtR)
-    ZM_Lin, ZM_Qex, ZM_Qou = rte_mat(ZM_Net, ZM_C1m, ZM_C2m, ZM_C3m)
+    ZM_C1m, ZM_C2m, ZM_C3m = make_CCC_mat(ZV_kpr_bas, ZV_xpr_bas, IS_dtR)
+    ZM_Lin, ZM_Qex, ZM_Qou = make_Mus_mat(ZM_Net, ZM_C1m, ZM_C2m, ZM_C3m)
 
     # -------------------------------------------------------------------------
     # Extract metadata of external inflow

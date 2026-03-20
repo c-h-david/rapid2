@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # *****************************************************************************
-# ccc_mat.py
+# make_CCC_mat.py
 # *****************************************************************************
 
 # Author:
@@ -21,7 +21,7 @@ from scipy.sparse import (  # type: ignore[import-untyped]
 # *****************************************************************************
 # Muskingum C1, C2, C3 function
 # *****************************************************************************
-def ccc_mat(
+def make_CCC_mat(
     ZV_kpr_bas: npt.NDArray[np.float64],
     ZV_xpr_bas: npt.NDArray[np.float64],
     IS_dtR: np.int32,
@@ -53,7 +53,7 @@ def ccc_mat(
     >>> ZV_kpr_bas = np.array([9000.0, 9000.0, 9000.0, 9000.0, 9000.0])
     >>> ZV_xpr_bas = np.array([0.25, 0.25, 0.25, 0.25, 0.25])
     >>> IS_dtR = 900
-    >>> ZM_C1m, ZM_C2m, ZM_C3m = ccc_mat(ZV_kpr_bas, ZV_xpr_bas, IS_dtR)
+    >>> ZM_C1m, ZM_C2m, ZM_C3m = make_CCC_mat(ZV_kpr_bas, ZV_xpr_bas, IS_dtR)
     >>> ZM_C1m.toarray()
     array([[-0.25,  0.  ,  0.  ,  0.  ,  0.  ],
            [ 0.  , -0.25,  0.  ,  0.  ,  0.  ],
