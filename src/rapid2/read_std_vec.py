@@ -129,21 +129,10 @@ def read_std_vec(
     # -------------------------------------------------------------------------
     # Retrieve variables
     # -------------------------------------------------------------------------
-    IV_riv_tmp = s.variables["rivid"][:].filled()
-    IV_riv_tot = np.array(IV_riv_tmp, dtype=np.int32)
-    # Retrieving variables in two steps to better inform mypy
-
-    ZV_lon_tmp = s.variables["lon"][:].filled()
-    ZV_lon_tot = np.array(ZV_lon_tmp, dtype=np.float64)
-    # Retrieving variables in two steps to better inform mypy
-
-    ZV_lat_tmp = s.variables["lat"][:].filled()
-    ZV_lat_tot = np.array(ZV_lat_tmp, dtype=np.float64)
-    # Retrieving variables in two steps to better inform mypy
-
-    IV_tim_tmp = s.variables["time"][:].filled()
-    IV_tim_all = np.array(IV_tim_tmp, dtype=np.int32)
-    # Retrieving variables in two steps to better inform mypy
+    IV_riv = np.array(s.variables["rivid"][:].filled(), dtype=np.int32)
+    ZV_lon = np.array(s.variables["lon"][:].filled(), dtype=np.float64)
+    ZV_lat = np.array(s.variables["lat"][:].filled(), dtype=np.float64)
+    IV_tim_all = np.array(s.variables["time"][:].filled(), dtype=np.int32)
 
     if "time_bnds" in s.variables:
         if "nv" not in s.dimensions:
@@ -153,13 +142,13 @@ def read_std_vec(
             print(f"ERROR - nv dimension is not of size 2 in {std_ncf}")
             sys.exit(1)
 
-        IM_tim_tmp = s.variables["time_bnds"][:].filled()
-        IM_tim_all = np.array(IM_tim_tmp, dtype=np.int32)
-        # Retrieving variables in two steps to better inform mypy
+        IM_tim_all = np.array(
+            s.variables["time_bnds"][:].filled(), dtype=np.int32
+        )
     else:
         IM_tim_all = None
 
-    return IV_riv_tot, ZV_lon_tot, ZV_lat_tot, IV_tim_all, IM_tim_all
+    return IV_riv, ZV_lon, ZV_lat, IV_tim_all, IM_tim_all
 
 
 # *****************************************************************************

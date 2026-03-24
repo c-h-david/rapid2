@@ -437,6 +437,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/*.py`                 | Renamed into `C1p`, `C2p` and `C3p`. |
 | `./src/rapid2/*.py`          | Renamed into `C1p`, `C2p` and `C3p`. |
 | `./TUTORIAL.md`              | Renamed version to phase. |
+| `./src/rapid2/read_std_vec.p`| Removed `_tmp` variables. |
 
 ### Removed
 
