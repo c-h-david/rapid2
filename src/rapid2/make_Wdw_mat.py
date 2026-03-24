@@ -34,7 +34,7 @@ def make_Wdw_mat(
 ]:
     """Create routing matrices for average discharge over a given window.
 
-    Create two matrices such that Qbar = ZM_Aem @ Qebar + ZM_A0m @ Q0 for
+    Create two matrices such that Qbar = ZM_Aex @ Qebar + ZM_A00 @ Q0 for
     assimilation over a given window of time steps.
 
     Parameters
@@ -50,9 +50,9 @@ def make_Wdw_mat(
 
     Returns
     -------
-    ZM_Aem : scipy.sparse.spmatrix
+    ZM_Aex : scipy.sparse.spmatrix
         The input to state matrix.
-    ZM_A0m : scipy.sparse.spmatrix
+    ZM_A00 : scipy.sparse.spmatrix
         The initial condition to state matrix.
 
     Examples
@@ -73,14 +73,14 @@ def make_Wdw_mat(
                                       [0.   , 0.   , 0.   , 0.875, 0.   ],\
                                       [0.   , 0.   , 0.375, 0.375, 0.875]]))
     >>> IS_wdw = 2
-    >>> ZM_Aem, ZM_A0m = make_Wdw_mat(ZM_ICN, ZM_Qex, ZM_Qou, IS_wdw)
-    >>> ZM_Aem.toarray()
+    >>> ZM_Aex, ZM_A00 = make_Wdw_mat(ZM_ICN, ZM_Qex, ZM_Qou, IS_wdw)
+    >>> ZM_Aex.toarray()
     array([[ 0.0625    ,  0.        ,  0.        ,  0.        ,  0.        ],
            [ 0.        ,  0.0625    ,  0.        ,  0.        ,  0.        ],
            [-0.015625  , -0.015625  ,  0.0625    ,  0.        ,  0.        ],
            [ 0.        ,  0.        ,  0.        ,  0.0625    ,  0.        ],
            [ 0.00390625,  0.00390625, -0.015625  , -0.015625  ,  0.0625    ]])
-    >>> ZM_A0m.toarray()
+    >>> ZM_A00.toarray()
     array([[ 0.9375    ,  0.        ,  0.        ,  0.        ,  0.        ],
            [ 0.        ,  0.9375    ,  0.        ,  0.        ,  0.        ],
            [ 0.078125  ,  0.078125  ,  0.9375    ,  0.        ,  0.        ],
@@ -88,12 +88,12 @@ def make_Wdw_mat(
            [-0.01953125, -0.01953125,  0.078125  ,  0.078125  ,  0.9375    ]])
     >>> ZV_Qou_ini = np.array([0, 0, 0, 0, 0])
     >>> ZV_Qex_avg = np.array([1, 1, 1, 1, 1])
-    >>> ZV_Qou_avg = ZM_Aem @ ZV_Qex_avg + ZM_A0m @ ZV_Qou_ini
+    >>> ZV_Qou_avg = ZM_Aex @ ZV_Qex_avg + ZM_A00 @ ZV_Qou_ini
     >>> ZV_Qou_avg
     array([0.0625   , 0.0625   , 0.03125  , 0.0625   , 0.0390625])
     >>> ZV_Qou_ini = np.array([1, 1, 1, 1, 1])
     >>> ZV_Qex_avg = np.array([1, 1, 1, 1, 1])
-    >>> ZV_Qou_avg = ZM_Aem @ ZV_Qex_avg + ZM_A0m @ ZV_Qou_ini
+    >>> ZV_Qou_avg = ZM_Aex @ ZV_Qex_avg + ZM_A00 @ ZV_Qou_ini
     >>> ZV_Qou_avg
     array([1.     , 1.     , 1.125  , 1.     , 1.09375])
     """
@@ -108,32 +108,30 @@ def make_Wdw_mat(
     # -------------------------------------------------------------------------
     # Computation of Ae
     # -------------------------------------------------------------------------
-    ZM_Aem = csc_matrix((IS_riv_bas, IS_riv_bas))
-    ZM_tmp = ZM_Bet
+    ZM_Aex = csc_matrix((IS_riv_bas, IS_riv_bas))
+    ZM_Aex_tmp = ZM_Bet
     for JS_wdw in range(IS_wdw):
-        ZM_Aem = ZM_Aem + (IS_wdw - 1 - JS_wdw) * ZM_tmp
-        ZM_tmp = spsolve(ZM_ICN, ZM_Qou @ ZM_tmp)
-        # spsolve refactorizes ZM_ICN at each iteration (suboptimal, need fix)
-    ZM_Aem = ZM_Aem / IS_wdw
+        ZM_Aex = ZM_Aex + (IS_wdw - 1 - JS_wdw) * ZM_Aex_tmp
+        ZM_Aex_tmp = spsolve(ZM_ICN, ZM_Qou @ ZM_Aex_tmp)
+    ZM_Aex = ZM_Aex / IS_wdw
 
     # -------------------------------------------------------------------------
     # Computation of A0
     # -------------------------------------------------------------------------
-    ZM_A0m = csc_matrix((IS_riv_bas, IS_riv_bas))
-    ZM_tmp = ZM_Idt
+    ZM_A00 = csc_matrix((IS_riv_bas, IS_riv_bas))
+    ZM_A00_tmp = ZM_Idt
     for _ in range(IS_wdw):
-        ZM_A0m = ZM_A0m + ZM_tmp
-        ZM_tmp = spsolve(ZM_ICN, ZM_Qou @ ZM_tmp)
-        # spsolve refactorizes ZM_ICN at each iteration (suboptimal, need fix)
-    ZM_A0m = ZM_A0m / IS_wdw
+        ZM_A00 = ZM_A00 + ZM_A00_tmp
+        ZM_A00_tmp = spsolve(ZM_ICN, ZM_Qou @ ZM_A00_tmp)
+    ZM_A00 = ZM_A00 / IS_wdw
 
     # -------------------------------------------------------------------------
     # Explanations
     # -------------------------------------------------------------------------
     # ZM_Alp = (ZM_ICN)^(-1) @ ZM_Qou
     # ZM_Bet = (ZM_ICN)^(-1) @ ZM_Qex
-    # ZM_A0m = (ZM_Idt + ZM_Alp + ZM_Alp^2 + ... + ZM_Alp^(IS_wdw-1))/IS_wdw
-    # ZM_Aem = (
+    # ZM_A00 = (ZM_Idt + ZM_Alp + ZM_Alp^2 + ... + ZM_Alp^(IS_wdw-1))/IS_wdw
+    # ZM_Aex = (
     #             (IS_wdw - 1 - 0) * ZM_Bet
     #           + (IS_wdw - 1 - 1) * ZM_Alp @ ZM_Bet
     #           + (IS_wdw - 1 - 2) * ZM_Alp^2 @ ZM_Bet
@@ -144,10 +142,10 @@ def make_Wdw_mat(
     # The inverse (ZM_ICN)^(-1) is never actually computed, relying instead on
     # the following linear system solver applied to matrices:
     # ZM_ICN @ ZM_Alp^(JS_wdw+1) = ZM_Qou @ ZM_Alp^(JS_wdw)
-    # ZM_tmp stores ZM_Alp^(JS_wdw) for the computation of A0.
-    # ZM_tmp stores ZM_Alp^(JS_wdw) @ ZM_Bet for the computation of Ae.
-    # The recurrence for ZM_A0m is initialized with ZM_Alp^0 = ZM_Idt
-    # The recurrence for ZM_Aem is initialized with ZM_Alp^0 @ ZM_Bet = ZM_Bet
+    # ZM_A00_tmp stores ZM_Alp^(JS_wdw) for the computation of A00.
+    # ZM_Aex_tmp stores ZM_Alp^(JS_wdw) @ ZM_Bet for the computation of Aex.
+    # The recurrence for ZM_A00 is initialized with ZM_Alp^0 = ZM_Idt
+    # The recurrence for ZM_Aex is initialized with ZM_Alp^0 @ ZM_Bet = ZM_Bet
     # Note that spsolve_triangular cannot be used on sparse matrices. It could
     # be used on dense matrices but densifying the lower triangular matrices
     # would not be sustainable for memory usage when dealing with networks
@@ -158,7 +156,7 @@ def make_Wdw_mat(
     # a reference version. More memory- and compute-efficient formulations
     # (e.g. row-restricted construction of S @ Ae) should be considered.
 
-    return ZM_Aem, ZM_A0m
+    return ZM_Aex, ZM_A00
 
 
 # *****************************************************************************
