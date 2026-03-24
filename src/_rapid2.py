@@ -105,8 +105,8 @@ def main() -> None:
     # -------------------------------------------------------------------------
     ZV_kpr_bas = read_kpr_vec(kpr_csv, IV_0bi_bas)
     ZV_xpr_bas = read_xpr_vec(xpr_csv, IV_0bi_bas)
-    ZM_C1m, ZM_C2m, ZM_C3m = make_CCC_mat(ZV_kpr_bas, ZV_xpr_bas, IS_dtR)
-    ZM_ICN, ZM_Qex, ZM_Qou = make_Mus_mat(ZM_Net, ZM_C1m, ZM_C2m, ZM_C3m)
+    ZM_C1p, ZM_C2p, ZM_C3p = make_CCC_mat(ZV_kpr_bas, ZV_xpr_bas, IS_dtR)
+    ZM_ICN, ZM_Qex, ZM_Qou = make_Mus_mat(ZM_Net, ZM_C1p, ZM_C2p, ZM_C3p)
 
     # -------------------------------------------------------------------------
     # Extract metadata of external inflow

@@ -22,9 +22,9 @@ from scipy.sparse import (  # type: ignore[import-untyped]
 # *****************************************************************************
 def make_Mus_mat(
     ZM_Net: csc_matrix,
-    ZM_C1m: csc_matrix,
-    ZM_C2m: csc_matrix,
-    ZM_C3m: csc_matrix,
+    ZM_C1p: csc_matrix,
+    ZM_C2p: csc_matrix,
+    ZM_C3p: csc_matrix,
 ) -> tuple[csc_matrix, csc_matrix, csc_matrix]:
     """Create routing matrices.
 
@@ -34,11 +34,11 @@ def make_Mus_mat(
     ----------
     ZM_Net : scipy.sparse.spmatrix
         The network matrix for the basin.
-    ZM_C1m : scipy.sparse.spmatrix
+    ZM_C1p : scipy.sparse.spmatrix
         The C1 parameter matrix for the basin.
-    ZM_C2m : scipy.sparse.spmatrix
+    ZM_C2p : scipy.sparse.spmatrix
         The C2 parameter matrix for the basin.
-    ZM_C3m : scipy.sparse.spmatrix
+    ZM_C3p : scipy.sparse.spmatrix
         The C3 parameter matrix for the basin.
 
     Returns
@@ -57,22 +57,22 @@ def make_Mus_mat(
                                       [1, 1, 0, 0, 0],\
                                       [0, 0, 0, 0, 0],\
                                       [0, 0, 1, 1, 0]]))
-    >>> ZM_C1m = csc_matrix(np.array([[-0.25,  0.  ,  0.  ,  0.  ,  0.  ],\
+    >>> ZM_C1p = csc_matrix(np.array([[-0.25,  0.  ,  0.  ,  0.  ,  0.  ],\
                                       [ 0.  , -0.25,  0.  ,  0.  ,  0.  ],\
                                       [ 0.  ,  0.  , -0.25,  0.  ,  0.  ],\
                                       [ 0.  ,  0.  ,  0.  , -0.25,  0.  ],\
                                       [ 0.  ,  0.  ,  0.  ,  0.  , -0.25]]))
-    >>> ZM_C2m = csc_matrix(np.array([[0.375, 0.   , 0.   , 0.   , 0.   ],\
+    >>> ZM_C2p = csc_matrix(np.array([[0.375, 0.   , 0.   , 0.   , 0.   ],\
                                       [0.   , 0.375, 0.   , 0.   , 0.   ],\
                                       [0.   , 0.   , 0.375, 0.   , 0.   ],\
                                       [0.   , 0.   , 0.   , 0.375, 0.   ],\
                                       [0.   , 0.   , 0.   , 0.   , 0.375]]))
-    >>> ZM_C3m = csc_matrix(np.array([[0.875, 0.   , 0.   , 0.   , 0.   ],\
+    >>> ZM_C3p = csc_matrix(np.array([[0.875, 0.   , 0.   , 0.   , 0.   ],\
                                       [0.   , 0.875, 0.   , 0.   , 0.   ],\
                                       [0.   , 0.   , 0.875, 0.   , 0.   ],\
                                       [0.   , 0.   , 0.   , 0.875, 0.   ],\
                                       [0.   , 0.   , 0.   , 0.   , 0.875]]))
-    >>> ZM_ICN, ZM_Qex, ZM_Qou = make_Mus_mat(ZM_Net, ZM_C1m, ZM_C2m, ZM_C3m)
+    >>> ZM_ICN, ZM_Qex, ZM_Qou = make_Mus_mat(ZM_Net, ZM_C1p, ZM_C2p, ZM_C3p)
     >>> ZM_ICN.toarray()
     array([[1.  , 0.  , 0.  , 0.  , 0.  ],
            [0.  , 1.  , 0.  , 0.  , 0.  ],
@@ -96,9 +96,9 @@ def make_Mus_mat(
     IS_riv_bas = ZM_Net.shape[0]
     ZM_Idt = identity(IS_riv_bas, format="csc", dtype=np.float64)
 
-    ZM_ICN = ZM_Idt - ZM_C1m @ ZM_Net
-    ZM_Qex = ZM_C1m + ZM_C2m
-    ZM_Qou = ZM_C3m + ZM_C2m @ ZM_Net
+    ZM_ICN = ZM_Idt - ZM_C1p @ ZM_Net
+    ZM_Qex = ZM_C1p + ZM_C2p
+    ZM_Qou = ZM_C3p + ZM_C2p @ ZM_Net
 
     return ZM_ICN, ZM_Qex, ZM_Qou
 
