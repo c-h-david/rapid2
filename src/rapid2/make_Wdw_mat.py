@@ -24,7 +24,7 @@ from scipy.sparse.linalg import (  # type: ignore[import-untyped]
 # Matrices for average over a window
 # *****************************************************************************
 def make_Wdw_mat(
-    ZM_C1N: csc_matrix,
+    ZM_ICN: csc_matrix,
     ZM_Qex: csc_matrix,
     ZM_Qou: csc_matrix,
     IS_wdw: np.int32,
@@ -39,7 +39,7 @@ def make_Wdw_mat(
 
     Parameters
     ----------
-    ZM_C1N : scipy.sparse.spmatrix
+    ZM_ICN : scipy.sparse.spmatrix
         The linear system matrix for the basin in matrix-based Muskingum.
     ZM_Qex : scipy.sparse.spmatrix
         The multiplicand matrix for ZV_Qex for the basin in right-hand side.
@@ -57,7 +57,7 @@ def make_Wdw_mat(
 
     Examples
     --------
-    >>> ZM_C1N = csc_matrix(np.array([[1.  , 0.  , 0.  , 0.  , 0.  ],\
+    >>> ZM_ICN = csc_matrix(np.array([[1.  , 0.  , 0.  , 0.  , 0.  ],\
                                       [0.  , 1.  , 0.  , 0.  , 0.  ],\
                                       [0.25, 0.25, 1.  , 0.  , 0.  ],\
                                       [0.  , 0.  , 0.  , 1.  , 0.  ],\
@@ -73,7 +73,7 @@ def make_Wdw_mat(
                                       [0.   , 0.   , 0.   , 0.875, 0.   ],\
                                       [0.   , 0.   , 0.375, 0.375, 0.875]]))
     >>> IS_wdw = 2
-    >>> ZM_Aem, ZM_A0m = make_Wdw_mat(ZM_C1N, ZM_Qex, ZM_Qou, IS_wdw)
+    >>> ZM_Aem, ZM_A0m = make_Wdw_mat(ZM_ICN, ZM_Qex, ZM_Qou, IS_wdw)
     >>> ZM_Aem.toarray()
     array([[ 0.0625    ,  0.        ,  0.        ,  0.        ,  0.        ],
            [ 0.        ,  0.0625    ,  0.        ,  0.        ,  0.        ],
@@ -101,9 +101,9 @@ def make_Wdw_mat(
     # -------------------------------------------------------------------------
     # Start with some initial variables
     # -------------------------------------------------------------------------
-    IS_riv_bas = ZM_C1N.shape[0]
+    IS_riv_bas = ZM_ICN.shape[0]
     ZM_Idt = identity(IS_riv_bas, format="csc", dtype=np.float64)
-    ZM_Bet = spsolve(ZM_C1N, ZM_Qex)
+    ZM_Bet = spsolve(ZM_ICN, ZM_Qex)
 
     # -------------------------------------------------------------------------
     # Computation of Ae
@@ -112,8 +112,8 @@ def make_Wdw_mat(
     ZM_tmp = ZM_Bet
     for JS_wdw in range(IS_wdw):
         ZM_Aem = ZM_Aem + (IS_wdw - 1 - JS_wdw) * ZM_tmp
-        ZM_tmp = spsolve(ZM_C1N, ZM_Qou @ ZM_tmp)
-        # spsolve refactorizes ZM_C1N at each iteration (suboptimal, need fix)
+        ZM_tmp = spsolve(ZM_ICN, ZM_Qou @ ZM_tmp)
+        # spsolve refactorizes ZM_ICN at each iteration (suboptimal, need fix)
     ZM_Aem = ZM_Aem / IS_wdw
 
     # -------------------------------------------------------------------------
@@ -123,15 +123,15 @@ def make_Wdw_mat(
     ZM_tmp = ZM_Idt
     for _ in range(IS_wdw):
         ZM_A0m = ZM_A0m + ZM_tmp
-        ZM_tmp = spsolve(ZM_C1N, ZM_Qou @ ZM_tmp)
-        # spsolve refactorizes ZM_C1N at each iteration (suboptimal, need fix)
+        ZM_tmp = spsolve(ZM_ICN, ZM_Qou @ ZM_tmp)
+        # spsolve refactorizes ZM_ICN at each iteration (suboptimal, need fix)
     ZM_A0m = ZM_A0m / IS_wdw
 
     # -------------------------------------------------------------------------
     # Explanations
     # -------------------------------------------------------------------------
-    # ZM_Alp = (ZM_C1N)^(-1) @ ZM_Qou
-    # ZM_Bet = (ZM_C1N)^(-1) @ ZM_Qex
+    # ZM_Alp = (ZM_ICN)^(-1) @ ZM_Qou
+    # ZM_Bet = (ZM_ICN)^(-1) @ ZM_Qex
     # ZM_A0m = (ZM_Idt + ZM_Alp + ZM_Alp^2 + ... + ZM_Alp^(IS_wdw-1))/IS_wdw
     # ZM_Aem = (
     #             (IS_wdw - 1 - 0) * ZM_Bet
@@ -141,9 +141,9 @@ def make_Wdw_mat(
     #           + (IS_wdw - 1 - IS_wdw +2) * ZM_Alp^(IS_wdw-2) @ ZM_Bet
     #           ) / IS_wdw
     #
-    # The inverse (ZM_C1N)^(-1) is never actually computed, relying instead on
+    # The inverse (ZM_ICN)^(-1) is never actually computed, relying instead on
     # the following linear system solver applied to matrices:
-    # ZM_C1N @ ZM_Alp^(JS_wdw+1) = ZM_Qou @ ZM_Alp^(JS_wdw)
+    # ZM_ICN @ ZM_Alp^(JS_wdw+1) = ZM_Qou @ ZM_Alp^(JS_wdw)
     # ZM_tmp stores ZM_Alp^(JS_wdw) for the computation of A0.
     # ZM_tmp stores ZM_Alp^(JS_wdw) @ ZM_Bet for the computation of Ae.
     # The recurrence for ZM_A0m is initialized with ZM_Alp^0 = ZM_Idt

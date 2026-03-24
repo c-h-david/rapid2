@@ -43,7 +43,7 @@ def make_Mus_mat(
 
     Returns
     -------
-    ZM_C1N : scipy.sparse.spmatrix
+    ZM_ICN : scipy.sparse.spmatrix
         The linear system matrix for the basin in matrix-based Muskingum.
     ZM_Qex : scipy.sparse.spmatrix
         The multiplicand matrix for ZV_Qex for the basin in right-hand side.
@@ -72,8 +72,8 @@ def make_Mus_mat(
                                       [0.   , 0.   , 0.875, 0.   , 0.   ],\
                                       [0.   , 0.   , 0.   , 0.875, 0.   ],\
                                       [0.   , 0.   , 0.   , 0.   , 0.875]]))
-    >>> ZM_C1N, ZM_Qex, ZM_Qou = make_Mus_mat(ZM_Net, ZM_C1m, ZM_C2m, ZM_C3m)
-    >>> ZM_C1N.toarray()
+    >>> ZM_ICN, ZM_Qex, ZM_Qou = make_Mus_mat(ZM_Net, ZM_C1m, ZM_C2m, ZM_C3m)
+    >>> ZM_ICN.toarray()
     array([[1.  , 0.  , 0.  , 0.  , 0.  ],
            [0.  , 1.  , 0.  , 0.  , 0.  ],
            [0.25, 0.25, 1.  , 0.  , 0.  ],
@@ -96,11 +96,11 @@ def make_Mus_mat(
     IS_riv_bas = ZM_Net.shape[0]
     ZM_Idt = identity(IS_riv_bas, format="csc", dtype=np.float64)
 
-    ZM_C1N = ZM_Idt - ZM_C1m @ ZM_Net
+    ZM_ICN = ZM_Idt - ZM_C1m @ ZM_Net
     ZM_Qex = ZM_C1m + ZM_C2m
     ZM_Qou = ZM_C3m + ZM_C2m @ ZM_Net
 
-    return ZM_C1N, ZM_Qex, ZM_Qou
+    return ZM_ICN, ZM_Qex, ZM_Qou
 
 
 # *****************************************************************************

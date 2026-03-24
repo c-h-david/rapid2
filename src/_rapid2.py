@@ -106,7 +106,7 @@ def main() -> None:
     ZV_kpr_bas = read_kpr_vec(kpr_csv, IV_0bi_bas)
     ZV_xpr_bas = read_xpr_vec(xpr_csv, IV_0bi_bas)
     ZM_C1m, ZM_C2m, ZM_C3m = make_CCC_mat(ZV_kpr_bas, ZV_xpr_bas, IS_dtR)
-    ZM_C1N, ZM_Qex, ZM_Qou = make_Mus_mat(ZM_Net, ZM_C1m, ZM_C2m, ZM_C3m)
+    ZM_ICN, ZM_Qex, ZM_Qou = make_Mus_mat(ZM_Net, ZM_C1m, ZM_C2m, ZM_C3m)
 
     # -------------------------------------------------------------------------
     # Extract metadata of external inflow
@@ -183,7 +183,7 @@ def main() -> None:
         ZV_Qex_avg = f.variables["Qext"][JS_tim_all][IV_0bi_bas]
 
         ZV_Qou_avg, ZV_Qou_now = updt_Mus_Qou(
-            ZM_C1N, ZM_Qex, ZM_Qou, IS_mus, ZV_Qou_prv, ZV_Qex_avg
+            ZM_ICN, ZM_Qex, ZM_Qou, IS_mus, ZV_Qou_prv, ZV_Qex_avg
         )
         ZV_Qou_prv = ZV_Qou_now
 
