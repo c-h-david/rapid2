@@ -97,14 +97,15 @@ def updt_Mus_Qou(
     """
 
     ZV_Qou = ZV_Qou_prv
-    ZV_avg = np.zeros(len(ZV_Qou_prv))
+    # Isolate the active iterating state to preserve the initial boundary
+    ZV_Qou_avg = np.zeros(len(ZV_Qou_prv))
     ZV_rh1 = ZM_Qex @ ZV_Qex_avg
 
     for _ in range(IS_mus):
         # ---------------------------------------------------------------------
         # Updating average before routing to remain in [0, IS_mus - 1] range
         # ---------------------------------------------------------------------
-        ZV_avg = ZV_avg + ZV_Qou
+        ZV_Qou_avg = ZV_Qou_avg + ZV_Qou
 
         # ---------------------------------------------------------------------
         # Updating instantaneous value of right-hand side
@@ -117,9 +118,9 @@ def updt_Mus_Qou(
         ZV_Qou = spsolve_triangular(
             ZM_ICN, ZV_rhs, lower=True, unit_diagonal=True
         )
-    ZV_avg = ZV_avg / IS_mus
+    ZV_Qou_avg = ZV_Qou_avg / IS_mus
 
-    ZV_Qou_avg = ZV_avg
+    ZV_Qou_avg = ZV_Qou_avg
     ZV_Qou_now = ZV_Qou
 
     return ZV_Qou_avg, ZV_Qou_now
