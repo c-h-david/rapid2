@@ -33,7 +33,7 @@ River Basin.
 
 ## 2. Download Raw Runoff Data with `dgldas2`
 
-Download GLDAS version `2.1`, model `VIC`, for `2010-01`:
+Download GLDAS phase `2.1`, model `VIC`, for `2010-01`:
 
 ``` bash
 dgldas2 \
