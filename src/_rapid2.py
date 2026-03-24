@@ -127,16 +127,16 @@ def main() -> None:
     if IM_tim_all is None:
         raise ValueError("read_std_vec returned None for IM_tim_all")
 
-    IS_TaR = IM_tim_all[0, 1] - IM_tim_all[0, 0]
+    IS_dtE = IM_tim_all[0, 1] - IM_tim_all[0, 0]
     # Using IM_tim_all rather than IV_tim_all which may have only one timestep
 
-    if IS_TaR == 0:
-        raise ValueError("Values of time_bnds lead to IS_TaR = 0")
+    if IS_dtE == 0:
+        raise ValueError("Values of time_bnds lead to IS_dtE = 0")
 
-    if IS_TaR % IS_dtR == 0:
-        IS_mus = IS_TaR // IS_dtR
+    if IS_dtE % IS_dtR == 0:
+        IS_mus = IS_dtE // IS_dtR
     else:
-        raise ValueError("IS_TaR is not a multiple of IS_dtR")
+        raise ValueError("IS_dtE is not a multiple of IS_dtR")
 
     # -------------------------------------------------------------------------
     # Check river IDs and upstream to downstream topology

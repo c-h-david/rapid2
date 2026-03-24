@@ -425,6 +425,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/*.py`          | Linted after major renames. |
 | `./src/*.py`                 | Renamed `idx` into `0bi`. |
 | `./src/rapid2/*.py`          | Renamed `idx` into `0bi`. |
+| `./src/_rapid2.py`           | Renamed `TaR` into `dtE`. |
+| `./src/_m3rivtoqext.py`      | Renamed `TaR` into `dtE`. |
 
 ### Removed
 
