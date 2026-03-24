@@ -432,6 +432,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/*.py`                 | Renamed `AT_cfg` into `AT_nml`. |
 | `./src/rapid2/*.py`          | Renamed `AT_cfg` into `AT_nml`. |
 | `./src/rapid2/updt_Mus_Qou.p`| Renamed `ZV_avg` into `ZV_Qou_avg`. |
+| `./src/*.py`                 | Renamed `IS_mus` into `IS_stp`. |
+| `./src/rapid2/*.py`          | Renamed `IS_stp` into `IS_stp`. |
 
 ### Removed
 
