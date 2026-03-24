@@ -427,6 +427,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/*.py`          | Renamed `idx` into `0bi`. |
 | `./src/_rapid2.py`           | Renamed `TaR` into `dtE`. |
 | `./src/_m3rivtoqext.py`      | Renamed `TaR` into `dtE`. |
+| `./src/*.py`                 | Renamed `Lin` into `ICN`. |
+| `./src/rapid2/*.py`          | Renamed `Lin` into `ICN`. |
 
 ### Removed
 

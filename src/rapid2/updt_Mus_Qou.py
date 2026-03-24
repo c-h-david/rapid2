@@ -22,7 +22,7 @@ from scipy.sparse.linalg import (  # type: ignore[import-untyped]
 # Muskingum routing
 # *****************************************************************************
 def updt_Mus_Qou(
-    ZM_Lin: csc_matrix,
+    ZM_C1N: csc_matrix,
     ZM_Qex: csc_matrix,
     ZM_Qou: csc_matrix,
     IS_mus: int,
@@ -38,7 +38,7 @@ def updt_Mus_Qou(
 
     Parameters
     ----------
-    ZM_Lin : scipy.sparse.spmatrix
+    ZM_C1N : scipy.sparse.spmatrix
         The linear system matrix for the basin in matrix-based Muskingum.
     ZM_Qex : scipy.sparse.spmatrix
         The multiplicand matrix for ZV_Qex for the basin in right-hand side.
@@ -60,7 +60,7 @@ def updt_Mus_Qou(
 
     Examples
     --------
-    >>> ZM_Lin = csc_matrix(np.array([[1.  , 0.  , 0.  , 0.  , 0.  ],\
+    >>> ZM_C1N = csc_matrix(np.array([[1.  , 0.  , 0.  , 0.  , 0.  ],\
                                       [0.  , 1.  , 0.  , 0.  , 0.  ],\
                                       [0.25, 0.25, 1.  , 0.  , 0.  ],\
                                       [0.  , 0.  , 0.  , 1.  , 0.  ],\
@@ -78,7 +78,7 @@ def updt_Mus_Qou(
     >>> IS_mus = 2
     >>> ZV_Qou_prv = np.array([0, 0, 0, 0, 0])
     >>> ZV_Qex_avg = np.array([1, 1, 1, 1, 1])
-    >>> ZV_Qou_avg, ZV_Qou_now = updt_Mus_Qou(ZM_Lin, ZM_Qex, ZM_Qou, IS_mus,\
+    >>> ZV_Qou_avg, ZV_Qou_now = updt_Mus_Qou(ZM_C1N, ZM_Qex, ZM_Qou, IS_mus,\
                                          ZV_Qou_prv, ZV_Qex_avg\
                                          )
     >>> ZV_Qou_avg
@@ -87,7 +87,7 @@ def updt_Mus_Qou(
     array([0.234375  , 0.234375  , 0.15625   , 0.234375  , 0.16601562])
     >>> ZV_Qou_prv = np.array([1, 1, 1, 1, 1])
     >>> ZV_Qex_avg = np.array([1, 1, 1, 1, 1])
-    >>> ZV_Qou_avg, ZV_Qou_now = updt_Mus_Qou(ZM_Lin, ZM_Qex, ZM_Qou, IS_mus,\
+    >>> ZV_Qou_avg, ZV_Qou_now = updt_Mus_Qou(ZM_C1N, ZM_Qex, ZM_Qou, IS_mus,\
                                          ZV_Qou_prv, ZV_Qex_avg\
                                          )
     >>> ZV_Qou_avg
@@ -115,7 +115,7 @@ def updt_Mus_Qou(
         # Routing
         # ---------------------------------------------------------------------
         ZV_Qou = spsolve_triangular(
-            ZM_Lin, ZV_rhs, lower=True, unit_diagonal=True
+            ZM_C1N, ZV_rhs, lower=True, unit_diagonal=True
         )
     ZV_avg = ZV_avg / IS_mus
 
