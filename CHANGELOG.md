@@ -429,6 +429,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_m3rivtoqext.py`      | Renamed `TaR` into `dtE`. |
 | `./src/*.py`                 | Renamed `Lin` into `ICN`. |
 | `./src/rapid2/*.py`          | Renamed `Lin` into `ICN`. |
+| `./src/*.py`                 | Renamed `AT_cfg` into `AT_nml`. |
+| `./src/rapid2/*.py`          | Renamed `AT_cfg` into `AT_nml`. |
 
 ### Removed
 

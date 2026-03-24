@@ -33,30 +33,30 @@ def read_nml_tbl(nml_yml: str) -> Dict[str, Any]:
 
     Returns
     -------
-    AT_cfg : Dict[str, Any]
+    AT_nml : Dict[str, Any]
         Dictionary containing the parsed YAML content.
 
     Examples
     --------
     >>> nml_yml = "./input/Sandbox/namelist_Sandbox.yml"
-    >>> AT_cfg = read_nml_tbl(nml_yml)
-    >>> AT_cfg["Q00_ncf"]
+    >>> AT_nml = read_nml_tbl(nml_yml)
+    >>> AT_nml["Q00_ncf"]
     './input/Sandbox/Qinit_Sandbox_19700101_19700110.nc4'
-    >>> AT_cfg["Qex_ncf"]
+    >>> AT_nml["Qex_ncf"]
     './input/Sandbox/Qext_Sandbox_19700101_19700110.nc4'
-    >>> AT_cfg["con_csv"]
+    >>> AT_nml["con_csv"]
     './input/Sandbox/rapid_connect_Sandbox.csv'
-    >>> AT_cfg["kpr_csv"]
+    >>> AT_nml["kpr_csv"]
     './input/Sandbox/k_Sandbox.csv'
-    >>> AT_cfg["xpr_csv"]
+    >>> AT_nml["xpr_csv"]
     './input/Sandbox/x_Sandbox.csv'
-    >>> AT_cfg["bas_csv"]
+    >>> AT_nml["bas_csv"]
     './input/Sandbox/riv_bas_id_Sandbox.csv'
-    >>> AT_cfg["IS_dtR"]
+    >>> AT_nml["IS_dtR"]
     np.int32(900)
-    >>> AT_cfg["Qou_ncf"]
+    >>> AT_nml["Qou_ncf"]
     './output/Sandbox/Qout_Sandbox_19700101_19700110_tst.nc4'
-    >>> AT_cfg["Qfi_ncf"]
+    >>> AT_nml["Qfi_ncf"]
     './output/Sandbox/Qfinal_Sandbox_19700101_19700110_tst.nc4'
     """
 
@@ -65,7 +65,7 @@ def read_nml_tbl(nml_yml: str) -> Dict[str, Any]:
         # Load namelist
         # ---------------------------------------------------------------------
         with open(nml_yml, "r") as ymlfile:
-            AT_cfg: Dict[str, Any] = yaml.safe_load(ymlfile)
+            AT_nml: Dict[str, Any] = yaml.safe_load(ymlfile)
 
         # ---------------------------------------------------------------------
         # Check for required keys
@@ -81,22 +81,22 @@ def read_nml_tbl(nml_yml: str) -> Dict[str, Any]:
             "Qou_ncf",
             "Qfi_ncf",
         }
-        mis_key = req_key - AT_cfg.keys()
+        mis_key = req_key - AT_nml.keys()
         if mis_key:
             raise ValueError("Missing required keys: " + str(mis_key))
 
         # ---------------------------------------------------------------------
         # Check that timestep is integer and make it np.int32
         # ---------------------------------------------------------------------
-        if not isinstance(AT_cfg["IS_dtR"], int):
+        if not isinstance(AT_nml["IS_dtR"], int):
             raise ValueError("IS_dtR must be an integer")
 
-        AT_cfg["IS_dtR"] = np.int32(AT_cfg["IS_dtR"])
+        AT_nml["IS_dtR"] = np.int32(AT_nml["IS_dtR"])
 
         # ---------------------------------------------------------------------
         # Return dictionary
         # ---------------------------------------------------------------------
-        return AT_cfg
+        return AT_nml
 
     except IOError:
         print(f"ERROR - Unable to open {nml_yml}")
