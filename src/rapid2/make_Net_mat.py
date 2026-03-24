@@ -74,8 +74,8 @@ def make_Net_mat(
         JS_riv_tot = IT_0bi_tot[IV_riv_bas[JS_riv_bas]]
         IS_dwn = IV_dwn_tot[JS_riv_tot]
         if IS_dwn != 0 and IS_dwn in IT_0bi_bas:
-            JS_riv_ba2 = IT_0bi_bas[IS_dwn]
-            IV_row.append(JS_riv_ba2)
+            JS_dwn_bas = IT_0bi_bas[IS_dwn]
+            IV_row.append(JS_dwn_bas)
             IV_col.append(JS_riv_bas)
             ZV_val.append(1)
 
