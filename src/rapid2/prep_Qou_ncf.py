@@ -88,7 +88,7 @@ def prep_Qou_ncf(
     # -------------------------------------------------------------------------
     # Create variables
     # -------------------------------------------------------------------------
-    ZS_fill = float(1e20)
+    ZS_fll = float(1e20)
 
     Qout = g.createVariable(
         "Qout",
@@ -97,7 +97,7 @@ def prep_Qou_ncf(
             "time",
             "rivid",
         ),
-        fill_value=ZS_fill,
+        fill_value=ZS_fll,
     )
     Qout.long_name = "mean river water outflow downstream of each river reach"
     Qout.units = "m3 s-1"
@@ -119,7 +119,7 @@ def prep_Qou_ncf(
     time.bounds = "time_bnds"
 
     Qout_bia = g.createVariable(
-        "Qout_bia", "float32", "rivid", fill_value=ZS_fill
+        "Qout_bia", "float32", "rivid", fill_value=ZS_fll
     )
     Qout_bia.long_name = (
         "mean river water outflow error downstream of each river reach"
@@ -132,7 +132,7 @@ def prep_Qou_ncf(
     Qout_bia.interval = "temporal resolution does not impact computation"
 
     Qout_var = g.createVariable(
-        "Qout_var", "float32", "rivid", fill_value=ZS_fill
+        "Qout_var", "float32", "rivid", fill_value=ZS_fll
     )
     Qout_var.long_name = (
         "variance of river water outflow error downstream of each river reach"
@@ -145,7 +145,7 @@ def prep_Qou_ncf(
     Qout_var.interval = "typically same temporal resolution as observations"
 
     Qout_cov = g.createVariable(
-        "Qout_cov", "float32", "rivid", fill_value=ZS_fill
+        "Qout_cov", "float32", "rivid", fill_value=ZS_fll
     )
     Qout_cov.long_name = (
         "indicative covariance between river water outflow "

@@ -440,6 +440,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/read_std_vec.p`| Removed `_tmp` variables. |
 | `./src/rapid2/make_Wdw_mat.p`| Renamed into `Aex` and `A00`. |
 | `./src/rapid2/chck_bas.py`   | Updated header. |
+| `./src/rapid2/*.py`          | Renamed `ZS_fill `into `ZS_fll`. |
 
 ### Removed
 

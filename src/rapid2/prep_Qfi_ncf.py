@@ -77,7 +77,7 @@ def prep_Qfi_ncf(
     # -------------------------------------------------------------------------
     # Create variables
     # -------------------------------------------------------------------------
-    ZS_fill = float(1e20)
+    ZS_fll = float(1e20)
 
     Qout = h.createVariable(
         "Qout",
@@ -86,7 +86,7 @@ def prep_Qfi_ncf(
             "time",
             "rivid",
         ),
-        fill_value=ZS_fill,
+        fill_value=ZS_fll,
     )
     Qout.long_name = (
         "instantaneous river water outflow downstream of each river reach"

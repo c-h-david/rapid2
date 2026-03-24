@@ -88,7 +88,7 @@ def prep_Qex_ncf(
     # -------------------------------------------------------------------------
     # Create variables
     # -------------------------------------------------------------------------
-    ZS_fill = float(1e20)
+    ZS_fll = float(1e20)
 
     Qext = f.createVariable(
         "Qext",
@@ -97,7 +97,7 @@ def prep_Qex_ncf(
             "time",
             "rivid",
         ),
-        fill_value=ZS_fill,
+        fill_value=ZS_fll,
     )
     Qext.long_name = "mean external water inflow upstream of each river reach"
     Qext.units = "m3 s-1"
@@ -119,7 +119,7 @@ def prep_Qex_ncf(
     time.bounds = "time_bnds"
 
     Qext_bia = f.createVariable(
-        "Qext_bia", "float32", "rivid", fill_value=ZS_fill
+        "Qext_bia", "float32", "rivid", fill_value=ZS_fll
     )
     Qext_bia.long_name = (
         "mean external water inflow error upstream of each river reach"
@@ -132,7 +132,7 @@ def prep_Qex_ncf(
     Qext_bia.interval = "temporal resolution does not impact computation"
 
     Qext_var = f.createVariable(
-        "Qext_var", "float32", "rivid", fill_value=ZS_fill
+        "Qext_var", "float32", "rivid", fill_value=ZS_fll
     )
     Qext_var.long_name = (
         "variance of external water inflow error upstream of each river reach"
@@ -145,7 +145,7 @@ def prep_Qex_ncf(
     Qext_var.interval = "typically same temporal resolution as observations"
 
     Qext_cov = f.createVariable(
-        "Qext_cov", "float32", "rivid", fill_value=ZS_fill
+        "Qext_cov", "float32", "rivid", fill_value=ZS_fll
     )
     Qext_cov.long_name = (
         "indicative covariance between external water "
