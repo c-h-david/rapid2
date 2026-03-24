@@ -63,11 +63,11 @@ def chck_cpl(
     if ZV_skm_tot.size != IV_1bj_tot.size:
         raise ValueError("The arrays have different sizes")
 
-    BV_1bi_nul = IV_1bi_tot == 0
-    BV_1bj_nul = IV_1bj_tot == 0
+    BV_1bi_tmp = IV_1bi_tot == 0
+    BV_1bj_tmp = IV_1bj_tot == 0
     # These lists contain True where the 1-based index is null, False otherwise
 
-    if not np.array_equal(BV_1bi_nul, BV_1bj_nul):
+    if not np.array_equal(BV_1bi_tmp, BV_1bj_tmp):
         raise ValueError("The locations where i and j both equal zero differ")
     # Check that zero positions match
 
