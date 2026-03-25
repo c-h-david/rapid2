@@ -464,6 +464,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./NOMENCLATURE.md`          | Updated naming conventions. |
 | `./src/_dgldas2.py`          | Cleaned naming. |
 | `./NOMENCLATURE.md`          | Added exemptions for netCDF4 pointers. |
+| `./NOMENCLATURE.md`          | Updated for clarity. |
 
 ### Removed
 

@@ -11,12 +11,11 @@ reference for these naming conventions.
 ## Enforcement
 
 These guidelines are strictly enforced for the core routing model
-(`src/_rapid2.py`), its underlying library (`src/rapid2/*.py`), and the core
-data utilities
-(`_zeroqinit.py`, `_cmpncf.py`, `_m3rivtoqext.py`, `_cpllsm.py`).
+(`_rapid2.py`), the `rapid2` library, and all internal data utilities (e.g.,
+`_cmpncf.py`, `_cpllsm.py`).
 
-The download utility (`_dgldas2.py`) uses much of this grammar, but is formally
-exempt from strict checking to accommodate external API terminology.
+The download utility (`_dgldas2.py`) is formally exempt from strict checking
+to accommodate external API terminology.
 
 ## Semantic singleton
 
@@ -31,13 +30,13 @@ exempt from strict checking to accommodate external API terminology.
 | `Z`  | Float              | Used for discharge, coordinates, parameters.    |
 | `Y`  | String/character   | Used for variable names and text labels.        |
 | `B`  | Boolean            | Used for logical masks and status flags.        |
-| `A`  | Any type           | Generic type for heterogeneous content.         |
+| `A`  | Any                | Heterogeneous types.                            |
 
 ### `<structure1>`
 
 | Code | Meaning            | Notes                                           |
 | ---- | ------------------ | ----------------------------------------------- |
-| `S`  | Scalar (0-D)       | A single, independent value.                    |
+| `S`  | Scalar (0-D)       | A single value.                                 |
 | `V`  | Vector (1-D)       | A 1-dimensional sequence or array of values.    |
 | `M`  | Matrix (2-D)       | A 2-dimensional sequence or grid of values.     |
 | `T`  | Table/Dictionary   | A mapping of keys to values (hash tables).      |
@@ -205,15 +204,14 @@ prefix:
 - **Interface Idioms:** Conventional variables representing standard parsing
   interfaces (e.g., `args`, `parser`) when used strictly for command-line or
   configuration parsing (e.g., `argparse`, YAML loaders).
-- **NetCDF Dataset Pointers:** Temporary pointers to open `netCDF4.Dataset`
-  objects must use the single character assigned in the `<dataset>` table's
-  "Notes" column, whenever available (e.g., `f`, `g`, `h`).
-- **NetCDF Variable and Dimension Pointers:** Python variables acting as
-  handles for `netCDF4.Variable` or `netCDF4.Dimension` objects must use the
-  exact string name of the target item (e.g.,
- `Qout = g.createVariable("Qout", ...)`).
-  When iterating dynamically, the generic idioms `name`, `var` and `dim` are
-  permitted.
+- **NetCDF Toolbox Idioms:** Handles for `netCDF4` objects to maintain direct
+  mapping with disk-level structures:
+    - **Datasets:** Must use the single character assigned in the `<dataset>`
+      table "Notes" column, if available (e.g., `f`, `g`).
+    - **Variables/Dimensions:** Must match the exact string name of the target
+      item (e.g., `Qout = g.createVariable("Qout", ...)`).
+    - **Dynamic Iteration:** The generic labels `name`, `var`, and `dim` are
+      permitted during loops.
 
 ## File Names
 
@@ -229,11 +227,10 @@ prefix:
 
 ## Function Names
 
-**When to write a function:** To protect the clarity of this nomenclature,
-functions should only be created for heavy I/O, complex assembly (e.g., matrix
-multiplication), or physics routines. Simple 1-line operations—like checking
-if two arrays are equal, or dividing two scalars to find a ratio—should
-remain inline in the main script to reduce cognitive load.
+**Functional Scope:** To maintain mathematical clarity, functions are reserved
+for heavy I/O, complex assembly, or physics routines. Simple operations—such
+as unit conversions or array equality checks—should remain inline to reduce
+cognitive load and preserve the visibility of the naming grammar.
 
 ### Readers (Disk -> Memory)
 
