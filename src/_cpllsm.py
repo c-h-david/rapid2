@@ -202,9 +202,9 @@ def main() -> None:
     print("- Populate dynamic data")
 
     ZV_scl_tot = 1000 * ZV_skm_tot
-    # Scale by 1000: the multiplication of 0.001 m/mm and 1,000,000 m2/km2
-
-    # TODO: check scaling for time step duration to make flow units.
+    # Scale by 1000: the multiplication of 0.001 m/mm and 1,000,000 m^2/km^2
+    # This directly converts an input flux of mm/s (or kg*m^-2*s-1) and an
+    # input area of km^2 into an output flow rate of m^3/s.
 
     IV_0bi_tot = IV_1bi_tot - 1
     IV_0bj_tot = IV_1bj_tot - 1
@@ -216,14 +216,14 @@ def main() -> None:
         # netCDF data are stored following: c.variables[var][time][lat][lon]
         ZM_run_lsm = ZM_rsf_lsm + ZM_rsb_lsm
         # ZM_run_lsm is of type 'np.ma.core.MaskedArray' or 'np.ndarray'
-        # The units of runoff in GLDAS2 are kg*m-2, which is equivalent to mm
+        # We here assume that runoff data inputs are in kg/m^2/s.
 
         ZV_Qex_tot = ZM_run_lsm[IV_0bj_tot, IV_0bi_tot]
         # This uses the multidimensional list-of-locations indexing capability.
         # All values at given i and j indices can be obtained by giving two
         # lists of j and i indices.
         ZV_Qex_tot = ZV_Qex_tot * ZV_scl_tot
-        # Scaling accounting for area and units.
+        # Result is now a true flow rate (m3/s) because input was a rate.
 
         if isinstance(ZV_Qex_tot, np.ma.MaskedArray):
             ZV_Qex_tot = np.where(ZV_Qex_tot.mask, 0, ZV_Qex_tot.data)
