@@ -35,7 +35,7 @@ def main() -> None:
         ),
         epilog=(
             "examples:\n"
-            "  sandboxqext --mea 10 10 10 20 20 --amp 1 1 1 2 2 "
+            "  sandboxqext --scl 1 1 1 2 2 --avg 10 10 10 20 20 "
             "--Qex Qext_Sandbox.nc"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -46,19 +46,19 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "--mea",
+        "--scl",
         type=float,
         required=True,
         nargs=5,
-        help="specify five mean values: m1 m2 m3 m4 m5",
+        help="specify five unit-amplitude scaling values: s1 s2 s3 s4 s5",
     )
 
     parser.add_argument(
-        "--amp",
+        "--avg",
         type=float,
         required=True,
         nargs=5,
-        help="specify five amplitude values: a1 a2 a3 a4 a5",
+        help="specify five average values: a1 a2 a3 a4 a5",
     )
 
     parser.add_argument(
@@ -73,13 +73,13 @@ def main() -> None:
     # -------------------------------------------------------------------------
     args = parser.parse_args()
 
-    ZV_mea = np.array(args.mea, dtype=np.float32)
-    ZV_amp = np.array(args.amp, dtype=np.float32)
+    ZV_Qex_avg = np.array(args.avg, dtype=np.float32)
+    ZV_scl_tot = np.array(args.scl, dtype=np.float32)
     Qex_ncf = args.Qex
 
     print("Creating (from/to):")
-    print(f" - {ZV_mea}")
-    print(f" - {ZV_amp}")
+    print(f" - {ZV_Qex_avg}")
+    print(f" - {ZV_scl_tot}")
     print(f" - {Qex_ncf}")
 
     # -------------------------------------------------------------------------
@@ -104,14 +104,14 @@ def main() -> None:
     IS_tim_all = len(IV_tim_all)
 
     # -------------------------------------------------------------------------
-    # Check size of provided mean and amplitude arrays
+    # Check size of provided unit-amplitude scaling and average arrays
     # -------------------------------------------------------------------------
-    if len(ZV_mea) != IS_riv_tot:
-        print("ERROR - Mean array not of size 5.")
+    if len(ZV_scl_tot) != IS_riv_tot:
+        print("ERROR - Unit-amplitude scaling array not of size 5.")
         sys.exit(1)
 
-    if len(ZV_amp) != IS_riv_tot:
-        print("ERROR - Amplitude array not of size 5.")
+    if len(ZV_Qex_avg) != IS_riv_tot:
+        print("ERROR - Average array not of size 5.")
         sys.exit(1)
 
     # -------------------------------------------------------------------------
@@ -130,10 +130,12 @@ def main() -> None:
     f.variables["time_bnds"][:, 1] = IV_tim_all[:] + np.int32(10800)
 
     for JS_tim_all in range(IS_tim_all):
-        ZV_Qex = np.sign(np.sin(np.pi / 86400 * IV_tim_all[JS_tim_all] + 1e-7))
-        ZV_Qex = ZV_Qex * ZV_amp
-        ZV_Qex = ZV_Qex + ZV_mea
-        f.variables["Qext"][JS_tim_all, :] = ZV_Qex[:]
+        ZV_Qex_tmp = np.sign(
+            np.sin(np.pi / 86400 * IV_tim_all[JS_tim_all] + 1e-7)
+        )
+        ZV_Qex_tmp = ZV_Qex_tmp * ZV_scl_tot
+        ZV_Qex_tmp = ZV_Qex_tmp + ZV_Qex_avg
+        f.variables["Qext"][JS_tim_all, :] = ZV_Qex_tmp[:]
     # The 1e-7 avoids np.sign(0) = 0
 
     f.title = "Sandbox dataset for RAPID2"
