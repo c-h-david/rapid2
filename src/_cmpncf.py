@@ -18,6 +18,7 @@ import numpy as np
 from numpy.ma import MaskedArray
 
 from rapid2 import __version__
+from rapid2.make_0bi_tbl import make_0bi_tbl
 from rapid2.read_std_vec import read_std_vec
 
 
@@ -152,12 +153,7 @@ def main() -> None:
     else:
         if np.array_equal(np.sort(IV_riv_old), np.sort(IV_riv_new)):
             print("WARNING - The rivids are the same, but sorted differently")
-            IT_idx = {}
-            for JS_riv_tot in range(IS_riv_tot):
-                IT_idx[IV_riv_new[JS_riv_tot]] = JS_riv_tot
-            IV_loc = []
-            for JS_riv_tot in range(IS_riv_tot):
-                IV_loc.append(IT_idx[IV_riv_old[JS_riv_tot]])
+            _, _, IV_0bi_old = make_0bi_tbl(IV_riv_new, IV_riv_old)
         else:
             print("ERROR - The rivids differ")
             sys.exit(1)
@@ -233,8 +229,8 @@ def main() -> None:
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         ZV_old = o.variables[ncf_var][JS_tim, :]
         ZV_new = n.variables[ncf_var][JS_tim, :]
-        if "IV_loc" in locals():
-            ZV_new = ZV_new[IV_loc]
+        if "IV_0bi_old" in locals():
+            ZV_new = ZV_new[IV_0bi_old]
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Converting masked values to -9999
