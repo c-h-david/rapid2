@@ -451,6 +451,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_sandboxqext.py`      | Refactored for naming conventions. |
 | `./src/_cpllsm.py`           | Cleaned fill values. |
 | `./src/_cpllsm.py`           | Specified expected units of runoff. |
+| `./src/_dgldas2.py`          | Converted accumulated depth to depth rate. |
 
 ### Removed
 
