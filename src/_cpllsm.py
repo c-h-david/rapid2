@@ -173,21 +173,17 @@ def main() -> None:
     IS_tim_all = len(c.dimensions["time"])
     print(f"  . The number of time steps is: {IS_tim_all}")
 
-    ZS_fll_rsf = netCDF4.default_fillvals["f4"]
     if "Qs_acc" in c.variables:
-        var = c.variables["Qs_acc"]
-        if "_FillValue" in var.ncattrs():
-            ZS_fll_rsf = var._FillValue
-            print(f"  . The fill value for Qs_acc is: {ZS_fll_rsf}")
+        if "_FillValue" in c.variables["Qs_acc"].ncattrs():
+            ZS_fll = c.variables["Qs_acc"]._FillValue
+            print(f"  . The fill value for Qs_acc is: {ZS_fll}")
     else:
         raise ValueError("Qs_acc variable missing")
 
-    ZS_fll_rsb = netCDF4.default_fillvals["f4"]
     if "Qsb_acc" in c.variables:
-        var = c.variables["Qsb_acc"]
-        if "_FillValue" in var.ncattrs():
-            ZS_fll_rsb = var._FillValue
-            print(f"  . The fill value for Qsb_acc is: {ZS_fll_rsb}")
+        if "_FillValue" in c.variables["Qsb_acc"].ncattrs():
+            ZS_fll = c.variables["Qsb_acc"]._FillValue
+            print(f"  . The fill value for Qsb_acc is: {ZS_fll}")
     else:
         raise ValueError("Qsb_acc variable missing")
 
