@@ -42,15 +42,27 @@ reference for these naming conventions.
 | Code | Meaning            | Notes                                           |
 | ---- | ------------------ | ----------------------------------------------- |
 | `riv`| River ID           | Unique identifier for each river reach.         |
+| `dwn`| Downstream ID      | Downstream identifier.                          |
+| `kpr`| k parameter        | Muskingum parameter k (s).                      |
+| `xpr`| x parameter        | Muskingum parameter x (-).                      |
+| `C1p`| C1 parameter       | Muskingum parameter C1 (-).                     |
+| `C2p`| C2 parameter       | Muskingum parameter C2 (-).                     |
+| `C3p`| C3 parameter       | Muskingum parameter C3 (-).                     |
+| `tim`| Time               | Time stamps for simulation steps (s).           |
+| `dtR`| Delta-T Routing    | Duration of Muskingum routing time step (s).    |
+| `dtE`| Delta-T External   | Duration of external forcing time step (s).     |
+| `stp`| Steps              | Number of routing steps per external step.      |
 | `Qex`| External inflow    | Flow of water entering from the exterior.       |
-| `Qou`| Outflow discharge  | Flow of water exiting each river reach.         |
-| `Vol`| Volume             | Volume of water stored in the river reach.      |
+| `Qou`| Outflow discharge  | Flow of water exiting each reach.               |
+| `Vol`| Volume             | Volume of water stored in the reach.            |
+| `lon`| Longitude          | Representative longitude of the reach.          |
+| `lat`| Latitude           | Representative latitude of the reach.           |
 | `skm`| Contributing area  | Area of the contributing catchment in sq km.    |
-| `tim`| Time               | Time stamps for simulation steps.               |
-| `0bi`| Zero-based index   | First dimension index (Python-native).          |
-| `0bj`| Zero-based index   | Second dimension index (Python-native).         |
-| `1bi`| One-based index    | First dimension index (Fortran-native).         |
-| `1bj`| One-based index    | Second dimension index (Fortran-native).        |
+| `0bi`| Zero-based i index | First dimension index (Python-native).          |
+| `0bj`| Zero-based j index | Second dimension index (Python-native).         |
+| `1bi`| One-based i index  | First dimension index (Fortran-native).         |
+| `1bj`| One-based j index  | Second dimension index (Fortran-native).        |
+| `fll`| Fill value         | Value used to represent missing or masked data. |
 
 ### `<dataset>`
 
@@ -61,13 +73,13 @@ reference for these naming conventions.
 | ---- | ------------------ | ----------------------------------------------- |
 | `nml`| Namelist           | Configuration and input file paths.             |
 | `bas`| Basin              | Subset of the full routing network.             |
-| `con`| Connectivity       | Topology of the river network.                  |
+| `con`| Connectivity       | River network connectivity.                     |
 | `cpl`| Coupling           | Land surface model to river network mapping.    |
 | `crd`| Coordinates        | Geospatial longitude and latitude data.         |
-| `skl`| Skeleton           | Empty netCDF file structure for initialization. |
-| `std`| Standard           | Core metadata like time and coordinates.        |
 | `Q00`| Initial outflow    | Initial outflow state of the network.           |
 | `Qfi`| Final outflow      | Final outflow state of the network.             |
+| `skl`| Skeleton           | Empty netCDF file structure for initialization. |
+| `std`| Standard           | Core metadata like time and coordinates.        |
 
 ### `<qualifier>`
 
@@ -78,6 +90,8 @@ reference for these naming conventions.
 | `prv`| Previous value     | Previous state of a dynamic variable.           |
 | `now`| Current value      | Current state of a dynamic variable.            |
 | `avg`| Average value      | Time-averaged dynamic variable.                 |
+| `all`| Complete sequence  | Used for arrays spanning the entire time domain.|
+| `tmp`| Temporary value    | Transient computational artifact to be deleted. |
 
 ### `<concept>`
 
@@ -85,17 +99,16 @@ reference for these naming conventions.
 
 | Code | Meaning            | Notes                                           |
 | ---- | ------------------ | ----------------------------------------------- |
+| `Idt`| Identity matrix    | A must-have matrix for linear algebra.          |
 | `Net`| Network matrix     | Represents topological connectivity.            |
 | `CCC`| Muskingum CCC      | C1, C2, and C3 Muskingum parameter matrices.    |
-| `Mus`| Muskingum matrices | Matrices solving the Muskingum update.          |
-| `Inv`| Inverse matrix     | Inverted Muskinguym linear system matrix.       |
+| `ICN`| Identity minus C1N | Linear system matrix for Muskingum routing.
+| `ImN`| Identity minus N   | Linear system matrix for Lumped routing.
+| `Mus`| Muskingum          | The Muskingum routing physics and matrices.     |
+| `Lmp`| Lumped             | The Lumped routing physics and matrices.        |
+| `Aex`| Ae operator        | Window mapping operator for external forcing.   |
+| `A00`| A0 operator        | Window mapping operator for initial state.      |
 | `Wdw`| Time window        | Temporal window for data assimilation.          |
-
-### `<scheme>`
-
-| Code | Meaning            | Notes                                           |
-| ---- | ------------------ | ----------------------------------------------- |
-| `Mus`| Muskingum          | The Muskingum routing physics engine.           |
 
 ### `<structure2>` (Memory Destinations)
 
@@ -142,6 +155,18 @@ reference for these naming conventions.
 | `IV_tim_all`     | All time stamps    | Integer vector of all time stamps.  |
 | `ZV_lat_tot`     | Total latitudes    | Float vector of all latitudes.      |
 | `ZM_Net`         | Network matrix     | Float matrix of network connect.    |
+
+**Exemptions:**
+
+The following are exempt from strict triplet checking, though they must
+still obey the `<type><structure1>_` prefix:
+
+- **Algebraic Exemption:** Data structures representing pure mathematical
+  abstractions confined within a single function (e.g., right-hand side
+  vectors `rhs` or `rh1`, equation denominators `den`, or Greek letter
+  placeholders like `Alp` or `Bet`).
+- **Sparse Matrix Idioms:** Standard coordinate arrays used for sparse
+  matrix assembly (`row`, `col`, `val`).
 
 ## File Names
 

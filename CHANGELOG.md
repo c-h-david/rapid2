@@ -444,6 +444,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/make_Net_mat.p`| Renamed `riv_ba2` into `dwn_bas`. |
 | `./src/rapid2/chck_cpl.py`   | Renamed into `1bi_tmp` and `1bj_tmp`. |
 | `./src/rapid2/make_Wdw_mat.p`| Renamed `Qou_ini` into `Qou_prv`. |
+| `./NOMENCLATURE.md`          | Updated naming conventions. |
 
 ### Removed
 
