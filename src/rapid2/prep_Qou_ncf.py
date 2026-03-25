@@ -115,8 +115,7 @@ def prep_Qou_ncf(
     )
     time_bnds.long_name = "time bounds"
 
-    time = g.variables["time"]
-    time.bounds = "time_bnds"
+    g.variables["time"].bounds = "time_bnds"
 
     Qout_bia = g.createVariable(
         "Qout_bia", "float32", "rivid", fill_value=ZS_fll

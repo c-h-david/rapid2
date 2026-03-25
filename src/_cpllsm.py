@@ -199,9 +199,6 @@ def main() -> None:
     prep_Qex_ncf(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Qex_ncf)
 
     f = netCDF4.Dataset(Qex_ncf, "a")
-    Qex = f.variables["Qext"]
-    time = f.variables["time"]
-    time_bnds = f.variables["time_bnds"]
 
     # -------------------------------------------------------------------------
     # Populate dynamic data
@@ -235,11 +232,11 @@ def main() -> None:
         if isinstance(ZV_Qex_tot, np.ma.MaskedArray):
             ZV_Qex_tot = np.where(ZV_Qex_tot.mask, 0, ZV_Qex_tot.data)
         # Make sure the masked values are replaced by 0
-        Qex[JS_tim_all, :] = ZV_Qex_tot[:]
-        # netCDF data are stored following: g.variables[m3_riv][time][rivid]
+        f.variables["Qext"][JS_tim_all, :] = ZV_Qex_tot[:]
+        # netCDF data are stored following: f.variables[Qext][time][rivid]
 
-    time[:] = c.variables["time"][:]
-    time_bnds[:] = c.variables["time_bnds"][:]
+    f.variables["time"][:] = c.variables["time"][:]
+    f.variables["time_bnds"][:] = c.variables["time_bnds"][:]
     # From the LSM netCDF file
     c.close()
 

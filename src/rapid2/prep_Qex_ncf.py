@@ -115,8 +115,7 @@ def prep_Qex_ncf(
     )
     time_bnds.long_name = "time bounds"
 
-    time = f.variables["time"]
-    time.bounds = "time_bnds"
+    f.variables["time"].bounds = "time_bnds"
 
     Qext_bia = f.createVariable(
         "Qext_bia", "float32", "rivid", fill_value=ZS_fll
