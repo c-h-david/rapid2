@@ -445,6 +445,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/chck_cpl.py`   | Renamed into `1bi_tmp` and `1bj_tmp`. |
 | `./src/rapid2/make_Wdw_mat.p`| Renamed `Qou_ini` into `Qou_prv`. |
 | `./NOMENCLATURE.md`          | Updated naming conventions. |
+| `./src/*.py`                 | Renamed into `IS_rat_Qex` and `IS_rat_Qob`. |
+| `./src/rapid2/*.py`          | Renamed into `IS_rat_Qex` and `IS_rat_Qob`. |
 
 ### Removed
 

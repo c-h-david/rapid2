@@ -4,6 +4,10 @@ This document defines the canonical naming system used in RAPID2 for data
 structures, files, and functions. The goal is to ensure consistency, clarity,
 and quick recognition across the codebase.
 
+While these guidelines encourage consistency across the repository, their
+strict application is primarily intended for the core routing model
+(`src/_rapid2.py`) and its underlying library (`src/rapid2/*.py`).
+
 RAPID2 uses groups of one, three, or four semantic characters to unify names
 across structures, files, and functions. This document serves as a quick
 reference for these naming conventions.
@@ -43,6 +47,7 @@ reference for these naming conventions.
 | ---- | ------------------ | ----------------------------------------------- |
 | `riv`| River ID           | Unique identifier for each river reach.         |
 | `dwn`| Downstream ID      | Downstream identifier.                          |
+| `obs`| Observation ID     | Reach identifier where observations exist.      |
 | `kpr`| k parameter        | Muskingum parameter k (s).                      |
 | `xpr`| x parameter        | Muskingum parameter x (-).                      |
 | `C1p`| C1 parameter       | Muskingum parameter C1 (-).                     |
@@ -51,9 +56,11 @@ reference for these naming conventions.
 | `tim`| Time               | Time stamps for simulation steps (s).           |
 | `dtR`| Delta-T Routing    | Duration of Muskingum routing time step (s).    |
 | `dtE`| Delta-T External   | Duration of external forcing time step (s).     |
-| `stp`| Steps              | Number of routing steps per external step.      |
+| `dtO`| Delta-T Observation| Duration of observational time step (s).        |
+| `rat`| Ratio              | Integer ratio between two time steps.           |
 | `Qex`| External inflow    | Flow of water entering from the exterior.       |
 | `Qou`| Outflow discharge  | Flow of water exiting each reach.               |
+| `Qob`| Observed discharge | Flow of water from observations.                |
 | `Vol`| Volume             | Volume of water stored in the reach.            |
 | `lon`| Longitude          | Representative longitude of the reach.          |
 | `lat`| Latitude           | Representative latitude of the reach.           |
@@ -92,6 +99,8 @@ reference for these naming conventions.
 | `avg`| Average value      | Time-averaged dynamic variable.                 |
 | `all`| Complete sequence  | Used for arrays spanning the entire time domain.|
 | `tmp`| Temporary value    | Transient computational artifact to be deleted. |
+| `Qex`| External inflow    | Associated with the external forcing timescale. |
+| `Qob`| Observed discharge | Associated with the observation timescale.      |
 
 ### `<concept>`
 
@@ -105,10 +114,10 @@ reference for these naming conventions.
 | `ICN`| Identity minus C1N | Linear system matrix for Muskingum routing.
 | `ImN`| Identity minus N   | Linear system matrix for Lumped routing.
 | `Mus`| Muskingum          | The Muskingum routing physics and matrices.     |
-| `Lmp`| Lumped             | The Lumped routing physics and matrices.        |
 | `Aex`| Ae operator        | Window mapping operator for external forcing.   |
 | `A00`| A0 operator        | Window mapping operator for initial state.      |
 | `Wdw`| Time window        | Temporal window for data assimilation.          |
+| `Lmp`| Lumped             | The Lumped routing physics and matrices.        |
 
 ### `<structure2>` (Memory Destinations)
 

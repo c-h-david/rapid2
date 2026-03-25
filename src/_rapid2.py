@@ -134,7 +134,7 @@ def main() -> None:
         raise ValueError("Values of time_bnds lead to IS_dtE = 0")
 
     if IS_dtE % IS_dtR == 0:
-        IS_stp = IS_dtE // IS_dtR
+        IS_rat_Qex = IS_dtE // IS_dtR
     else:
         raise ValueError("IS_dtE is not a multiple of IS_dtR")
 
@@ -183,7 +183,7 @@ def main() -> None:
         ZV_Qex_avg = f.variables["Qext"][JS_tim_all][IV_0bi_bas]
 
         ZV_Qou_avg, ZV_Qou_now = updt_Mus_Qou(
-            ZM_ICN, ZM_Qex, ZM_Qou, IS_stp, ZV_Qou_prv, ZV_Qex_avg
+            ZM_ICN, ZM_Qex, ZM_Qou, IS_rat_Qex, ZV_Qou_prv, ZV_Qex_avg
         )
         ZV_Qou_prv = ZV_Qou_now
 
