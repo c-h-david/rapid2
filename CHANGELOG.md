@@ -455,6 +455,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_cmpncf.py`           | Leveraged `make_0bi_tbl()`. |
 | `./NOMENCLATURE.md`          | Polished naming conventions. |
 | `./src/_dgldas2.py`          | Cleaned format. |
+| `./src/rapid2/read_nml_tbl.p`| Cleaned parser keys for nomenclature. |
 
 ### Removed
 

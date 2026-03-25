@@ -66,24 +66,26 @@ def read_nml_tbl(nml_yml: str) -> Dict[str, Any]:
         # ---------------------------------------------------------------------
         with open(nml_yml, "r") as ymlfile:
             AT_nml: Dict[str, Any] = yaml.safe_load(ymlfile)
-
         # ---------------------------------------------------------------------
         # Check for required keys
         # ---------------------------------------------------------------------
-        req_key = {
-            "Q00_ncf",
-            "Qex_ncf",
-            "con_csv",
-            "kpr_csv",
-            "xpr_csv",
-            "bas_csv",
-            "IS_dtR",
-            "Qou_ncf",
-            "Qfi_ncf",
+        AT_nml_tmp = {
+            "Q00_ncf": None,
+            "Qex_ncf": None,
+            "con_csv": None,
+            "kpr_csv": None,
+            "xpr_csv": None,
+            "bas_csv": None,
+            "IS_dtR": None,
+            "Qou_ncf": None,
+            "Qfi_ncf": None,
         }
-        mis_key = req_key - AT_nml.keys()
-        if mis_key:
-            raise ValueError("Missing required keys: " + str(mis_key))
+
+        if AT_nml_tmp.keys() - AT_nml.keys():
+            raise ValueError(
+                "Missing required keys: "
+                f"{AT_nml_tmp.keys() - AT_nml.keys()}"
+            )
 
         # ---------------------------------------------------------------------
         # Check that timestep is integer and make it np.int32

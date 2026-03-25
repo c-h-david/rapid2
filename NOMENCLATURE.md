@@ -107,7 +107,7 @@ reference for these naming conventions.
 | `now`| Current value      | Current state of a dynamic variable.            |
 | `avg`| Average value      | Time-averaged dynamic variable.                 |
 | `all`| Complete sequence  | Used for arrays spanning the entire time domain.|
-| `tmp`| Temporary value    | Transient computational artifact to be deleted. |
+| `tmp`| Temporary value    | Non-persistent, for computation or validation.  |
 | `Qex`| External inflow    | Associated with the external forcing timescale. |
 | `Qob`| Observed discharge | Associated with the observation timescale.      |
 
@@ -179,15 +179,23 @@ reference for these naming conventions.
 The following are exempt from strict triplet checking, though they must
 still obey the `<type><structure1>_` prefix:
 
-- **Algebraic Exemption:** Data structures representing pure mathematical
-  abstractions confined within a single function (e.g., right-hand side
-  vectors `rhs` or `rh1`, equation denominators `den`, or Greek letter
-  placeholders like `Alp` or `Bet`).
-- **Sparse Matrix Idioms:** Standard coordinate arrays used for sparse
-  matrix assembly (`row`, `col`, `val`).
+- **Algebraic Idioms:** Data structures representing pure mathematical
+  abstractions confined within a single function (e.g., right-hand side vectors
+  `rhs` or `rh1`, equation denominators `den`, or Greek letter placeholders
+   like `Alp` or `Bet`).
+- **Sparse Matrix Idioms:** Standard coordinate arrays used for sparse matrix
+  assembly (`row`, `col`, `val`).
 - **NetCDF Pointer Idioms:** Single-letter variables mapped in the `<dataset>`
   table (e.g., `f`, `g`, `h`) are exempt from type prefixes when used strictly
   as temporary pointers to open netCDF4 `Dataset` objects.
+
+The following are exempt from strict triplet checking and `<type><structure1>_`
+prefix:
+
+- **Interface Idioms:** Conventional variables representing standard parsing
+  interfaces (e.g., `args`, `parser`) when used strictly for command-line or
+  configuration parsing (e.g., `argparse`, YAML loaders).
+
 
 ## File Names
 
