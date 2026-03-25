@@ -83,8 +83,7 @@ def read_nml_tbl(nml_yml: str) -> Dict[str, Any]:
 
         if AT_nml_tmp.keys() - AT_nml.keys():
             raise ValueError(
-                "Missing required keys: "
-                f"{AT_nml_tmp.keys() - AT_nml.keys()}"
+                f"Missing required keys: {AT_nml_tmp.keys() - AT_nml.keys()}"
             )
 
         # ---------------------------------------------------------------------
