@@ -79,16 +79,16 @@ rapid2 --nml input/Tutorial/namelist_Tutorial.yml
 
 ``` bash
 cmpncf \
-    --old input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01_GOLD.nc4 \
-    --new input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01.nc4 \
+    --prv input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01_GOLD.nc4 \
+    --now input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01.nc4 \
     --rtl 1e-6 \
     --atl 1e-3
 ```
 
 ```bash
 cmpncf \
-    --old input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01_GOLD.nc4 \
-    --new input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01.nc4 \
+    --prv input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01_GOLD.nc4 \
+    --now input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01.nc4 \
     --rtl 1e-6 \
     --atl 1e-3
 ```
