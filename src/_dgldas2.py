@@ -179,12 +179,10 @@ def main() -> None:
         for name, dim in t.dimensions.items():
             c.createDimension(name, None if dim.isunlimited() else len(dim))
 
-        # Copy variables that are in YV_yes
+        # Copy variables that are in YV_yes (and their attributes)
         for name, var in t.variables.items():
             if name in YV_yes:
-                lsm_var = c.createVariable(name, var.datatype, var.dimensions)
-
-                lsm_var.setncatts(
+                c.createVariable(name, var.datatype, var.dimensions).setncatts(
                     {attr: var.getncattr(attr) for attr in var.ncattrs()}
                 )
 
