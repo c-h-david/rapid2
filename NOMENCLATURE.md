@@ -91,7 +91,7 @@ exempt from strict checking to accommodate external API terminology.
 > Datasets represent file origins. A dataset can share its name with its
 > primary quantity (e.g., `Qou`), or use a unique triplet for its context.
 
-| Code | Meaning            | Notes (netCDF pointer)                          |
+| Code | Meaning            | Notes (netCDF Dataset pointer)                  |
 | ---- | ------------------ | ----------------------------------------------- |
 | `nml`| Namelist           | Configuration and input file paths.             |
 | `bas`| Basin              | Subset of the full routing network.             |
@@ -198,9 +198,6 @@ still obey the `<type><structure1>_` prefix:
    like `Alp` or `Bet`).
 - **Sparse Matrix Idioms:** Standard coordinate arrays used for sparse matrix
   assembly (`row`, `col`, `val`).
-- **NetCDF Pointer Idioms:** Single-letter variables mapped in the `<dataset>`
-  table (e.g., `f`, `g`, `h`) are exempt from type prefixes when used strictly
-  as temporary pointers to open netCDF4 `Dataset` objects.
 
 The following are exempt from strict triplet checking and `<type><structure1>_`
 prefix:
@@ -208,6 +205,15 @@ prefix:
 - **Interface Idioms:** Conventional variables representing standard parsing
   interfaces (e.g., `args`, `parser`) when used strictly for command-line or
   configuration parsing (e.g., `argparse`, YAML loaders).
+- **NetCDF Dataset Pointers:** Temporary pointers to open `netCDF4.Dataset`
+  objects must use the single character assigned in the `<dataset>` table's
+  "Notes" column, whenever available (e.g., `f`, `g`, `h`).
+- **NetCDF Variable and Dimension Pointers:** Python variables acting as
+  handles for `netCDF4.Variable` or `netCDF4.Dimension` objects must use the
+  exact string name of the target item (e.g.,
+ `Qout = g.createVariable("Qout", ...)`).
+  When iterating dynamically, the generic idioms `name`, `var` and `dim` are
+  permitted.
 
 ## File Names
 
