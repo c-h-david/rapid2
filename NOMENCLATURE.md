@@ -206,12 +206,12 @@ prefix:
   configuration parsing (e.g., `argparse`, YAML loaders).
 - **NetCDF Toolbox Idioms:** Handles for `netCDF4` objects to maintain direct
   mapping with disk-level structures:
-    - **Datasets:** Must use the single character assigned in the `<dataset>`
-      table "Notes" column, if available (e.g., `f`, `g`).
-    - **Variables/Dimensions:** Must match the exact string name of the target
-      item (e.g., `Qout = g.createVariable("Qout", ...)`).
-    - **Dynamic Iteration:** The generic labels `name`, `var`, and `dim` are
-      permitted during loops.
+  - **Datasets:** Must use the single character assigned in the `<dataset>`
+    table "Notes" column, if available (e.g., `f`, `g`).
+  - **Variables/Dimensions:** Must match the exact string name of the target
+    item (e.g., `Qout = g.createVariable("Qout", ...)`).
+  - **Dynamic Iteration:** The generic labels `name`, `var`, and `dim` are
+    permitted during loops.
 
 ## File Names
 
