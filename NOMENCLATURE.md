@@ -4,13 +4,19 @@ This document defines the canonical naming system used in RAPID2 for data
 structures, files, and functions. The goal is to ensure consistency, clarity,
 and quick recognition across the codebase.
 
-While these guidelines encourage consistency across the repository, their
-strict application is primarily intended for the core routing model
-(`src/_rapid2.py`) and its underlying library (`src/rapid2/*.py`).
-
 RAPID2 uses groups of one, three, or four semantic characters to unify names
 across structures, files, and functions. This document serves as a quick
 reference for these naming conventions.
+
+## Enforcement
+
+These guidelines are strictly enforced for the core routing model
+(`src/_rapid2.py`), its underlying library (`src/rapid2/*.py`), and the core
+data utilities
+(`_zeroqinit.py`, `_cmpncf.py`, `_m3rivtoqext.py`, `_cpllsm.py`).
+
+The download utility (`_dgldas2.py`) uses much of this grammar, but is formally
+exempt from strict checking to accommodate external API terminology.
 
 ## Semantic singleton
 
@@ -73,7 +79,12 @@ reference for these naming conventions.
 | `0bj`| Zero-based j index | Second dimension index (Python-native) (-).     |
 | `1bi`| One-based i index  | First dimension index (Fortran-native) (-).     |
 | `1bj`| One-based j index  | Second dimension index (Fortran-native) (-).    |
-| `fll`| Fill value         | Value used for missing or masked data (-).      |
+| `fll`| Fill value         | Missing data or masked data (-).                |
+| `val`| Generic value      | Generic value being compared (varies).          |
+| `adf`| Absolute difference| Absolute difference (>=0) in `val` (varies).    |
+| `rdf`| Relative difference| Relative difference (>=0) in `val` (-).         |
+| `atl`| Absolute tolerance | Acceptable absolute difference (varies).        |
+| `rtl`| Relative tolerance | Acceptable relative difference (-).             |
 
 ### `<dataset>`
 
@@ -95,6 +106,8 @@ reference for these naming conventions.
 | `Qfi`| Final outflow      | Final outflow state of the network. (`h`)       |
 | `skl`| Skeleton           | Empty netCDF file structure for init. (`s`)     |
 | `std`| Standard           | Core metadata like time and coordinates. (`s`)  |
+| `prv`| Previous           | File from a prior run. (`p`)                    |
+| `now`| Current            | File from another run. (`n`)                    |
 
 ### `<qualifier>`
 
@@ -195,7 +208,6 @@ prefix:
 - **Interface Idioms:** Conventional variables representing standard parsing
   interfaces (e.g., `args`, `parser`) when used strictly for command-line or
   configuration parsing (e.g., `argparse`, YAML loaders).
-
 
 ## File Names
 

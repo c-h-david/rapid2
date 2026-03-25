@@ -461,6 +461,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_cmpncf.py`           | Renamed `mag_dif` to `adf_tmp`. |
 | `./src/_cmpncf.py`           | Cleaned naming. |
 | `./src/rapid2/read_nml_tbl.p`| Reformatted. |
+| `./NOMENCLATURE.md`          | Updated naming conventions. |
 
 ### Removed
 
