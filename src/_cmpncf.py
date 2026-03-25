@@ -251,11 +251,11 @@ def main() -> None:
         # Also tried using map(operator.sub,V,W) or [x-y for x,y in zip(V,W)],
         # but this still results in slow computations.
         # The best performance seems to be with Numpy.
-        ZV_mag_dif = np.absolute(ZV_val_prv - ZV_val_now)
-        ZS_adf_max = max(np.max(ZV_mag_dif), ZS_adf_max)
+        ZV_adf_tmp = np.absolute(ZV_val_prv - ZV_val_now)
+        ZS_adf_max = max(np.max(ZV_adf_tmp), ZS_adf_max)
 
         ZS_rdf = np.sqrt(
-            np.sum(ZV_mag_dif * ZV_mag_dif) / np.sum(ZV_val_prv * ZV_val_prv)
+            np.sum(ZV_adf_tmp * ZV_adf_tmp) / np.sum(ZV_val_prv * ZV_val_prv)
         )
         ZS_rdf_max = max(ZS_rdf, ZS_rdf_max)
 

@@ -458,6 +458,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/read_nml_tbl.p`| Cleaned parser keys for nomenclature. |
 | `./src/_cmpncf.py`           | Renamed to `prv` and `now`. |
 | `./TUTORIAL.md`              | Renamed to `prv` and `now`. |
+| `./src/_cmpncf.py`           | Renamed `mag_dif` to `adf_tmp`. |
 
 ### Removed
 
