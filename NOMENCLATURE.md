@@ -45,9 +45,9 @@ reference for these naming conventions.
 
 | Code | Meaning            | Notes                                           |
 | ---- | ------------------ | ----------------------------------------------- |
-| `riv`| River ID           | Unique identifier for each river reach.         |
-| `dwn`| Downstream ID      | Downstream identifier.                          |
-| `obs`| Observation ID     | Reach identifier where observations exist.      |
+| `riv`| River ID           | Unique identifier for each river reach (-).     |
+| `dwn`| Downstream ID      | Downstream identifier (-).                      |
+| `obs`| Observation ID     | Reach identifier where observations exist (-).  |
 | `kpr`| k parameter        | Muskingum parameter k (s).                      |
 | `xpr`| x parameter        | Muskingum parameter x (-).                      |
 | `C1p`| C1 parameter       | Muskingum parameter C1 (-).                     |
@@ -57,36 +57,44 @@ reference for these naming conventions.
 | `dtR`| Delta-T Routing    | Duration of Muskingum routing time step (s).    |
 | `dtE`| Delta-T External   | Duration of external forcing time step (s).     |
 | `dtO`| Delta-T Observation| Duration of observational time step (s).        |
-| `rat`| Ratio              | Integer ratio between two time steps.           |
-| `Qex`| External inflow    | Flow of water entering from the exterior.       |
-| `Qou`| Outflow discharge  | Flow of water exiting each reach.               |
-| `Qob`| Observed discharge | Flow of water from observations.                |
-| `Vol`| Volume             | Volume of water stored in the reach.            |
-| `lon`| Longitude          | Representative longitude of the reach.          |
-| `lat`| Latitude           | Representative latitude of the reach.           |
-| `skm`| Contributing area  | Area of the contributing catchment in sq km.    |
-| `0bi`| Zero-based i index | First dimension index (Python-native).          |
-| `0bj`| Zero-based j index | Second dimension index (Python-native).         |
-| `1bi`| One-based i index  | First dimension index (Fortran-native).         |
-| `1bj`| One-based j index  | Second dimension index (Fortran-native).        |
-| `fll`| Fill value         | Value used to represent missing or masked data. |
+| `rat`| Ratio              | Integer ratio between two time steps (-).       |
+| `Qex`| External inflow    | Flow of water entering from exterior (m^3/s).   |
+| `Qou`| Outflow discharge  | Flow of water exiting each reach (m^3/s).       |
+| `Qob`| Observed discharge | Flow of water from observations (m^3/s).        |
+| `Vol`| Volume             | Volume of water stored in the reach (m^3).      |
+| `lon`| Longitude          | Representative longitude of the reach (°).      |
+| `lat`| Latitude           | Representative latitude of the reach (°).       |
+| `skm`| Contributing area  | Area of the contributing catchment (km^2).      |
+| `scl`| Scaling factor     | Multiplier for scaling or unit conversion (-).  |
+| `rsf`| Surface runoff     | Flow of water over the land surface (kg/m^2/s). |
+| `rsb`| Subsurface runoff  | Flow of water within the subsurface (kg/m^2/s). |
+| `run`| Total runoff       | Total surface and subsurface runoff (kg/m^2/s). |
+| `0bi`| Zero-based i index | First dimension index (Python-native) (-).      |
+| `0bj`| Zero-based j index | Second dimension index (Python-native) (-).     |
+| `1bi`| One-based i index  | First dimension index (Fortran-native) (-).     |
+| `1bj`| One-based j index  | Second dimension index (Fortran-native) (-).    |
+| `fll`| Fill value         | Value used for missing or masked data (-).      |
 
 ### `<dataset>`
 
 > Datasets represent file origins. A dataset can share its name with its
 > primary quantity (e.g., `Qou`), or use a unique triplet for its context.
 
-| Code | Meaning            | Notes                                           |
+| Code | Meaning            | Notes (netCDF pointer)                          |
 | ---- | ------------------ | ----------------------------------------------- |
 | `nml`| Namelist           | Configuration and input file paths.             |
 | `bas`| Basin              | Subset of the full routing network.             |
 | `con`| Connectivity       | River network connectivity.                     |
 | `cpl`| Coupling           | Land surface model to river network mapping.    |
 | `crd`| Coordinates        | Geospatial longitude and latitude data.         |
-| `Q00`| Initial outflow    | Initial outflow state of the network.           |
-| `Qfi`| Final outflow      | Final outflow state of the network.             |
-| `skl`| Skeleton           | Empty netCDF file structure for initialization. |
-| `std`| Standard           | Core metadata like time and coordinates.        |
+| `lsm`| Land surface model | External boundary condition forcing data. (`c`) |
+| `m3r`| External volume    | Legacy file format for external volume. (`d`)   |
+| `Q00`| Initial outflow    | Initial outflow state of the network. (`e`)     |
+| `Qex`| External inflow    | NetCDF file containing forcing data. (`f`)      |
+| `Qou`| Outflow discharge  | NetCDF file containing routing results. (`g`)   |
+| `Qfi`| Final outflow      | Final outflow state of the network. (`h`)       |
+| `skl`| Skeleton           | Empty netCDF file structure for init. (`s`)     |
+| `std`| Standard           | Core metadata like time and coordinates. (`s`)  |
 
 ### `<qualifier>`
 
@@ -94,6 +102,7 @@ reference for these naming conventions.
 | ---- | ------------------ | ----------------------------------------------- |
 | `tot`| Total network      | Array length equals `IS_riv_tot`.               |
 | `bas`| Basin              | Array length equals `IS_riv_bas`.               |
+| `lsm`| Land surface model | Associated with the external LSM grid/domain.   |
 | `prv`| Previous value     | Previous state of a dynamic variable.           |
 | `now`| Current value      | Current state of a dynamic variable.            |
 | `avg`| Average value      | Time-averaged dynamic variable.                 |
@@ -176,6 +185,9 @@ still obey the `<type><structure1>_` prefix:
   placeholders like `Alp` or `Bet`).
 - **Sparse Matrix Idioms:** Standard coordinate arrays used for sparse
   matrix assembly (`row`, `col`, `val`).
+- **NetCDF Pointer Idioms:** Single-letter variables mapped in the `<dataset>`
+  table (e.g., `f`, `g`, `h`) are exempt from type prefixes when used strictly
+  as temporary pointers to open netCDF4 `Dataset` objects.
 
 ## File Names
 
