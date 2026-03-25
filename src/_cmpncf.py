@@ -198,16 +198,14 @@ def main() -> None:
     p = netCDF4.Dataset(prv_ncf, "r")
     n = netCDF4.Dataset(now_ncf, "r")
 
-    com_var = set(p.variables) & set(n.variables)
-
-    if "Qext" in com_var:
-        ncf_var = "Qext"
-    elif "Qout" in com_var:
-        ncf_var = "Qout"
+    if "Qext" in p.variables and "Qext" in n.variables:
+        YS_val_tmp = "Qext"
+    elif "Qout" in p.variables and "Qout" in n.variables:
+        YS_val_tmp = "Qout"
     else:
         print("ERROR - Neither Qext nor Qout is common variable")
         sys.exit(1)
-    print(f"The main variable names are the same: {ncf_var}")
+    print(f"The main variable names are the same: {YS_val_tmp}")
 
     # -------------------------------------------------------------------------
     # Compute differences
@@ -227,8 +225,8 @@ def main() -> None:
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Getting values
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        ZV_val_prv = p.variables[ncf_var][JS_tim, :]
-        ZV_val_now = n.variables[ncf_var][JS_tim, :]
+        ZV_val_prv = p.variables[YS_val_tmp][JS_tim, :]
+        ZV_val_now = n.variables[YS_val_tmp][JS_tim, :]
         if "IV_0bi_prv" in locals():
             ZV_val_now = ZV_val_now[IV_0bi_prv]
 
