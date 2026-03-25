@@ -447,6 +447,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./NOMENCLATURE.md`          | Updated naming conventions. |
 | `./src/*.py`                 | Renamed into `IS_rat_Qex` and `IS_rat_Qob`. |
 | `./src/rapid2/*.py`          | Renamed into `IS_rat_Qex` and `IS_rat_Qob`. |
+| `./src/*.py`                 | Removed netCDF variable pointers. |
+
 
 ### Removed
 

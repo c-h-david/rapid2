@@ -127,10 +127,11 @@ def main() -> None:
 
     f.variables["time"][:] = IV_tim_all
     f.variables["time_bnds"][:] = IM_tim_all
-    Qex = f.variables["Qext"]
 
     for JS_tim_all in range(IS_tim_all):
-        Qex[JS_tim_all, :] = d.variables["m3_riv"][JS_tim_all, :] / IS_dtE
+        f.variables["Qext"][JS_tim_all, :] = (
+            d.variables["m3_riv"][JS_tim_all, :] / IS_dtE
+        )
 
     # -------------------------------------------------------------------------
     # Close files

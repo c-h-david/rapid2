@@ -112,11 +112,8 @@ def main() -> None:
 
     e = netCDF4.Dataset(Q00_ncf, "a")
 
-    time = e.variables["time"]
-    time[0] = IV_tim_all[0]
-
-    Q00 = e.variables["Qout"]
-    Q00[0, :] = 0
+    e.variables["time"][0] = IV_tim_all[0]
+    e.variables["Qout"][0, :] = 0
 
     # -------------------------------------------------------------------------
     # Copy some global attributes
