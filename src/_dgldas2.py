@@ -234,8 +234,7 @@ def main() -> None:
     with netCDF4.Dataset(lsm_ncf, "a") as c:
         # 1. Calculate the exact duration of the first time step in seconds
         IS_dtE = (
-            c.variables["time_bnds"][0, 1]
-            - c.variables["time_bnds"][0, 0]
+            c.variables["time_bnds"][0, 1] - c.variables["time_bnds"][0, 0]
         )
 
         # 2. If the duration is less than a month (e.g., 3-hourly is 10,800s),

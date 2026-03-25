@@ -454,6 +454,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/_dgldas2.py`          | Converted accumulated depth to depth rate. |
 | `./src/_cmpncf.py`           | Leveraged `make_0bi_tbl()`. |
 | `./NOMENCLATURE.md`          | Polished naming conventions. |
+| `./src/_dgldas2.py`          | Cleaned format. |
 
 ### Removed
 
