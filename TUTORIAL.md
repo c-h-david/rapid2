@@ -58,18 +58,45 @@ cpllsm \
     --con input/Tutorial/rapid_connect_pfaf_74.csv \
     --crd input/Tutorial/coords_pfaf_74.csv \
     --cpl input/Tutorial/rapid_coupling_pfaf_74_GLDAS.csv \
-    --Qex input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01.nc4
+    --Qex input/Tutorial/Qext_pfaf_74_GLDAS_2.1_VIC_2010-01.nc4
 ```
 
 ## 4. Create Cold Start File with `zeroqinit`
 
 ``` bash
 zeroqinit \
-    --Qex input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01.nc4 \
-    --Q00 input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01.nc4
+    --Qex input/Tutorial/Qext_pfaf_74_GLDAS_2.1_VIC_2010-01.nc4 \
+    --Q00 input/Tutorial/Qinit_pfaf_74_GLDAS_2.1_VIC_2010-01.nc4
 ```
 
 ## 5. Run the Routing Model with `rapid2`
+
+Using the following content in a file called `namelist_Tutorial.md`
+
+```yaml
+# -----------------------------------------------------------------------------
+# Mandatory input files
+# -----------------------------------------------------------------------------
+Qex_ncf: './input/Tutorial/Qext_pfaf_74_GLDAS_2.1_VIC_2010-01.nc4'
+Q00_ncf: './input/Tutorial/Qinit_pfaf_74_GLDAS_2.1_VIC_2010-01.nc4'
+
+con_csv: './input/Tutorial/rapid_connect_pfaf_74.csv'
+kpr_csv: './input/Tutorial/k_pfaf_74_nrm.csv'
+xpr_csv: './input/Tutorial/x_pfaf_74_nrm.csv'
+
+bas_csv: './input/Tutorial/riv_bas_id_pfaf_74_topo.csv'
+
+# -----------------------------------------------------------------------------
+# Mandatory values
+# -----------------------------------------------------------------------------
+IS_dtR: 900
+
+# -----------------------------------------------------------------------------
+# Mandatory output files
+# -----------------------------------------------------------------------------
+Qou_ncf: './output/Tutorial/Qout_pfaf_74_GLDAS_2.1_VIC_2010-01_tst.nc4'
+Qfi_ncf: './output/Tutorial/Qfinal_pfaf_74_GLDAS_2.1_VIC_2010-01_tst.nc4'
+```
 
 ``` bash
 rapid2 --nml input/Tutorial/namelist_Tutorial.yml
@@ -79,16 +106,32 @@ rapid2 --nml input/Tutorial/namelist_Tutorial.yml
 
 ``` bash
 cmpncf \
-    --prv input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01_GOLD.nc4 \
-    --now input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01.nc4 \
+    --prv input/Tutorial/Qinit_pfaf_74_GLDAS_2.1_VIC_2010-01_GOLD.nc4 \
+    --now input/Tutorial/Qinit_pfaf_74_GLDAS_2.1_VIC_2010-01.nc4 \
     --rtl 1e-6 \
     --atl 1e-3
 ```
 
 ```bash
 cmpncf \
-    --prv input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01_GOLD.nc4 \
-    --now input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01.nc4 \
+    --prv input/Tutorial/Qext_pfaf_74_GLDAS_2.1_VIC_2010-01_GOLD.nc4 \
+    --now input/Tutorial/Qext_pfaf_74_GLDAS_2.1_VIC_2010-01.nc4 \
+    --rtl 1e-6 \
+    --atl 1e-3
+```
+
+``` bash
+cmpncf \
+    --prv output/Tutorial/Qout_pfaf_74_GLDAS_2.1_VIC_2010-01_GOLD.nc4 \
+    --now output/Tutorial/Qout_pfaf_74_GLDAS_2.1_VIC_2010-01.nc4 \
+    --rtl 1e-6 \
+    --atl 1e-3
+```
+
+```bash
+cmpncf \
+    --prv output/Tutorial/Qfinal_pfaf_74_GLDAS_2.1_VIC_2010-01_GOLD.nc4 \
+    --now output/Tutorial/Qfinal_pfaf_74_GLDAS_2.1_VIC_2010-01.nc4 \
     --rtl 1e-6 \
     --atl 1e-3
 ```
