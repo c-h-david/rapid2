@@ -38,13 +38,19 @@ def main() -> None:
         epilog=(
             "examples:\n"
             "  cmpncf "
-            "--prv input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01_GOLD.nc4 "
-            "--now input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01.nc4 "
-            "--rtl 1e-6 --atl 1e-3\n"
+            "--previous "
+            "input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01_GOLD.nc4 "
+            "--current "
+            "input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01.nc4 "
+            "--relative_tolerance 1e-6 "
+            "--absolute_tolerance 1e-3\n"
             "  cmpncf "
-            "--prv input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01_GOLD.nc4 "
-            "--now input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01.nc4 "
-            "--rtl 1e-6 --atl 1e-3"
+            "--previous "
+            "input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01_GOLD.nc4 "
+            "--current "
+            "input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01.nc4 "
+            "--relative_tolerance 1e-6 "
+            "--absolute_tolerance 1e-3"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
@@ -54,21 +60,30 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "--prv",
+        "-prv",
+        "--previous",
+        dest="prv",
+        metavar="PREVIOUS",
         type=str,
         required=True,
         help="specify the old netCDF file",
     )
 
     parser.add_argument(
-        "--now",
+        "-now",
+        "--current",
+        dest="now",
+        metavar="CURRENT",
         type=str,
         required=True,
         help="specify the new netCDF file",
     )
 
     parser.add_argument(
-        "--rtl",
+        "-rtl",
+        "--relative_tolerance",
+        dest="rtl",
+        metavar="RELATIVE_TOLERANCE",
         type=str,
         required=False,
         default="0",
@@ -76,7 +91,10 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "--atl",
+        "-atl",
+        "--absolute_tolerance",
+        dest="atl",
+        metavar="ABSOLUTE_TOLERANCE",
         type=str,
         required=False,
         default="0",

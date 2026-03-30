@@ -35,7 +35,8 @@ def main() -> None:
         ),
         epilog=(
             "examples:\n"
-            "  m3rivtoqext --m3r m3_riv_San_Guad.nc4 --Qex Qext_San_Guad.nc4"
+            "  m3rivtoqext --inflow_volume m3_riv_San_Guad.nc4 "
+            "--external_inflow Qext_San_Guad.nc4"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
@@ -45,14 +46,20 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "--m3r",
+        "-m3r",
+        "--inflow_volume",
+        dest="m3r",
+        metavar="INFLOW_VOLUME",
         type=str,
         required=True,
         help="specify the input m3_riv file",
     )
 
     parser.add_argument(
-        "--Qex",
+        "-Qex",
+        "--external_inflow",
+        dest="Qex",
+        metavar="EXTERNAL_INFLOW",
         type=str,
         required=True,
         help="specify the output Qext file",
