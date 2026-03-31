@@ -41,11 +41,17 @@ def main() -> None:
         ),
         epilog=(
             "examples:\n"
-            "  cpllsm --lsm input/Tutorial/GLDAS_2.1_VIC_2010-01.nc4 "
-            "--con input/Tutorial/rapid_connect_pfaf_74.csv "
-            "--crd input/Tutorial/coords_pfaf_74.csv "
-            "--cpl input/Tutorial/rapid_coupling_pfaf_74_GLDAS.csv "
-            "--Qex input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01.nc4"
+            "  cpllsm "
+            "--land_surface_model "
+            "input/Tutorial/GLDAS_2.1_VIC_2010-01.nc4 "
+            "--connectivity "
+            "input/Tutorial/rapid_connect_pfaf_74.csv "
+            "--coordinates "
+            "input/Tutorial/coords_pfaf_74.csv "
+            "--coupling "
+            "input/Tutorial/rapid_coupling_pfaf_74_GLDAS.csv "
+            "--external_inflow "
+            "input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01.nc4"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
@@ -55,32 +61,53 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "--lsm", type=str, required=True, help="specify the LSM file"
+        "-lsm",
+        "--land_surface_model",
+        dest="lsm",
+        metavar="LAND_SURFACE_MODEL",
+        type=str,
+        required=True,
+        help="specify the LSM file",
     )
 
     parser.add_argument(
-        "--con",
+        "-con",
+        "--connectivity",
+        dest="con",
+        metavar="CONNECTIVITY",
         type=str,
         required=True,
         help="specify the connectivity file",
     )
 
     parser.add_argument(
-        "--crd",
+        "-crd",
+        "--coordinates",
+        dest="crd",
+        metavar="COORDINATES",
         type=str,
         required=True,
         help="specify the coordinates",
     )
 
     parser.add_argument(
-        "--cpl",
+        "-cpl",
+        "--coupling",
+        dest="cpl",
+        metavar="COUPLING",
         type=str,
         required=True,
         help="specify the coupling file",
     )
 
     parser.add_argument(
-        "--Qex", type=str, required=True, help="specify the file name"
+        "-Qex",
+        "--external_inflow",
+        dest="Qex",
+        metavar="EXTERNAL_INFLOW",
+        type=str,
+        required=True,
+        help="specify the file name",
     )
 
     # -------------------------------------------------------------------------

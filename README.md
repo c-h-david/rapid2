@@ -72,12 +72,6 @@ pip3 install .
 ### Run Instructions
 
 ```bash
-rapid2 -nl namelist_Sandbox.yml
-```
-
-OR
-
-```bash
 rapid2 --namelist namelist_Sandbox.yml
 ```
 

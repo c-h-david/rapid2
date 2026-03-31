@@ -35,8 +35,11 @@ def main() -> None:
         ),
         epilog=(
             "examples:\n"
-            "  zeroqinit --Qex input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01.nc4 "
-            "--Q00 input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01.nc4"
+            "  zeroqinit "
+            "--external_inflow "
+            "input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01.nc4 "
+            "--initial_outflow "
+            "input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01.nc4"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
@@ -46,14 +49,20 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "--Qex",
+        "-Qex",
+        "--external_inflow",
+        dest="Qex",
+        metavar="EXTERNAL_INFLOW",
         type=str,
         required=True,
         help="specify the input Qext file",
     )
 
     parser.add_argument(
-        "--Q00",
+        "-Q00",
+        "--initial_outflow",
+        dest="Q00",
+        metavar="INITIAL_OUTFLOW",
         type=str,
         required=True,
         help="specify the output Qinit file",

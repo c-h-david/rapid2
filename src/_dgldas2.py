@@ -35,8 +35,9 @@ def main() -> None:
         ),
         epilog=(
             "examples:\n"
-            "  dgldas2 --phs 2.1 --mod VIC --tim 2010-01 "
-            "--lsm input/Tutorial/GLDAS_2.1_VIC_2010-01.nc4"
+            "  dgldas2 --phase 2.1 --model VIC --time 2010-01 "
+            "--land_surface_model "
+            "input/Tutorial/GLDAS_2.1_VIC_2010-01.nc4"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
@@ -46,28 +47,43 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "--phs",
+        "-phs",
+        "--phase",
+        dest="phs",
+        metavar="PHASE",
         type=str,
         required=True,
         help="specify the phase number",
     )
 
     parser.add_argument(
-        "--mod",
+        "-mod",
+        "--model",
+        dest="mod",
+        metavar="MODEL",
         type=str,
         required=True,
         help="specify the land surface model",
     )
 
     parser.add_argument(
-        "--tim",
+        "-tim",
+        "--time",
+        dest="tim",
+        metavar="TIME",
         type=str,
         required=True,
         help="specify the month in yyyy-mm",
     )
 
     parser.add_argument(
-        "--lsm", type=str, required=True, help="specify the LSM file name"
+        "-lsm",
+        "--land_surface_model",
+        dest="lsm",
+        metavar="LAND_SURFACE_MODEL",
+        type=str,
+        required=True,
+        help="specify the LSM file name",
     )
 
     # -------------------------------------------------------------------------
