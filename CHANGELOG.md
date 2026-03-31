@@ -474,6 +474,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./clean.sh`                 | Added notes for cleaning pip environment. |
 | `./pyproject.toml`           | Added pymarkdownlnt. |
 | `./*.*`                      | Bumped netCDF4>=1.7.2, cleaned mypy ignores. |
+| `./*.*`                      | Bumped numpy>=2.4.4, cleaned mypy ignores. |
 
 ### Removed
 

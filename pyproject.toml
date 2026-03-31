@@ -25,7 +25,7 @@ description = "Routing Application for Programmed Integration of Discharge"
 authors = [{name = "Cedric H. David", email = "cedric.david@jpl.nasa.gov"}]
 dependencies = [
     "netCDF4>=1.7.2",
-    "numpy>=2.1.1",
+    "numpy>=2.4.4",
     "scipy>=1.14.1",
     "tqdm>=4.67.1",
     "earthaccess>=0.14.0",

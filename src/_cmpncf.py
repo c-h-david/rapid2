@@ -252,12 +252,10 @@ def main() -> None:
         # Converting masked values to -9999
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         if isinstance(ZV_val_prv, MaskedArray) and np.any(ZV_val_prv.mask):
-            ZV_val_prv = ZV_val_prv.filled(fill_value=-9999)  # type: ignore
-            # 'filled triggers mypy
+            ZV_val_prv = ZV_val_prv.filled(fill_value=-9999)
             BS_fll_prv = True
         if isinstance(ZV_val_now, MaskedArray) and np.any(ZV_val_now.mask):
-            ZV_val_now = ZV_val_now.filled(fill_value=-9999)  # type: ignore
-            # 'filled triggers mypy
+            ZV_val_now = ZV_val_now.filled(fill_value=-9999)
             BS_fll_now = True
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
