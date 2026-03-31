@@ -29,16 +29,17 @@ dependencies = [
     "scipy>=1.14.1",
     "tqdm>=4.67.1",
     "earthaccess>=0.14.0",
-    "pyyaml>=6.0.3"
+    "pyyaml>=6.0.3",
 ]
 
 [project.optional-dependencies]
 dev = [
-    "ruff",
-    "mypy",
+    "pymarkdownlnt",
     "yamllint",
     "hadolint-bin",
-    "pymarkdownlnt"
+    "ruff",
+    "mypy",
+    "types-PyYAML",   # <--- Adds mypy support for pyyaml
 ]
 
 [project.urls]
