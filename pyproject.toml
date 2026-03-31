@@ -24,7 +24,7 @@ readme = "README.md"
 description = "Routing Application for Programmed Integration of Discharge"
 authors = [{name = "Cedric H. David", email = "cedric.david@jpl.nasa.gov"}]
 dependencies = [
-    "netCDF4>=1.7.1.post2",
+    "netCDF4>=1.7.2",
     "numpy>=2.1.1",
     "scipy>=1.14.1",
     "tqdm>=4.67.1",

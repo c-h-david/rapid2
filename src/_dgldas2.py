@@ -15,7 +15,7 @@ import os
 import sys
 
 import earthaccess
-import netCDF4  # type: ignore[import-untyped]
+import netCDF4
 
 from rapid2 import __version__
 

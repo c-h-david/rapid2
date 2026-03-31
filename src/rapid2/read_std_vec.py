@@ -13,7 +13,7 @@
 import sys
 from typing import Optional
 
-import netCDF4  # type: ignore[import-untyped]
+import netCDF4
 import numpy as np
 import numpy.typing as npt
 

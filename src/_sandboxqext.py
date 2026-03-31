@@ -14,7 +14,7 @@ import argparse
 import os
 import sys
 
-import netCDF4  # type: ignore[import-untyped]
+import netCDF4
 import numpy as np
 
 from rapid2 import __version__

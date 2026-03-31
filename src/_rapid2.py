@@ -12,7 +12,7 @@
 # *****************************************************************************
 import argparse
 
-import netCDF4  # type: ignore[import-untyped]
+import netCDF4
 import numpy as np
 from tqdm import tqdm  # type: ignore[import-untyped]
 

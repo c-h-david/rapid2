@@ -13,7 +13,7 @@
 import argparse
 import sys
 
-import netCDF4  # type: ignore[import-untyped]
+import netCDF4
 import numpy as np
 from numpy.ma import MaskedArray
 

@@ -10,7 +10,7 @@
 # *****************************************************************************
 # Import Python modules
 # *****************************************************************************
-import netCDF4  # type: ignore[import-untyped]
+import netCDF4
 import numpy as np
 import numpy.typing as npt
 
