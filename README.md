@@ -66,7 +66,7 @@ This guide provides a quick way to get started with our project. Please see the
 ```bash
 git clone https://github.com/c-h-david/rapid2
 cd rapid2
-pip3 install .
+pip install .
 ```
 
 ### Run Instructions

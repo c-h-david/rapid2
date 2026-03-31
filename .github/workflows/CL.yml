@@ -84,7 +84,7 @@ jobs:
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       - name: Install Python requirements
         run: |
-          pip3 install --no-cache-dir ".[dev]"
+          python3 -m pip install --no-cache-dir ".[dev]"
 
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       # Run tests

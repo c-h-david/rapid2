@@ -84,7 +84,7 @@ jobs:
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       - name: Install Python requirements
         run: |
-          pip3 install --no-cache-dir .
+          python3 -m pip install --no-cache-dir .
           ./clean.sh
 
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
