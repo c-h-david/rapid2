@@ -37,7 +37,8 @@ dev = [
     "ruff",
     "mypy",
     "yamllint",
-    "hadolint-bin"
+    "hadolint-bin",
+    "pymarkdownlnt"
 ]
 
 [project.urls]

@@ -472,6 +472,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./.github/workflows/CI.yml` | Moved pip requirements to `pyproject.toml`. |
 | `./.github/workflows/CL.yml` | Moved pip requirements to `pyproject.toml`. |
 | `./clean.sh`                 | Added notes for cleaning pip environment. |
+| `./pyproject.toml`           | Added pymarkdownlnt. |
 
 ### Removed
 
