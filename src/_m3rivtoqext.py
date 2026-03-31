@@ -47,7 +47,7 @@ def main() -> None:
 
     parser.add_argument(
         "-m3r",
-        "--inflow_volume",
+        "--external_volume",
         dest="m3r",
         metavar="INFLOW_VOLUME",
         type=str,
