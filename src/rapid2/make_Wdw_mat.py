@@ -11,11 +11,11 @@
 # Import Python modules
 # *****************************************************************************
 import numpy as np
-from scipy.sparse import (  # type: ignore[import-untyped]
+from scipy.sparse import (
     csc_matrix,
     identity,
 )
-from scipy.sparse.linalg import (  # type: ignore[import-untyped]
+from scipy.sparse.linalg import (
     spsolve,
 )
 

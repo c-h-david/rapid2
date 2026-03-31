@@ -12,8 +12,8 @@
 # *****************************************************************************
 import numpy as np
 import numpy.typing as npt
-from scipy.sparse import csc_matrix  # type: ignore[import-untyped]
-from scipy.sparse.linalg import (  # type: ignore[import-untyped]
+from scipy.sparse import csc_matrix
+from scipy.sparse.linalg import (
     spsolve_triangular,
 )
 

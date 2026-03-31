@@ -40,6 +40,7 @@ dev = [
     "ruff",
     "mypy",
     "types-PyYAML",   # <--- Adds mypy support for pyyaml
+    "scipy-stubs",    # <--- Adds mypy support for scipy.sparse
 ]
 
 [project.urls]

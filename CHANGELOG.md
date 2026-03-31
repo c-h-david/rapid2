@@ -476,6 +476,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./*.*`                      | Bumped netCDF4>=1.7.2, cleaned mypy ignores. |
 | `./*.*`                      | Bumped numpy>=2.4.4, cleaned mypy ignores. |
 | `./*.*`                      | Added mypy support for pyyaml. |
+| `./*.*`                      | Added mypy support for scipy.sparse. |
 
 ### Removed
 
