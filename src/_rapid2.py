@@ -14,7 +14,7 @@ import argparse
 
 import netCDF4
 import numpy as np
-from tqdm import tqdm  # type: ignore[import-untyped]
+from tqdm import tqdm
 
 from rapid2 import __version__
 from rapid2.chck_bas import chck_bas

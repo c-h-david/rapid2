@@ -41,6 +41,7 @@ dev = [
     "mypy",
     "types-PyYAML",   # <--- Adds mypy support for pyyaml
     "scipy-stubs",    # <--- Adds mypy support for scipy.sparse
+    "types-tqdm",     # <--- Adds mypy support for tqdm
 ]
 
 [project.urls]
