@@ -35,8 +35,8 @@ def main() -> None:
         ),
         epilog=(
             "examples:\n"
-            "  sandboxqext --scl 1 1 1 2 2 --avg 10 10 10 20 20 "
-            "--Qex Qext_Sandbox.nc"
+            "  sandboxqext --scale 1 1 1 2 2 --average 10 10 10 "
+            "20 20 --external_inflow Qext_Sandbox.nc"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
@@ -46,7 +46,10 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "--scl",
+        "-scl",
+        "--scale",
+        dest="scl",
+        metavar="SCALE",
         type=float,
         required=True,
         nargs=5,
@@ -54,7 +57,10 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "--avg",
+        "-avg",
+        "--average",
+        dest="avg",
+        metavar="AVERAGE",
         type=float,
         required=True,
         nargs=5,
@@ -62,7 +68,10 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "--Qex",
+        "-Qex",
+        "--external_inflow",
+        dest="Qex",
+        metavar="EXTERNAL_INFLOW",
         type=str,
         required=True,
         help="specify the output Qext file",

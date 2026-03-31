@@ -47,8 +47,8 @@ def main() -> None:
         ),
         epilog=(
             "examples:\n"
-            "  rapid2 --nml input/Sandbox/namelist_Sandbox.yml\n"
-            "  rapid2 --nml input/Tutorial/namelist_Tutorial.yml"
+            "  rapid2 --namelist input/Sandbox/namelist_Sandbox.yml\n"
+            "  rapid2 --namelist input/Tutorial/namelist_Tutorial.yml"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
@@ -58,7 +58,10 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "--nml",
+        "-nml",
+        "--namelist",
+        dest="nml",
+        metavar="NAMELIST",
         type=str,
         required=True,
         help="specify the namelist file",

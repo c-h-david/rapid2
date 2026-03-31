@@ -37,10 +37,11 @@ Download GLDAS phase `2.1`, model `VIC`, for `2010-01`:
 
 ``` bash
 dgldas2 \
-    --phs 2.1 \
-    --mod VIC \
-    --tim 2010-01 \
-    --lsm input/Tutorial/GLDAS_2.1_VIC_2010-01.nc4
+    --phase 2.1 \
+    --model VIC \
+    --time 2010-01 \
+    --land_surface_model \
+    input/Tutorial/GLDAS_2.1_VIC_2010-01.nc4
 ```
 
 The new file is placed in `input/Tutorial`. Other files are also automatically
@@ -54,19 +55,26 @@ Convert the GLDAS runoff file into RAPID external inflow format:
 
 ``` bash
 cpllsm \
-    --lsm input/Tutorial/GLDAS_2.1_VIC_2010-01.nc4 \
-    --con input/Tutorial/rapid_connect_pfaf_74.csv \
-    --crd input/Tutorial/coords_pfaf_74.csv \
-    --cpl input/Tutorial/rapid_coupling_pfaf_74_GLDAS.csv \
-    --Qex input/Tutorial/Qext_pfaf_74_GLDAS_2.1_VIC_2010-01.nc4
+    --land_surface_model \
+    input/Tutorial/GLDAS_2.1_VIC_2010-01.nc4 \
+    --connectivity \
+    input/Tutorial/rapid_connect_pfaf_74.csv \
+    --coordinates \
+    input/Tutorial/coords_pfaf_74.csv \
+    --coupling \
+    input/Tutorial/rapid_coupling_pfaf_74_GLDAS.csv \
+    --external_inflow \
+    input/Tutorial/Qext_pfaf_74_GLDAS_2.1_VIC_2010-01.nc4
 ```
 
 ## 4. Create Cold Start File with `zeroqinit`
 
 ``` bash
 zeroqinit \
-    --Qex input/Tutorial/Qext_pfaf_74_GLDAS_2.1_VIC_2010-01.nc4 \
-    --Q00 input/Tutorial/Qinit_pfaf_74_GLDAS_2.1_VIC_2010-01.nc4
+    --external_inflow \
+    input/Tutorial/Qext_pfaf_74_GLDAS_2.1_VIC_2010-01.nc4 \
+    --initial_outflow \
+    input/Tutorial/Qinit_pfaf_74_GLDAS_2.1_VIC_2010-01.nc4
 ```
 
 ## 5. Run the Routing Model with `rapid2`
@@ -99,41 +107,49 @@ Qfi_ncf: './output/Tutorial/Qfinal_pfaf_74_GLDAS_2.1_VIC_2010-01_tst.nc4'
 ```
 
 ``` bash
-rapid2 --nml input/Tutorial/namelist_Tutorial.yml
+rapid2 --namelist input/Tutorial/namelist_Tutorial.yml
 ```
 
 ## 6. Compare Files to Baseline with `cmpncf`
 
 ``` bash
 cmpncf \
-    --prv input/Tutorial/Qinit_pfaf_74_GLDAS_2.1_VIC_2010-01_GOLD.nc4 \
-    --now input/Tutorial/Qinit_pfaf_74_GLDAS_2.1_VIC_2010-01.nc4 \
-    --rtl 1e-6 \
-    --atl 1e-3
+    --previous \
+    input/Tutorial/Qinit_pfaf_74_GLDAS_2.1_VIC_2010-01_GOLD.nc4 \
+    --now \
+    input/Tutorial/Qinit_pfaf_74_GLDAS_2.1_VIC_2010-01.nc4 \
+    --relative_tolerance 1e-6 \
+    --absolute_tolerance 1e-3
 ```
 
 ```bash
 cmpncf \
-    --prv input/Tutorial/Qext_pfaf_74_GLDAS_2.1_VIC_2010-01_GOLD.nc4 \
-    --now input/Tutorial/Qext_pfaf_74_GLDAS_2.1_VIC_2010-01.nc4 \
-    --rtl 1e-6 \
-    --atl 1e-3
+    --previous \
+    input/Tutorial/Qext_pfaf_74_GLDAS_2.1_VIC_2010-01_GOLD.nc4 \
+    --now \
+    input/Tutorial/Qext_pfaf_74_GLDAS_2.1_VIC_2010-01.nc4 \
+    --relative_tolerance 1e-6 \
+    --absolute_tolerance 1e-3
 ```
 
 ``` bash
 cmpncf \
-    --prv output/Tutorial/Qout_pfaf_74_GLDAS_2.1_VIC_2010-01_GOLD.nc4 \
-    --now output/Tutorial/Qout_pfaf_74_GLDAS_2.1_VIC_2010-01.nc4 \
-    --rtl 1e-6 \
-    --atl 1e-3
+    --previous \
+    output/Tutorial/Qout_pfaf_74_GLDAS_2.1_VIC_2010-01_GOLD.nc4 \
+    --now \
+    output/Tutorial/Qout_pfaf_74_GLDAS_2.1_VIC_2010-01.nc4 \
+    --relative_tolerance 1e-6 \
+    --absolute_tolerance 1e-3
 ```
 
 ```bash
 cmpncf \
-    --prv output/Tutorial/Qfinal_pfaf_74_GLDAS_2.1_VIC_2010-01_GOLD.nc4 \
-    --now output/Tutorial/Qfinal_pfaf_74_GLDAS_2.1_VIC_2010-01.nc4 \
-    --rtl 1e-6 \
-    --atl 1e-3
+    --previous \
+    output/Tutorial/Qfinal_pfaf_74_GLDAS_2.1_VIC_2010-01_GOLD.nc4 \
+    --now \
+    output/Tutorial/Qfinal_pfaf_74_GLDAS_2.1_VIC_2010-01.nc4 \
+    --relative_tolerance 1e-6 \
+    --absolute_tolerance 1e-3
 ```
 
 ## Current Known Challenges to Command Line Interface
