@@ -14,8 +14,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./Dockerfile`               | New file. |
 | `./LICENSE`                  | New file. |
 | `./README.md`                | New file. |
-| `./requirement.apt`          | New file. |
-| `./requirement.pip`          | New file. |
+| `./requirements.apt`         | New file. |
+| `./requirements.pip`         | New file. |
 | `./src/rapid2/bas_vec.py`    | New file. |
 | `./src/rapid2/con_vec.py`    | New file. |
 | `./src/rapid2/hsh_tbl.py`    | New file. |
@@ -84,7 +84,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/ccc_mat.py`    | Used simpler test values. |
 | `./src/rapid2/rte_mat.py`    | Used simpler test values. |
 | `./src/rapid2/net_mat.py`    | Changed network matrix to float64. |
-| `./requirement.pip`          | Updated for yamllint. |
+| `./requirements.pip`         | Updated for yamllint. |
 | `./.github/workflows/CD.yml` | Updated for yamllint. |
 | `./src/rapid2/fak_m3r.py`    | Replaced compressed() by filled(). |
 | `./src/rapid2/ccc_mat.py`    | Replaced type of routing time step. |
@@ -95,7 +95,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/fak_m3r.py`    | Refined global attributes. |
 | `./Dockerfile`               | Updated Debian. |
 | `./.github/workflows/CI.yml` | Added pymarkdown. |
-| `./requirement.pip`          | Added pymarkdown. |
+| `./requirements.pip`         | Added pymarkdown. |
 | `./README.md`                | Added installation instructions. |
 | `./src/rapid2/Qou_mdt.py`    | Changed mypy ignore comment. |
 | `./src/rapid2/ccc_mat.py`    | Changed mypy ignore comment. |
@@ -113,7 +113,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./README.md`                | Fixed text. |
 | `./Dockerfile`               | Linted with hadolint. |
 | `./.github/workflows/CI.yml` | Added hadolint. |
-| `./requirement.pip`          | Added hadolint. |
+| `./requirements.pip`         | Added hadolint. |
 | `./TESTING.md`               | Fixed typos. |
 | `./.github/workflows/CI.yml` | Added hadolint exception. |
 | `./Dockerfile`               | Fixed quotes and added apt-get clean. |
@@ -157,7 +157,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./SANDBOX.md`               | Clarified description. |
 | `./src/_rapid2.py`           | Used single quotes. |
 | `./src/rapid2/nml_cfg.py`    | Fixed typo in docstring. |
-| `./requirement.pip`          | Added earthaccess. |
+| `./requirements.pip`         | Added earthaccess. |
 | `./pyproject.toml`           | Added executable for GLDAS2 download. |
 | `.github/bug_report.yml`     | Modified format. |
 | `.github/enhancement.yml`    | Modified format. |
@@ -220,7 +220,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./.github/workflows/CI.yml` | Added shell linter. |
 | `./TESTING.md`               | Added shell linter. |
 | `./clean.sh`                 | Added shell linter. |
-| `./requirement.apt`          | Added shell linter. |
+| `./requirements.apt`         | Added shell linter. |
 | `./.github/workflows/CI.yml` | Refactored for Sandbox. |
 | `./README.md`                | Added Continuous Linting. |
 | `./tst/tst_dwnl_Sandbox.sh`  | Fixed line width. |
@@ -241,7 +241,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/inv_mat.py`    | Used at sign for linear algebra products. |
 | `./src/rapid2/mus_rte.py`    | Used at sign for linear algebra products. |
 | `./src/rapid2/rte_mat.py`    | Used at sign for linear algebra products. |
-| `./requirement.pip`          | Updated for hadolint-bin. |
+| `./requirements.pip`         | Updated for hadolint-bin. |
 | `./pyproject.toml`           | Fixed acronym. |
 | `./src/rapid2/wdw_mat.py`    | Split Ae and A0, folded Bet earlier. |
 | `./src/_cpllsm.py`           | Changed nc4 to ncf for consitency. |
@@ -275,7 +275,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/cpl_vec.py`    | Counted rows first for better allocation. |
 | `./src/rapid2/crd_vec.py`    | Counted rows first for better allocation. |
 | `./src/rapid2/k_x_vec.py`    | Counted rows first for better allocation. |
-| `./requirement.pip`          | Added version, examples, progress to CLI. |
+| `./requirements.pip`         | Added version, examples, progress to CLI. |
 | `./src/_cmpncf.py`           | Added version, examples, progress to CLI. |
 | `./src/_cpllsm.py`           | Added version, examples, progress to CLI. |
 | `./src/_dgldas2.py`          | Added version, examples, progress to CLI. |
@@ -302,7 +302,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./TESTING.md`               | Added ruff config section to pyproj.toml. |
 | `./pyproject.toml`           | Added ruff config section to pyproj.toml. |
 | `./.github/workflows/CL.yml` | Added ruff config section to pyproj.toml. |
-| `./requirement.pip`          | Added ruff config section to pyproj.toml. |
+| `./requirements.pip`         | Added ruff config section to pyproj.toml. |
 | `./TESTING.md`               | Added info and link to pyproj.toml. |
 | `./src/rapid2/inv_mat.py`    | Removed unused loop variable. |
 | `./src/rapid2/wdw_mat.py`    | Removed unused loop variable. |
@@ -467,6 +467,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./NOMENCLATURE.md`          | Updated for clarity. |
 | `./NOMENCLATURE.md`          | Fixed bullet indent. |
 | `./TUTORIAL.md`              | Added namelist to Tutorial. |
+| `./Dockerfile`               | Moved pip requirements to `pyproject.toml`. |
+| `./pyproject.toml`           | Moved pip requirements to `pyproject.toml`. |
+| `./.github/workflows/CI.yml` | Moved pip requirements to `pyproject.toml`. |
+| `./.github/workflows/CL.yml` | Moved pip requirements to `pyproject.toml`. |
 
 ### Removed
 
@@ -486,3 +490,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/riv_chk.py`    | Removed `riv_chk()`. |
 | `./src/rapid2/mus_int.py`    | Removed `mus_int()`. |
 | `./src/rapid2/make_Inv_mat.p`| Removed function. |
+| `./requirements.pip`         | Moved pip requirements to `pyproject.toml`. |
