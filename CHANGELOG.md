@@ -479,6 +479,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./*.*`                      | Added mypy support for scipy.sparse. |
 | `./*.*`                      | Added mypy support for tqdm. |
 | `./*.*`                      | Updated `pip3` to `python3 -m pip`. |
+| `./README.md`                | Updated description. |
+| `./pyproject.toml`           | Updated description. |
 
 ### Removed
 

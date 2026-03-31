@@ -25,6 +25,11 @@ river network routing model. Given external inflow to rivers, this model can
 compute the flow of water everywhere in river networks made out of many
 thousands of reaches.
 
+> **Note:** While the underlying RAPID routing methodology is highly mature and
+> battle-tested in operational environments, this specific Python 3 codebase
+> (RAPID2) is in active development as we head toward our first official Beta
+> release.
+
 Notable links:
 
 - [RAPID website][URL_RAPHUB]

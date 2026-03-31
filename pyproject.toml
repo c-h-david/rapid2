@@ -23,6 +23,23 @@ license = {file = "LICENSE"}
 readme = "README.md"
 description = "Routing Application for Programmed Integration of Discharge"
 authors = [{name = "Cedric H. David", email = "cedric.david@jpl.nasa.gov"}]
+keywords = [
+    "river",
+    "network",
+    "routing",
+    "hydrology",
+    "muskingum",
+    "discharge",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Hydrology",
+]
+
 dependencies = [
     "netCDF4>=1.7.2",
     "numpy>=2.4.4",
