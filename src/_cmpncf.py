@@ -40,14 +40,14 @@ def main() -> None:
             "  cmpncf "
             "--previous "
             "input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01_GOLD.nc4 "
-            "--current "
+            "--now "
             "input/Tutorial/Qinit_GLDAS_2.1_VIC_2010-01.nc4 "
             "--relative_tolerance 1e-6 "
             "--absolute_tolerance 1e-3\n"
             "  cmpncf "
             "--previous "
             "input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01_GOLD.nc4 "
-            "--current "
+            "--now "
             "input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01.nc4 "
             "--relative_tolerance 1e-6 "
             "--absolute_tolerance 1e-3"
@@ -71,9 +71,9 @@ def main() -> None:
 
     parser.add_argument(
         "-now",
-        "--current",
+        "--now",
         dest="now",
-        metavar="CURRENT",
+        metavar="NOW",
         type=str,
         required=True,
         help="specify the new netCDF file",

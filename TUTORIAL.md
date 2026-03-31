@@ -116,7 +116,7 @@ rapid2 --namelist input/Tutorial/namelist_Tutorial.yml
 cmpncf \
     --previous \
     input/Tutorial/Qinit_pfaf_74_GLDAS_2.1_VIC_2010-01_GOLD.nc4 \
-    --current \
+    --now \
     input/Tutorial/Qinit_pfaf_74_GLDAS_2.1_VIC_2010-01.nc4 \
     --relative_tolerance 1e-6 \
     --absolute_tolerance 1e-3
@@ -126,7 +126,7 @@ cmpncf \
 cmpncf \
     --previous \
     input/Tutorial/Qext_pfaf_74_GLDAS_2.1_VIC_2010-01_GOLD.nc4 \
-    --current \
+    --now \
     input/Tutorial/Qext_pfaf_74_GLDAS_2.1_VIC_2010-01.nc4 \
     --relative_tolerance 1e-6 \
     --absolute_tolerance 1e-3
@@ -136,7 +136,7 @@ cmpncf \
 cmpncf \
     --previous \
     output/Tutorial/Qout_pfaf_74_GLDAS_2.1_VIC_2010-01_GOLD.nc4 \
-    --current \
+    --now \
     output/Tutorial/Qout_pfaf_74_GLDAS_2.1_VIC_2010-01.nc4 \
     --relative_tolerance 1e-6 \
     --absolute_tolerance 1e-3
@@ -146,7 +146,7 @@ cmpncf \
 cmpncf \
     --previous \
     output/Tutorial/Qfinal_pfaf_74_GLDAS_2.1_VIC_2010-01_GOLD.nc4 \
-    --current \
+    --now \
     output/Tutorial/Qfinal_pfaf_74_GLDAS_2.1_VIC_2010-01.nc4 \
     --relative_tolerance 1e-6 \
     --absolute_tolerance 1e-3

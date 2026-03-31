@@ -49,7 +49,7 @@ def main() -> None:
         "-m3r",
         "--external_volume",
         dest="m3r",
-        metavar="INFLOW_VOLUME",
+        metavar="EXTERNAL_VOLUME",
         type=str,
         required=True,
         help="specify the input m3_riv file",
