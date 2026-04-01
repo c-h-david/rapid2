@@ -14,7 +14,7 @@ import netCDF4
 import numpy as np
 import numpy.typing as npt
 
-from rapid2.prep_skl_ncf import prep_skl_ncf
+from .prep_skl_ncf import prep_skl_ncf
 
 
 # *****************************************************************************
