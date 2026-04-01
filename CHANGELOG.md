@@ -481,6 +481,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./*.*`                      | Updated `pip3` to `python3 -m pip`. |
 | `./README.md`                | Updated description. |
 | `./pyproject.toml`           | Updated description. |
+| `./*.*`                      | Overhauled directory structure. |
 
 ### Removed
 
