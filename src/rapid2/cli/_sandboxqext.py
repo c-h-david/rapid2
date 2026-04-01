@@ -17,8 +17,10 @@ import sys
 import netCDF4
 import numpy as np
 
-from rapid2 import __version__
-from rapid2.prep_Qex_ncf import prep_Qex_ncf
+from rapid2 import (
+    __version__,
+    prep_Qex_ncf,
+)
 
 
 # *****************************************************************************

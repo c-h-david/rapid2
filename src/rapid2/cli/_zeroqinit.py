@@ -16,8 +16,10 @@ import sys
 
 import netCDF4
 
-from rapid2 import __version__
-from rapid2.prep_Qfi_ncf import prep_Qfi_ncf
+from rapid2 import (
+    __version__,
+    prep_Qfi_ncf,
+)
 
 
 # *****************************************************************************
