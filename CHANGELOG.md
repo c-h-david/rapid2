@@ -482,6 +482,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./README.md`                | Updated description. |
 | `./pyproject.toml`           | Updated description. |
 | `./*.*`                      | Overhauled directory structure. |
+| `./src/rapid2/__init__.py`   | Added top level facade and public interface. |
 
 ### Removed
 
