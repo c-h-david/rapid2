@@ -96,7 +96,7 @@ jobs:
           cd tst/
           ./tst_dwnl_Sandbox.sh
           cd ..
-          python3 -m doctest src/rapid2/*.py
+          python3 -m doctest src/rapid2/core/*.py
 
 
 # *****************************************************************************

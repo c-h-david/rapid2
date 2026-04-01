@@ -485,6 +485,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/__init__.py`   | Added top level facade and public interface. |
 | `./src/rapid2/cli/*.py`      | Updated imports to top level facade. |
 | `./src/rapid2/core/*.py`     | Updated imports to internal relative. |
+| `./*.*`                      | Updated CI and cleanup for `core` and `cli`. |
 
 ### Removed
 

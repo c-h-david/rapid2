@@ -28,9 +28,13 @@ targets=(
     ".mypy_cache"
     "src/.mypy_cache"
     "src/rapid2/.mypy_cache"
+    "src/rapid2/core/.mypy_cache"
+    "src/rapid2/cli/.mypy_cache"
     "__pycache__"
     "src/__pycache__"
     "src/rapid2/__pycache__"
+    "src/rapid2/core/__pycache__"
+    "src/rapid2/cli/__pycache__"
 )
 
 for target in "${targets[@]}"; do

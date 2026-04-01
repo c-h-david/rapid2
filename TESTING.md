@@ -99,7 +99,7 @@ efforts to replicate past results.
 We use the `doctest` module to check examples in docstrings.
 
 ```bash
-python3 -m doctest src/rapid2/*.py
+python3 -m doctest src/rapid2/core/*.py
 ```
 
 ### Replication of past results
