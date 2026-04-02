@@ -20,7 +20,7 @@ IFS=$'\n\t'
 
 
 # *****************************************************************************
-# Clean up
+# Clean Python Caches and Build Artifacts
 # *****************************************************************************
 targets=(
     "build"
@@ -43,13 +43,36 @@ done
 
 find . -name .DS_Store -delete
 
-
 # *****************************************************************************
-# Occasional virtual environment cleanup
+# Nuke and Rebuild Virtual Environment
 # *****************************************************************************
+# Run these commands only if your local environment becomes hopelessly
+# corrupted or if you want to test a completely clean installation from
+# scratch.
+#
 # rm -rf ~/venv/
 # /usr/bin/python3 -m venv ~/venv/
-# ~/venv/bin/python3 -m pip install ".[dev]"
+
+
+# *****************************************************************************
+# Update Editable Install
+# *****************************************************************************
+# Run this command ONLY if you modify `pyproject.toml` (e.g., adding a new
+# dependency or a new CLI tool). Because we use the "-e" development mode,
+# standard day-to-day code changes in the src/ directory are immediately live
+# through path at ~/venv/lib/python3.11/site-packages/__editable__.rapid2-*.pth
+#
+# ~/venv/bin/python3 -m pip install -e ".[dev]"
+
+
+# *****************************************************************************
+# Persistent Environment Activation Reminder
+# *****************************************************************************
+# We do not use the standard "source ~/venv/bin/activate" command. Instead,
+# ensure the following line is placed in your ~/.bash_aliases (or ~/.bashrc)
+# so your terminal always looks in the virtual environment first:
+#
+# export PATH=$HOME/venv/bin:$PATH
 
 
 # *****************************************************************************
