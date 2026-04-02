@@ -2,14 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on
+[Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to
+[Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
 ## [2.0.0b1] - 2026-04-02
 
 ### Changed
+
 - **Transition to Python**: Complete architectural shift from legacy Fortran 90
   to a modern, object-oriented Python 3 framework (RAPID2).
 - **Project Structure**: Adopted standard Python packaging and a
@@ -24,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   naming conventions within a strict `NOMENCLATURE.md` framework.
 
 ### Added
+
 - **Initial Beta Release** of the Python 3 implementation.
 - **Standardized CLI Tools** for river routing and data preprocessing.
 - **Automated CI/CD Pipelines**: Enforced strict linting, formatting, and
