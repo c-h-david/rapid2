@@ -27,8 +27,7 @@ thousands of reaches.
 
 > **Note:** While the underlying RAPID routing methodology is highly mature and
 > battle-tested in operational environments, this specific Python 3 codebase
-> (RAPID2) is in active development as we head toward our first official Beta
-> release.
+> (RAPID2) is currently in Beta (v2.0.0b1) and under active development.
 
 Notable links:
 

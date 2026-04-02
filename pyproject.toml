@@ -18,7 +18,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "rapid2"
-version = "2.0.0.dev1"
+version = "2.0.0.b1"
 license = {file = "LICENSE"}
 readme = "README.md"
 description = "Routing Application for Programmed Integration of Discharge"
