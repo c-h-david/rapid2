@@ -22,7 +22,6 @@ on:  # yamllint disable-line rule:truthy
       - 'main'
     tags:
       - 'v*'
-      - '20*'
 
 
 # *****************************************************************************
@@ -80,6 +79,17 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_TOKN }}
 
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      # Determine secondary Docker tag
+      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      - name: Determine secondary tag
+        run: |
+          if [[ "${{ github.ref_type }}" == "tag" ]]; then
+            echo "EXTRA_TAG=${{ github.ref_name }}" >> $GITHUB_ENV
+          else
+            echo "EXTRA_TAG=latest" >> $GITHUB_ENV
+          fi
+
+      # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       # Build and push to Docker Hub
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       - name: Build and push
@@ -89,7 +99,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           tags: |
             ${{ secrets.DOCKER_HUB_NAME }}/rapid2:latest
-            ${{ secrets.DOCKER_HUB_NAME }}/rapid2:${{ github.ref_name }}
+            ${{ secrets.DOCKER_HUB_NAME }}/rapid2:${{ env.EXTRA_TAG }}
 
 
 # *****************************************************************************

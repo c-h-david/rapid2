@@ -488,6 +488,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./*.*`                      | Updated CI and cleanup for `core` and `cli`. |
 | `./src/rapid2/core/*.py`     | Used abs imports in core/ to fix doctest. |
 | `./clean.sh`                 | Clarified cleaning steps description. |
+| `./.github/workflows/CD.yml` | Updated to avoid `main` tag on Docker-Hub. |
 
 ### Removed
 
