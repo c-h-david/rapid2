@@ -70,6 +70,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0).
 | `./src/rapid2/skl_new.py`    | New file. |
 | `./src/rapid2/std_mdt.py`    | New file. |
 | `./NOMENCLATURE.md`          | New file. |
+| `./.github/workflows/CP.yml` | New file. |
 
 ### Changed
 
