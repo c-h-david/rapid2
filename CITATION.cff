@@ -21,6 +21,9 @@ identifiers:
     description: >-
       A decade of RAPID - Reﬂections on the development of an open source
       geoscience code
+  - type: doi
+    value: 10.5281/zenodo.19393023
+    description: Routing Application for Programmed Integration of Discharge
 repository-code: 'https://github.com/c-h-david/rapid2'
 url: 'http://rapid-hub.org/'
 abstract: >-
