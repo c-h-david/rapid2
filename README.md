@@ -1,13 +1,8 @@
 # RAPID
 
-<!-- pyml disable-num-lines 7 no-inline-html -->
-<!-- pyml disable-num-lines 6 line-length -->
-<div style="position: relative; width: 120px; height: 120px;">
-  <img src="https://raw.githubusercontent.com/c-h-david/rapid2/main/img/icon_rapid_network.svg"
-       style="width: 100%; position: absolute; top: 0; left: 0;" />
-  <img src="https://raw.githubusercontent.com/c-h-david/rapid2/main/img/font_rapid_network.svg"
-       style="width: 100%; position: absolute; top: 0; left: 0;" />
-</div>
+<!-- pyml disable-num-lines 2 no-inline-html -->
+<!-- pyml disable-num-lines 1 line-length -->
+<img src="https://raw.githubusercontent.com/c-h-david/rapid2/main/img/icon_rapid_network.svg" alt="RAPID network icon" width="128"/>
 
 [![DOI][BDG_ZENODO]][URL_ZENODO]
 
