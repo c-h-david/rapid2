@@ -1,24 +1,34 @@
 # RAPID
 
-<!-- pyml disable-num-lines 2 no-inline-html -->
-<!-- pyml disable-num-lines 1 line-length -->
-<img src="https://raw.githubusercontent.com/c-h-david/rapid2/main/img/icon_rapid_network.svg" alt="RAPID network icon" width="80"/>
+<!-- pyml disable-num-lines 7 no-inline-html -->
+<!-- pyml disable-num-lines 6 line-length -->
+<div style="position: relative; width: 120px; height: 120px;">
+  <img src="https://raw.githubusercontent.com/c-h-david/rapid2/main/img/icon_rapid_network.svg"
+       style="width: 100%; position: absolute; top: 0; left: 0;" />
+  <img src="https://raw.githubusercontent.com/c-h-david/rapid2/main/img/font_rapid_network.svg"
+       style="width: 100%; position: absolute; top: 0; left: 0;" />
+</div>
 
-[![License (3-Clause BSD)][BDG_BSD3CL]][URL_LICENS]
+[![DOI][BDG_ZENODO]][URL_ZENODO]
 
+[![Python versions][BDG_PY_VSN]][URL___PYPI]
+[![PyPI version][BDG_PYPI_V]][URL___PYPI]
+[![PyPI downloads][BDG_PYPI_D]][URL___PYPI]
+
+[![Run Docker][BDG_DKRRUN]][URL_DKRIMG]
+[![Docker pulls][BDG_DKRPUL]][URL_DKRIMG]
+
+[![CI (integration)][BDG_GHA_CI]][URL_GHA_CI]
+[![Last commit][BDG_GH_LST]][URL_GHREPO]
+
+[![lint: ruff][BDG___RUFF]][URL___RUFF]
+[![type: mypy][BDG___MYPY]][URL___MYPY]
+[![test: doctest][BDG_DOCTST]][URL_DOCT]
+
+[![License (3-Clause BSD)][BDG_BSD3CL]][URL_BSD3CL]
 [![Contributor Covenant][BDG_CONDUC]][URL_CONDUC]
-
 [![Code of Collab][BDG_COLLAB]][URL_COLLAB]
-
 [![SLIM][BDG___SLIM]][URL___SLIM]
-
-[![GitHub CI Status][BDG_GHA_CL]][URL_GHA_CL]
-
-[![GitHub CI Status][BDG_GHA_CI]][URL_GHA_CI]
-
-[![GitHub CI Status][BDG_GHA_CD]][URL_GHA_CD]
-
-[![Docker Images][BDG_DKRIMG]][URL_DKRIMG]
 
 The Routing Application for Programmed Integration of Discharge (RAPID) is a
 river network routing model. Given external inflow to rivers, this model can
@@ -177,23 +187,44 @@ For sensitive matters that cannot be shared publicly, contact
 [Cédric H. David][URL_GITCHD]
 
 <!-- pyml disable-num-lines 30 line-length -->
+[BDG_ZENODO]: https://zenodo.org/badge/DOI/10.5281/zenodo.19393023.svg
+
+[BDG_PY_VSN]: https://img.shields.io/pypi/pyversions/rapid2
+[BDG_PYPI_V]: https://img.shields.io/pypi/v/rapid2
+[BDG_PYPI_D]: https://img.shields.io/pypi/dm/rapid2?style=flat
+
+[BDG_DKRRUN]: https://img.shields.io/badge/run-docker-blue?logo=docker
+[BDG_DKRPUL]: https://img.shields.io/docker/pulls/chdavid/rapid2
+
+[BDG_GHA_CI]: https://github.com/c-h-david/rapid2/actions/workflows/CI.yml/badge.svg
+[BDG_GH_LST]: https://img.shields.io/github/last-commit/c-h-david/rapid2
+
+[BDG___RUFF]: https://img.shields.io/badge/lint-ruff-blue
+[BDG___MYPY]: https://img.shields.io/badge/type-mypy-blue
+[BDG_DOCTST]: https://img.shields.io/badge/test-doctest-blue
+
 [BDG_BSD3CL]: https://img.shields.io/badge/license-BSD%203--Clause-yellow.svg
 [BDG_CONDUC]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
 [BDG_COLLAB]: https://img.shields.io/badge/Code%20of%20Collab-DRAFT-violet.svg
 [BDG___SLIM]: https://img.shields.io/badge/Best%20Practices%20from-SLIM-blue
-[BDG_GHA_CL]: https://github.com/c-h-david/rapid2/actions/workflows/CL.yml/badge.svg
-[BDG_GHA_CI]: https://github.com/c-h-david/rapid2/actions/workflows/CI.yml/badge.svg
-[BDG_GHA_CD]: https://github.com/c-h-david/rapid2/actions/workflows/CD.yml/badge.svg
-[BDG_DKRIMG]: https://img.shields.io/badge/docker-images-blue?logo=docker
 
-[URL_LICENS]: https://github.com/c-h-david/rapid2/blob/main/LICENSE
+[URL_ZENODO]: https://doi.org/10.5281/zenodo.19393023
+
+[URL___PYPI]: https://pypi.org/project/rapid2/
+
+[URL_DKRIMG]: https://hub.docker.com/r/chdavid/rapid2
+
+[URL_GHA_CI]: https://github.com/c-h-david/rapid2/actions/workflows/CI.yml
+[URL_GHREPO]: https://github.com/c-h-david/rapid2
+
+[URL___RUFF]: https://docs.astral.sh/ruff/
+[URL___MYPY]: https://mypy-lang.org/
+[URL_DOCT]: https://docs.python.org/3/library/doctest.html
+
+[URL_BSD3CL]: https://github.com/c-h-david/rapid2/blob/main/LICENSE
 [URL_CONDUC]: https://github.com/c-h-david/rapid2/blob/main/CODE_OF_CONDUCT.md
 [URL_COLLAB]: https://github.com/c-h-david/rapid2/blob/main/CODE_OF_COLLAB.md
 [URL___SLIM]: https://nasa-ammos.github.io/slim/
-[URL_GHA_CL]: https://github.com/c-h-david/rapid2/actions/workflows/CL.yml
-[URL_GHA_CI]: https://github.com/c-h-david/rapid2/actions/workflows/CI.yml
-[URL_GHA_CD]: https://github.com/c-h-david/rapid2/actions/workflows/CD.yml
-[URL_DKRIMG]: https://hub.docker.com/r/chdavid/rapid2/tags
 
 [URL_RAPHUB]: http://rapid-hub.org/
 [URL_DISCUS]: https://github.com/c-h-david/rapid2/discussions
@@ -203,7 +234,5 @@ For sensitive matters that cannot be shared publicly, contact
 [URL_CHGLOG]: https://github.com/c-h-david/rapid2/blob/main/CHANGELOG.md
 [URL_RELEAS]: https://github.com/c-h-david/rapid2/releases
 [URL_CONTRI]: https://github.com/c-h-david/rapid2/blob/main/CONTRIBUTING.md
-[URL_CONDUC]: https://github.com/c-h-david/rapid2/blob/main/CODE_OF_CONDUCT.md
-[URL_COLLAB]: https://github.com/c-h-david/rapid2/blob/main/CODE_OF_COLLAB.md
 [URL_GOVERN]: https://github.com/c-h-david/rapid2/blob/main/GOVERNANCE.md
 [URL_GITCHD]: https://github.com/c-h-david
