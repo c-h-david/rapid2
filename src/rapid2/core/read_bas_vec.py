@@ -10,11 +10,11 @@
 # *****************************************************************************
 # Import Python modules
 # *****************************************************************************
-import csv
 import sys
 
 import numpy as np
 import numpy.typing as npt
+import pyarrow.csv as pv
 
 
 # *****************************************************************************
@@ -43,28 +43,14 @@ def read_bas_vec(bas_csv: str) -> npt.NDArray[np.int32]:
     """
 
     # -------------------------------------------------------------------------
-    # Count the number of elements
+    # Read CSV and populate array
     # -------------------------------------------------------------------------
     try:
-        with open(bas_csv, "r") as csvfile:
-            IS_riv_bas = sum(1 for _ in csvfile)
-    except IOError:
-        print(f"ERROR - Unable to open {bas_csv}")
-        sys.exit(1)
+        read_options = pv.ReadOptions(column_names=["riv"])
+        table = pv.read_csv(bas_csv, read_options=read_options)
 
-    # -------------------------------------------------------------------------
-    # Allocate array sizes
-    # -------------------------------------------------------------------------
-    IV_riv_bas = np.empty(IS_riv_bas, dtype=np.int32)
+        IV_riv_bas = table.column("riv").to_numpy().astype(np.int32)
 
-    # -------------------------------------------------------------------------
-    # Populate arrays
-    # -------------------------------------------------------------------------
-    try:
-        with open(bas_csv, "r") as csvfile:
-            csvreader = csv.reader(csvfile)
-            for JS_riv_bas, row in enumerate(csvreader):
-                IV_riv_bas[JS_riv_bas] = np.int32(row[0])
     except IOError:
         print(f"ERROR - Unable to open {bas_csv}")
         sys.exit(1)

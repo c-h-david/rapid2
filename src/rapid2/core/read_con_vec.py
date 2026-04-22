@@ -10,11 +10,11 @@
 # *****************************************************************************
 # Import Python modules
 # *****************************************************************************
-import csv
 import sys
 
 import numpy as np
 import numpy.typing as npt
+import pyarrow.csv as pv
 
 
 # *****************************************************************************
@@ -48,30 +48,15 @@ def read_con_vec(
     """
 
     # -------------------------------------------------------------------------
-    # Count the number of elements
+    # Read CSV and populate arrays
     # -------------------------------------------------------------------------
     try:
-        with open(con_csv, "r") as csvfile:
-            IS_riv_tot = sum(1 for _ in csvfile)
-    except IOError:
-        print(f"ERROR - Unable to open {con_csv}")
-        sys.exit(1)
+        read_options = pv.ReadOptions(column_names=["riv", "dwn"])
+        table = pv.read_csv(con_csv, read_options=read_options)
 
-    # -------------------------------------------------------------------------
-    # Allocate array sizes
-    # -------------------------------------------------------------------------
-    IV_riv_tot = np.empty(IS_riv_tot, dtype=np.int32)
-    IV_dwn_tot = np.empty(IS_riv_tot, dtype=np.int32)
+        IV_riv_tot = table.column("riv").to_numpy().astype(np.int32)
+        IV_dwn_tot = table.column("dwn").to_numpy().astype(np.int32)
 
-    # -------------------------------------------------------------------------
-    # Populate arrays
-    # -------------------------------------------------------------------------
-    try:
-        with open(con_csv, "r") as csvfile:
-            csvreader = csv.reader(csvfile)
-            for JS_riv_tot, row in enumerate(csvreader):
-                IV_riv_tot[JS_riv_tot] = np.int32(row[0])
-                IV_dwn_tot[JS_riv_tot] = np.int32(row[1])
     except IOError:
         print(f"ERROR - Unable to open {con_csv}")
         sys.exit(1)

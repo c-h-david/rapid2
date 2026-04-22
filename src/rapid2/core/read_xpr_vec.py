@@ -10,11 +10,11 @@
 # *****************************************************************************
 # Import Python modules
 # *****************************************************************************
-import csv
 import sys
 
 import numpy as np
 import numpy.typing as npt
+import pyarrow.csv as pv
 
 
 # *****************************************************************************
@@ -48,32 +48,18 @@ def read_xpr_vec(
     """
 
     # -------------------------------------------------------------------------
-    # Count the number of elements
+    # Read CSV and populate array
     # -------------------------------------------------------------------------
     try:
-        with open(xpr_csv, "r") as csvfile:
-            IS_riv_tot = sum(1 for _ in csvfile)
+        read_options = pv.ReadOptions(column_names=["xpr"])
+        table = pv.read_csv(xpr_csv, read_options=read_options)
+
+        ZV_xpr_tot = table.column("xpr").to_numpy().astype(np.float64)
+        ZV_xpr_bas = ZV_xpr_tot[IV_0bi_bas]
+
     except IOError:
         print(f"ERROR - Unable to open {xpr_csv}")
         sys.exit(1)
-
-    # -------------------------------------------------------------------------
-    # Allocate array sizes
-    # -------------------------------------------------------------------------
-    ZV_xpr_tot = np.empty(IS_riv_tot, dtype=np.float64)
-
-    # -------------------------------------------------------------------------
-    # Populate arrays
-    # -------------------------------------------------------------------------
-    try:
-        with open(xpr_csv, "r") as csvfile:
-            csvreader = csv.reader(csvfile)
-            for JS_riv_tot, row in enumerate(csvreader):
-                ZV_xpr_tot[JS_riv_tot] = np.float64(row[0])
-    except IOError:
-        print(f"ERROR - Unable to open {xpr_csv}")
-        sys.exit(1)
-    ZV_xpr_bas = ZV_xpr_tot[IV_0bi_bas]
 
     return ZV_xpr_bas
 

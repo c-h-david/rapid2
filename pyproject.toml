@@ -47,6 +47,7 @@ dependencies = [
     "tqdm>=4.67.1",
     "earthaccess>=0.14.0",
     "pyyaml>=6.0.3",
+    "pyarrow>=24.0.0",
 ]
 
 [project.optional-dependencies]
@@ -59,6 +60,7 @@ dev = [
     "types-PyYAML",   # <--- Adds mypy support for pyyaml
     "scipy-stubs",    # <--- Adds mypy support for scipy.sparse
     "types-tqdm",     # <--- Adds mypy support for tqdm
+    "pyarrow-stubs",  # <--- Adds mypy support for pyarrow
 ]
 
 [project.urls]

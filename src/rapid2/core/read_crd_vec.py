@@ -10,11 +10,11 @@
 # *****************************************************************************
 # Import Python modules
 # *****************************************************************************
-import csv
 import sys
 
 import numpy as np
 import numpy.typing as npt
+import pyarrow.csv as pv
 
 
 # *****************************************************************************
@@ -53,32 +53,16 @@ def read_crd_vec(
     """
 
     # -------------------------------------------------------------------------
-    # Count the number of elements
+    # Read CSV and populate arrays
     # -------------------------------------------------------------------------
     try:
-        with open(crd_csv, "r") as csvfile:
-            IS_riv_tot = sum(1 for _ in csvfile)
-    except IOError:
-        print(f"ERROR - Unable to open {crd_csv}")
-        sys.exit(1)
+        read_options = pv.ReadOptions(column_names=["riv", "lon", "lat"])
+        table = pv.read_csv(crd_csv, read_options=read_options)
 
-    # -------------------------------------------------------------------------
-    # Allocate array sizes
-    # -------------------------------------------------------------------------
-    IV_riv_tot = np.empty(IS_riv_tot, dtype=np.int32)
-    ZV_lon_tot = np.empty(IS_riv_tot, dtype=np.float64)
-    ZV_lat_tot = np.empty(IS_riv_tot, dtype=np.float64)
+        IV_riv_tot = table.column("riv").to_numpy().astype(np.int32)
+        ZV_lon_tot = table.column("lon").to_numpy().astype(np.float64)
+        ZV_lat_tot = table.column("lat").to_numpy().astype(np.float64)
 
-    # -------------------------------------------------------------------------
-    # Populate arrays
-    # -------------------------------------------------------------------------
-    try:
-        with open(crd_csv, "r") as csvfile:
-            csvreader = csv.reader(csvfile)
-            for JS_riv_tot, row in enumerate(csvreader):
-                IV_riv_tot[JS_riv_tot] = np.int32(row[0])
-                ZV_lon_tot[JS_riv_tot] = np.float64(row[1])
-                ZV_lat_tot[JS_riv_tot] = np.float64(row[2])
     except IOError:
         print(f"ERROR - Unable to open {crd_csv}")
         sys.exit(1)

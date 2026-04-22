@@ -10,11 +10,11 @@
 # *****************************************************************************
 # Import Python modules
 # *****************************************************************************
-import csv
 import sys
 
 import numpy as np
 import numpy.typing as npt
+import pyarrow.csv as pv
 
 
 # *****************************************************************************
@@ -59,34 +59,19 @@ def read_cpl_vec(
     """
 
     # -------------------------------------------------------------------------
-    # Count the number of elements
+    # Read CSV and populate arrays
     # -------------------------------------------------------------------------
     try:
-        with open(cpl_csv, "r") as csvfile:
-            IS_riv_tot = sum(1 for _ in csvfile)
-    except IOError:
-        print(f"ERROR - Unable to open {cpl_csv}")
-        sys.exit(1)
+        read_options = pv.ReadOptions(
+            column_names=["riv", "skm", "1bi", "1bj"]
+        )
+        table = pv.read_csv(cpl_csv, read_options=read_options)
 
-    # -------------------------------------------------------------------------
-    # Allocate array sizes
-    # -------------------------------------------------------------------------
-    IV_riv_tot = np.empty(IS_riv_tot, dtype=np.int32)
-    ZV_skm_tot = np.empty(IS_riv_tot, dtype=np.float64)
-    IV_1bi_tot = np.empty(IS_riv_tot, dtype=np.int32)
-    IV_1bj_tot = np.empty(IS_riv_tot, dtype=np.int32)
+        IV_riv_tot = table.column("riv").to_numpy().astype(np.int32)
+        ZV_skm_tot = table.column("skm").to_numpy().astype(np.float64)
+        IV_1bi_tot = table.column("1bi").to_numpy().astype(np.int32)
+        IV_1bj_tot = table.column("1bj").to_numpy().astype(np.int32)
 
-    # -------------------------------------------------------------------------
-    # Populate arrays
-    # -------------------------------------------------------------------------
-    try:
-        with open(cpl_csv, "r") as csvfile:
-            csvreader = csv.reader(csvfile)
-            for JS_riv_tot, row in enumerate(csvreader):
-                IV_riv_tot[JS_riv_tot] = np.int32(row[0])
-                ZV_skm_tot[JS_riv_tot] = np.float64(row[1])
-                IV_1bi_tot[JS_riv_tot] = np.int32(row[2])
-                IV_1bj_tot[JS_riv_tot] = np.int32(row[3])
     except IOError:
         print(f"ERROR - Unable to open {cpl_csv}")
         sys.exit(1)
