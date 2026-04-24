@@ -153,6 +153,7 @@ to accommodate external API terminology.
 | Code | Meaning            | Notes                                           |
 | ---- | ------------------ | ----------------------------------------------- |
 | `csv`| Comma Separated    | Used for tabular text data and parameters.      |
+| `pqt`| Parquet            | Used for fast, columnar binary data.            |
 | `ncf`| NetCDF             | Used for scientific multi-dimensional data.     |
 | `yml`| YAML               | Used for model configuration inputs.            |
 
@@ -201,9 +202,12 @@ still obey the `<type><structure1>_` prefix:
 The following are exempt from strict triplet checking and `<type><structure1>_`
 prefix:
 
-- **Interface Idioms:** Conventional variables representing standard parsing
-  interfaces (e.g., `args`, `parser`) when used strictly for command-line or
-  configuration parsing (e.g., `argparse`, YAML loaders).
+- **Argparse Idioms:** Conventional variables representing standard parsing
+  interfaces (e.g., `args`, `parser`) when used strictly for configuration
+  parsing.
+- **PyArrow Toolbox Idioms:** Handles and configuration objects used as
+  transient interfaces during fast file I/O operations (e.g., `table`,
+  `read_options`) to maintain standard syntax with the `pyarrow` library.
 - **NetCDF Toolbox Idioms:** Handles for `netCDF4` objects to maintain direct
   mapping with disk-level structures:
   - **Datasets:** Must use the single character assigned in the `<dataset>`
@@ -221,7 +225,7 @@ prefix:
 
 | Code             | Meaning            | Notes                               |
 | ---------------- | ------------------ | ----------------------------------- |
-| `bas_csv`        | Basin info         | CSV file with subset of river IDs.  |
+| `bas_pqt`        | Basin info         | Parquet file with subset of IDs.    |
 | `Qex_ncf`        | External inflow    | NetCDF file containing forcing data.|
 | `nml_yml`        | Namelist           | YAML file for model configuration.  |
 
