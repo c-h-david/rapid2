@@ -68,6 +68,7 @@ Repository = "https://github.com/c-h-david/rapid2.git"
 
 [project.scripts]
 rapid2 = "rapid2.cli._rapid2:main"
+rapid1to2 = "rapid2.cli._rapid1to2:main"
 dgldas2 = "rapid2.cli._dgldas2:main"
 m3rivtoqext = "rapid2.cli._m3rivtoqext:main"
 zeroqinit = "rapid2.cli._zeroqinit:main"
