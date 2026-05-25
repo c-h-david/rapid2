@@ -131,7 +131,17 @@ def main() -> None:
     else:
         try:
             read_options = pv.ReadOptions(autogenerate_column_names=True)
-            table = pv.read_csv(con_csv, read_options=read_options)
+            convert_options = pv.ConvertOptions(
+                column_types={
+                    "f0": pa.int32(),
+                    "f1": pa.int32(),
+                },
+            )
+            table = pv.read_csv(
+                con_csv,
+                read_options=read_options,
+                convert_options=convert_options,
+            )
             table = table.select(["f0", "f1"]).rename_columns(["riv", "dwn"])
             pq.write_table(table, con_pqt)
             # Connectivity read handles potentially variable column counts
@@ -154,7 +164,16 @@ def main() -> None:
         else:
             try:
                 read_options = pv.ReadOptions(column_names=["riv"])
-                table = pv.read_csv(bas_csv, read_options=read_options)
+                convert_options = pv.ConvertOptions(
+                    column_types={
+                        "riv": pa.int32(),
+                    },
+                )
+                table = pv.read_csv(
+                    bas_csv,
+                    read_options=read_options,
+                    convert_options=convert_options,
+                )
                 pq.write_table(table, bas_pqt)
 
             except IOError:
@@ -175,7 +194,16 @@ def main() -> None:
         else:
             try:
                 read_options = pv.ReadOptions(column_names=["kpr"])
-                table = pv.read_csv(kpr_csv, read_options=read_options)
+                convert_options = pv.ConvertOptions(
+                    column_types={
+                        "kpr": pa.float64(),
+                    },
+                )
+                table = pv.read_csv(
+                    kpr_csv,
+                    read_options=read_options,
+                    convert_options=convert_options,
+                )
                 pq.write_table(table, kpr_pqt)
 
             except IOError:
@@ -196,7 +224,16 @@ def main() -> None:
         else:
             try:
                 read_options = pv.ReadOptions(column_names=["xpr"])
-                table = pv.read_csv(xpr_csv, read_options=read_options)
+                convert_options = pv.ConvertOptions(
+                    column_types={
+                        "xpr": pa.float64(),
+                    },
+                )
+                table = pv.read_csv(
+                    xpr_csv,
+                    read_options=read_options,
+                    convert_options=convert_options,
+                )
                 pq.write_table(table, xpr_pqt)
 
             except IOError:
@@ -219,7 +256,18 @@ def main() -> None:
                 read_options = pv.ReadOptions(
                     column_names=["riv", "lon", "lat"]
                 )
-                table = pv.read_csv(crd_csv, read_options=read_options)
+                convert_options = pv.ConvertOptions(
+                    column_types={
+                        "riv": pa.int32(),
+                        "lon": pa.float64(),
+                        "lat": pa.float64(),
+                    },
+                )
+                table = pv.read_csv(
+                    crd_csv,
+                    read_options=read_options,
+                    convert_options=convert_options,
+                )
                 pq.write_table(table, crd_pqt)
 
             except IOError:
@@ -242,7 +290,19 @@ def main() -> None:
                 read_options = pv.ReadOptions(
                     column_names=["riv", "skm", "1bi", "1bj"]
                 )
-                table = pv.read_csv(cpl_csv, read_options=read_options)
+                convert_options = pv.ConvertOptions(
+                    column_types={
+                        "riv": pa.int32(),
+                        "skm": pa.float64(),
+                        "1bi": pa.int32(),
+                        "1bj": pa.int32(),
+                    },
+                )
+                table = pv.read_csv(
+                    cpl_csv,
+                    read_options=read_options,
+                    convert_options=convert_options,
+                )
                 pq.write_table(table, cpl_pqt)
 
             except IOError:
