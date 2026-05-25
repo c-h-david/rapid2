@@ -64,6 +64,26 @@ def main() -> None:
         help="specify the legacy basin CSV file",
     )
 
+    parser.add_argument(
+        "-kpr",
+        "--k_parameter",
+        dest="kpr",
+        metavar="K_PARAMETER",
+        type=str,
+        required=False,
+        help="specify the legacy k parameter CSV file",
+    )
+
+    parser.add_argument(
+        "-xpr",
+        "--x_parameter",
+        dest="xpr",
+        metavar="X_PARAMETER",
+        type=str,
+        required=False,
+        help="specify the legacy x parameter CSV file",
+    )
+
     # -------------------------------------------------------------------------
     # Parse arguments and assign to variables
     # -------------------------------------------------------------------------
@@ -71,6 +91,8 @@ def main() -> None:
 
     con_csv = args.con
     bas_csv = args.bas
+    kpr_csv = args.kpr
+    xpr_csv = args.xpr
 
     print("Converting legacy files (from/to):")
 
@@ -122,6 +144,51 @@ def main() -> None:
                 print(f"ERROR - Unable to open {bas_csv}")
                 sys.exit(1)
 
+    # -------------------------------------------------------------------------
+    # Process k parameter (optional)
+    # -------------------------------------------------------------------------
+    if kpr_csv:
+        kpr_pqt = os.path.splitext(kpr_csv)[0] + ".parquet"
+
+        print(f" - {kpr_csv}")
+        print(f"   -> {kpr_pqt}")
+
+        if os.path.isfile(kpr_pqt):
+            print(f"WARNING - File already exists {kpr_pqt}. Skipping.")
+        else:
+            try:
+                read_options = pv.ReadOptions(column_names=["kpr"])
+                table = pv.read_csv(kpr_csv, read_options=read_options)
+                pq.write_table(table, kpr_pqt)
+
+            except IOError:
+                print(f"ERROR - Unable to open {kpr_csv}")
+                sys.exit(1)
+
+    # -------------------------------------------------------------------------
+    # Process x parameter (optional)
+    # -------------------------------------------------------------------------
+    if xpr_csv:
+        xpr_pqt = os.path.splitext(xpr_csv)[0] + ".parquet"
+
+        print(f" - {xpr_csv}")
+        print(f"   -> {xpr_pqt}")
+
+        if os.path.isfile(xpr_pqt):
+            print(f"WARNING - File already exists {xpr_pqt}. Skipping.")
+        else:
+            try:
+                read_options = pv.ReadOptions(column_names=["xpr"])
+                table = pv.read_csv(xpr_csv, read_options=read_options)
+                pq.write_table(table, xpr_pqt)
+
+            except IOError:
+                print(f"ERROR - Unable to open {xpr_csv}")
+                sys.exit(1)
+
+    # -------------------------------------------------------------------------
+    # End process
+    # -------------------------------------------------------------------------
     print("Conversion complete.")
 
 
