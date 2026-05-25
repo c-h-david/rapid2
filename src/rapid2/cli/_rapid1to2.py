@@ -133,10 +133,6 @@ def main() -> None:
             read_options = pv.ReadOptions(autogenerate_column_names=True)
             table = pv.read_csv(con_csv, read_options=read_options)
             table = table.select(["f0", "f1"]).rename_columns(["riv", "dwn"])
-            table = table.cast(
-                pa.schema([("riv", pa.int32()), ("dwn", pa.int32())])
-            )
-
             pq.write_table(table, con_pqt)
             # Connectivity read handles potentially variable column counts
 
@@ -159,7 +155,6 @@ def main() -> None:
             try:
                 read_options = pv.ReadOptions(column_names=["riv"])
                 table = pv.read_csv(bas_csv, read_options=read_options)
-                table = table.cast(pa.schema([("riv", pa.int32())]))
                 pq.write_table(table, bas_pqt)
 
             except IOError:
