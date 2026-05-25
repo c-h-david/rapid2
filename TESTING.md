@@ -1,5 +1,13 @@
 # Testing
 
+> If wanting to rebuild from scratch:
+>
+> ```bash
+> rm -r ~/venv/
+> python3 -m venv ~/venv
+> pip install .[dev]
+> ```
+
 ## Stating code analysis
 
 We leverage a variety of static code analysis tools as a means of checking and
