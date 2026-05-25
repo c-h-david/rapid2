@@ -151,6 +151,15 @@ def main() -> None:
             sys.exit(1)
 
     # -------------------------------------------------------------------------
+    # Get "master" river IDs from connectivity (always loaded for simplicity)
+    # -------------------------------------------------------------------------
+    try:
+        IV_riv_tot = pq.read_table(con_pqt, columns=["riv"]).column("riv")
+    except IOError:
+        print(f"ERROR - Unable to read river IDs from {con_pqt}")
+        sys.exit(1)
+
+    # -------------------------------------------------------------------------
     # Process basin (optional)
     # -------------------------------------------------------------------------
     if bas_csv:
@@ -204,6 +213,10 @@ def main() -> None:
                     read_options=read_options,
                     convert_options=convert_options,
                 )
+                table = pa.table(
+                    [IV_riv_tot, table.column("kpr")], names=["riv", "kpr"]
+                )
+                # Stitch the river IDs to the parameter array
                 pq.write_table(table, kpr_pqt)
 
             except IOError:
@@ -234,6 +247,10 @@ def main() -> None:
                     read_options=read_options,
                     convert_options=convert_options,
                 )
+                table = pa.table(
+                    [IV_riv_tot, table.column("xpr")], names=["riv", "xpr"]
+                )
+                # Stitch the river IDs to the parameter array
                 pq.write_table(table, xpr_pqt)
 
             except IOError:
