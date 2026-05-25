@@ -84,6 +84,26 @@ def main() -> None:
         help="specify the legacy x parameter CSV file",
     )
 
+    parser.add_argument(
+        "-crd",
+        "--coordinates",
+        dest="crd",
+        metavar="COORDINATES",
+        type=str,
+        required=False,
+        help="specify the legacy coordinates CSV file",
+    )
+
+    parser.add_argument(
+        "-cpl",
+        "--coupling",
+        dest="cpl",
+        metavar="COUPLING",
+        type=str,
+        required=False,
+        help="specify the legacy coupling CSV file",
+    )
+
     # -------------------------------------------------------------------------
     # Parse arguments and assign to variables
     # -------------------------------------------------------------------------
@@ -93,6 +113,8 @@ def main() -> None:
     bas_csv = args.bas
     kpr_csv = args.kpr
     xpr_csv = args.xpr
+    crd_csv = args.crd
+    cpl_csv = args.cpl
 
     print("Converting legacy files (from/to):")
 
@@ -184,6 +206,52 @@ def main() -> None:
 
             except IOError:
                 print(f"ERROR - Unable to open {xpr_csv}")
+                sys.exit(1)
+
+    # -------------------------------------------------------------------------
+    # Process coordinates (optional)
+    # -------------------------------------------------------------------------
+    if crd_csv:
+        crd_pqt = os.path.splitext(crd_csv)[0] + ".parquet"
+
+        print(f" - {crd_csv}")
+        print(f"   -> {crd_pqt}")
+
+        if os.path.isfile(crd_pqt):
+            print(f"WARNING - File already exists {crd_pqt}. Skipping.")
+        else:
+            try:
+                read_options = pv.ReadOptions(
+                    column_names=["riv", "lon", "lat"]
+                )
+                table = pv.read_csv(crd_csv, read_options=read_options)
+                pq.write_table(table, crd_pqt)
+
+            except IOError:
+                print(f"ERROR - Unable to open {crd_csv}")
+                sys.exit(1)
+
+    # -------------------------------------------------------------------------
+    # Process coupling (optional)
+    # -------------------------------------------------------------------------
+    if cpl_csv:
+        cpl_pqt = os.path.splitext(cpl_csv)[0] + ".parquet"
+
+        print(f" - {cpl_csv}")
+        print(f"   -> {cpl_pqt}")
+
+        if os.path.isfile(cpl_pqt):
+            print(f"WARNING - File already exists {cpl_pqt}. Skipping.")
+        else:
+            try:
+                read_options = pv.ReadOptions(
+                    column_names=["riv", "skm", "1bi", "1bj"]
+                )
+                table = pv.read_csv(cpl_csv, read_options=read_options)
+                pq.write_table(table, cpl_pqt)
+
+            except IOError:
+                print(f"ERROR - Unable to open {cpl_csv}")
                 sys.exit(1)
 
     # -------------------------------------------------------------------------
