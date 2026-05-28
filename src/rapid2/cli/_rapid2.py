@@ -203,6 +203,7 @@ def main() -> None:
     # Save final discharge state
     # -------------------------------------------------------------------------
     h.variables["Qout"][0, IV_0bi_bas] = ZV_Qou_now[:]
+    h.variables["time"][0] = IM_tim_all[-1, 1]
 
     # -------------------------------------------------------------------------
     # Copy some global attributes
