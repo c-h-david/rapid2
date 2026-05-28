@@ -44,14 +44,14 @@ def read_nml_tbl(nml_yml: str) -> Dict[str, Any]:
     './input/Sandbox/Qinit_Sandbox_19700101_19700110.nc4'
     >>> AT_nml["Qex_ncf"]
     './input/Sandbox/Qext_Sandbox_19700101_19700110.nc4'
-    >>> AT_nml["con_csv"]
-    './input/Sandbox/rapid_connect_Sandbox.csv'
-    >>> AT_nml["kpr_csv"]
-    './input/Sandbox/k_Sandbox.csv'
-    >>> AT_nml["xpr_csv"]
-    './input/Sandbox/x_Sandbox.csv'
-    >>> AT_nml["bas_csv"]
-    './input/Sandbox/riv_bas_id_Sandbox.csv'
+    >>> AT_nml["con_pqt"]
+    './input/Sandbox/rapid_connect_Sandbox.parquet'
+    >>> AT_nml["kpr_pqt"]
+    './input/Sandbox/k_Sandbox.parquet'
+    >>> AT_nml["xpr_pqt"]
+    './input/Sandbox/x_Sandbox.parquet'
+    >>> AT_nml["bas_pqt"]
+    './input/Sandbox/riv_bas_id_Sandbox.parquet'
     >>> AT_nml["IS_dtR"]
     np.int32(900)
     >>> AT_nml["Qou_ncf"]
@@ -72,10 +72,10 @@ def read_nml_tbl(nml_yml: str) -> Dict[str, Any]:
         AT_nml_tmp = {
             "Q00_ncf": None,
             "Qex_ncf": None,
-            "con_csv": None,
-            "kpr_csv": None,
-            "xpr_csv": None,
-            "bas_csv": None,
+            "con_pqt": None,
+            "kpr_pqt": None,
+            "xpr_pqt": None,
+            "bas_pqt": None,
             "IS_dtR": None,
             "Qou_ncf": None,
             "Qfi_ncf": None,

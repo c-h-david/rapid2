@@ -47,11 +47,11 @@ def main() -> None:
             "--land_surface_model "
             "input/Tutorial/GLDAS_2.1_VIC_2010-01.nc4 "
             "--connectivity "
-            "input/Tutorial/rapid_connect_pfaf_74.csv "
+            "input/Tutorial/rapid_connect_pfaf_74.parquet "
             "--coordinates "
-            "input/Tutorial/coords_pfaf_74.csv "
+            "input/Tutorial/coords_pfaf_74.parquet "
             "--coupling "
-            "input/Tutorial/rapid_coupling_pfaf_74_GLDAS.csv "
+            "input/Tutorial/rapid_coupling_pfaf_74_GLDAS.parquet "
             "--external_inflow "
             "input/Tutorial/Qext_GLDAS_2.1_VIC_2010-01.nc4"
         ),
@@ -118,16 +118,16 @@ def main() -> None:
     args = parser.parse_args()
 
     lsm_ncf = args.lsm
-    con_csv = args.con
-    crd_csv = args.crd
-    cpl_csv = args.cpl
+    con_pqt = args.con
+    crd_pqt = args.crd
+    cpl_pqt = args.cpl
     Qex_ncf = args.Qex
 
     print(
         f"Transforming data from  {lsm_ncf} "
-        f"for {con_csv} "
-        f"with {crd_csv} "
-        f"and {cpl_csv} "
+        f"for {con_pqt} "
+        f"with {crd_pqt} "
+        f"and {cpl_pqt} "
         f"as {Qex_ncf}"
     )
 
@@ -153,7 +153,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     print("- Read connectivity file")
 
-    IV_riv_tot, IV_dwn_tot = read_con_vec(con_csv)
+    IV_riv_tot, IV_dwn_tot = read_con_vec(con_pqt)
     IS_riv_tot = len(IV_riv_tot)
     print(
         "  . The number of river reaches in connectivity file is: "
@@ -165,7 +165,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     print("- Read coordinate file")
 
-    IV_riv_tmp, ZV_lon_tot, ZV_lat_tot = read_crd_vec(crd_csv)
+    IV_riv_tmp, ZV_lon_tot, ZV_lat_tot = read_crd_vec(crd_pqt)
     np.testing.assert_array_equal(IV_riv_tot, IV_riv_tmp)
     print("  . The river reaches are the same as in connectivity file")
 
@@ -174,7 +174,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     print("- Read coupling file")
 
-    IV_riv_tmp, ZV_skm_tot, IV_1bi_tot, IV_1bj_tot = read_cpl_vec(cpl_csv)
+    IV_riv_tmp, ZV_skm_tot, IV_1bi_tot, IV_1bj_tot = read_cpl_vec(cpl_pqt)
     np.testing.assert_array_equal(IV_riv_tot, IV_riv_tmp)
     print("  . The river reaches are the same as in connectivity file")
 

@@ -61,6 +61,7 @@ dev = [
     "scipy-stubs",    # <--- Adds mypy support for scipy.sparse
     "types-tqdm",     # <--- Adds mypy support for tqdm
     "pyarrow-stubs",  # <--- Adds mypy support for pyarrow
+    "parq-cli",       # <--- CLI for inspecting Parquet files
 ]
 
 [project.urls]

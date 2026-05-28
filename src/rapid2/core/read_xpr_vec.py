@@ -14,14 +14,14 @@ import sys
 
 import numpy as np
 import numpy.typing as npt
-import pyarrow.csv as pv
+import pyarrow.parquet as pq
 
 
 # *****************************************************************************
 # Muskingum x function
 # *****************************************************************************
 def read_xpr_vec(
-    xpr_csv: str, IV_0bi_bas: npt.NDArray[np.int32]
+    xpr_pqt: str, IV_0bi_bas: npt.NDArray[np.int32]
 ) -> npt.NDArray[np.float64]:
     """Read x parameter file.
 
@@ -29,7 +29,7 @@ def read_xpr_vec(
 
     Parameters
     ----------
-    xpr_csv : str
+    xpr_pqt : str
         Path to the x parameter file.
     IV_0bi_bas : ndarray[int32]
         The index in domain for river IDs in basin.
@@ -41,24 +41,23 @@ def read_xpr_vec(
 
     Examples
     --------
-    >>> xpr_csv = "./input/Sandbox/x_Sandbox.csv"
+    >>> xpr_pqt = "./input/Sandbox/x_Sandbox.parquet"
     >>> IV_0bi_bas = np.array([0, 1, 2, 3, 4], dtype=np.int32)
-    >>> read_xpr_vec(xpr_csv, IV_0bi_bas)  # doctest: +NORMALIZE_WHITESPACE
+    >>> read_xpr_vec(xpr_pqt, IV_0bi_bas)  # doctest: +NORMALIZE_WHITESPACE
     array([0.25, 0.25, 0.25, 0.25, 0.25])
     """
 
     # -------------------------------------------------------------------------
-    # Read CSV and populate array
+    # Read Parquet and populate array
     # -------------------------------------------------------------------------
     try:
-        read_options = pv.ReadOptions(column_names=["xpr"])
-        table = pv.read_csv(xpr_csv, read_options=read_options)
+        table = pq.read_table(xpr_pqt, columns=["xpr"])
 
         ZV_xpr_tot = table.column("xpr").to_numpy().astype(np.float64)
         ZV_xpr_bas = ZV_xpr_tot[IV_0bi_bas]
 
     except IOError:
-        print(f"ERROR - Unable to open {xpr_csv}")
+        print(f"ERROR - Unable to open {xpr_pqt}")
         sys.exit(1)
 
     return ZV_xpr_bas

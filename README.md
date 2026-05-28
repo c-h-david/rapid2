@@ -93,11 +93,11 @@ Below is an example of what `namelist_Sandbox.yml` should include:
 Qex_ncf: './input/Sandbox/Qext_Sandbox_19700101_19700110.nc4'
 Q00_ncf: './input/Sandbox/Qinit_Sandbox_19700101_19700110.nc4'
 
-con_csv: './input/Sandbox/rapid_connect_Sandbox.csv'
-kpr_csv: './input/Sandbox/k_Sandbox.csv'
-xpr_csv: './input/Sandbox/x_Sandbox.csv'
+con_pqt: './input/Sandbox/rapid_connect_Sandbox.parquet'
+kpr_pqt: './input/Sandbox/k_Sandbox.parquet'
+xpr_pqt: './input/Sandbox/x_Sandbox.parquet'
 
-bas_csv: './input/Sandbox/riv_bas_id_Sandbox.csv'
+bas_pqt: './input/Sandbox/riv_bas_id_Sandbox.parquet'
 
 IS_dtR: 900
 

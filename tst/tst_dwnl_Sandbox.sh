@@ -38,23 +38,22 @@ echo "********************"
 # *****************************************************************************
 # Location of the dataset
 # *****************************************************************************
-URL="https://zenodo.org/records/17739043/files"
-
+URL="https://zenodo.org/records/20435028/files"
 
 # *****************************************************************************
 # Download all input files
 # *****************************************************************************
 folder="../input/Sandbox"
 list=(
-    "rapid_connect_Sandbox.csv"
+    "rapid_connect_Sandbox.parquet"
     "Qext_Sandbox_19700101_19700110.nc4"
     "Qinit_Sandbox_19700101_19700110.nc4"
-    "k_Sandbox.csv"
-    "x_Sandbox.csv"
-    "riv_bas_id_Sandbox.csv"
+    "k_Sandbox.parquet"
+    "x_Sandbox.parquet"
+    "riv_bas_id_Sandbox.parquet"
     "namelist_Sandbox.yml"
-    "rapid_coupling_Sandbox.csv"
-    "coords_Sandbox.csv"
+    "rapid_coupling_Sandbox.parquet"
+    "coords_Sandbox.parquet"
 )
 
 mkdir -p $folder

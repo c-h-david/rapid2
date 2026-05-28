@@ -14,20 +14,20 @@ import sys
 
 import numpy as np
 import numpy.typing as npt
-import pyarrow.csv as pv
+import pyarrow.parquet as pq
 
 
 # *****************************************************************************
 # Basin function
 # *****************************************************************************
-def read_bas_vec(bas_csv: str) -> npt.NDArray[np.int32]:
+def read_bas_vec(bas_pqt: str) -> npt.NDArray[np.int32]:
     """Read basin file.
 
     Create one array of river IDs based on basin file.
 
     Parameters
     ----------
-    bas_csv : str
+    bas_pqt : str
         Path to the basin file.
 
     Returns
@@ -37,22 +37,21 @@ def read_bas_vec(bas_csv: str) -> npt.NDArray[np.int32]:
 
     Examples
     --------
-    >>> bas_csv = "./input/Sandbox/riv_bas_id_Sandbox.csv"
-    >>> read_bas_vec(bas_csv)
+    >>> bas_pqt = "./input/Sandbox/riv_bas_id_Sandbox.parquet"
+    >>> read_bas_vec(bas_pqt)
     array([10, 20, 30, 40, 50], dtype=int32)
     """
 
     # -------------------------------------------------------------------------
-    # Read CSV and populate array
+    # Read Parquet and populate array
     # -------------------------------------------------------------------------
     try:
-        read_options = pv.ReadOptions(column_names=["riv"])
-        table = pv.read_csv(bas_csv, read_options=read_options)
+        table = pq.read_table(bas_pqt, columns=["riv"])
 
         IV_riv_bas = table.column("riv").to_numpy().astype(np.int32)
 
     except IOError:
-        print(f"ERROR - Unable to open {bas_csv}")
+        print(f"ERROR - Unable to open {bas_pqt}")
         sys.exit(1)
 
     return IV_riv_bas

@@ -86,11 +86,11 @@ def main() -> None:
     Q00_ncf = AT_nml["Q00_ncf"]
     Qex_ncf = AT_nml["Qex_ncf"]
 
-    con_csv = AT_nml["con_csv"]
-    kpr_csv = AT_nml["kpr_csv"]
-    xpr_csv = AT_nml["xpr_csv"]
+    con_pqt = AT_nml["con_pqt"]
+    kpr_pqt = AT_nml["kpr_pqt"]
+    xpr_pqt = AT_nml["xpr_pqt"]
 
-    bas_csv = AT_nml["bas_csv"]
+    bas_pqt = AT_nml["bas_pqt"]
 
     IS_dtR = AT_nml["IS_dtR"]
 
@@ -100,16 +100,16 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # River network
     # -------------------------------------------------------------------------
-    IV_riv_tot, IV_dwn_tot = read_con_vec(con_csv)
-    IV_riv_bas = read_bas_vec(bas_csv)
+    IV_riv_tot, IV_dwn_tot = read_con_vec(con_pqt)
+    IV_riv_bas = read_bas_vec(bas_pqt)
     IT_0bi_tot, IT_0bi_bas, IV_0bi_bas = make_0bi_tbl(IV_riv_tot, IV_riv_bas)
     ZM_Net = make_Net_mat(IV_dwn_tot, IT_0bi_tot, IV_riv_bas, IT_0bi_bas)
 
     # -------------------------------------------------------------------------
     # Model parameters
     # -------------------------------------------------------------------------
-    ZV_kpr_bas = read_kpr_vec(kpr_csv, IV_0bi_bas)
-    ZV_xpr_bas = read_xpr_vec(xpr_csv, IV_0bi_bas)
+    ZV_kpr_bas = read_kpr_vec(kpr_pqt, IV_0bi_bas)
+    ZV_xpr_bas = read_xpr_vec(xpr_pqt, IV_0bi_bas)
     ZM_C1p, ZM_C2p, ZM_C3p = make_CCC_mat(ZV_kpr_bas, ZV_xpr_bas, IS_dtR)
     ZM_ICN, ZM_Qex, ZM_Qou = make_Mus_mat(ZM_Net, ZM_C1p, ZM_C2p, ZM_C3p)
 

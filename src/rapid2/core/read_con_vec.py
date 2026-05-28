@@ -14,14 +14,14 @@ import sys
 
 import numpy as np
 import numpy.typing as npt
-import pyarrow.csv as pv
+import pyarrow.parquet as pq
 
 
 # *****************************************************************************
 # Connectivity function
 # *****************************************************************************
 def read_con_vec(
-    con_csv: str,
+    con_pqt: str,
 ) -> tuple[npt.NDArray[np.int32], npt.NDArray[np.int32]]:
     """Read connectivity file.
 
@@ -29,7 +29,7 @@ def read_con_vec(
 
     Parameters
     ----------
-    con_csv : str
+    con_pqt : str
         Path to the connectivity file.
 
     Returns
@@ -41,24 +41,23 @@ def read_con_vec(
 
     Examples
     --------
-    >>> con_csv = './input/Sandbox/rapid_connect_Sandbox.csv'
-    >>> read_con_vec(con_csv) # doctest: +NORMALIZE_WHITESPACE
+    >>> con_pqt = './input/Sandbox/rapid_connect_Sandbox.parquet'
+    >>> read_con_vec(con_pqt) # doctest: +NORMALIZE_WHITESPACE
     (array([10, 20, 30, 40, 50], dtype=int32),\
      array([30, 30, 50, 50,  0], dtype=int32))
     """
 
     # -------------------------------------------------------------------------
-    # Read CSV and populate arrays
+    # Read Parquet and populate arrays
     # -------------------------------------------------------------------------
     try:
-        read_options = pv.ReadOptions(column_names=["riv", "dwn"])
-        table = pv.read_csv(con_csv, read_options=read_options)
+        table = pq.read_table(con_pqt, columns=["riv", "dwn"])
 
         IV_riv_tot = table.column("riv").to_numpy().astype(np.int32)
         IV_dwn_tot = table.column("dwn").to_numpy().astype(np.int32)
 
     except IOError:
-        print(f"ERROR - Unable to open {con_csv}")
+        print(f"ERROR - Unable to open {con_pqt}")
         sys.exit(1)
 
     return IV_riv_tot, IV_dwn_tot
