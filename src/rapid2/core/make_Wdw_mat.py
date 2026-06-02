@@ -91,11 +91,11 @@ def make_Wdw_mat(
     >>> ZV_Qou_avg = ZM_Aex @ ZV_Qex_avg + ZM_A00 @ ZV_Qou_prv
     >>> ZV_Qou_avg
     array([0.0625   , 0.0625   , 0.03125  , 0.0625   , 0.0390625])
-    >>> ZV_Qou_prv = np.array([1, 1, 1, 1, 1])
+    >>> ZV_Qou_prv = np.array([1, 1, 3, 1, 5])
     >>> ZV_Qex_avg = np.array([1, 1, 1, 1, 1])
     >>> ZV_Qou_avg = ZM_Aex @ ZV_Qex_avg + ZM_A00 @ ZV_Qou_prv
     >>> ZV_Qou_avg
-    array([1.     , 1.     , 1.125  , 1.     , 1.09375])
+    array([1., 1., 3., 1., 5.])
     """
 
     # -------------------------------------------------------------------------
