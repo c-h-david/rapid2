@@ -41,7 +41,7 @@ def read_con_vec(
 
     Examples
     --------
-    >>> con_pqt = './input/Sandbox/rapid_connect_Sandbox.parquet'
+    >>> con_pqt = './input/Sandbox/con_Sandbox.parquet'
     >>> read_con_vec(con_pqt) # doctest: +NORMALIZE_WHITESPACE
     (array([10, 20, 30, 40, 50], dtype=int32),\
      array([30, 30, 50, 50,  0], dtype=int32))

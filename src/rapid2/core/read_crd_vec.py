@@ -45,7 +45,7 @@ def read_crd_vec(
 
     Examples
     --------
-    >>> crd_pqt = './input/Sandbox/coords_Sandbox.parquet'
+    >>> crd_pqt = './input/Sandbox/crd_Sandbox.parquet'
     >>> read_crd_vec(crd_pqt) # doctest: +NORMALIZE_WHITESPACE
     (array([10, 20, 30, 40, 50], dtype=int32),\
      array([4.3 , 5.94, 5.12, 6.55, 4.3 ]),\

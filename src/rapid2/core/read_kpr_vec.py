@@ -41,7 +41,7 @@ def read_kpr_vec(
 
     Examples
     --------
-    >>> kpr_pqt = "./input/Sandbox/k_Sandbox.parquet"
+    >>> kpr_pqt = "./input/Sandbox/kpr_Sandbox.parquet"
     >>> IV_0bi_bas = np.array([0, 1, 2, 3, 4], dtype=np.int32)
     >>> read_kpr_vec(kpr_pqt, IV_0bi_bas)  # doctest: +NORMALIZE_WHITESPACE
     array([9000., 9000., 9000., 9000., 9000.])

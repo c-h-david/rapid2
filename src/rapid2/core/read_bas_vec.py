@@ -37,7 +37,7 @@ def read_bas_vec(bas_pqt: str) -> npt.NDArray[np.int32]:
 
     Examples
     --------
-    >>> bas_pqt = "./input/Sandbox/riv_bas_id_Sandbox.parquet"
+    >>> bas_pqt = "./input/Sandbox/bas_Sandbox_ascend.parquet"
     >>> read_bas_vec(bas_pqt)
     array([10, 20, 30, 40, 50], dtype=int32)
     """

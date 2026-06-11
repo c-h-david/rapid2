@@ -4,7 +4,7 @@
 >
 > ```bash
 > rm -r ~/venv/
-> python3 -m venv ~/venv
+> /usr/bin/python3 -m venv ~/venv
 > pip install .[dev]
 > ```
 
@@ -112,7 +112,21 @@ python3 -m doctest src/rapid2/core/*.py
 
 ### Replication of past results
 
-To be added.
+```bash
+rapid2 -nml input/Sandbox/nml_Sandbox.yml
+```
+
+```bash
+cmpncf \
+  -prv output/Sandbox/Qou_Sandbox_19700101_19700110.nc4 \
+  -now output/Sandbox/Qou_Sandbox_19700101_19700110_tst.nc4
+```
+
+```bash
+cmpncf \
+  -prv output/Sandbox/Qfi_Sandbox_19700101_19700110.nc4 \
+  -now output/Sandbox/Qfi_Sandbox_19700101_19700110_tst.nc4
+```
 
 [URL_CFG_MD]: https://github.com/c-h-david/rapid2/blob/main/.pymarkdown.yml
 [URL_CFG_YM]: https://github.com/c-h-david/rapid2/blob/main/.yamllint.yml

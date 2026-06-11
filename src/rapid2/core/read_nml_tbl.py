@@ -38,26 +38,26 @@ def read_nml_tbl(nml_yml: str) -> Dict[str, Any]:
 
     Examples
     --------
-    >>> nml_yml = "./input/Sandbox/namelist_Sandbox.yml"
+    >>> nml_yml = "./input/Sandbox/nml_Sandbox.yml"
     >>> AT_nml = read_nml_tbl(nml_yml)
     >>> AT_nml["Q00_ncf"]
-    './input/Sandbox/Qinit_Sandbox_19700101_19700110.nc4'
+    './input/Sandbox/Q00_Sandbox_19700101_19700110.nc4'
     >>> AT_nml["Qex_ncf"]
-    './input/Sandbox/Qext_Sandbox_19700101_19700110.nc4'
+    './input/Sandbox/Qex_Sandbox_19700101_19700110.nc4'
     >>> AT_nml["con_pqt"]
-    './input/Sandbox/rapid_connect_Sandbox.parquet'
+    './input/Sandbox/con_Sandbox.parquet'
     >>> AT_nml["kpr_pqt"]
-    './input/Sandbox/k_Sandbox.parquet'
+    './input/Sandbox/kpr_Sandbox.parquet'
     >>> AT_nml["xpr_pqt"]
-    './input/Sandbox/x_Sandbox.parquet'
+    './input/Sandbox/xpr_Sandbox.parquet'
     >>> AT_nml["bas_pqt"]
-    './input/Sandbox/riv_bas_id_Sandbox.parquet'
+    './input/Sandbox/bas_Sandbox_ascend.parquet'
     >>> AT_nml["IS_dtR"]
     np.int32(900)
     >>> AT_nml["Qou_ncf"]
-    './output/Sandbox/Qout_Sandbox_19700101_19700110_tst.nc4'
+    './output/Sandbox/Qou_Sandbox_19700101_19700110_tst.nc4'
     >>> AT_nml["Qfi_ncf"]
-    './output/Sandbox/Qfinal_Sandbox_19700101_19700110_tst.nc4'
+    './output/Sandbox/Qfi_Sandbox_19700101_19700110_tst.nc4'
     """
 
     try:

@@ -41,7 +41,7 @@ def read_xpr_vec(
 
     Examples
     --------
-    >>> xpr_pqt = "./input/Sandbox/x_Sandbox.parquet"
+    >>> xpr_pqt = "./input/Sandbox/xpr_Sandbox.parquet"
     >>> IV_0bi_bas = np.array([0, 1, 2, 3, 4], dtype=np.int32)
     >>> read_xpr_vec(xpr_pqt, IV_0bi_bas)  # doctest: +NORMALIZE_WHITESPACE
     array([0.25, 0.25, 0.25, 0.25, 0.25])

@@ -38,22 +38,23 @@ echo "********************"
 # *****************************************************************************
 # Location of the dataset
 # *****************************************************************************
-URL="https://zenodo.org/records/20435028/files"
+URL="https://zenodo.org/records/20671995/files"
+
 
 # *****************************************************************************
 # Download all input files
 # *****************************************************************************
 folder="../input/Sandbox"
 list=(
-    "rapid_connect_Sandbox.parquet"
-    "Qext_Sandbox_19700101_19700110.nc4"
-    "Qinit_Sandbox_19700101_19700110.nc4"
-    "k_Sandbox.parquet"
-    "x_Sandbox.parquet"
-    "riv_bas_id_Sandbox.parquet"
-    "namelist_Sandbox.yml"
-    "rapid_coupling_Sandbox.parquet"
-    "coords_Sandbox.parquet"
+    "con_Sandbox.parquet"
+    "Qex_Sandbox_19700101_19700110.nc4"
+    "Q00_Sandbox_19700101_19700110.nc4"
+    "kpr_Sandbox.parquet"
+    "xpr_Sandbox.parquet"
+    "bas_Sandbox_ascend.parquet"
+    "nml_Sandbox.yml"
+    "cpl_Sandbox.parquet"
+    "crd_Sandbox.parquet"
 )
 
 mkdir -p $folder
@@ -70,8 +71,8 @@ done
 # *****************************************************************************
 folder="../output/Sandbox"
 list=(
-    "Qout_Sandbox_19700101_19700110.nc4"
-    "Qfinal_Sandbox_19700101_19700110.nc4"
+    "Qou_Sandbox_19700101_19700110.nc4"
+    "Qfi_Sandbox_19700101_19700110.nc4"
 )
 
 mkdir -p $folder

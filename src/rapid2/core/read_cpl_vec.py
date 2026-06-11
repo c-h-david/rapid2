@@ -50,7 +50,7 @@ def read_cpl_vec(
 
     Examples
     --------
-    >>> cpl_pqt = './input/Sandbox/rapid_coupling_Sandbox.parquet'
+    >>> cpl_pqt = './input/Sandbox/cpl_Sandbox.parquet'
     >>> read_cpl_vec(cpl_pqt) # doctest: +NORMALIZE_WHITESPACE
     (array([10, 20, 30, 40, 50], dtype=int32),\
      array([1., 1., 1., 1., 1.]),\
