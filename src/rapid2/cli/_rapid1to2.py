@@ -143,6 +143,10 @@ def main() -> None:
                 convert_options=convert_options,
             )
             table = table.select(["f0", "f1"]).rename_columns(["riv", "dwn"])
+            schema = pa.schema(
+                [field.with_nullable(False) for field in table.schema]
+            )
+            table = table.cast(schema)
             pq.write_table(table, con_pqt)
             # Connectivity read handles potentially variable column counts
 
@@ -183,6 +187,10 @@ def main() -> None:
                     read_options=read_options,
                     convert_options=convert_options,
                 )
+                schema = pa.schema(
+                    [field.with_nullable(False) for field in table.schema]
+                )
+                table = table.cast(schema)
                 pq.write_table(table, bas_pqt)
 
             except IOError:
@@ -217,6 +225,10 @@ def main() -> None:
                     [IV_riv_tot, table.column("kpr")], names=["riv", "kpr"]
                 )
                 # Stitch the river IDs to the parameter array
+                schema = pa.schema(
+                    [field.with_nullable(False) for field in table.schema]
+                )
+                table = table.cast(schema)
                 pq.write_table(table, kpr_pqt)
 
             except IOError:
@@ -251,6 +263,10 @@ def main() -> None:
                     [IV_riv_tot, table.column("xpr")], names=["riv", "xpr"]
                 )
                 # Stitch the river IDs to the parameter array
+                schema = pa.schema(
+                    [field.with_nullable(False) for field in table.schema]
+                )
+                table = table.cast(schema)
                 pq.write_table(table, xpr_pqt)
 
             except IOError:
@@ -285,6 +301,10 @@ def main() -> None:
                     read_options=read_options,
                     convert_options=convert_options,
                 )
+                schema = pa.schema(
+                    [field.with_nullable(False) for field in table.schema]
+                )
+                table = table.cast(schema)
                 pq.write_table(table, crd_pqt)
 
             except IOError:
@@ -320,6 +340,10 @@ def main() -> None:
                     read_options=read_options,
                     convert_options=convert_options,
                 )
+                schema = pa.schema(
+                    [field.with_nullable(False) for field in table.schema]
+                )
+                table = table.cast(schema)
                 pq.write_table(table, cpl_pqt)
 
             except IOError:
