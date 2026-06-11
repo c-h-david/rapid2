@@ -81,28 +81,28 @@ pip install .
 ### Run Instructions
 
 ```bash
-rapid2 --namelist namelist_Sandbox.yml
+rapid2 --namelist nml_Sandbox.yml
 ```
 
 ### Usage Examples
 
-Below is an example of what `namelist_Sandbox.yml` should include:
+Below is an example of what `nml_Sandbox.yml` includes:
 
 ```yaml
 ---
-Qex_ncf: './input/Sandbox/Qext_Sandbox_19700101_19700110.nc4'
-Q00_ncf: './input/Sandbox/Qinit_Sandbox_19700101_19700110.nc4'
+Qex_ncf: './input/Sandbox/Qex_Sandbox_19700101_19700110.nc4'
+Q00_ncf: './input/Sandbox/Q00_Sandbox_19700101_19700110.nc4'
 
-con_pqt: './input/Sandbox/rapid_connect_Sandbox.parquet'
-kpr_pqt: './input/Sandbox/k_Sandbox.parquet'
-xpr_pqt: './input/Sandbox/x_Sandbox.parquet'
+con_pqt: './input/Sandbox/con_Sandbox.parquet'
+kpr_pqt: './input/Sandbox/kpr_Sandbox.parquet'
+xpr_pqt: './input/Sandbox/xpr_Sandbox.parquet'
 
-bas_pqt: './input/Sandbox/riv_bas_id_Sandbox.parquet'
+bas_pqt: './input/Sandbox/bas_Sandbox_ascend.parquet'
 
 IS_dtR: 900
 
-Qou_ncf: './output/Sandbox/Qout_Sandbox_19700101_19700110_tst.nc4'
-Qfi_ncf: './output/Sandbox/Qfinal_Sandbox_19700101_19700110_tst.nc4'
+Qou_ncf: './output/Sandbox/Qou_Sandbox_19700101_19700110_tst.nc4'
+Qfi_ncf: './output/Sandbox/Qfi_Sandbox_19700101_19700110_tst.nc4'
 ```
 
 ### Build Instructions
