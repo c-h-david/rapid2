@@ -121,13 +121,17 @@ rapid2 -nml input/Sandbox/nml_Sandbox.yml
 ```bash
 cmpncf \
   -prv output/Sandbox/Qou_Sandbox_19700101_19700110.nc4 \
-  -now output/Sandbox/Qou_Sandbox_19700101_19700110_tst.nc4
+  -now output/Sandbox/Qou_Sandbox_19700101_19700110_tst.nc4 \
+  -rtl 1e-10 \
+  -atl 1e-10
 ```
 
 ```bash
 cmpncf \
   -prv output/Sandbox/Qfi_Sandbox_19700101_19700110.nc4 \
-  -now output/Sandbox/Qfi_Sandbox_19700101_19700110_tst.nc4
+  -now output/Sandbox/Qfi_Sandbox_19700101_19700110_tst.nc4 \
+  -rtl 1e-10 \
+  -atl 1e-10
 ```
 
 [URL_SNDBOX]: https://github.com/c-h-david/rapid2/blob/main/SANDBOX.md
