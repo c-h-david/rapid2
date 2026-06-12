@@ -22,10 +22,10 @@ import pyarrow.parquet as pq
 # *****************************************************************************
 def read_xpr_vec(
     xpr_pqt: str, IV_0bi_bas: npt.NDArray[np.int32]
-) -> npt.NDArray[np.float64]:
+) -> tuple[npt.NDArray[np.int32], npt.NDArray[np.float64]]:
     """Read x parameter file.
 
-    Create an array for parameters x in the basin.
+    Create arrays for river IDs and parameters x in the basin.
 
     Parameters
     ----------
@@ -36,6 +36,8 @@ def read_xpr_vec(
 
     Returns
     -------
+    IV_riv_bas : ndarray[int32]
+        The river IDs of the basin from the parameter file.
     ZV_xpr_bas : ndarray[float64]
         The values of x in the basin.
 
@@ -44,23 +46,27 @@ def read_xpr_vec(
     >>> xpr_pqt = "./input/Sandbox/xpr_Sandbox.parquet"
     >>> IV_0bi_bas = np.array([0, 1, 2, 3, 4], dtype=np.int32)
     >>> read_xpr_vec(xpr_pqt, IV_0bi_bas)  # doctest: +NORMALIZE_WHITESPACE
-    array([0.25, 0.25, 0.25, 0.25, 0.25])
+    (array([10, 20, 30, 40, 50], dtype=int32),\
+     array([0.25, 0.25, 0.25, 0.25, 0.25]))
     """
 
     # -------------------------------------------------------------------------
     # Read Parquet and populate array
     # -------------------------------------------------------------------------
     try:
-        table = pq.read_table(xpr_pqt, columns=["xpr"])
+        table = pq.read_table(xpr_pqt, columns=["riv", "xpr"])
 
+        IV_riv_tot = table.column("riv").to_numpy().astype(np.int32)
         ZV_xpr_tot = table.column("xpr").to_numpy().astype(np.float64)
+
+        IV_riv_bas = IV_riv_tot[IV_0bi_bas]
         ZV_xpr_bas = ZV_xpr_tot[IV_0bi_bas]
 
     except IOError:
         print(f"ERROR - Unable to open {xpr_pqt}")
         sys.exit(1)
 
-    return ZV_xpr_bas
+    return IV_riv_bas, ZV_xpr_bas
 
 
 # *****************************************************************************

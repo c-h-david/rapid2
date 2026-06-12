@@ -108,13 +108,23 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Model parameters
     # -------------------------------------------------------------------------
-    ZV_kpr_bas = read_kpr_vec(kpr_pqt, IV_0bi_bas)
-    ZV_xpr_bas = read_xpr_vec(xpr_pqt, IV_0bi_bas)
+    IV_riv_tmp, ZV_kpr_bas = read_kpr_vec(kpr_pqt, IV_0bi_bas)
+    np.testing.assert_array_equal(IV_riv_bas, IV_riv_tmp)
+
+    IV_riv_tmp, ZV_xpr_bas = read_xpr_vec(xpr_pqt, IV_0bi_bas)
+    np.testing.assert_array_equal(IV_riv_bas, IV_riv_tmp)
+
     ZM_C1p, ZM_C2p, ZM_C3p = make_CCC_mat(ZV_kpr_bas, ZV_xpr_bas, IS_dtR)
     ZM_ICN, ZM_Qex, ZM_Qou = make_Mus_mat(ZM_Net, ZM_C1p, ZM_C2p, ZM_C3p)
 
     # -------------------------------------------------------------------------
-    # Extract metadata of external inflow
+    # Extract metadata of initial value and check IDs
+    # -------------------------------------------------------------------------
+    IV_riv_tmp, _, _, _, _ = read_std_vec(Q00_ncf)
+    np.testing.assert_array_equal(IV_riv_tot, IV_riv_tmp)
+
+    # -------------------------------------------------------------------------
+    # Extract metadata of external inflow and check IDs
     # -------------------------------------------------------------------------
     (
         IV_riv_tmp,
@@ -123,6 +133,7 @@ def main() -> None:
         IV_tim_all,
         IM_tim_all,
     ) = read_std_vec(Qex_ncf)
+    np.testing.assert_array_equal(IV_riv_tot, IV_riv_tmp)
 
     # -------------------------------------------------------------------------
     # Get time step correspondance
@@ -144,9 +155,8 @@ def main() -> None:
         raise ValueError("IS_dtE is not a multiple of IS_dtR")
 
     # -------------------------------------------------------------------------
-    # Check river IDs and upstream to downstream topology
+    # Check upstream to downstream topology
     # -------------------------------------------------------------------------
-    np.testing.assert_array_equal(IV_riv_tot, IV_riv_tmp)
     chck_bas(IV_riv_bas, IT_0bi_bas, IV_riv_tot, IV_dwn_tot, IT_0bi_tot)
 
     # -------------------------------------------------------------------------
