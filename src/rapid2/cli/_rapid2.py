@@ -118,12 +118,6 @@ def main() -> None:
     ZM_ICN, ZM_Qex, ZM_Qou = make_Mus_mat(ZM_Net, ZM_C1p, ZM_C2p, ZM_C3p)
 
     # -------------------------------------------------------------------------
-    # Extract metadata of initial value and check IDs
-    # -------------------------------------------------------------------------
-    IV_riv_tmp, _, _, _, _ = read_std_vec(Q00_ncf)
-    np.testing.assert_array_equal(IV_riv_tot, IV_riv_tmp)
-
-    # -------------------------------------------------------------------------
     # Extract metadata of external inflow and check IDs
     # -------------------------------------------------------------------------
     (
@@ -134,6 +128,13 @@ def main() -> None:
         IM_tim_all,
     ) = read_std_vec(Qex_ncf)
     np.testing.assert_array_equal(IV_riv_tot, IV_riv_tmp)
+
+    # -------------------------------------------------------------------------
+    # Extract metadata of initial value and check IDs and time
+    # -------------------------------------------------------------------------
+    IV_riv_tmp, _, _, IV_tim_tmp, _ = read_std_vec(Q00_ncf)
+    np.testing.assert_array_equal(IV_riv_tot, IV_riv_tmp)
+    np.testing.assert_equal(IV_tim_all[0], IV_tim_tmp[0])
 
     # -------------------------------------------------------------------------
     # Get time step correspondance
