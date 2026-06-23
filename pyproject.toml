@@ -76,6 +76,7 @@ zeroqinit = "rapid2.cli._zeroqinit:main"
 sandboxqext = "rapid2.cli._sandboxqext:main"
 cpllsm = "rapid2.cli._cpllsm:main"
 cmpncf = "rapid2.cli._cmpncf:main"
+subsampleqout = "rapid2.cli._subsampleqout:main"
 
 [tool.ruff]
 line-length = 79
