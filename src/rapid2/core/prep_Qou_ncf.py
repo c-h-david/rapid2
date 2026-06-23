@@ -18,27 +18,27 @@ from rapid2.core.prep_skl_ncf import prep_skl_ncf
 
 
 # *****************************************************************************
-# Make lateral inflow volume (Qou) file
+# Make discharge output (Qou) file
 # *****************************************************************************
 def prep_Qou_ncf(
-    IV_riv_bas: npt.NDArray[np.int32],
-    ZV_lon_bas: npt.NDArray[np.float64],
-    ZV_lat_bas: npt.NDArray[np.float64],
+    IV_riv: npt.NDArray[np.int32],
+    ZV_lon: npt.NDArray[np.float64],
+    ZV_lat: npt.NDArray[np.float64],
     Qou_ncf: str,
 ) -> None:
-    """Create a lateral inflow file with basic metadata.
+    """Create a discharge output file with basic metadata.
 
-    Create a lateral inflow file that includes basic metadata and populated
+    Create a discharge output file that includes basic metadata and populated
     values for river ID, longitude, and latitude.
 
     Parameters
     ----------
-    IV_riv_bas : ndarray[int32]
-        The river IDs of the domain.
-    ZV_lon_bas : ndarray[float64]
-        The longitudes related to river IDs of the domain.
-    ZV_lat_bas : ndarray[float64]
-        The latitudes related to river IDs of the domain.
+    IV_riv : ndarray[int32]
+        The river IDs to include in the file.
+    ZV_lon : ndarray[float64]
+        The longitudes related to river IDs.
+    ZV_lat : ndarray[float64]
+        The latitudes related to river IDs.
     Qou_ncf : str
         Path to the discharge output file.
 
@@ -48,11 +48,11 @@ def prep_Qou_ncf(
 
     Examples
     --------
-    >>> IV_riv_bas = np.array([10, 20, 30, 40, 50], dtype=np.int32)
-    >>> ZV_lon_bas = np.array([0.5, 2.0, 1.0, 2.0, 0.5])
-    >>> ZV_lat_bas = np.array([5.0, 4.5, 3.0, 2.5, 1.0])
+    >>> IV_riv = np.array([10, 20, 30, 40, 50], dtype=np.int32)
+    >>> ZV_lon = np.array([0.5, 2.0, 1.0, 2.0, 0.5])
+    >>> ZV_lat = np.array([5.0, 4.5, 3.0, 2.5, 1.0])
     >>> Qou_ncf = "./output/Sandbox/Qout_Sandbox_19700101_19700110_tst.nc4"
-    >>> prep_Qou_ncf(IV_riv_bas, ZV_lon_bas, ZV_lat_bas, Qou_ncf)
+    >>> prep_Qou_ncf(IV_riv, ZV_lon, ZV_lat, Qou_ncf)
     >>> g = netCDF4.Dataset(Qou_ncf, "r")
     >>> g.variables["rivid"][:].filled()
     array([10, 20, 30, 40, 50], dtype=int32)
@@ -73,7 +73,7 @@ def prep_Qou_ncf(
     # -------------------------------------------------------------------------
     # Create skeleton file
     # -------------------------------------------------------------------------
-    prep_skl_ncf(IV_riv_bas, ZV_lon_bas, ZV_lat_bas, Qou_ncf)
+    prep_skl_ncf(IV_riv, ZV_lon, ZV_lat, Qou_ncf)
 
     # -------------------------------------------------------------------------
     # Open file to make changes
