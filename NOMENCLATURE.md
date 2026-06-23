@@ -113,16 +113,30 @@ to accommodate external API terminology.
 
 ### `<qualifier>`
 
+#### Size Guarantees
+
 | Code | Meaning            | Notes                                           |
 | ---- | ------------------ | ----------------------------------------------- |
 | `tot`| Total network      | Array length equals `IS_riv_tot`.               |
 | `bas`| Basin              | Array length equals `IS_riv_bas`.               |
-| `lsm`| Land surface model | Associated with the external LSM grid/domain.   |
+| `avl`| Available          | Array length equals `IS_obs_avl`.               |
+| `act`| Active             | Array length equals `IS_obs_act`.               |
+| `all`| All values         | Array length equals `IS_tim_all`.               |
+| `lsm`| Land surface model | Array dimensions match LSM grid (e.g., lat/lon).|
+
+#### Temporal States
+
+| Code | Meaning            | Notes                                           |
+| ---- | ------------------ | ----------------------------------------------- |
 | `prv`| Previous value     | Previous state of a dynamic variable.           |
 | `now`| Current value      | Current state of a dynamic variable.            |
 | `avg`| Average value      | Time-averaged dynamic variable.                 |
-| `all`| Complete sequence  | Used for arrays spanning the entire time domain.|
 | `tmp`| Temporary value    | Non-persistent, for computation or validation.  |
+
+#### Origins and Timescales
+
+| Code | Meaning            | Notes                                           |
+| ---- | ------------------ | ----------------------------------------------- |
 | `Qex`| External inflow    | Associated with the external forcing timescale. |
 | `Qob`| Observed discharge | Associated with the observation timescale.      |
 
