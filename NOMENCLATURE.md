@@ -66,6 +66,7 @@ to accommodate external API terminology.
 | `Qex`| External inflow    | Flow of water entering from exterior (m^3/s).   |
 | `Qou`| Outflow discharge  | Flow of water exiting each reach (m^3/s).       |
 | `Qob`| Observed discharge | Flow of water from observations (m^3/s).        |
+| `Qme`| Model equivalent   | Model equivalent to observations (m^3/s).       |
 | `Vol`| Volume             | Volume of water stored in the reach (m^3).      |
 | `lon`| Longitude          | Representative longitude of the reach (°).      |
 | `lat`| Latitude           | Representative latitude of the reach (°).       |
@@ -103,6 +104,8 @@ to accommodate external API terminology.
 | `Qex`| External inflow    | NetCDF file containing forcing data. (`f`)      |
 | `Qou`| Outflow discharge  | NetCDF file containing routing results. (`g`)   |
 | `Qfi`| Final outflow      | Final outflow state of the network. (`h`)       |
+| `Qob`| Observed discharge | NetCDF file containing observations. (`o`)      |
+| `Qme`| Model equivalent   | NetCDF file containing model equivalent. (`m`)  |
 | `skl`| Skeleton           | Empty netCDF file structure for init. (`s`)     |
 | `std`| Standard           | Core metadata like time and coordinates. (`s`)  |
 | `prv`| Previous           | File from a prior run. (`p`)                    |
