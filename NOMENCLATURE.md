@@ -52,7 +52,6 @@ to accommodate external API terminology.
 | ---- | ------------------ | ----------------------------------------------- |
 | `riv`| River ID           | Unique identifier for each river reach (-).     |
 | `dwn`| Downstream ID      | Downstream identifier (-).                      |
-| `obs`| Observation ID     | Reach identifier where observations exist (-).  |
 | `kpr`| k parameter        | Muskingum parameter k (s).                      |
 | `xpr`| x parameter        | Muskingum parameter x (-).                      |
 | `C1p`| C1 parameter       | Muskingum parameter C1 (-).                     |
@@ -94,10 +93,11 @@ to accommodate external API terminology.
 | Code | Meaning            | Notes (netCDF Dataset pointer)                  |
 | ---- | ------------------ | ----------------------------------------------- |
 | `nml`| Namelist           | Configuration and input file paths.             |
-| `bas`| Basin              | Subset of the full routing network.             |
+| `bas`| Basin              | Simulated subset of the full routing network.   |
 | `con`| Connectivity       | River network connectivity.                     |
 | `cpl`| Coupling           | Land surface model to river network mapping.    |
 | `crd`| Coordinates        | Geospatial longitude and latitude data.         |
+| `obs`| Observations       | Observed subset of the full routing network.    |
 | `lsm`| Land surface model | External boundary condition forcing data. (`c`) |
 | `m3r`| External volume    | Legacy file format for external volume. (`d`)   |
 | `Q00`| Initial outflow    | Initial outflow state of the network. (`e`)     |
@@ -117,10 +117,10 @@ to accommodate external API terminology.
 
 | Code | Meaning            | Notes                                           |
 | ---- | ------------------ | ----------------------------------------------- |
-| `tot`| Total network      | Array length equals `IS_riv_tot`.               |
-| `bas`| Basin              | Array length equals `IS_riv_bas`.               |
-| `avl`| Available          | Array length equals `IS_obs_avl`.               |
-| `act`| Active             | Array length equals `IS_obs_act`.               |
+| `tot`| Total network      | Length is `IS_riv_tot` (entire routing domain). |
+| `bas`| Basin subset       | Length is `IS_riv_bas` (simulated subset).      |
+| `avl`| Available gages    | Length is `IS_riv_avl` (all observed reaches).  |
+| `act`| Active gages       | Length is `IS_riv_act` (used for correction).   |
 | `all`| All values         | Array length equals `IS_tim_all`.               |
 | `lsm`| Land surface model | Array dimensions match LSM grid (e.g., lat/lon).|
 
