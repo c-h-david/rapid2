@@ -25,10 +25,10 @@ from rapid2 import (
     make_Net_mat,
     prep_Qfi_ncf,
     prep_Qou_ncf,
-    read_bas_vec,
     read_con_vec,
     read_kpr_vec,
     read_nml_tbl,
+    read_riv_vec,
     read_std_vec,
     read_xpr_vec,
     updt_Mus_Qou,
@@ -101,7 +101,7 @@ def main() -> None:
     # River network
     # -------------------------------------------------------------------------
     IV_riv_tot, IV_dwn_tot = read_con_vec(con_pqt)
-    IV_riv_bas = read_bas_vec(bas_pqt)
+    IV_riv_bas = read_riv_vec(bas_pqt)
     IT_0bi_tot, IT_0bi_bas, IV_0bi_bas = make_0bi_tbl(IV_riv_tot, IV_riv_bas)
     ZM_Net = make_Net_mat(IV_dwn_tot, IT_0bi_tot, IV_riv_bas, IT_0bi_bas)
 
