@@ -194,10 +194,10 @@ def main() -> None:
         JS_idx_end = JS_idx_beg + IS_rat_Qob
 
         # Extract the chunk and apply spatial filter simultaneously
-        ZM_Qou_chk = g.variables["Qout"][JS_idx_beg:JS_idx_end, IV_0bi_avl]
+        ZM_Qou_tmp = g.variables["Qout"][JS_idx_beg:JS_idx_end, IV_0bi_avl]
 
         # Calculate temporal mean across the specified window (axis 0)
-        ZV_Qme_avg = np.mean(ZM_Qou_chk, axis=0)
+        ZV_Qme_avg = np.mean(ZM_Qou_tmp, axis=0)
 
         # Write to Qme output
         m.variables["Qout"][JS_tim_Qob, :] = ZV_Qme_avg[:]
