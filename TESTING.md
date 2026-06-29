@@ -4,7 +4,13 @@
 >
 > ```bash
 > rm -r ~/venv/
+> ```
+>
+> ```bash
 > /usr/bin/python3 -m venv ~/venv
+> ```
+>
+> ```bash
 > pip install .[dev]
 > ```
 
