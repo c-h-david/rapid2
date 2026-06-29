@@ -123,18 +123,18 @@ def main() -> None:
     # Read observational gauge IDs
     # -------------------------------------------------------------------------
     print("- Read observation file")
-    IV_riv_obs = read_riv_vec(obs_pqt)
-    IS_riv_obs = len(IV_riv_obs)
-    print(f"  . Found {IS_riv_obs} observation locations")
+    IV_riv_avl = read_riv_vec(obs_pqt)
+    IS_riv_avl = len(IV_riv_avl)
+    print(f"  . Found {IS_riv_avl} observation locations")
 
     # -------------------------------------------------------------------------
     # Extract metadata from Qou_ncf and check spatial topology
     # -------------------------------------------------------------------------
     print("- Extract metadata from Qou file")
     (
-        IV_riv_tot,
-        ZV_lon_tot,
-        ZV_lat_tot,
+        IV_riv_bas,
+        ZV_lon_bas,
+        ZV_lat_bas,
         IV_tim_all,
         IM_tim_all,
     ) = read_std_vec(Qou_ncf)
@@ -145,14 +145,14 @@ def main() -> None:
 
     # Map the observation IDs to their 0-based indices in the Qou file
     try:
-        _, _, IV_0bi_obs = make_0bi_tbl(IV_riv_tot, IV_riv_obs)
+        _, _, IV_0bi_avl = make_0bi_tbl(IV_riv_bas, IV_riv_avl)
     except KeyError as e:
         print(f"ERROR - Observation ID {e} not found in the input Qou file")
         sys.exit(1)
 
     # Spatially subset coordinates
-    ZV_lon_obs = ZV_lon_tot[IV_0bi_obs]
-    ZV_lat_obs = ZV_lat_tot[IV_0bi_obs]
+    ZV_lon_avl = ZV_lon_bas[IV_0bi_avl]
+    ZV_lat_avl = ZV_lat_bas[IV_0bi_avl]
 
     # -------------------------------------------------------------------------
     # Determine temporal ratios
@@ -179,7 +179,7 @@ def main() -> None:
     # Create Qme file
     # -------------------------------------------------------------------------
     print("- Create Qme file")
-    prep_Qou_ncf(IV_riv_obs, ZV_lon_obs, ZV_lat_obs, Qme_ncf)
+    prep_Qou_ncf(IV_riv_avl, ZV_lon_avl, ZV_lat_avl, Qme_ncf)
 
     # -------------------------------------------------------------------------
     # Sub-sample data
@@ -194,7 +194,7 @@ def main() -> None:
         JS_idx_end = JS_idx_beg + IS_rat_Qob
 
         # Extract the chunk and apply spatial filter simultaneously
-        ZM_Qou_chk = g.variables["Qout"][JS_idx_beg:JS_idx_end, IV_0bi_obs]
+        ZM_Qou_chk = g.variables["Qout"][JS_idx_beg:JS_idx_end, IV_0bi_avl]
 
         # Calculate temporal mean across the specified window (axis 0)
         ZV_Qme_avg = np.mean(ZM_Qou_chk, axis=0)
