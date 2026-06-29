@@ -158,20 +158,20 @@ def main() -> None:
     # Determine temporal ratios
     # -------------------------------------------------------------------------
     print("- Check temporal consistency")
-    IS_dtR = IM_tim_all[0, 1] - IM_tim_all[0, 0]
+    IS_dtE = IM_tim_all[0, 1] - IM_tim_all[0, 0]
     IS_tim_all = len(IV_tim_all)
 
-    if IS_dtO % IS_dtR != 0:
+    if IS_dtO % IS_dtE != 0:
         print(
             f"ERROR - Target timestep ({IS_dtO}) is not a multiple of the "
-            f"input timestep ({IS_dtR})"
+            f"input timestep ({IS_dtE})"
         )
         sys.exit(1)
 
-    IS_rat_Qob = IS_dtO // IS_dtR
-    IS_tim_out = IS_tim_all // IS_rat_Qob
+    IS_rat_Qob = IS_dtO // IS_dtE
+    IS_tim_Qob = IS_tim_all // IS_rat_Qob
 
-    print(f"  . Input time step: {IS_dtR}s")
+    print(f"  . Input time step: {IS_dtE}s")
     print(f"  . Output time step: {IS_dtO}s")
     print(f"  . Averaging {IS_rat_Qob} timesteps per output frame")
 
@@ -187,10 +187,10 @@ def main() -> None:
     print("- Sub-sample data")
 
     g = netCDF4.Dataset(Qou_ncf, "r")
-    h = netCDF4.Dataset(Qme_ncf, "a")
+    m = netCDF4.Dataset(Qme_ncf, "a")
 
-    for JS_tim_out in tqdm(range(IS_tim_out), desc="Averaging discharge"):
-        JS_idx_beg = JS_tim_out * IS_rat_Qob
+    for JS_tim_Qob in tqdm(range(IS_tim_Qob), desc="Averaging discharge"):
+        JS_idx_beg = JS_tim_Qob * IS_rat_Qob
         JS_idx_end = JS_idx_beg + IS_rat_Qob
 
         # Extract the chunk and apply spatial filter simultaneously
@@ -200,28 +200,28 @@ def main() -> None:
         ZV_Qme_avg = np.mean(ZM_Qou_chk, axis=0)
 
         # Write to Qme output
-        h.variables["Qout"][JS_tim_out, :] = ZV_Qme_avg[:]
+        m.variables["Qout"][JS_tim_Qob, :] = ZV_Qme_avg[:]
 
         # Write aligned time and bounds
-        h.variables["time"][JS_tim_out] = g.variables["time"][JS_idx_beg]
-        h.variables["time_bnds"][JS_tim_out, 0] = g.variables["time_bnds"][
+        m.variables["time"][JS_tim_Qob] = g.variables["time"][JS_idx_beg]
+        m.variables["time_bnds"][JS_tim_Qob, 0] = g.variables["time_bnds"][
             JS_idx_beg, 0
         ]
-        h.variables["time_bnds"][JS_tim_out, 1] = g.variables["time_bnds"][
+        m.variables["time_bnds"][JS_tim_Qob, 1] = g.variables["time_bnds"][
             JS_idx_end - 1, 1
         ]
 
     # -------------------------------------------------------------------------
     # Copy some global attributes
     # -------------------------------------------------------------------------
-    h.setncattr("title", g.getncattr("title"))
-    h.setncattr("institution", g.getncattr("institution"))
+    m.setncattr("title", g.getncattr("title"))
+    m.setncattr("institution", g.getncattr("institution"))
 
     # -------------------------------------------------------------------------
     # Close files
     # -------------------------------------------------------------------------
     g.close()
-    h.close()
+    m.close()
 
     print("Done")
 
