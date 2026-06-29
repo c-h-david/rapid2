@@ -203,7 +203,7 @@ def main() -> None:
         h.variables["Qout"][JS_tim_out, :] = ZV_Qme_avg[:]
 
         # Write aligned time and bounds
-        h.variables["time"][JS_tim_out] = g.variables["time"][JS_idx_end - 1]
+        h.variables["time"][JS_tim_out] = g.variables["time"][JS_idx_beg]
         h.variables["time_bnds"][JS_tim_out, 0] = g.variables["time_bnds"][
             JS_idx_beg, 0
         ]
