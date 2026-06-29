@@ -190,11 +190,12 @@ def main() -> None:
     m = netCDF4.Dataset(Qme_ncf, "a")
 
     for JS_tim_Qob in tqdm(range(IS_tim_Qob), desc="Averaging discharge"):
-        JS_idx_beg = JS_tim_Qob * IS_rat_Qob
-        JS_idx_end = JS_idx_beg + IS_rat_Qob
+        JS_tim_now = JS_tim_Qob * IS_rat_Qob
 
         # Extract the chunk and apply spatial filter simultaneously
-        ZM_Qou_tmp = g.variables["Qout"][JS_idx_beg:JS_idx_end, IV_0bi_avl]
+        ZM_Qou_tmp = g.variables["Qout"][
+            JS_tim_now : JS_tim_now + IS_rat_Qob, IV_0bi_avl
+        ]
 
         # Calculate temporal mean across the specified window (axis 0)
         ZV_Qme_avg = np.mean(ZM_Qou_tmp, axis=0)
@@ -203,12 +204,12 @@ def main() -> None:
         m.variables["Qout"][JS_tim_Qob, :] = ZV_Qme_avg[:]
 
         # Write aligned time and bounds
-        m.variables["time"][JS_tim_Qob] = g.variables["time"][JS_idx_beg]
+        m.variables["time"][JS_tim_Qob] = g.variables["time"][JS_tim_now]
         m.variables["time_bnds"][JS_tim_Qob, 0] = g.variables["time_bnds"][
-            JS_idx_beg, 0
+            JS_tim_now, 0
         ]
         m.variables["time_bnds"][JS_tim_Qob, 1] = g.variables["time_bnds"][
-            JS_idx_end - 1, 1
+            JS_tim_now + IS_rat_Qob - 1, 1
         ]
 
     # -------------------------------------------------------------------------
