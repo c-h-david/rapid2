@@ -25,8 +25,8 @@ to accommodate external API terminology.
 
 | Code | Meaning            | Notes                                           |
 | ---- | ------------------ | ----------------------------------------------- |
-| `I`  | Integer            | Used for IDs, counters, and totals.             |
-| `J`  | Integer (iterated) | Used exclusively for loop indices.              |
+| `I`  | Integer (static)   | Used for IDs, static counters, and fixed sizes. |
+| `J`  | Integer (iterated) | Used for loop indices and evolving variables.   |
 | `Z`  | Float              | Used for discharge, coordinates, parameters.    |
 | `Y`  | String/character   | Used for variable names and text labels.        |
 | `B`  | Boolean            | Used for logical masks and status flags.        |
