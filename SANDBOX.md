@@ -190,6 +190,67 @@ This "true" inflow is used to generate the synthetic gage observations:
 \mathbf{g^{T}}(t)
 ```
 
+## First Guess External Inflow
+
+To test data assimilation and bias correction, a flawed "first guess"
+external inflow is introduced. The network is partitioned such that reaches
+1, 2, and 3 overestimate the true mean and amplitude, while reaches 4 and 5
+underestimate them:
+
+```math
+\mathbf{Q^{eF}}(t) =
+\begin{bmatrix}
+ 12     \\
+ 12     \\
+ 12     \\
+ 16     \\
+ 16
+\end{bmatrix}
++
+\begin{bmatrix}
+ 1.1    \\
+ 1.1    \\
+ 1.1    \\
+ 1.8    \\
+ 1.8
+\end{bmatrix}
+\cdot
+\mathrm{sgn}\!\left( \sin\!\left(\tfrac{\pi t}{86400}
++
+\varepsilon\right) \right)
+```
+
+## First Guess Initial State
+
+To ensure the flawed simulation reaches a clean steady state within the
+daily cycles, the initial state is set to match the exact physical
+accumulation of the first guess low-flow routing:
+
+```math
+\mathbf{Q^{F}}(0) =
+\begin{bmatrix}
+ 10.9   \\
+ 10.9   \\
+ 32.7   \\
+ 14.2   \\
+ 61.1
+\end{bmatrix}
+```
+
+## Verification Experiments
+
+To verify the bias correction and data assimilation algorithms, the Sandbox
+includes a suite of five modular experiments. The "First Guess" (FG) flawed
+baseline is systematically corrected to recover the "True" (TR) state.
+
+| Experiment     | Files (*.nc4)                                    |
+| :------------- | :----------------------------------------------- |
+| Truth          | `Qex_TR`, `Q00_TR`, `Qou_TR`, `Qfi_TR`, `Qob_TR` |
+| Open Loop      | `Qex_FG`, `Q00_FG`, `Qou_OL`, `Qfi_OL`, `Qme_OL` |
+| Bias Correc.   | `Qex_FG`, `Q00_FG`, `Qou_BC`, `Qfi_BC`, `Qme_BC` |
+| Data Assim.    | `Qex_FG`, `Q00_FG`, `Qou_DA`, `Qfi_DA`, `Qme_DA` |
+| Hybrid BC/DA   | `Qex_FG`, `Q00_FG`, `Qou_HY`, `Qfi_HY`, `Qme_HY` |
+
 ## Notable Matrices
 
 Some notable matrices related to matrix-based Muskingum routing include
