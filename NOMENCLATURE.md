@@ -25,8 +25,8 @@ to accommodate external API terminology.
 
 | Code | Meaning            | Notes                                           |
 | ---- | ------------------ | ----------------------------------------------- |
-| `I`  | Integer            | Used for IDs, counters, and totals.             |
-| `J`  | Integer (iterated) | Used exclusively for loop indices.              |
+| `I`  | Integer (static)   | Used for IDs, static counters, and fixed sizes. |
+| `J`  | Integer (iterated) | Used for loop indices and evolving variables.   |
 | `Z`  | Float              | Used for discharge, coordinates, parameters.    |
 | `Y`  | String/character   | Used for variable names and text labels.        |
 | `B`  | Boolean            | Used for logical masks and status flags.        |
@@ -52,7 +52,6 @@ to accommodate external API terminology.
 | ---- | ------------------ | ----------------------------------------------- |
 | `riv`| River ID           | Unique identifier for each river reach (-).     |
 | `dwn`| Downstream ID      | Downstream identifier (-).                      |
-| `obs`| Observation ID     | Reach identifier where observations exist (-).  |
 | `kpr`| k parameter        | Muskingum parameter k (s).                      |
 | `xpr`| x parameter        | Muskingum parameter x (-).                      |
 | `C1p`| C1 parameter       | Muskingum parameter C1 (-).                     |
@@ -66,6 +65,7 @@ to accommodate external API terminology.
 | `Qex`| External inflow    | Flow of water entering from exterior (m^3/s).   |
 | `Qou`| Outflow discharge  | Flow of water exiting each reach (m^3/s).       |
 | `Qob`| Observed discharge | Flow of water from observations (m^3/s).        |
+| `Qme`| Model equivalent   | Model equivalent to observations (m^3/s).       |
 | `Vol`| Volume             | Volume of water stored in the reach (m^3).      |
 | `lon`| Longitude          | Representative longitude of the reach (°).      |
 | `lat`| Latitude           | Representative latitude of the reach (°).       |
@@ -93,16 +93,19 @@ to accommodate external API terminology.
 | Code | Meaning            | Notes (netCDF Dataset pointer)                  |
 | ---- | ------------------ | ----------------------------------------------- |
 | `nml`| Namelist           | Configuration and input file paths.             |
-| `bas`| Basin              | Subset of the full routing network.             |
+| `bas`| Basin              | Simulated subset of the full routing network.   |
 | `con`| Connectivity       | River network connectivity.                     |
 | `cpl`| Coupling           | Land surface model to river network mapping.    |
 | `crd`| Coordinates        | Geospatial longitude and latitude data.         |
+| `obs`| Observations       | Observed subset of the full routing network.    |
 | `lsm`| Land surface model | External boundary condition forcing data. (`c`) |
 | `m3r`| External volume    | Legacy file format for external volume. (`d`)   |
 | `Q00`| Initial outflow    | Initial outflow state of the network. (`e`)     |
 | `Qex`| External inflow    | NetCDF file containing forcing data. (`f`)      |
 | `Qou`| Outflow discharge  | NetCDF file containing routing results. (`g`)   |
 | `Qfi`| Final outflow      | Final outflow state of the network. (`h`)       |
+| `Qob`| Observed discharge | NetCDF file containing observations. (`o`)      |
+| `Qme`| Model equivalent   | NetCDF file containing model equivalent. (`m`)  |
 | `skl`| Skeleton           | Empty netCDF file structure for init. (`s`)     |
 | `std`| Standard           | Core metadata like time and coordinates. (`s`)  |
 | `prv`| Previous           | File from a prior run. (`p`)                    |
@@ -110,16 +113,30 @@ to accommodate external API terminology.
 
 ### `<qualifier>`
 
+#### Size Guarantees
+
 | Code | Meaning            | Notes                                           |
 | ---- | ------------------ | ----------------------------------------------- |
-| `tot`| Total network      | Array length equals `IS_riv_tot`.               |
-| `bas`| Basin              | Array length equals `IS_riv_bas`.               |
-| `lsm`| Land surface model | Associated with the external LSM grid/domain.   |
+| `tot`| Total network      | Length is `IS_riv_tot` (entire routing domain). |
+| `bas`| Basin subset       | Length is `IS_riv_bas` (simulated subset).      |
+| `avl`| Available gages    | Length is `IS_riv_avl` (all observed reaches).  |
+| `act`| Active gages       | Length is `IS_riv_act` (used for correction).   |
+| `all`| All values         | Array length equals `IS_tim_all`.               |
+| `lsm`| Land surface model | Array dimensions match LSM grid (e.g., lat/lon).|
+
+#### Temporal States
+
+| Code | Meaning            | Notes                                           |
+| ---- | ------------------ | ----------------------------------------------- |
 | `prv`| Previous value     | Previous state of a dynamic variable.           |
 | `now`| Current value      | Current state of a dynamic variable.            |
 | `avg`| Average value      | Time-averaged dynamic variable.                 |
-| `all`| Complete sequence  | Used for arrays spanning the entire time domain.|
 | `tmp`| Temporary value    | Non-persistent, for computation or validation.  |
+
+#### Origins and Timescales
+
+| Code | Meaning            | Notes                                           |
+| ---- | ------------------ | ----------------------------------------------- |
 | `Qex`| External inflow    | Associated with the external forcing timescale. |
 | `Qob`| Observed discharge | Associated with the observation timescale.      |
 

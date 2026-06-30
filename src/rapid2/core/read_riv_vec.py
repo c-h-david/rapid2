@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # *****************************************************************************
-# read_bas_vec.py
+# read_riv_vec.py
 # *****************************************************************************
 
 # Author:
@@ -14,48 +14,47 @@ import sys
 
 import numpy as np
 import numpy.typing as npt
-import pyarrow.csv as pv
+import pyarrow.parquet as pq
 
 
 # *****************************************************************************
 # Basin function
 # *****************************************************************************
-def read_bas_vec(bas_csv: str) -> npt.NDArray[np.int32]:
-    """Read basin file.
+def read_riv_vec(riv_pqt: str) -> npt.NDArray[np.int32]:
+    """Read river ID file.
 
-    Create one array of river IDs based on basin file.
+    Create one array of river IDs based on a single-column parquet file.
 
     Parameters
     ----------
-    bas_csv : str
-        Path to the basin file.
+    riv_pqt : str
+        Path to the parquet file containing river IDs (e.g., bas_pqt, obs_pqt).
 
     Returns
     -------
-    IV_riv_bas : ndarray[int32]
-        The river IDs of the basin.
+    IV_riv : ndarray[int32]
+        The river IDs from the file.
 
     Examples
     --------
-    >>> bas_csv = "./input/Sandbox/riv_bas_id_Sandbox.csv"
-    >>> read_bas_vec(bas_csv)
+    >>> riv_pqt = "./input/Sandbox/bas_Sandbox_ascend.parquet"
+    >>> read_riv_vec(riv_pqt)
     array([10, 20, 30, 40, 50], dtype=int32)
     """
 
     # -------------------------------------------------------------------------
-    # Read CSV and populate array
+    # Read Parquet and populate array
     # -------------------------------------------------------------------------
     try:
-        read_options = pv.ReadOptions(column_names=["riv"])
-        table = pv.read_csv(bas_csv, read_options=read_options)
+        table = pq.read_table(riv_pqt, columns=["riv"])
 
-        IV_riv_bas = table.column("riv").to_numpy().astype(np.int32)
+        IV_riv = table.column("riv").to_numpy().astype(np.int32)
 
     except IOError:
-        print(f"ERROR - Unable to open {bas_csv}")
+        print(f"ERROR - Unable to open {riv_pqt}")
         sys.exit(1)
 
-    return IV_riv_bas
+    return IV_riv
 
 
 # *****************************************************************************

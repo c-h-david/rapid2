@@ -18,7 +18,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "rapid2"
-version = "2.0.0.b1"
+version = "2.0.0b2"
 license = {file = "LICENSE"}
 readme = "README.md"
 description = "Routing Application for Programmed Integration of Discharge"
@@ -61,6 +61,7 @@ dev = [
     "scipy-stubs",    # <--- Adds mypy support for scipy.sparse
     "types-tqdm",     # <--- Adds mypy support for tqdm
     "pyarrow-stubs",  # <--- Adds mypy support for pyarrow
+    "parq-cli",       # <--- CLI for inspecting Parquet files
 ]
 
 [project.urls]
@@ -75,6 +76,7 @@ zeroqinit = "rapid2.cli._zeroqinit:main"
 sandboxqext = "rapid2.cli._sandboxqext:main"
 cpllsm = "rapid2.cli._cpllsm:main"
 cmpncf = "rapid2.cli._cmpncf:main"
+subsampleqout = "rapid2.cli._subsampleqout:main"
 
 [tool.ruff]
 line-length = 79

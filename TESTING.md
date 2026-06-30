@@ -1,5 +1,19 @@
 # Testing
 
+> If wanting to rebuild from scratch:
+>
+> ```bash
+> rm -r ~/venv/
+> ```
+>
+> ```bash
+> /usr/bin/python3 -m venv ~/venv
+> ```
+>
+> ```bash
+> pip install .[dev]
+> ```
+
 ## Stating code analysis
 
 We leverage a variety of static code analysis tools as a means of checking and
@@ -91,8 +105,10 @@ mypy .
 
 ## Runtime testing
 
-Our runtime testing efforts leverage small unit tests as well as some larger
-efforts to replicate past results.
+RAPID comes along with a set of test files based on a synthetic experiment
+described in
+[`SANDBOX.md`][URL_SNDBOX].
+on which our runtime testing efforts rely.
 
 ### Python docstrings check
 
@@ -104,8 +120,27 @@ python3 -m doctest src/rapid2/core/*.py
 
 ### Replication of past results
 
-To be added.
+```bash
+rapid2 -nml input/Sandbox/nml_Sandbox.yml
+```
 
+```bash
+cmpncf \
+  -prv output/Sandbox/Qou_Sandbox_19700101_19700110.nc4 \
+  -now output/Sandbox/Qou_Sandbox_19700101_19700110_tst.nc4 \
+  -rtl 1e-10 \
+  -atl 1e-10
+```
+
+```bash
+cmpncf \
+  -prv output/Sandbox/Qfi_Sandbox_19700101_19700110.nc4 \
+  -now output/Sandbox/Qfi_Sandbox_19700101_19700110_tst.nc4 \
+  -rtl 1e-10 \
+  -atl 1e-10
+```
+
+[URL_SNDBOX]: https://github.com/c-h-david/rapid2/blob/main/SANDBOX.md
 [URL_CFG_MD]: https://github.com/c-h-david/rapid2/blob/main/.pymarkdown.yml
 [URL_CFG_YM]: https://github.com/c-h-david/rapid2/blob/main/.yamllint.yml
 [URL_CFG_PY]: https://github.com/c-h-david/rapid2/blob/main/pyproject.toml

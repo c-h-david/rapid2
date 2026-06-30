@@ -25,10 +25,10 @@ from rapid2 import (
     make_Net_mat,
     prep_Qfi_ncf,
     prep_Qou_ncf,
-    read_bas_vec,
     read_con_vec,
     read_kpr_vec,
     read_nml_tbl,
+    read_riv_vec,
     read_std_vec,
     read_xpr_vec,
     updt_Mus_Qou,
@@ -86,11 +86,11 @@ def main() -> None:
     Q00_ncf = AT_nml["Q00_ncf"]
     Qex_ncf = AT_nml["Qex_ncf"]
 
-    con_csv = AT_nml["con_csv"]
-    kpr_csv = AT_nml["kpr_csv"]
-    xpr_csv = AT_nml["xpr_csv"]
+    con_pqt = AT_nml["con_pqt"]
+    kpr_pqt = AT_nml["kpr_pqt"]
+    xpr_pqt = AT_nml["xpr_pqt"]
 
-    bas_csv = AT_nml["bas_csv"]
+    bas_pqt = AT_nml["bas_pqt"]
 
     IS_dtR = AT_nml["IS_dtR"]
 
@@ -100,21 +100,25 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # River network
     # -------------------------------------------------------------------------
-    IV_riv_tot, IV_dwn_tot = read_con_vec(con_csv)
-    IV_riv_bas = read_bas_vec(bas_csv)
+    IV_riv_tot, IV_dwn_tot = read_con_vec(con_pqt)
+    IV_riv_bas = read_riv_vec(bas_pqt)
     IT_0bi_tot, IT_0bi_bas, IV_0bi_bas = make_0bi_tbl(IV_riv_tot, IV_riv_bas)
     ZM_Net = make_Net_mat(IV_dwn_tot, IT_0bi_tot, IV_riv_bas, IT_0bi_bas)
 
     # -------------------------------------------------------------------------
     # Model parameters
     # -------------------------------------------------------------------------
-    ZV_kpr_bas = read_kpr_vec(kpr_csv, IV_0bi_bas)
-    ZV_xpr_bas = read_xpr_vec(xpr_csv, IV_0bi_bas)
+    IV_riv_tmp, ZV_kpr_bas = read_kpr_vec(kpr_pqt, IV_0bi_bas)
+    np.testing.assert_array_equal(IV_riv_bas, IV_riv_tmp)
+
+    IV_riv_tmp, ZV_xpr_bas = read_xpr_vec(xpr_pqt, IV_0bi_bas)
+    np.testing.assert_array_equal(IV_riv_bas, IV_riv_tmp)
+
     ZM_C1p, ZM_C2p, ZM_C3p = make_CCC_mat(ZV_kpr_bas, ZV_xpr_bas, IS_dtR)
     ZM_ICN, ZM_Qex, ZM_Qou = make_Mus_mat(ZM_Net, ZM_C1p, ZM_C2p, ZM_C3p)
 
     # -------------------------------------------------------------------------
-    # Extract metadata of external inflow
+    # Extract metadata of external inflow and check IDs
     # -------------------------------------------------------------------------
     (
         IV_riv_tmp,
@@ -123,6 +127,14 @@ def main() -> None:
         IV_tim_all,
         IM_tim_all,
     ) = read_std_vec(Qex_ncf)
+    np.testing.assert_array_equal(IV_riv_tot, IV_riv_tmp)
+
+    # -------------------------------------------------------------------------
+    # Extract metadata of initial value and check IDs and time
+    # -------------------------------------------------------------------------
+    IV_riv_tmp, _, _, IV_tim_tmp, _ = read_std_vec(Q00_ncf)
+    np.testing.assert_array_equal(IV_riv_tot, IV_riv_tmp)
+    np.testing.assert_equal(IV_tim_all[0], IV_tim_tmp[0])
 
     # -------------------------------------------------------------------------
     # Get time step correspondance
@@ -144,9 +156,8 @@ def main() -> None:
         raise ValueError("IS_dtE is not a multiple of IS_dtR")
 
     # -------------------------------------------------------------------------
-    # Check river IDs and upstream to downstream topology
+    # Check upstream to downstream topology
     # -------------------------------------------------------------------------
-    np.testing.assert_array_equal(IV_riv_tot, IV_riv_tmp)
     chck_bas(IV_riv_bas, IT_0bi_bas, IV_riv_tot, IV_dwn_tot, IT_0bi_tot)
 
     # -------------------------------------------------------------------------
@@ -203,6 +214,7 @@ def main() -> None:
     # Save final discharge state
     # -------------------------------------------------------------------------
     h.variables["Qout"][0, IV_0bi_bas] = ZV_Qou_now[:]
+    h.variables["time"][0] = IM_tim_all[-1, 1]
 
     # -------------------------------------------------------------------------
     # Copy some global attributes

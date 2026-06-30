@@ -20,6 +20,8 @@ plugins:
     heading_line_length: 79
     code_block_line_length: 79
     strict: true
+  md024:
+    siblings_only: true
 
 
 # *****************************************************************************
