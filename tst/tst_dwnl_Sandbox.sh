@@ -38,7 +38,7 @@ echo "********************"
 # *****************************************************************************
 # Location of the dataset
 # *****************************************************************************
-URL="https://zenodo.org/records/20671995/files"
+URL="https://zenodo.org/records/21085813/files"
 
 
 # *****************************************************************************
@@ -47,14 +47,18 @@ URL="https://zenodo.org/records/20671995/files"
 folder="../input/Sandbox"
 list=(
     "con_Sandbox.parquet"
-    "Qex_Sandbox_19700101_19700110.nc4"
-    "Q00_Sandbox_19700101_19700110.nc4"
+    "Qex_Sandbox_19700101_19700110_TR.nc4"
+    "Q00_Sandbox_19700101_19700110_TR.nc4"
     "kpr_Sandbox.parquet"
     "xpr_Sandbox.parquet"
     "bas_Sandbox_ascend.parquet"
     "nml_Sandbox.yml"
     "cpl_Sandbox.parquet"
     "crd_Sandbox.parquet"
+    "obs_Sandbox.parquet"
+    "Qob_Sandbox_19700101_19700110_TR.nc4"
+    "Qex_Sandbox_19700101_19700110_FG.nc4"
+    "Q00_Sandbox_19700101_19700110_FG.nc4"
 )
 
 mkdir -p $folder
@@ -71,8 +75,10 @@ done
 # *****************************************************************************
 folder="../output/Sandbox"
 list=(
-    "Qou_Sandbox_19700101_19700110.nc4"
-    "Qfi_Sandbox_19700101_19700110.nc4"
+    "Qou_Sandbox_19700101_19700110_TR.nc4"
+    "Qfi_Sandbox_19700101_19700110_TR.nc4"
+    "Qou_Sandbox_19700101_19700110_OL.nc4"
+    "Qfi_Sandbox_19700101_19700110_OL.nc4"
 )
 
 mkdir -p $folder

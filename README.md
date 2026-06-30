@@ -90,8 +90,8 @@ Below is an example of what `nml_Sandbox.yml` includes:
 
 ```yaml
 ---
-Qex_ncf: './input/Sandbox/Qex_Sandbox_19700101_19700110.nc4'
-Q00_ncf: './input/Sandbox/Q00_Sandbox_19700101_19700110.nc4'
+Qex_ncf: './input/Sandbox/Qex_Sandbox_19700101_19700110_TR.nc4'
+Q00_ncf: './input/Sandbox/Q00_Sandbox_19700101_19700110_TR.nc4'
 
 con_pqt: './input/Sandbox/con_Sandbox.parquet'
 kpr_pqt: './input/Sandbox/kpr_Sandbox.parquet'
@@ -101,8 +101,8 @@ bas_pqt: './input/Sandbox/bas_Sandbox_ascend.parquet'
 
 IS_dtR: 900
 
-Qou_ncf: './output/Sandbox/Qou_Sandbox_19700101_19700110_tst.nc4'
-Qfi_ncf: './output/Sandbox/Qfi_Sandbox_19700101_19700110_tst.nc4'
+Qou_ncf: './output/Sandbox/Qou_Sandbox_19700101_19700110_TR_tst.nc4'
+Qfi_ncf: './output/Sandbox/Qfi_Sandbox_19700101_19700110_TR_tst.nc4'
 ```
 
 ### Build Instructions

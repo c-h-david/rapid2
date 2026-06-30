@@ -41,9 +41,9 @@ def read_nml_tbl(nml_yml: str) -> Dict[str, Any]:
     >>> nml_yml = "./input/Sandbox/nml_Sandbox.yml"
     >>> AT_nml = read_nml_tbl(nml_yml)
     >>> AT_nml["Q00_ncf"]
-    './input/Sandbox/Q00_Sandbox_19700101_19700110.nc4'
+    './input/Sandbox/Q00_Sandbox_19700101_19700110_TR.nc4'
     >>> AT_nml["Qex_ncf"]
-    './input/Sandbox/Qex_Sandbox_19700101_19700110.nc4'
+    './input/Sandbox/Qex_Sandbox_19700101_19700110_TR.nc4'
     >>> AT_nml["con_pqt"]
     './input/Sandbox/con_Sandbox.parquet'
     >>> AT_nml["kpr_pqt"]
@@ -55,9 +55,9 @@ def read_nml_tbl(nml_yml: str) -> Dict[str, Any]:
     >>> AT_nml["IS_dtR"]
     np.int32(900)
     >>> AT_nml["Qou_ncf"]
-    './output/Sandbox/Qou_Sandbox_19700101_19700110_tst.nc4'
+    './output/Sandbox/Qou_Sandbox_19700101_19700110_TR_tst.nc4'
     >>> AT_nml["Qfi_ncf"]
-    './output/Sandbox/Qfi_Sandbox_19700101_19700110_tst.nc4'
+    './output/Sandbox/Qfi_Sandbox_19700101_19700110_TR_tst.nc4'
     """
 
     try:
