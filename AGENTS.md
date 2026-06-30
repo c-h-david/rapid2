@@ -22,10 +22,11 @@ from memory.
   `pyproject.toml`) that define their options. This is the single
   source for how CI checks code.
 - [`.github/workflows/CL.yml`][CL] — the exact command sequence CI runs
-  on every PR; it mirrors `TESTING.md`.
+  on every PR (the static-analysis checks in `TESTING.md`).
 - [`CLI_STYLE.md`][CLI] — the file-structure and formatting standard for
   CLI scripts, and how to register a CLI in `pyproject.toml`.
-- [`src/rapid2/cli/_rapid2.py`][R2] — the canonical script to mirror.
+- [`src/rapid2/cli/_rapid2.py`][R2] — the canonical script to mirror;
+  for a small read-and-report tool, [`_zeroqinit.py`][ZQI] is lighter.
 
 ## Program structure
 
@@ -37,13 +38,21 @@ rarely infers it correctly:
   skeleton in [`CLI_STYLE.md`][CLI], and mirror `_rapid2.py`.
 - Register each new CLI under `[project.scripts]` in `pyproject.toml`.
 
+## Running locally
+
+Install the package editable so your working tree shadows any installed
+copy (`pip install -e ".[dev]"`), then call tools by their registered
+console name.
+
 ## Pre-PR checklist
 
 Before opening a PR:
 
-- Run the full local check suite from [`TESTING.md`][TST] — markdown,
-  YAML, Dockerfile, shell, `ruff` lint, `ruff` format, `mypy`, and
-  doctests. Every command must exit 0; CI runs the same set.
+- Run every CI gate locally from [`TESTING.md`][TST]: markdown, YAML,
+  Dockerfile, shell, `ruff` lint, `ruff` format, and `mypy`. Each must
+  exit 0 — CI (`CL.yml`) runs exactly these.
+- Also run the doctests (`python3 -m doctest`, per [`TESTING.md`][TST]);
+  CI does not gate them, but they must pass.
 - Branch off `main` with a descriptive name (`add-foo`,
   `fix-bar-timeout`).
 - New CLI script? Registered under `[project.scripts]` in
@@ -59,3 +68,4 @@ Before opening a PR:
 [CL]: .github/workflows/CL.yml
 [CLI]: CLI_STYLE.md
 [R2]: src/rapid2/cli/_rapid2.py
+[ZQI]: src/rapid2/cli/_zeroqinit.py

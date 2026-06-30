@@ -6,6 +6,9 @@ file named `_<tool>.py` and follows the structure below. Mirror
 only describes the rules it embodies. If the two ever disagree,
 `_rapid2.py` wins.
 
+`_rapid2.py` is a full routing engine; for a small read-input and
+report tool, [`_zeroqinit.py`][ZQI] is a lighter example to mirror.
+
 ## File skeleton
 
 ```python
@@ -76,6 +79,8 @@ if __name__ == "__main__":
 - Argument flags use the 3-letter short / descriptive long convention
   (`-nml` / `--namelist`, `-phs` / `--phase`). Booleans read off
   `args` are named `BS_<short-flag-name>` per [`NOMENCLATURE.md`][NOM].
+- Fill the `Author:` block with the human making the change and the
+  year(s) of that work (e.g. `Jane Doe, 2026-2026`).
 
 ## Registering the CLI
 
@@ -88,5 +93,6 @@ new_tool = "rapid2.cli._new_tool:main"
 ```
 
 [R2]: src/rapid2/cli/_rapid2.py
+[ZQI]: src/rapid2/cli/_zeroqinit.py
 [NOM]: NOMENCLATURE.md
 [PRJ]: pyproject.toml

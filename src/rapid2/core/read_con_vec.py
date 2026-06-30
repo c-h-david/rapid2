@@ -30,7 +30,9 @@ def read_con_vec(
     Parameters
     ----------
     con_csv : str
-        Path to the connectivity file.
+        Path to the connectivity file: a headerless CSV with two
+        integer columns, the river ID and its downstream river ID
+        (0 for an outlet, i.e. a reach with no downstream).
 
     Returns
     -------
