@@ -15,8 +15,8 @@ import os
 import sys
 
 import netCDF4
-import toyplot
-import toyplot.svg
+import toyplot  # type: ignore[import-untyped]
+import toyplot.svg  # type: ignore[import-untyped]
 from tqdm import tqdm
 
 from rapid2 import __version__
