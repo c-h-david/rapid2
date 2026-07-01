@@ -110,6 +110,9 @@ to accommodate external API terminology.
 | `std`| Standard           | Core metadata like time and coordinates. (`s`)  |
 | `prv`| Previous           | File from a prior run. (`p`)                    |
 | `now`| Current            | File from another run. (`n`)                    |
+| `hyd`| Hydrograph         | Time-series plot.                               |
+| `xyp`| X-Y Plot           | Scatter plots for statistical comparisons.      |
+| `cdf`| Distribution       | Cumulative distribution plots.                  |
 
 ### `<qualifier>`
 
@@ -173,6 +176,7 @@ to accommodate external API terminology.
 | `pqt`| Parquet            | Used for fast, columnar binary data.            |
 | `ncf`| NetCDF             | Used for scientific multi-dimensional data.     |
 | `yml`| YAML               | Used for model configuration inputs.            |
+| `svg`| Scalable Vector    | Used for vector-based plots and visualizations. |
 
 ## Semantic Quadruplets
 
@@ -245,6 +249,7 @@ prefix:
 | `bas_pqt`        | Basin info         | Parquet file with subset of IDs.    |
 | `Qex_ncf`        | External inflow    | NetCDF file containing forcing data.|
 | `nml_yml`        | Namelist           | YAML file for model configuration.  |
+| `hyd_svg`        | Hydrograph plot    | SVG file containing hydrographs.    |
 
 ## Function Names
 
