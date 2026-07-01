@@ -136,6 +136,13 @@ to accommodate external API terminology.
 | `avg`| Average value      | Time-averaged dynamic variable.                 |
 | `tmp`| Temporary value    | Non-persistent, for computation or validation.  |
 
+#### Bounds and Extremes
+
+| Code | Meaning            | Notes                                           |
+| ---- | ------------------ | ----------------------------------------------- |
+| `max`| Maximum value      | Maximum bound or peak of a variable.            |
+| `min`| Minimum value      | Minimum bound or floor of a variable.           |
+
 #### Origins and Timescales
 
 | Code | Meaning            | Notes                                           |
