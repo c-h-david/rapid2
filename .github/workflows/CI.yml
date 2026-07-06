@@ -93,9 +93,7 @@ jobs:
       - name: Run tests
         run: |
           cd $GITHUB_WORKSPACE
-          cd tst/
-          ./tst_dwnl_Sandbox.sh
-          cd ..
+          dsandbox
           python3 -m doctest src/rapid2/core/*.py
           rapid2 -nml input/Sandbox/nml_Sandbox.yml
           subsampleqout \

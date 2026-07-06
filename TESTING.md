@@ -63,13 +63,13 @@ awk 'length>79 {print FILENAME ":"FNR">79"; exit 1}' Dockerfile
 We use `shellcheck` to lint our bash scripts.
 
 ```bash
-shellcheck *.sh tst/*.sh
+shellcheck *.sh
 ```
 
 > We also enforce a maximum line width of 79 characters.
 
 ```bash
-awk 'length>79 {print FILENAME ":"FNR">79"; exit 1}' *.sh tst/*.sh
+awk 'length>79 {print FILENAME ":"FNR">79"; exit 1}' *.sh
 ```
 
 ### Python linter and formatter

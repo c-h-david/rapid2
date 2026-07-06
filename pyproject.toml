@@ -49,6 +49,7 @@ dependencies = [
     "pyyaml>=6.0.3",
     "pyarrow>=24.0.0",
     "toyplot>=2.1.0",
+    "pooch>=1.9.0",
 ]
 
 [project.optional-dependencies]
@@ -79,6 +80,7 @@ cpllsm = "rapid2.cli._cpllsm:main"
 cmpncf = "rapid2.cli._cmpncf:main"
 subsampleqout = "rapid2.cli._subsampleqout:main"
 hydrographs = "rapid2.cli._hydrographs:main"
+dsandbox = "rapid2.cli._dsandbox:main"
 
 [tool.ruff]
 line-length = 79

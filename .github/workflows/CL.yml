@@ -100,8 +100,8 @@ jobs:
           ruff check .
           ruff format . --check
           mypy .
-          shellcheck *.sh tst/*.sh
-          awk 'length>79 {print FILENAME ":"FNR">79"; exit 1}' *.sh tst/*.sh
+          shellcheck *.sh
+          awk 'length>79 {print FILENAME ":"FNR">79"; exit 1}' *.sh
 
 
 # *****************************************************************************
