@@ -158,8 +158,15 @@ def main() -> None:
         )
 
         # Slice timeseries directly from disk to save memory
-        ZV_Qob_tmp = o.variables["Qout"][:, JS_riv_avl]
-        ZV_Qme_tmp = m.variables["Qout"][:, JS_riv_avl]
+        if "Qout" in o.variables:
+            ZV_Qob_tmp = o.variables["Qout"][:, JS_riv_avl]
+        else:
+            ZV_Qob_tmp = o.variables["Qext"][:, JS_riv_avl]
+
+        if "Qout" in m.variables:
+            ZV_Qme_tmp = m.variables["Qout"][:, JS_riv_avl]
+        else:
+            ZV_Qme_tmp = m.variables["Qext"][:, JS_riv_avl]
 
         # Add axes
         axes = canvas.cartesian(
