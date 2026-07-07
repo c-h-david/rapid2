@@ -81,12 +81,12 @@ pip install .
 ### Run Instructions
 
 ```bash
-rapid2 --namelist nml_Sandbox.yml
+rapid2 --namelist nml_Sandbox_TR.yml
 ```
 
 ### Usage Examples
 
-Below is an example of what `nml_Sandbox.yml` includes:
+Below is an example of what `nml_Sandbox_TR.yml` includes:
 
 ```yaml
 ---

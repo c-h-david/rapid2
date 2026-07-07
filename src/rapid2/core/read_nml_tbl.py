@@ -38,7 +38,7 @@ def read_nml_tbl(nml_yml: str) -> Dict[str, Any]:
 
     Examples
     --------
-    >>> nml_yml = "./input/Sandbox/nml_Sandbox.yml"
+    >>> nml_yml = "./input/Sandbox/nml_Sandbox_TR.yml"
     >>> AT_nml = read_nml_tbl(nml_yml)
     >>> AT_nml["Q00_ncf"]
     './input/Sandbox/Q00_Sandbox_19700101_19700110_TR.nc4'

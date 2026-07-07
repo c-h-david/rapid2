@@ -121,7 +121,7 @@ python3 -m doctest src/rapid2/core/*.py
 ### Replication of past results
 
 ```bash
-rapid2 -nml input/Sandbox/nml_Sandbox.yml
+rapid2 -nml input/Sandbox/nml_Sandbox_TR.yml
 ```
 
 ```bash

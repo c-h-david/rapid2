@@ -45,7 +45,7 @@ def main() -> None:
     # Publication message
     # -------------------------------------------------------------------------
     print("********************")
-    print("Downloading files from:   https://doi.org/10.5281/zenodo.21085813")
+    print("Downloading files from:   https://doi.org/10.5281/zenodo.21248920")
     print("These are under a Creative Commons Attribution (CC BY) license.")
     print("Please cite the DOI if using these files for your publications.")
     print("********************")
@@ -53,7 +53,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Location of the dataset
     # -------------------------------------------------------------------------
-    doi = "doi:10.5281/zenodo.21085813/"
+    doi = "doi:10.5281/zenodo.21248920/"
 
     # -------------------------------------------------------------------------
     # Download input files
@@ -65,7 +65,8 @@ def main() -> None:
         "kpr_Sandbox.parquet",
         "xpr_Sandbox.parquet",
         "bas_Sandbox_ascend.parquet",
-        "nml_Sandbox.yml",
+        "nml_Sandbox_TR.yml",
+        "nml_Sandbox_OL.yml",
         "cpl_Sandbox.parquet",
         "crd_Sandbox.parquet",
         "obs_Sandbox.parquet",
@@ -96,6 +97,7 @@ def main() -> None:
         "Qfi_Sandbox_19700101_19700110_TR.nc4",
         "Qou_Sandbox_19700101_19700110_OL.nc4",
         "Qfi_Sandbox_19700101_19700110_OL.nc4",
+        "Qme_Sandbox_19700101_19700110_OL.nc4",
     ]
 
     fetcher = pooch.create(

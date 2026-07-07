@@ -2,7 +2,7 @@
 
 RAPID comes along with a set of test files based on a synthetic experiment.
 
-[![DOI:10.5281/zenodo.17298742][SVG_ZENODO]][URL_ZENODO]
+[![DOI:10.5281/zenodo.21248920][SVG_ZENODO]][URL_ZENODO]
 
 ## Study Domain
 
@@ -147,11 +147,11 @@ here defined as:
 \end{bmatrix}
 +
 \begin{bmatrix}
- 1      \\
- 1      \\
- 1      \\
- 2      \\
- 2
+ 5      \\
+ 5      \\
+ 5      \\
+ 10     \\
+ 10
 \end{bmatrix}
 \cdot
 \mathrm{sgn}\!\left( \sin\!\left(\tfrac{\pi t}{86400}
@@ -174,11 +174,11 @@ network:
 ```math
 \mathbf{Q^{T}}(0) =
 \begin{bmatrix}
- 9      \\
- 9      \\
- 27     \\
- 18     \\
- 63
+ 5      \\
+ 5      \\
+ 15     \\
+ 10     \\
+ 35
 \end{bmatrix}
 ```
 
@@ -200,19 +200,19 @@ underestimate them:
 ```math
 \mathbf{Q^{eF}}(t) =
 \begin{bmatrix}
- 12     \\
- 12     \\
- 12     \\
- 16     \\
- 16
+ 15     \\
+ 15     \\
+ 15     \\
+ 5      \\
+ 5
 \end{bmatrix}
 +
 \begin{bmatrix}
- 1.1    \\
- 1.1    \\
- 1.1    \\
- 1.8    \\
- 1.8
+ 15     \\
+ 15     \\
+ 15     \\
+ 5      \\
+ 5
 \end{bmatrix}
 \cdot
 \mathrm{sgn}\!\left( \sin\!\left(\tfrac{\pi t}{86400}
@@ -229,11 +229,11 @@ accumulation of the first guess low-flow routing:
 ```math
 \mathbf{Q^{F}}(0) =
 \begin{bmatrix}
- 10.9   \\
- 10.9   \\
- 32.7   \\
- 14.2   \\
- 61.1
+ 0      \\
+ 0      \\
+ 0      \\
+ 0      \\
+ 0
 \end{bmatrix}
 ```
 
@@ -313,9 +313,9 @@ include:
 > drive.
 
 <!-- pyml disable-num-lines 30 line-length -->
-[SVG_ZENODO]: https://zenodo.org/badge/doi/10.5281/zenodo.17298742.svg
+[SVG_ZENODO]: https://zenodo.org/badge/doi/10.5281/zenodo.21248920.svg
 
-[URL_ZENODO]: https://doi.org/10.5281/zenodo.17298742
+[URL_ZENODO]: https://doi.org/10.5281/zenodo.21248920
 [URL_DA2011]: https://doi.org/10.1175/2011JHM1345.1
 [URL_DA2019]: https://doi.org/10.1029/2019GL083342
 [URL_STCKED]: https://stackedit.io/

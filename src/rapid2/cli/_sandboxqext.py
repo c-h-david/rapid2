@@ -37,7 +37,7 @@ def main() -> None:
         ),
         epilog=(
             "examples:\n"
-            "  sandboxqext --scale 1 1 1 2 2 --average 10 10 10 "
+            "  sandboxqext --scale 5 5 5 10 10 --average 10 10 10 "
             "20 20 --external_inflow Qext_Sandbox.nc"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
