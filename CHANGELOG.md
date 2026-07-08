@@ -9,6 +9,35 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [2.0.0b3] - 2026-07-07
+
+### Added
+
+- **Sandbox Downloader (`dsandbox`)**: Introduced a CLI utility using `pooch`
+  to automate the downloading of Sandbox synthetic datasets directly from
+  Zenodo.
+- **Model Equivalents (`subsampleqout`)**: Added a CLI utility to spatially and
+  temporally sub-sample discharge outputs (`Qou`) to match observation
+  locations and cadences, generating model equivalents (`Qme`).
+- **Hydrograph Plotting (`hydrographs`)**: Added a CLI utility leveraging
+  `toyplot` to generate standalone SVG hydrographs comparing observations
+  (`Qob`) against model equivalents (`Qme`).
+- **Dependencies**: Added `toyplot` (`>=2.1.0`) and `pooch` (`>=1.9.0`) to the
+  core requirements.
+
+### Changed
+
+- **Riv ID Vector Reader**: Generalized `read_bas_vec.py` to `read_riv_vec.py`
+  to support reading arbitrary subsets of river IDs (e.g., basins, observation
+  gages).
+- **Sandbox Dataset**: Updated the synthetic Sandbox test suite to exaggerate
+  land surface model biases (missing baseflow, exaggerated amplitudes) using a
+  "multiples-of-5" mathematical design. Updated the dataset source to Zenodo
+  record (`21248920`).
+- **Nomenclature Rules**: Expanded `NOMENCLATURE.md` to support observational
+  data concepts (`Qob`, `Qme`), new array size bounds (`avl`, `act`), and plot
+  formatting prefixes/suffixes (`hyd`, `svg`).
+
 ## [2.0.0b2] - 2026-06-16
 
 ### Added
