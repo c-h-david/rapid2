@@ -184,7 +184,7 @@ def main() -> None:
         axes.padding = 0
 
         # Observations
-        axes.plot(
+        Qob_mark = axes.plot(
             IV_tim_all,
             ZV_Qob_tmp,
             title="Observations",
@@ -193,12 +193,21 @@ def main() -> None:
         )
 
         # Model Equivalent
-        axes.plot(
+        Qme_mark = axes.plot(
             IV_tim_all,
             ZV_Qme_tmp,
             title="Model Equivalent",
             color="red",
             style={"stroke-width": 2, "stroke-dasharray": "5,5"},
+        )
+
+        # Add Legend
+        canvas.legend(
+            [
+                ("Observations", Qob_mark),
+                ("Model Equivalent", Qme_mark),
+            ],
+            corner=("top-right", 50, 100, 50),
         )
 
         # Render the SVG
