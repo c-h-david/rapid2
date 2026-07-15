@@ -158,6 +158,7 @@ to accommodate external API terminology.
 | ---- | ------------------ | ----------------------------------------------- |
 | `Idt`| Identity matrix    | A must-have matrix for linear algebra.          |
 | `Net`| Network matrix     | Represents topological connectivity.            |
+| `Sel`| Selection matrix   | Maps active observation gauges to river reaches.|
 | `CCC`| Muskingum CCC      | C1, C2, and C3 Muskingum parameter matrices.    |
 | `ICN`| Identity minus C1N | Linear system matrix for Muskingum routing.
 | `ImN`| Identity minus N   | Linear system matrix for Lumped routing.
@@ -197,9 +198,9 @@ to accommodate external API terminology.
 |`make`| Memory --> Memory  | Assembles arrays into complex structures.       |
 |`prep`| Memory --> Disk    | Initializes a file with static data.            |
 |`chck`| Memory --> Void    | Check arrays from file; raises error or logs.   |
-|`calc`| Memory --> Scalar  | Computes one-time mathematical constants.       |
-|`updt`| State --> State    | Advances physics through the time loop.         |
-|`assm`| State --> State    | Assimilates observations to correct states.     |
+|`calc`| Memory --> Memory  | Computes a static mathematical parameter.       |
+|`updt`| Memory --> Memory  | Advances a dynamic state through the time loop. |
+|`assm`| Memory --> Memory  | Assimilates observations to correct a state.    |
 
 ## Data Structure Names
 
