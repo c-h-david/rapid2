@@ -15,8 +15,8 @@ exactly: it is the canonical example. For a small read-input and report tool,
 
 ### Structure Rules
 
-- **Banners:** Banner comment lines and the in-`main()` section dividers
-  span a total width of 79 characters.
+- **Banners:** File headers, major sections (`# ***...`), and internal
+  logic steps (`# ---...`) span exactly 79 characters.
 - **Imports:** Imports form three blocks with one blank line between each:
   standard library, then third-party, then `from rapid2 import ...`.
 - **Execution:** All work happens inside `def main() -> None:`. The module ends
@@ -26,6 +26,11 @@ exactly: it is the canonical example. For a small read-input and report tool,
   read off `args` are named `BS_<short-flag-name>`.
 - **Registration:** Add an entry under `[project.scripts]` in
   `pyproject.toml` so the tool installs as a console command.
+- **Progress:** Any loop processing time-series or large dimensional data
+  must use `tqdm` with a descriptive `desc` argument.
+- **Error Handling:** Catch missing files or missing metadata with an `if`
+  block or `try/except`, print an `ERROR - ...` message, and immediately
+  call `sys.exit(1)`.
 
 ### CLI Skeleton
 
@@ -89,10 +94,17 @@ the standard `verb_dataset_format` nomenclature (e.g., `read_crd_vec.py`,
 
 ### Structure Rules
 
-- **Banners:** File headers, function headers (`# ***...`), and internal logic
-  steps (`# ---...`) span exactly 79 characters.
+- **Banners:** File headers, major sections (`# ***...`), and internal
+  logic steps (`# ---...`) span exactly 79 characters.
 - **Typing:** Strict type hinting is enforced. Use `numpy.typing`
-  (`npt.NDArray`) for all array inputs and outputs.
+  (`npt.NDArray`) with explicit inner types (e.g., `npt.NDArray[np.int32]`
+  or `npt.NDArray[np.float64]`) for all array inputs and outputs.
+- **Error Handling:** Let algorithmic violations (e.g., misaligned arrays,
+  improper sorting) fail loudly by raising a `ValueError`. Do not use
+  `sys.exit(1)` inside core mathematical functions.
+- **Sparse Matrices:** Heavy matrix representations of the river network
+  must default to `csc_matrix` (`scipy.sparse`) to optimize operations and
+  memory footprint.
 - **Docstrings:** Every function must have a strict NumPy-style docstring
   containing a summary, `Parameters`, `Returns`, and `Examples` section.
 - **Doctests:** The `Examples` section in the docstring must contain executable
