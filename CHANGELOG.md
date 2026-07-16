@@ -3,9 +3,9 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on
-[Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+[Keep a Changelog][URL_KEEPCG],
 and this project adheres to
-[Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+[Semantic Versioning][URL_SEMVER].
 
 ## [Unreleased]
 
@@ -99,3 +99,6 @@ and this project adheres to
 - **Modernized Testing Suite**: Transitioned to `doctest` and synthetic Sandbox
   experiments for rapid verification, replacing the full reproduction of past
   paper results.
+
+[URL_KEEPCG]: https://keepachangelog.com/en/1.1.0/
+[URL_SEMVER]: https://semver.org/spec/v2.0.0.html

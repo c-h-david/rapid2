@@ -37,7 +37,7 @@ code, issues, documentation, graphics, designs, or anything else that tangibly
 improves the project. We encourage you to start contributing right away by
 joining our [Discussions][URL_DISCUS] or submitting an [Issue][URL_ISSUES].
 Suggesting a [Pull Request][URL_PULLRE] is also possible, following our
-[Contributing Guidelines][URL_CONTRI].
+[Contributing Guidelines][LOC_CONTRI].
 
 ### Committer
 
@@ -70,11 +70,12 @@ projects including [node.js][URL_NODEJS], [OpenSSL][URL_OPENSS],
 [PostgresQL][URL_POSTGR], and [OpenMCT][URL_OPENMC]. We would like to thank
 those projects for setting the foundation upon which this model was built.
 
+[LOC_CONTRI]: CONTRIBUTING.md
+
 [URL_CONSEN]: https://en.wikipedia.org/wiki/Consensus-seeking_decision-making
 [URL_DISCUS]: https://github.com/c-h-david/rapid2/discussions
 [URL_ISSUES]: https://github.com/c-h-david/rapid2/issues
 [URL_PULLRE]: https://github.com/c-h-david/rapid2/pulls
-[URL_CONTRI]: https://github.com/c-h-david/rapid2/blob/main/CONTRIBUTING.md
 [URL_NODEJS]: https://github.com/nodejs/node/blob/main/GOVERNANCE.md
 [URL_OPENSS]: https://www.openssl.org/policies/omc-bylaws.html
 [URL_POSTGR]: https://www.postgresql.org/developer/

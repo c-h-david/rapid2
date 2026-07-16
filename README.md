@@ -18,7 +18,7 @@
 
 [![lint: ruff][BDG___RUFF]][URL___RUFF]
 [![type: mypy][BDG___MYPY]][URL___MYPY]
-[![test: doctest][BDG_DOCTST]][URL_DOCT]
+[![test: doctest][BDG_DOCTST]][URL_DOCTST]
 
 [![License (3-Clause BSD)][BDG_BSD3CL]][URL_BSD3CL]
 [![Contributor Covenant][BDG_CONDUC]][URL_CONDUC]
@@ -214,7 +214,7 @@ For sensitive matters that cannot be shared publicly, contact
 
 [URL___RUFF]: https://docs.astral.sh/ruff/
 [URL___MYPY]: https://mypy-lang.org/
-[URL_DOCT]: https://docs.python.org/3/library/doctest.html
+[URL_DOCTST]: https://docs.python.org/3/library/doctest.html
 
 [URL_BSD3CL]: https://github.com/c-h-david/rapid2/blob/main/LICENSE
 [URL_CONDUC]: https://github.com/c-h-david/rapid2/blob/main/CODE_OF_CONDUCT.md

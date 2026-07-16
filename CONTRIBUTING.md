@@ -13,7 +13,7 @@ you've satisfied the pre-requisites outlined below.
 ### License
 
 Our project has licensing terms, including rules governing redistribution;
-documented in our [`LICENSE`][URL_LICENS] file. Please take a look at this file
+documented in our [`LICENSE`][LOC_LICENS] file. Please take a look at this file
 and ensure you understand the terms. This will impact how we, or others, use
 your contributions.
 
@@ -22,21 +22,21 @@ your contributions.
 Our Code of Conduct helps facilitate a positive interaction environment for
 everyone involved with the team, and provides guidance on what to do if you
 experience problematic behavior. Read more in our
-[`CODE_OF_CONDUCT.md`][URL_CONDUC], and make sure you agree to its terms.
+[`CODE_OF_CONDUCT.md`][LOC_CONDUC], and make sure you agree to its terms.
 
 ### Code of Scientific Collaboration
 
 Our Code of Scientific Collaboration ensures a shared commitment to advancing
 scientific knowledge together to achieve meaningful impact while supporting the
 sustainability of scientific research. Read more in our
-[`CODE_OF_COLLAB.md`][URL_COLLAB], and make sure you follow to its terms.
+[`CODE_OF_COLLAB.md`][LOC_COLLAB], and make sure you follow to its terms.
 
 ### Naming Conventions
 
 We rely on a strict, semantic grammar for all variables, files, and functions
 to standardize our code and ensure mathematical clarity. Before contributing,
 please ensure your code strictly adheres to the rules defined in our
-[`NOMENCLATURE.md`][URL_NOMENC].
+[`NOMENCLATURE.md`][LOC_NOMENC].
 
 ### Communication Channels
 
@@ -94,9 +94,10 @@ flowchart TD
 ```
 
 <!-- pyml disable-num-lines 30 line-length -->
-[URL_LICENS]: https://github.com/c-h-david/rapid2/blob/main/LICENSE
-[URL_CONDUC]: https://github.com/c-h-david/rapid2/blob/main/CODE_OF_CONDUCT.md
-[URL_COLLAB]: https://github.com/c-h-david/rapid2/blob/main/CODE_OF_COLLAB.md
-[URL_NOMENC]: https://github.com/c-h-david/rapid2/blob/main/NOMENCLATURE.md
+[LOC_LICENS]: LICENSE
+[LOC_CONDUC]: CODE_OF_CONDUCT.md
+[LOC_COLLAB]: CODE_OF_COLLAB.md
+[LOC_NOMENC]: NOMENCLATURE.md
+
 [URL_ISSUES]: https://github.com/c-h-david/rapid2/issues
 [URL_DISCUS]: https://github.com/c-h-david/rapid2/discussions
