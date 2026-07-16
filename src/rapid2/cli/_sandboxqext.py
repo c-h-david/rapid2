@@ -141,7 +141,7 @@ def main() -> None:
     f.variables["time_bnds"][:, 1] = IV_tim_all[:] + np.int32(10800)
 
     for JS_tim_all in range(IS_tim_all):
-    # The 1e-7 avoids np.sign(0) = 0
+        # The 1e-7 avoids np.sign(0) = 0
         ZV_Qex_tmp = np.sign(
             np.sin(np.pi / 86400 * IV_tim_all[JS_tim_all] + 1e-7)
         )
