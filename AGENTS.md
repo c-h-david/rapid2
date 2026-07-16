@@ -23,8 +23,8 @@ memory.
   for Continuous Linting (static analysis) and Continuous Integration
   (runtime tests) run on every PR.
 - [`STYLE.md`][STY] — the file-structure and formatting standard for CLI
-  scripts and their registration in `pyproject.toml`, as well as core
-  functions.
+  scripts, core functions, and markdown files (including link styles and line
+  limits).
 - [`src/rapid2/cli/_rapid2.py`][R2] — the canonical script to mirror; for a
   small read-and-report tool, [`_zeroqinit.py`][ZQI] is lighter.
 

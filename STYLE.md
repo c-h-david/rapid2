@@ -1,7 +1,7 @@
 # Code Formatting Standards
 
-This document defines the structural and formatting standards for Python files
-in RAPID2. It complements our
+This document defines the structural and formatting standards for files in
+RAPID2. It complements our
 [`NOMENCLATURE.md`](NOMENCLATURE.md)
 and our
 [`TESTING.md`](TESTING.md).
@@ -125,7 +125,7 @@ def new_core_func(
 ) -> npt.NDArray[np.float64]:
     """Short summary of the function.
 
-    Extended description of what the function does and how it integrates 
+    Extended description of what the function does and how it integrates
     with the matrix-based routing or I/O.
 
     Parameters
@@ -157,3 +157,39 @@ def new_core_func(
 # End
 # *****************************************************************************
 ```
+
+## 3. Markdown Files (`*.md`)
+
+To maintain clean diffs and a standardized visual layout, all Markdown files
+must adhere to the following layout rules.
+
+### Line Lengths
+
+- **Hard Limit:** Line lengths must be kept as close to **79 characters** as
+  possible, but **strictly no greater** (conforming to our `pymarkdown`
+  configuration).
+- **Exception:** Raw URL reference definitions that cannot be wrapped without
+  breaking functionality are exempt from this limit and placed at the bottom
+  preceded by a `<!-- pyml disable-num-lines 1 line-length -->` statement, and
+  the actual number of lines can be adjusted accordingly .
+
+### Link Formatting Style
+
+We strictly use **reference-style links** at the bottom of the document to keep
+the body text readable and clear of URL clutter.
+
+- Inline links (e.g., `[text](URL)`) are **not permitted** in main body text.
+- Use shorthand references in prose: `[Link Text][REF_NAME]`.
+- Place all definitions at the bottom of the file, sorted logically, structured
+  as: ```[REF_NAME]: https://example.com/path/to/resource```
+- **Link Reference Naming Conventions:**
+  - Prefix using `URL_` for external websites (e.g., `[URL_DA2011]`).
+  - Prefix using `BDG_` for badges (e.g., `[BDG_ZENODO]`).
+  - Prefix using `LOC_` for relative local repository paths (e.g.,
+    `[LOC_NOMENC]`).
+    - **Rule:** Use `LOC_` for internal files *unless* the markdown file is
+      published to external registries (e.g., `README.md` distributed to PyPI/Docker).
+      Such registry-facing files must use absolute GitHub URLs to prevent 404s
+      on external sites.
+  - Use strictly UPPERCASE and restrict the shorthand name following the
+    prefix to 6 characters.
