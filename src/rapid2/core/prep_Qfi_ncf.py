@@ -97,10 +97,9 @@ def prep_Qfi_ncf(
     Qout.cell_methods = "time: point"
 
     # -------------------------------------------------------------------------
-    # Close file
+    # Close file to allow populating all data
     # -------------------------------------------------------------------------
     h.close()
-    # Closing the new netCDF file allows populating all data
 
 
 # *****************************************************************************

@@ -133,10 +133,9 @@ def prep_skl_ncf(
     s.featureType = "timeSeries"
 
     # -------------------------------------------------------------------------
-    # Close file
+    # Close file to allow populating all data
     # -------------------------------------------------------------------------
     s.close()
-    # Closing the new netCDF file allows populating all data
 
 
 # *****************************************************************************

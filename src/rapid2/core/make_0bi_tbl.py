@@ -75,24 +75,23 @@ def make_0bi_tbl(
       array([2, 4], dtype=int32))
     """
 
+    # IT_0bi_tot[IS_riv] = JS_riv_tot
     IS_riv_tot = len(IV_riv_tot)
     IT_0bi_tot = {}
     for JS_riv_tot in range(IS_riv_tot):
         IT_0bi_tot[IV_riv_tot[JS_riv_tot]] = JS_riv_tot
-    # IT_0bi_tot[IS_riv] = JS_riv_tot
 
+    # IT_0bi_bas[IS_riv] = JS_riv_bas
     IS_riv_bas = len(IV_riv_bas)
     IT_0bi_bas = {}
     for JS_riv_bas in range(IS_riv_bas):
         IT_0bi_bas[IV_riv_bas[JS_riv_bas]] = JS_riv_bas
-    # IT_0bi_bas[IS_riv] = JS_riv_bas
 
+    # IV_0bi_bas[JS_riv_bas] = JS_riv_tot
+    # IV_riv_tot[JS_riv_tot] == IV_riv_bas[JS_riv_bas]
     IV_0bi_bas = np.zeros(IS_riv_bas, dtype=np.int32)
     for JS_riv_bas in range(IS_riv_bas):
         IV_0bi_bas[JS_riv_bas] = IT_0bi_tot[IV_riv_bas[JS_riv_bas]]
-    # This array allows for index mapping such that IV_riv_tot[JS_riv_tot]
-    #                                             = IV_riv_bas[JS_riv_bas]
-    # IV_0bi_bas[JS_riv_bas] = JS_riv_tot
 
     return IT_0bi_tot, IT_0bi_bas, IV_0bi_bas
 

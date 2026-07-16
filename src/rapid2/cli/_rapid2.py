@@ -144,8 +144,8 @@ def main() -> None:
     if IM_tim_all is None:
         raise ValueError("read_std_vec returned None for IM_tim_all")
 
-    IS_dtE = IM_tim_all[0, 1] - IM_tim_all[0, 0]
     # Using IM_tim_all rather than IV_tim_all which may have only one timestep
+    IS_dtE = IM_tim_all[0, 1] - IM_tim_all[0, 0]
 
     if IS_dtE == 0:
         raise ValueError("Values of time_bnds lead to IS_dtE = 0")

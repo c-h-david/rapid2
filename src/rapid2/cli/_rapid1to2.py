@@ -130,6 +130,7 @@ def main() -> None:
         print(f"WARNING - File already exists {con_pqt}. Skipping.")
     else:
         try:
+            # Connectivity read handles potentially variable column counts
             read_options = pv.ReadOptions(autogenerate_column_names=True)
             convert_options = pv.ConvertOptions(
                 column_types={
@@ -148,7 +149,6 @@ def main() -> None:
             )
             table = table.cast(schema)
             pq.write_table(table, con_pqt)
-            # Connectivity read handles potentially variable column counts
 
         except IOError:
             print(f"ERROR - Unable to open {con_csv}")
@@ -221,10 +221,10 @@ def main() -> None:
                     read_options=read_options,
                     convert_options=convert_options,
                 )
+                # Stitch the river IDs to the parameter array
                 table = pa.table(
                     [IV_riv_tot, table.column("kpr")], names=["riv", "kpr"]
                 )
-                # Stitch the river IDs to the parameter array
                 schema = pa.schema(
                     [field.with_nullable(False) for field in table.schema]
                 )
@@ -259,10 +259,10 @@ def main() -> None:
                     read_options=read_options,
                     convert_options=convert_options,
                 )
+                # Stitch the river IDs to the parameter array
                 table = pa.table(
                     [IV_riv_tot, table.column("xpr")], names=["riv", "xpr"]
                 )
-                # Stitch the river IDs to the parameter array
                 schema = pa.schema(
                     [field.with_nullable(False) for field in table.schema]
                 )

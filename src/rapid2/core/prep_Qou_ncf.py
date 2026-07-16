@@ -158,10 +158,9 @@ def prep_Qou_ncf(
     Qout_cov.interval = "typically same temporal resolution as observations"
 
     # -------------------------------------------------------------------------
-    # Close file
+    # Close file to allow populating all data
     # -------------------------------------------------------------------------
     g.close()
-    # Closing the new netCDF file allows populating all data
 
 
 # *****************************************************************************
