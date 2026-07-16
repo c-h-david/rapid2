@@ -61,7 +61,7 @@ representative at an online or offline event.
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
 reported to the community leaders responsible for enforcement
-([Cedric H. David](https://github.com/c-h-david)).
+([Cedric H. David][URL_GITCHD]).
 All complaints will be reviewed and investigated promptly and fairly.
 
 All community leaders are obligated to respect the privacy and security of the
@@ -129,3 +129,4 @@ Community Impact Guidelines were inspired by
 [URL_COVTRA]: https://www.contributor-covenant.org/translations
 [URL_MOZCOC]: https://github.com/mozilla/diversity
 [URL_COVFAQ]: https://www.contributor-covenant.org/faq
+[URL_GITCHD]: https://github.com/c-h-david

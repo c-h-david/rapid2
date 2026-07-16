@@ -1,7 +1,7 @@
 # Code of Conduct for Scientific Collaboration
 
 > ⚠️  DRAFT. Work in progress: consider contributing to its associated GitHub
-> issue at [NASA AMMOS][URL_AMMOS].
+> issue at [NASA AMMOS][URL__AMMOS].
 
 ## Overview
 
@@ -26,7 +26,7 @@ and sustainable collaboration is key.
 
 This project is committed to open science, transparency, and community-driven
 development, in alignment with initiatives like
-[NASA Open Science][URL_NASAO].
+[NASA Open Science][URL_NASAOS].
 However, open-source development requires significant time and effort, and we
 want to ensure all collaborators understand the expectations involved.
 
@@ -66,7 +66,7 @@ want to ensure all collaborators understand the expectations involved.
 
 We adhere to the highest standards of research integrity, including those
 outlined in the
-[European Code of Conduct for Research Integrity][URL_Allea],
+[European Code of Conduct for Research Integrity][URL__ALLEA],
 and expect the same from all collaborators.
 
 ### Key Principles
@@ -139,12 +139,12 @@ off-the-shelf tool. This category suits those comfortable relying on existing
 documentation without direct support. Please enjoy our software! Just be sure
 to cite it in any publications (papers, talks, software, etc.) using the
 information in
-[`CITATION.cff`][URL_CITAT],
+[`CITATION.cff`][LOC_CITATN],
 and share highlights like presentations, publications, or media coverage with
 us. You're not expected to involve us in your proposals or publications.
 Code maintenance is not expected for this role.
 This group aligns with the **User** role in our
-[`GOVERNANCE.md`][URL_GOVER].
+[`GOVERNANCE.md`][LOC_GOVERN].
 
 ### Supported User
 
@@ -158,7 +158,7 @@ support from us; formal collaboration on proposals isn't expected at this
 stage.
 Code maintenance is not expected for this role.
 This group aligns with the **User** role in our
-[`GOVERNANCE.md`][URL_GOVER].
+[`GOVERNANCE.md`][LOC_GOVERN].
 
 ### Champion
 
@@ -174,7 +174,7 @@ we can sustainably support your efforts. What matters most here is open, candid
 conversations about publications and proposals so we reach an understanding.
 Code maintenance is not expected for this role.
 Champions align with the **Stakeholder** role in our
-[`GOVERNANCE.md`][URL_GOVER]
+[`GOVERNANCE.md`][LOC_GOVERN]
 and may be invited to serve as **Advisors**.
 
 ### Core Team
@@ -188,7 +188,7 @@ requests, engage with users, and manage GitHub issues. We also co-author papers
 and collaborate on funding proposals.
 This group includes the **Contributor**, **Committer**, and **Manager** roles
 defined in our
-[`GOVERNANCE.md`][URL_GOVER].
+[`GOVERNANCE.md`][LOC_GOVERN].
 
 ## Conclusion
 
@@ -198,8 +198,8 @@ dedication, and a shared commitment to advancing scientific knowledge. Let’s
 work together to achieve meaningful impact while supporting the sustainability
 of scientific research.
 
-[URL_AMMOS]: https://github.com/NASA-AMMOS/slim/issues/173
-[URL_NASAO]: https://science.nasa.gov/open-science/
-[URL_Allea]: https://allea.org/code-of-conduct/
-[URL_CITAT]: https://github.com/c-h-david/rapid2/blob/main/CITATION.cff
-[URL_GOVER]: https://github.com/c-h-david/rapid2/blob/main/GOVERNANCE.md
+[URL__AMMOS]: https://github.com/NASA-AMMOS/slim/issues/173
+[URL_NASAOS]: https://science.nasa.gov/open-science/
+[URL__ALLEA]: https://allea.org/code-of-conduct/
+[LOC_CITATN]: CITATION.cff
+[LOC_GOVERN]: GOVERNANCE.md

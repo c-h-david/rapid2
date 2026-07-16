@@ -49,7 +49,7 @@ can be considered to be onboarded as a committer.
 
 If you are planning on making a substantial contribution to the project or feel
 that you qualify for being given write access to the repository, please make a
-request to [Cedric H. David](https://github.com/c-h-david).
+request to [Cedric H. David][URL_GITCHD].
 
 ### Advisor
 
@@ -79,3 +79,4 @@ those projects for setting the foundation upon which this model was built.
 [URL_OPENSS]: https://www.openssl.org/policies/omc-bylaws.html
 [URL_POSTGR]: https://www.postgresql.org/developer/
 [URL_OPENMC]: https://github.com/nasa/openmct/blob/master/CONTRIBUTING.md
+[URL_GITCHD]: https://github.com/c-h-david

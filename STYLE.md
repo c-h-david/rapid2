@@ -2,9 +2,9 @@
 
 This document defines the structural and formatting standards for files in
 RAPID2. It complements our
-[`NOMENCLATURE.md`](NOMENCLATURE.md)
+[`NOMENCLATURE.md`][LOC_NOMENC]
 and our
-[`TESTING.md`](TESTING.md).
+[`TESTING.md`][LOC_TSTING].
 
 ## 1. Command-Line Interface (`cli/`)
 
@@ -188,8 +188,11 @@ the body text readable and clear of URL clutter.
   - Prefix using `LOC_` for relative local repository paths (e.g.,
     `[LOC_NOMENC]`).
     - **Rule:** Use `LOC_` for internal files *unless* the markdown file is
-      published to external registries (e.g., `README.md` distributed to PyPI/Docker).
-      Such registry-facing files must use absolute GitHub URLs to prevent 404s
-      on external sites.
+      published to external registries (e.g., `README.md` distributed to
+      PyPI/Docker). Such registry-facing files must use absolute GitHub URLs to
+      prevent 404s on external sites.
   - Use strictly UPPERCASE and restrict the shorthand name following the
     prefix to 6 characters.
+
+[LOC_NOMENC]: NOMENCLATURE.md
+[LOC_TSTING]: TESTING.md

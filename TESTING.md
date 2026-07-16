@@ -28,7 +28,7 @@ pymarkdown scan *.md
 ```
 
 > We enforce a maximum line width of 79 characters using the
-> [`.pymarkdown.yml`][URL_CFG_MD]
+> [`.pymarkdown.yml`][LOC_CFG_MD]
 > configuration file.
 
 ### Yaml linter
@@ -40,7 +40,7 @@ yamllint .*.yml .github/*/*.yml
 ```
 
 > We enforce a maximum line width of 79 characters using the
-> [`.yamllint.yml`][URL_CFG_YM]
+> [`.yamllint.yml`][LOC_CFG_YM]
 > configuration file.
 
 ### Dockerfile linter
@@ -88,7 +88,7 @@ ruff format . --check
 
 > We enforce a maximum line width of 79 characters, version 3.11 of python,
 > as well as standard options for linting and formatting using the
-> [`pyproject.toml`][URL_CFG_PY]
+> [`pyproject.toml`][LOC_CFG_PY]
 > configuration file.
 
 ### Python type checker
@@ -100,14 +100,14 @@ mypy .
 ```
 
 > We enforce strict typing and python version 3.11 using the
-> [`pyproject.toml`][URL_CFG_PY]
+> [`pyproject.toml`][LOC_CFG_PY]
 > configuration file.
 
 ## Runtime testing
 
 RAPID comes along with a set of test files based on a synthetic experiment
 described in
-[`SANDBOX.md`][URL_SNDBOX].
+[`SANDBOX.md`][LOC_SNDBOX].
 on which our runtime testing efforts rely.
 
 ### Python docstrings check
@@ -156,7 +156,7 @@ cmpncf \
   -atl 1e-10
 ```
 
-[URL_SNDBOX]: https://github.com/c-h-david/rapid2/blob/main/SANDBOX.md
-[URL_CFG_MD]: https://github.com/c-h-david/rapid2/blob/main/.pymarkdown.yml
-[URL_CFG_YM]: https://github.com/c-h-david/rapid2/blob/main/.yamllint.yml
-[URL_CFG_PY]: https://github.com/c-h-david/rapid2/blob/main/pyproject.toml
+[LOC_SNDBOX]: SANDBOX.md
+[LOC_CFG_MD]: .pymarkdown.yml
+[LOC_CFG_YM]: .yamllint.yml
+[LOC_CFG_PY]: pyproject.toml
