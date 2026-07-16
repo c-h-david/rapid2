@@ -10,7 +10,6 @@
 # *****************************************************************************
 # Import Python modules
 # *****************************************************************************
-import sys
 from typing import Any, Dict
 
 import numpy as np
@@ -100,8 +99,7 @@ def read_nml_tbl(nml_yml: str) -> Dict[str, Any]:
         return AT_nml
 
     except IOError:
-        print(f"ERROR - Unable to open {nml_yml}")
-        sys.exit(1)
+        raise IOError(f"Unable to open {nml_yml}")
 
 
 # *****************************************************************************

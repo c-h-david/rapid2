@@ -10,8 +10,6 @@
 # *****************************************************************************
 # Import Python modules
 # *****************************************************************************
-import sys
-
 import numpy as np
 import numpy.typing as npt
 import pyarrow.parquet as pq
@@ -51,8 +49,7 @@ def read_riv_vec(riv_pqt: str) -> npt.NDArray[np.int32]:
         IV_riv = table.column("riv").to_numpy().astype(np.int32)
 
     except IOError:
-        print(f"ERROR - Unable to open {riv_pqt}")
-        sys.exit(1)
+        raise IOError(f"Unable to open {riv_pqt}")
 
     return IV_riv
 

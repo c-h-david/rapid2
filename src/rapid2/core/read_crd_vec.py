@@ -10,8 +10,6 @@
 # *****************************************************************************
 # Import Python modules
 # *****************************************************************************
-import sys
-
 import numpy as np
 import numpy.typing as npt
 import pyarrow.parquet as pq
@@ -63,8 +61,7 @@ def read_crd_vec(
         ZV_lat_tot = table.column("lat").to_numpy().astype(np.float64)
 
     except IOError:
-        print(f"ERROR - Unable to open {crd_pqt}")
-        sys.exit(1)
+        raise IOError(f"Unable to open {crd_pqt}")
 
     return IV_riv_tot, ZV_lon_tot, ZV_lat_tot
 

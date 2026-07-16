@@ -10,8 +10,6 @@
 # *****************************************************************************
 # Import Python modules
 # *****************************************************************************
-import sys
-
 import numpy as np
 import numpy.typing as npt
 import pyarrow.parquet as pq
@@ -70,8 +68,7 @@ def read_cpl_vec(
         IV_1bj_tot = table.column("1bj").to_numpy().astype(np.int32)
 
     except IOError:
-        print(f"ERROR - Unable to open {cpl_pqt}")
-        sys.exit(1)
+        raise IOError(f"Unable to open {cpl_pqt}")
 
     return IV_riv_tot, ZV_skm_tot, IV_1bi_tot, IV_1bj_tot
 

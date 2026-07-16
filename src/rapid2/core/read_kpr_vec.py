@@ -10,8 +10,6 @@
 # *****************************************************************************
 # Import Python modules
 # *****************************************************************************
-import sys
-
 import numpy as np
 import numpy.typing as npt
 import pyarrow.parquet as pq
@@ -63,8 +61,7 @@ def read_kpr_vec(
         ZV_kpr_bas = ZV_kpr_tot[IV_0bi_bas]
 
     except IOError:
-        print(f"ERROR - Unable to open {kpr_pqt}")
-        sys.exit(1)
+        raise IOError(f"Unable to open {kpr_pqt}")
 
     return IV_riv_bas, ZV_kpr_bas
 

@@ -10,8 +10,6 @@
 # *****************************************************************************
 # Import Python modules
 # *****************************************************************************
-import sys
-
 import numpy as np
 import numpy.typing as npt
 import pyarrow.parquet as pq
@@ -59,8 +57,7 @@ def read_con_vec(
         IV_dwn_tot = table.column("dwn").to_numpy().astype(np.int32)
 
     except IOError:
-        print(f"ERROR - Unable to open {con_pqt}")
-        sys.exit(1)
+        raise IOError(f"Unable to open {con_pqt}")
 
     return IV_riv_tot, IV_dwn_tot
 
