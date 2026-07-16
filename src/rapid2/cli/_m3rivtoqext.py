@@ -92,27 +92,45 @@ def main() -> None:
     d = netCDF4.Dataset(m3r_ncf, "r")
 
     if "m3_riv" not in d.variables:
-        print(f"ERROR - m3_riv variable does not exist in {m3r_ncf}")
+        print(
+            f"ERROR - m3_riv variable does not exist in {m3r_ncf}",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     if "rivid" not in d.variables:
-        print(f"ERROR - rivid variable does not exist in {m3r_ncf}")
+        print(
+            f"ERROR - rivid variable does not exist in {m3r_ncf}",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     if "lon" not in d.variables:
-        print(f"ERROR - lon variable does not exist in {m3r_ncf}")
+        print(
+            f"ERROR - lon variable does not exist in {m3r_ncf}",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     if "lat" not in d.variables:
-        print(f"ERROR - lat variable does not exist in {m3r_ncf}")
+        print(
+            f"ERROR - lat variable does not exist in {m3r_ncf}",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     if "time" not in d.variables:
-        print(f"ERROR - time variable does not exist in {m3r_ncf}")
+        print(
+            f"ERROR - time variable does not exist in {m3r_ncf}",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     if "time_bnds" not in d.variables:
-        print(f"ERROR - time_bnds variable does not exist in {m3r_ncf}")
+        print(
+            f"ERROR - time_bnds variable does not exist in {m3r_ncf}",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     IV_riv_tot = d.variables["rivid"][:]

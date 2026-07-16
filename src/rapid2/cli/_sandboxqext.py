@@ -118,11 +118,15 @@ def main() -> None:
     # Check size of provided unit-amplitude scaling and average arrays
     # -------------------------------------------------------------------------
     if len(ZV_scl_tot) != IS_riv_tot:
-        print("ERROR - Unit-amplitude scaling array not of size 5.")
+        print(
+            "ERROR - Unit-amplitude scaling array not of size 5.", file=sys.stderr
+        )
         sys.exit(1)
 
     if len(ZV_Qex_avg) != IS_riv_tot:
-        print("ERROR - Average array not of size 5.")
+        print(
+            "ERROR - Average array not of size 5.", file=sys.stderr
+        )
         sys.exit(1)
 
     # -------------------------------------------------------------------------

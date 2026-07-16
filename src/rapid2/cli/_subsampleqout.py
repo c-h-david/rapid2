@@ -140,14 +140,17 @@ def main() -> None:
     ) = read_std_vec(Qou_ncf)
 
     if IM_tim_all is None:
-        print(f"ERROR - time_bnds is missing in {Qou_ncf}")
+        print(f"ERROR - time_bnds is missing in {Qou_ncf}", file=sys.stderr)
         sys.exit(1)
 
     # Map the observation IDs to their 0-based indices in the Qou file
     try:
         _, _, IV_0bi_avl = make_0bi_tbl(IV_riv_bas, IV_riv_avl)
     except KeyError as e:
-        print(f"ERROR - Observation ID {e} not found in the input Qou file")
+        print(
+            f"ERROR - Observation ID {e} not found in the input Qou file",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     # Spatially subset coordinates
@@ -164,7 +167,8 @@ def main() -> None:
     if IS_dtO % IS_dtE != 0:
         print(
             f"ERROR - Target timestep ({IS_dtO}) is not a multiple of the "
-            f"input timestep ({IS_dtE})"
+            f"input timestep ({IS_dtE})",
+            file=sys.stderr,
         )
         sys.exit(1)
 

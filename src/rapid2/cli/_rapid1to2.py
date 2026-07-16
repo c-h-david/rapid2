@@ -151,7 +151,7 @@ def main() -> None:
             pq.write_table(table, con_pqt)
 
         except IOError:
-            print(f"ERROR - Unable to open {con_csv}")
+            print(f"ERROR - Unable to open {con_csv}", file=sys.stderr)
             sys.exit(1)
 
     # -------------------------------------------------------------------------
@@ -160,7 +160,9 @@ def main() -> None:
     try:
         IV_riv_tot = pq.read_table(con_pqt, columns=["riv"]).column("riv")
     except IOError:
-        print(f"ERROR - Unable to read river IDs from {con_pqt}")
+        print(
+            f"ERROR - Unable to read river IDs from {con_pqt}", file=sys.stderr
+        )
         sys.exit(1)
 
     # -------------------------------------------------------------------------
@@ -194,7 +196,7 @@ def main() -> None:
                 pq.write_table(table, bas_pqt)
 
             except IOError:
-                print(f"ERROR - Unable to open {bas_csv}")
+                print(f"ERROR - Unable to open {bas_csv}", file=sys.stderr)
                 sys.exit(1)
 
     # -------------------------------------------------------------------------
@@ -232,7 +234,7 @@ def main() -> None:
                 pq.write_table(table, kpr_pqt)
 
             except IOError:
-                print(f"ERROR - Unable to open {kpr_csv}")
+                print(f"ERROR - Unable to open {kpr_csv}", file=sys.stderr)
                 sys.exit(1)
 
     # -------------------------------------------------------------------------
@@ -270,7 +272,7 @@ def main() -> None:
                 pq.write_table(table, xpr_pqt)
 
             except IOError:
-                print(f"ERROR - Unable to open {xpr_csv}")
+                print(f"ERROR - Unable to open {xpr_csv}", file=sys.stderr)
                 sys.exit(1)
 
     # -------------------------------------------------------------------------
@@ -308,7 +310,7 @@ def main() -> None:
                 pq.write_table(table, crd_pqt)
 
             except IOError:
-                print(f"ERROR - Unable to open {crd_csv}")
+                print(f"ERROR - Unable to open {crd_csv}", file=sys.stderr)
                 sys.exit(1)
 
     # -------------------------------------------------------------------------
@@ -347,7 +349,7 @@ def main() -> None:
                 pq.write_table(table, cpl_pqt)
 
             except IOError:
-                print(f"ERROR - Unable to open {cpl_csv}")
+                print(f"ERROR - Unable to open {cpl_csv}", file=sys.stderr)
                 sys.exit(1)
 
     # -------------------------------------------------------------------------

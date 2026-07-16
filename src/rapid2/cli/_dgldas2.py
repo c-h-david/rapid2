@@ -156,7 +156,9 @@ def main() -> None:
         tmp_ncf = os.path.join(YS_dir, YS_rem)
 
         if not os.path.exists(tmp_ncf):
-            print(f"ERROR - file not downloaded: {tmp_ncf}")
+            print(
+                f"ERROR - file not downloaded: {tmp_ncf}", file=sys.stderr
+            )
             sys.exit(1)
         else:
             ZS_loc = os.path.getsize(tmp_ncf) / 1024**2
@@ -168,7 +170,8 @@ def main() -> None:
                 f"Remote file {YS_rem}, "
                 f"Local file {tmp_ncf}, "
                 f"Remote size {ZS_rem}, "
-                f"Local size {ZS_loc}"
+                f"Local size {ZS_loc}",
+                file=sys.stderr,
             )
             sys.exit(1)
 

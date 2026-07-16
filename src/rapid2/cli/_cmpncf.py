@@ -151,7 +151,8 @@ def main() -> None:
     else:
         print(
             f"ERROR - The number of river reaches differs: "
-            f"{len(IV_riv_prv)} <> {len(IV_riv_now)}"
+            f"{len(IV_riv_prv)} <> {len(IV_riv_now)}",
+            file=sys.stderr,
         )
         sys.exit(1)
 
@@ -161,7 +162,8 @@ def main() -> None:
     else:
         print(
             f"ERROR - The number of time steps differs: "
-            f"{len(IV_tim_prv)} <> {len(IV_tim_now)}"
+            f"{len(IV_tim_prv)} <> {len(IV_tim_now)}",
+            file=sys.stderr,
         )
         sys.exit(1)
 
@@ -175,7 +177,7 @@ def main() -> None:
             print("WARNING - The rivids are the same, but sorted differently")
             _, _, IV_0bi_prv = make_0bi_tbl(IV_riv_now, IV_riv_prv)
         else:
-            print("ERROR - The rivids differ")
+            print("ERROR - The rivids differ", file=sys.stderr)
             sys.exit(1)
 
     # -------------------------------------------------------------------------
@@ -184,30 +186,30 @@ def main() -> None:
     if np.array_equal(ZV_lon_prv, ZV_lon_now):
         print("The longitude values are the same")
     else:
-        print("ERROR - The longitude values differ")
+        print("ERROR - The longitude values differ", file=sys.stderr)
         sys.exit(1)
 
     if np.array_equal(ZV_lat_prv, ZV_lat_now):
         print("The latitude values are the same")
     else:
-        print("ERROR - The latitude values differ")
+        print("ERROR - The latitude values differ", file=sys.stderr)
         sys.exit(1)
 
     if np.array_equal(IV_tim_prv, IV_tim_now):
         print("The time values are the same")
     else:
-        print("ERROR - The time values differ")
+        print("ERROR - The time values differ", file=sys.stderr)
         sys.exit(1)
 
     if (IM_tim_prv is None) != (IM_tim_now is None):
-        print("ERROR - time_bnds present in only one file")
+        print("ERROR - time_bnds present in only one file", file=sys.stderr)
         sys.exit(1)
 
     if (IM_tim_prv is not None) and (IM_tim_now is not None):
         if np.array_equal(IM_tim_prv, IM_tim_now):
             print("The time_bnds values are the same")
         else:
-            print("ERROR - The time_bnds values differ")
+            print("ERROR - The time_bnds values differ", file=sys.stderr)
             sys.exit(1)
     else:
         print("WARNING - time_bnds variable missing: skipping comparison")
@@ -223,7 +225,9 @@ def main() -> None:
     elif "Qout" in p.variables and "Qout" in n.variables:
         YS_val_tmp = "Qout"
     else:
-        print("ERROR - Neither Qext nor Qout is common variable")
+        print(
+            "ERROR - Neither Qext nor Qout is common variable", file=sys.stderr
+        )
         sys.exit(1)
     print(f"The main variable names are the same: {YS_val_tmp}")
 

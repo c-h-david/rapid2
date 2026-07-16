@@ -95,19 +95,31 @@ def main() -> None:
     f = netCDF4.Dataset(Qex_ncf, "r")
 
     if "rivid" not in f.variables:
-        print(f"ERROR - rivid variable does not exist in {Qex_ncf}")
+        print(
+            f"ERROR - rivid variable does not exist in {Qex_ncf}",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     if "lon" not in f.variables:
-        print(f"ERROR - lon variable does not exist in {Qex_ncf}")
+        print(
+            f"ERROR - lon variable does not exist in {Qex_ncf}",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     if "lat" not in f.variables:
-        print(f"ERROR - lat variable does not exist in {Qex_ncf}")
+        print(
+            f"ERROR - lat variable does not exist in {Qex_ncf}",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     if "time" not in f.variables:
-        print(f"ERROR - time variable does not exist in {Qex_ncf}")
+        print(
+            f"ERROR - time variable does not exist in {Qex_ncf}",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     IV_riv_tot = f.variables["rivid"][:]

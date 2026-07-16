@@ -118,7 +118,7 @@ def main() -> None:
         o = netCDF4.Dataset(Qob_ncf, "r")
         m = netCDF4.Dataset(Qme_ncf, "r")
     except IOError:
-        print("ERROR - Unable to open input files")
+        print("ERROR - Unable to open input files", file=sys.stderr)
         sys.exit(1)
 
     # -------------------------------------------------------------------------
