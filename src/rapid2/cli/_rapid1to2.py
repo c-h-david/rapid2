@@ -129,41 +129,30 @@ def main() -> None:
     if os.path.isfile(con_pqt):
         print(f"WARNING - File already exists {con_pqt}. Skipping.")
     else:
-        try:
-            # Connectivity read handles potentially variable column counts
-            read_options = pv.ReadOptions(autogenerate_column_names=True)
-            convert_options = pv.ConvertOptions(
-                column_types={
-                    "f0": pa.int32(),
-                    "f1": pa.int32(),
-                },
-            )
-            table = pv.read_csv(
-                con_csv,
-                read_options=read_options,
-                convert_options=convert_options,
-            )
-            table = table.select(["f0", "f1"]).rename_columns(["riv", "dwn"])
-            schema = pa.schema(
-                [field.with_nullable(False) for field in table.schema]
-            )
-            table = table.cast(schema)
-            pq.write_table(table, con_pqt)
-
-        except IOError:
-            print(f"ERROR - Unable to open {con_csv}", file=sys.stderr)
-            sys.exit(1)
+        # Connectivity read handles potentially variable column counts
+        read_options = pv.ReadOptions(autogenerate_column_names=True)
+        convert_options = pv.ConvertOptions(
+            column_types={
+                "f0": pa.int32(),
+                "f1": pa.int32(),
+            },
+        )
+        table = pv.read_csv(
+            con_csv,
+            read_options=read_options,
+            convert_options=convert_options,
+        )
+        table = table.select(["f0", "f1"]).rename_columns(["riv", "dwn"])
+        schema = pa.schema(
+            [field.with_nullable(False) for field in table.schema]
+        )
+        table = table.cast(schema)
+        pq.write_table(table, con_pqt)
 
     # -------------------------------------------------------------------------
     # Get "master" river IDs from connectivity (always loaded for simplicity)
     # -------------------------------------------------------------------------
-    try:
-        IV_riv_tot = pq.read_table(con_pqt, columns=["riv"]).column("riv")
-    except IOError:
-        print(
-            f"ERROR - Unable to read river IDs from {con_pqt}", file=sys.stderr
-        )
-        sys.exit(1)
+    IV_riv_tot = pq.read_table(con_pqt, columns=["riv"]).column("riv")
 
     # -------------------------------------------------------------------------
     # Process basin (optional)
@@ -177,27 +166,22 @@ def main() -> None:
         if os.path.isfile(bas_pqt):
             print(f"WARNING - File already exists {bas_pqt}. Skipping.")
         else:
-            try:
-                read_options = pv.ReadOptions(column_names=["riv"])
-                convert_options = pv.ConvertOptions(
-                    column_types={
-                        "riv": pa.int32(),
-                    },
-                )
-                table = pv.read_csv(
-                    bas_csv,
-                    read_options=read_options,
-                    convert_options=convert_options,
-                )
-                schema = pa.schema(
-                    [field.with_nullable(False) for field in table.schema]
-                )
-                table = table.cast(schema)
-                pq.write_table(table, bas_pqt)
-
-            except IOError:
-                print(f"ERROR - Unable to open {bas_csv}", file=sys.stderr)
-                sys.exit(1)
+            read_options = pv.ReadOptions(column_names=["riv"])
+            convert_options = pv.ConvertOptions(
+                column_types={
+                    "riv": pa.int32(),
+                },
+            )
+            table = pv.read_csv(
+                bas_csv,
+                read_options=read_options,
+                convert_options=convert_options,
+            )
+            schema = pa.schema(
+                [field.with_nullable(False) for field in table.schema]
+            )
+            table = table.cast(schema)
+            pq.write_table(table, bas_pqt)
 
     # -------------------------------------------------------------------------
     # Process k parameter (optional)
@@ -211,31 +195,26 @@ def main() -> None:
         if os.path.isfile(kpr_pqt):
             print(f"WARNING - File already exists {kpr_pqt}. Skipping.")
         else:
-            try:
-                read_options = pv.ReadOptions(column_names=["kpr"])
-                convert_options = pv.ConvertOptions(
-                    column_types={
-                        "kpr": pa.float64(),
-                    },
-                )
-                table = pv.read_csv(
-                    kpr_csv,
-                    read_options=read_options,
-                    convert_options=convert_options,
-                )
-                # Stitch the river IDs to the parameter array
-                table = pa.table(
-                    [IV_riv_tot, table.column("kpr")], names=["riv", "kpr"]
-                )
-                schema = pa.schema(
-                    [field.with_nullable(False) for field in table.schema]
-                )
-                table = table.cast(schema)
-                pq.write_table(table, kpr_pqt)
-
-            except IOError:
-                print(f"ERROR - Unable to open {kpr_csv}", file=sys.stderr)
-                sys.exit(1)
+            read_options = pv.ReadOptions(column_names=["kpr"])
+            convert_options = pv.ConvertOptions(
+                column_types={
+                    "kpr": pa.float64(),
+                },
+            )
+            table = pv.read_csv(
+                kpr_csv,
+                read_options=read_options,
+                convert_options=convert_options,
+            )
+            # Stitch the river IDs to the parameter array
+            table = pa.table(
+                [IV_riv_tot, table.column("kpr")], names=["riv", "kpr"]
+            )
+            schema = pa.schema(
+                [field.with_nullable(False) for field in table.schema]
+            )
+            table = table.cast(schema)
+            pq.write_table(table, kpr_pqt)
 
     # -------------------------------------------------------------------------
     # Process x parameter (optional)
@@ -249,31 +228,26 @@ def main() -> None:
         if os.path.isfile(xpr_pqt):
             print(f"WARNING - File already exists {xpr_pqt}. Skipping.")
         else:
-            try:
-                read_options = pv.ReadOptions(column_names=["xpr"])
-                convert_options = pv.ConvertOptions(
-                    column_types={
-                        "xpr": pa.float64(),
-                    },
-                )
-                table = pv.read_csv(
-                    xpr_csv,
-                    read_options=read_options,
-                    convert_options=convert_options,
-                )
-                # Stitch the river IDs to the parameter array
-                table = pa.table(
-                    [IV_riv_tot, table.column("xpr")], names=["riv", "xpr"]
-                )
-                schema = pa.schema(
-                    [field.with_nullable(False) for field in table.schema]
-                )
-                table = table.cast(schema)
-                pq.write_table(table, xpr_pqt)
-
-            except IOError:
-                print(f"ERROR - Unable to open {xpr_csv}", file=sys.stderr)
-                sys.exit(1)
+            read_options = pv.ReadOptions(column_names=["xpr"])
+            convert_options = pv.ConvertOptions(
+                column_types={
+                    "xpr": pa.float64(),
+                },
+            )
+            table = pv.read_csv(
+                xpr_csv,
+                read_options=read_options,
+                convert_options=convert_options,
+            )
+            # Stitch the river IDs to the parameter array
+            table = pa.table(
+                [IV_riv_tot, table.column("xpr")], names=["riv", "xpr"]
+            )
+            schema = pa.schema(
+                [field.with_nullable(False) for field in table.schema]
+            )
+            table = table.cast(schema)
+            pq.write_table(table, xpr_pqt)
 
     # -------------------------------------------------------------------------
     # Process coordinates (optional)
@@ -287,31 +261,26 @@ def main() -> None:
         if os.path.isfile(crd_pqt):
             print(f"WARNING - File already exists {crd_pqt}. Skipping.")
         else:
-            try:
-                read_options = pv.ReadOptions(
-                    column_names=["riv", "lon", "lat"]
-                )
-                convert_options = pv.ConvertOptions(
-                    column_types={
-                        "riv": pa.int32(),
-                        "lon": pa.float64(),
-                        "lat": pa.float64(),
-                    },
-                )
-                table = pv.read_csv(
-                    crd_csv,
-                    read_options=read_options,
-                    convert_options=convert_options,
-                )
-                schema = pa.schema(
-                    [field.with_nullable(False) for field in table.schema]
-                )
-                table = table.cast(schema)
-                pq.write_table(table, crd_pqt)
-
-            except IOError:
-                print(f"ERROR - Unable to open {crd_csv}", file=sys.stderr)
-                sys.exit(1)
+            read_options = pv.ReadOptions(
+                column_names=["riv", "lon", "lat"]
+            )
+            convert_options = pv.ConvertOptions(
+                column_types={
+                    "riv": pa.int32(),
+                    "lon": pa.float64(),
+                    "lat": pa.float64(),
+                },
+            )
+            table = pv.read_csv(
+                crd_csv,
+                read_options=read_options,
+                convert_options=convert_options,
+            )
+            schema = pa.schema(
+                [field.with_nullable(False) for field in table.schema]
+            )
+            table = table.cast(schema)
+            pq.write_table(table, crd_pqt)
 
     # -------------------------------------------------------------------------
     # Process coupling (optional)
@@ -325,32 +294,27 @@ def main() -> None:
         if os.path.isfile(cpl_pqt):
             print(f"WARNING - File already exists {cpl_pqt}. Skipping.")
         else:
-            try:
-                read_options = pv.ReadOptions(
-                    column_names=["riv", "skm", "1bi", "1bj"]
-                )
-                convert_options = pv.ConvertOptions(
-                    column_types={
-                        "riv": pa.int32(),
-                        "skm": pa.float64(),
-                        "1bi": pa.int32(),
-                        "1bj": pa.int32(),
-                    },
-                )
-                table = pv.read_csv(
-                    cpl_csv,
-                    read_options=read_options,
-                    convert_options=convert_options,
-                )
-                schema = pa.schema(
-                    [field.with_nullable(False) for field in table.schema]
-                )
-                table = table.cast(schema)
-                pq.write_table(table, cpl_pqt)
-
-            except IOError:
-                print(f"ERROR - Unable to open {cpl_csv}", file=sys.stderr)
-                sys.exit(1)
+            read_options = pv.ReadOptions(
+                column_names=["riv", "skm", "1bi", "1bj"]
+            )
+            convert_options = pv.ConvertOptions(
+                column_types={
+                    "riv": pa.int32(),
+                    "skm": pa.float64(),
+                    "1bi": pa.int32(),
+                    "1bj": pa.int32(),
+                },
+            )
+            table = pv.read_csv(
+                cpl_csv,
+                read_options=read_options,
+                convert_options=convert_options,
+            )
+            schema = pa.schema(
+                [field.with_nullable(False) for field in table.schema]
+            )
+            table = table.cast(schema)
+            pq.write_table(table, cpl_pqt)
 
     # -------------------------------------------------------------------------
     # End process

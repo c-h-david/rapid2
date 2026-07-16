@@ -114,12 +114,8 @@ def main() -> None:
     # Read netCDF files
     # -------------------------------------------------------------------------
     print("- Read netCDF files")
-    try:
-        o = netCDF4.Dataset(Qob_ncf, "r")
-        m = netCDF4.Dataset(Qme_ncf, "r")
-    except IOError:
-        print("ERROR - Unable to open input files", file=sys.stderr)
-        sys.exit(1)
+    o = netCDF4.Dataset(Qob_ncf, "r")
+    m = netCDF4.Dataset(Qme_ncf, "r")
 
     # -------------------------------------------------------------------------
     # Extract metadata

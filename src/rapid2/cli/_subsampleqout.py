@@ -144,14 +144,7 @@ def main() -> None:
         sys.exit(1)
 
     # Map the observation IDs to their 0-based indices in the Qou file
-    try:
-        _, _, IV_0bi_avl = make_0bi_tbl(IV_riv_bas, IV_riv_avl)
-    except KeyError as e:
-        print(
-            f"ERROR - Observation ID {e} not found in the input Qou file",
-            file=sys.stderr,
-        )
-        sys.exit(1)
+    _, _, IV_0bi_avl = make_0bi_tbl(IV_riv_bas, IV_riv_avl)
 
     # Spatially subset coordinates
     ZV_lon_avl = ZV_lon_bas[IV_0bi_avl]
