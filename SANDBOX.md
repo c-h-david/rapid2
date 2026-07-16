@@ -2,7 +2,7 @@
 
 RAPID comes along with a set of test files based on a synthetic experiment.
 
-[![DOI:10.5281/zenodo.21248920][SVG_ZENODO]][URL_ZENODO]
+[![DOI:10.5281/zenodo.21248920][BDG_ZENODO]][URL_ZENODO]
 
 ## Study Domain
 
@@ -313,7 +313,7 @@ include:
 > drive.
 
 <!-- pyml disable-num-lines 30 line-length -->
-[SVG_ZENODO]: https://zenodo.org/badge/doi/10.5281/zenodo.21248920.svg
+[BDG_ZENODO]: https://zenodo.org/badge/doi/10.5281/zenodo.21248920.svg
 
 [URL_ZENODO]: https://doi.org/10.5281/zenodo.21248920
 [URL_DA2011]: https://doi.org/10.1175/2011JHM1345.1
