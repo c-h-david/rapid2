@@ -10,7 +10,6 @@
 # *****************************************************************************
 # Import Python modules
 # *****************************************************************************
-import sys
 from typing import Optional
 
 import netCDF4
@@ -129,11 +128,9 @@ def read_std_vec(
 
     if "time_bnds" in s.variables:
         if "nv" not in s.dimensions:
-            print(f"ERROR - nv dimension does not exist in {std_ncf}")
-            sys.exit(1)
+            raise ValueError(f"nv dimension does not exist in {std_ncf}")
         if len(s.dimensions["nv"]) != 2:
-            print(f"ERROR - nv dimension is not of size 2 in {std_ncf}")
-            sys.exit(1)
+            raise ValueError(f"nv dimension is not of size 2 in {std_ncf}")
 
         IM_tim_all = np.array(
             s.variables["time_bnds"][:].filled(), dtype=np.int32
