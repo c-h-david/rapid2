@@ -14,6 +14,8 @@
 # Configuration
 # *****************************************************************************
 plugins:
+  md004:
+    style: dash
   md013:
     enabled: true
     line_length: 79

@@ -185,6 +185,11 @@ must adhere to the following layout rules.
   preceded by a `<!-- pyml disable-num-lines 1 line-length -->` statement, and
   the actual number of lines can be adjusted accordingly .
 
+### Lists
+
+- **Unordered Lists:** Always use the hyphen (`-`) as the bullet delimiter. Do
+  not use asterisks (`*`) or plus signs (`+`).
+
 ### Link Formatting Style
 
 We strictly use **reference-style links** at the bottom of the document to keep
