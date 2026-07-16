@@ -96,35 +96,28 @@ def read_std_vec(
     # Check dimensions exist
     # -------------------------------------------------------------------------
     if "rivid" not in s.dimensions:
-        print(f"ERROR - rivid dimension does not exist in {std_ncf}")
-        sys.exit(1)
+        raise ValueError(f"rivid dimension does not exist in {std_ncf}")
 
     if "time" not in s.dimensions:
-        print(f"ERROR - time dimension does not exist in {std_ncf}")
-        sys.exit(1)
+        raise ValueError(f"time dimension does not exist in {std_ncf}")
 
     # -------------------------------------------------------------------------
     # Check variables exist
     # -------------------------------------------------------------------------
     if "rivid" not in s.variables:
-        print(f"ERROR - rivid variable does not exist in {std_ncf}")
-        sys.exit(1)
+        raise ValueError(f"rivid variable does not exist in {std_ncf}")
 
     if "lon" not in s.variables:
-        print(f"ERROR - lon variable does not exist in {std_ncf}")
-        sys.exit(1)
+        raise ValueError(f"lon variable does not exist in {std_ncf}")
 
     if "lat" not in s.variables:
-        print(f"ERROR - lat variable does not exist in {std_ncf}")
-        sys.exit(1)
+        raise ValueError(f"lat variable does not exist in {std_ncf}")
 
     if "time" not in s.variables:
-        print(f"ERROR - time variable does not exist in {std_ncf}")
-        sys.exit(1)
+        raise ValueError(f"time variable does not exist in {std_ncf}")
 
     if "Qext" not in s.variables and "Qout" not in s.variables:
-        print(f"ERROR - No known main variable exist in {std_ncf}")
-        sys.exit(1)
+        raise ValueError(f"No known main variable exist in {std_ncf}")
 
     # -------------------------------------------------------------------------
     # Retrieve variables
