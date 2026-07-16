@@ -192,6 +192,12 @@ the body text readable and clear of URL clutter.
       PyPI/Docker). Such registry-facing files must use absolute GitHub URLs to
       prevent 404s on external sites.
   - Use strictly UPPERCASE and restrict the shorthand name following the
+    prefix to exactly 6 characters.
+    - **Padding Rule:** If the logical name is shorter than 6 characters, pad
+      it using underscores (`_`). Prefer pre-padding the shorthand (e.g.,
+      `[LOC__STYLE]`, `[URL__AMMOS]`) or internal padding to meet the strict
+      length requirement.
+  - Use strictly UPPERCASE and restrict the shorthand name following the
     prefix to 6 characters.
 
 [LOC_NOMENC]: NOMENCLATURE.md
