@@ -30,7 +30,9 @@ def read_con_vec(
     Parameters
     ----------
     con_pqt : str
-        Path to the connectivity file.
+        Path to the connectivity file: a Parquet file with two
+        integer columns, riv (the river ID) and dwn (its downstream
+        river ID, 0 for an outlet with no downstream reach).
 
     Returns
     -------

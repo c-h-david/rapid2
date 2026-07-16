@@ -88,7 +88,7 @@ ruff format . --check
 
 > We enforce a maximum line width of 79 characters, version 3.11 of python,
 > as well as standard options for linting and formatting using the
-> [`pyproj.toml`][URL_CFG_PY]
+> [`pyproject.toml`][URL_CFG_PY]
 > configuration file.
 
 ### Python type checker
@@ -100,7 +100,7 @@ mypy .
 ```
 
 > We enforce strict typing and python version 3.11 using the
-> [`pyproj.toml`][URL_CFG_PY]
+> [`pyproject.toml`][URL_CFG_PY]
 > configuration file.
 
 ## Runtime testing
@@ -159,4 +159,4 @@ cmpncf \
 [URL_SNDBOX]: https://github.com/c-h-david/rapid2/blob/main/SANDBOX.md
 [URL_CFG_MD]: https://github.com/c-h-david/rapid2/blob/main/.pymarkdown.yml
 [URL_CFG_YM]: https://github.com/c-h-david/rapid2/blob/main/.yamllint.yml
-[URL_CFG_PY]: https://github.com/c-h-david/rapid2/blob/main/pyproj.toml
+[URL_CFG_PY]: https://github.com/c-h-david/rapid2/blob/main/pyproject.toml
