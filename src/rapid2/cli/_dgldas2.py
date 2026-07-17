@@ -191,12 +191,16 @@ def main() -> None:
 
             # Copy dimensions (time should be unlimited)
             for name, dim in t.dimensions.items():
-                c.createDimension(name, None if dim.isunlimited() else len(dim))
+                c.createDimension(
+                    name, None if dim.isunlimited() else len(dim)
+                )
 
             # Copy variables that are in YV_yes (and their attributes)
             for name, var in t.variables.items():
                 if name in YV_yes:
-                    c.createVariable(name, var.datatype, var.dimensions).setncatts(
+                    c.createVariable(
+                        name, var.datatype, var.dimensions
+                    ).setncatts(
                         {attr: var.getncattr(attr) for attr in var.ncattrs()}
                     )
 
@@ -222,18 +226,24 @@ def main() -> None:
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         with netCDF4.Dataset(lsm_ncf, "a") as c:
             if YS_phs == "2.0":
-                c.variables["time"][:] = c.variables["time"][:] * 60 - 694299600
+                c.variables["time"][:] = (
+                    c.variables["time"][:] * 60 - 694299600
+                )
                 c.variables["time_bnds"][:] = (
                     c.variables["time_bnds"][:] * 60 - 694299600
                 )
 
             if YS_phs == "2.1":
-                c.variables["time"][:] = c.variables["time"][:] * 60 + 946695600
+                c.variables["time"][:] = (
+                    c.variables["time"][:] * 60 + 946695600
+                )
                 c.variables["time_bnds"][:] = (
                     c.variables["time_bnds"][:] * 60 + 946695600
                 )
 
-            c.variables["time"].units = "second since 1970-01-01 00:00:00 +00:00"
+            c.variables[
+                "time"
+            ].units = "second since 1970-01-01 00:00:00 +00:00"
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Convert accumulated depth to depth rate
@@ -249,7 +259,9 @@ def main() -> None:
             # 2. If duration is less than a month (e.g., 3-hourly is 10,800s),
             #    the GLDAS data is an accumulation and must be divided by time.
             if IS_dtE < 100000:
-                print(f"  . Dividing accumulations by IS_dtE: {IS_dtE} seconds")
+                print(
+                    f"  . Dividing accumulations by IS_dtE: {IS_dtE} seconds"
+                )
 
                 # Divide data by the time step duration
                 c.variables["Qs_acc"][:] = c.variables["Qs_acc"][:] / IS_dtE
