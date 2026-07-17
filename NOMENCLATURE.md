@@ -66,6 +66,8 @@ to accommodate external API terminology.
 | `Qou`| Outflow discharge  | Flow of water exiting each reach (m^3/s).       |
 | `Qob`| Observed discharge | Flow of water from observations (m^3/s).        |
 | `Qme`| Model equivalent   | Model equivalent to observations (m^3/s).       |
+| `Qdi`| Discon. discharge  | Flow of water in disconnected network (m^3/s).  |
+| `lqe`| Little q ext       | External inflow (observation space) (m^3/s)     |
 | `Vol`| Volume             | Volume of water stored in the reach (m^3).      |
 | `lon`| Longitude          | Representative longitude of the reach (°).      |
 | `lat`| Latitude           | Representative latitude of the reach (°).       |
@@ -158,14 +160,18 @@ to accommodate external API terminology.
 | ---- | ------------------ | ----------------------------------------------- |
 | `Idt`| Identity matrix    | A must-have matrix for linear algebra.          |
 | `Net`| Network matrix     | Represents topological connectivity.            |
+| `Dis`| Disconnected Net   | Disconnected network matrix topology.           |
 | `Sel`| Selection matrix   | Maps active observation gauges to river reaches.|
 | `CCC`| Muskingum CCC      | C1, C2, and C3 Muskingum parameter matrices.    |
-| `ICN`| Identity minus C1N | Linear system matrix for Muskingum routing.
-| `ImN`| Identity minus N   | Linear system matrix for Lumped routing.
+| `ICN`| Identity minus C1N | Linear system matrix for Muskingum routing.     |
+| `ImN`| Identity minus Net | Linear system matrix for Lumped routing.        |
+| `ImD`| Identity minus Dis | Linear system matrix for disconnected routing.  |
 | `Mus`| Muskingum          | The Muskingum routing physics and matrices.     |
 | `Aex`| Ae operator        | Window mapping operator for external forcing.   |
 | `A00`| A0 operator        | Window mapping operator for initial state.      |
 | `Wdw`| Time window        | Temporal window for data assimilation.          |
+| `Wdx`| Time window, expl. | Explicit temporal window matrix operators.      |
+| `Crm`| Courant matrix     | Modified Courant routing matrix (C1 + C2).      |
 | `Lmp`| Lumped             | The Lumped routing physics and matrices.        |
 
 ### `<structure2>` (Memory Destinations)
@@ -268,7 +274,7 @@ cognitive load and preserve the visibility of the naming grammar.
 
 ### Readers (Disk -> Memory)
 
-**Pattern:** `read_<dataset>_<structure2>()`
+**Pattern:** `read_<dataset>_<structure2>()` or `read_<quantity>_<structure2>`
 
 **Examples:**
 

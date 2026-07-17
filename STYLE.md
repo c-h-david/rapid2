@@ -32,6 +32,11 @@ exactly: it is the canonical example. For a small read-input and report tool,
   block (catching `IOError, ValueError, KeyError` or `Exception`) that
   prints `ERROR - {e}` to `sys.stderr` and calls `sys.exit(1)`. Pre-flight
   checks (e.g., skipping existing files) must occur *before* the `try` block.
+  *Exception for Batch/Multi-File Tools:* If a tool handles multiple
+  independent or optional target files in a single execution, place the
+  existence checks inside the `try` block at the start of each file's specific
+  logical block. This allows the utility to log a warning, skip the file, and
+  safely proceed with processing subsequent options.
 
 ### CLI Skeleton
 
@@ -110,12 +115,18 @@ if __name__ == "__main__":
 
 ## 2. Core Library (`core/`)
 
-Every internal function lives under `src/rapid2/core/` in a file named using
-the standard `verb_dataset_format` nomenclature (e.g., `read_crd_vec.py`,
-`chck_bas.py`).
+Every internal core utility lives under `src/rapid2/core/` in a standalone file.
+To maintain a strict 1:1 mapping across the library, the filename must exactly
+match the name of the primary public function it contains, adhering strictly to
+the semantic grammar rules established in [`NOMENCLATURE.md`][LOC_NOMENC].
 
 ### Structure Rules
 
+- **Naming Alignment:** Filenames must copy the exact functional grammar
+  pattern dictated by their algorithmic scope (e.g., readers follow
+  `read_<dataset>_<structure2>.py`, updaters follow
+  `updt_<concept>_<quantity>.py`, and makers follow
+  `make_<concept>_<structure2>.py`).
 - **Banners:** File headers, major sections (`# ***...`), and internal
   logic steps (`# ---...`) span exactly 79 characters.
 - **Typing:** Strict type hinting is enforced. Use `numpy.typing`
