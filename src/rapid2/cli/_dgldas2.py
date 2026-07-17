@@ -111,174 +111,170 @@ def main() -> None:
         sys.exit(0)
 
     # -------------------------------------------------------------------------
-    # Login
+    # Execute main logic
     # -------------------------------------------------------------------------
-    print("- Login")
-    earthaccess.login()
+    try:
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Login
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        print("- Login")
+        earthaccess.login()
 
-    # -------------------------------------------------------------------------
-    # Search
-    # -------------------------------------------------------------------------
-    YS_exp = "GLDAS"
-    YS_res = "10"
-    YS_frq = "3H"
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Search
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        YS_exp = "GLDAS"
+        YS_res = "10"
+        YS_frq = "3H"
 
-    YS_nam = YS_exp + "_" + YS_mod + YS_res + "_" + YS_frq
+        YS_nam = YS_exp + "_" + YS_mod + YS_res + "_" + YS_frq
 
-    print(f"- Search {YS_nam} {YS_phs} {YS_tim} max=300")
+        print(f"- Search {YS_nam} {YS_phs} {YS_tim} max=300")
 
-    AV_rem = earthaccess.search_data(
-        short_name=YS_nam,
-        version=YS_phs,
-        temporal=(YS_tim, YS_tim),
-        count=300,
-    )
-
-    # -------------------------------------------------------------------------
-    # Download
-    # -------------------------------------------------------------------------
-    print(f"- Download {len(AV_rem)} files")
-
-    YS_dir = os.path.dirname(lsm_ncf)
-    earthaccess.download(AV_rem, YS_dir)
-
-    # -------------------------------------------------------------------------
-    # Check files
-    # -------------------------------------------------------------------------
-    print("- Check files")
-
-    IS_rem = len(AV_rem)
-
-    YV_loc = []
-    for JS_rem in range(IS_rem):
-        YS_rem = AV_rem[JS_rem]["meta"]["native-id"].split(":", 1)[1]
-        ZS_rem = AV_rem[JS_rem]["size"]
-        tmp_ncf = os.path.join(YS_dir, YS_rem)
-
-        if not os.path.exists(tmp_ncf):
-            print(
-                f"ERROR - file not downloaded: {tmp_ncf}", file=sys.stderr
-            )
-            sys.exit(1)
-        else:
-            ZS_loc = os.path.getsize(tmp_ncf) / 1024**2
-            YV_loc.append(tmp_ncf)
-
-        if abs(ZS_rem - ZS_loc) >= 1e-15:
-            print(
-                f"ERROR - "
-                f"Remote file {YS_rem}, "
-                f"Local file {tmp_ncf}, "
-                f"Remote size {ZS_rem}, "
-                f"Local size {ZS_loc}",
-                file=sys.stderr,
-            )
-            sys.exit(1)
-
-    # -------------------------------------------------------------------------
-    # Concatenate files
-    # -------------------------------------------------------------------------
-    print("- Concatenate file")
-
-    YV_loc = sorted(YV_loc)
-    YV_yes = {"time", "time_bnds", "lon", "lat", "Qs_acc", "Qsb_acc"}
-
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # Open first file to create the output structure
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    tmp_ncf = YV_loc[0]
-    with (
-        netCDF4.Dataset(tmp_ncf, "r") as t,
-        netCDF4.Dataset(lsm_ncf, "w") as c,
-    ):
-        # Copy global attributes
-        c.setncatts({attr: t.getncattr(attr) for attr in t.ncattrs()})
-
-        # Copy dimensions (time should be unlimited)
-        for name, dim in t.dimensions.items():
-            c.createDimension(name, None if dim.isunlimited() else len(dim))
-
-        # Copy variables that are in YV_yes (and their attributes)
-        for name, var in t.variables.items():
-            if name in YV_yes:
-                c.createVariable(name, var.datatype, var.dimensions).setncatts(
-                    {attr: var.getncattr(attr) for attr in var.ncattrs()}
-                )
-
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # Append data from all files
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    JS_tim = 0
-    for tmp_ncf in YV_loc:
-        with (
-            netCDF4.Dataset(tmp_ncf, "r") as t,
-            netCDF4.Dataset(lsm_ncf, "a") as c,
-        ):
-            IS_siz = t.dimensions["time"].size
-            for name, var in t.variables.items():
-                if name in YV_yes:
-                    if "time" in var.dimensions:
-                        JS_idx_beg = JS_tim
-                        JS_idx_end = JS_tim + IS_siz
-                        c.variables[name][JS_idx_beg:JS_idx_end] = var[:]
-                    else:
-                        c.variables[name][:] = var[:]
-            JS_tim += IS_siz
-
-    # -------------------------------------------------------------------------
-    # Update time
-    # -------------------------------------------------------------------------
-    with netCDF4.Dataset(lsm_ncf, "a") as c:
-        if YS_phs == "2.0":
-            c.variables["time"][:] = c.variables["time"][:] * 60 - 694299600
-            c.variables["time_bnds"][:] = (
-                c.variables["time_bnds"][:] * 60 - 694299600
-            )
-
-        if YS_phs == "2.1":
-            c.variables["time"][:] = c.variables["time"][:] * 60 + 946695600
-            c.variables["time_bnds"][:] = (
-                c.variables["time_bnds"][:] * 60 + 946695600
-            )
-
-        c.variables["time"].units = "second since 1970-01-01 00:00:00 +00:00"
-
-    # -------------------------------------------------------------------------
-    # Convert accumulated depth to depth rate
-    # -------------------------------------------------------------------------
-    print("- Convert accumulated depth to depth rate")
-
-    with netCDF4.Dataset(lsm_ncf, "a") as c:
-        # 1. Calculate the exact duration of the first time step in seconds
-        IS_dtE = (
-            c.variables["time_bnds"][0, 1] - c.variables["time_bnds"][0, 0]
+        AV_rem = earthaccess.search_data(
+            short_name=YS_nam,
+            version=YS_phs,
+            temporal=(YS_tim, YS_tim),
+            count=300,
         )
 
-        # 2. If the duration is less than a month (e.g., 3-hourly is 10,800s),
-        #    the GLDAS data is an accumulation and must be divided by time.
-        if IS_dtE < 100000:
-            print(f"  . Dividing accumulations by IS_dtE: {IS_dtE} seconds")
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Download
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        print(f"- Download {len(AV_rem)} files")
 
-            # Divide data by the time step duration
-            c.variables["Qs_acc"][:] = c.variables["Qs_acc"][:] / IS_dtE
-            c.variables["Qsb_acc"][:] = c.variables["Qsb_acc"][:] / IS_dtE
+        YS_dir = os.path.dirname(lsm_ncf)
+        earthaccess.download(AV_rem, YS_dir)
 
-            # Update the standard units in the netCDF metadata
-            c.variables["Qs_acc"].units = "kg m-2 s-1"
-            c.variables["Qsb_acc"].units = "kg m-2 s-1"
-        else:
-            print("  . Data appears to be monthly; assuming flux units.")
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Check files
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        print("- Check files")
 
-    # -------------------------------------------------------------------------
-    # Delete files
-    # -------------------------------------------------------------------------
-    print("- Delete files")
+        IS_rem = len(AV_rem)
 
-    for tmp_ncf in YV_loc:
-        try:
-            os.remove(tmp_ncf)
-        except OSError as e:
-            print(f"Error deleting {tmp_ncf}: {e}")
+        YV_loc = []
+        for JS_rem in range(IS_rem):
+            YS_rem = AV_rem[JS_rem]["meta"]["native-id"].split(":", 1)[1]
+            ZS_rem = AV_rem[JS_rem]["size"]
+            tmp_ncf = os.path.join(YS_dir, YS_rem)
+
+            if not os.path.exists(tmp_ncf):
+                raise ValueError(f"file not downloaded: {tmp_ncf}")
+            else:
+                ZS_loc = os.path.getsize(tmp_ncf) / 1024**2
+                YV_loc.append(tmp_ncf)
+
+            if abs(ZS_rem - ZS_loc) >= 1e-15:
+                raise ValueError(
+                    f"Remote file {YS_rem}, "
+                    f"Local file {tmp_ncf}, "
+                    f"Remote size {ZS_rem}, "
+                    f"Local size {ZS_loc}"
+                )
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Concatenate files
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        print("- Concatenate file")
+
+        YV_loc = sorted(YV_loc)
+        YV_yes = {"time", "time_bnds", "lon", "lat", "Qs_acc", "Qsb_acc"}
+
+        tmp_ncf = YV_loc[0]
+        with (
+            netCDF4.Dataset(tmp_ncf, "r") as t,
+            netCDF4.Dataset(lsm_ncf, "w") as c,
+        ):
+            # Copy global attributes
+            c.setncatts({attr: t.getncattr(attr) for attr in t.ncattrs()})
+
+            # Copy dimensions (time should be unlimited)
+            for name, dim in t.dimensions.items():
+                c.createDimension(name, None if dim.isunlimited() else len(dim))
+
+            # Copy variables that are in YV_yes (and their attributes)
+            for name, var in t.variables.items():
+                if name in YV_yes:
+                    c.createVariable(name, var.datatype, var.dimensions).setncatts(
+                        {attr: var.getncattr(attr) for attr in var.ncattrs()}
+                    )
+
+        JS_tim = 0
+        for tmp_ncf in YV_loc:
+            with (
+                netCDF4.Dataset(tmp_ncf, "r") as t,
+                netCDF4.Dataset(lsm_ncf, "a") as c,
+            ):
+                IS_siz = t.dimensions["time"].size
+                for name, var in t.variables.items():
+                    if name in YV_yes:
+                        if "time" in var.dimensions:
+                            JS_idx_beg = JS_tim
+                            JS_idx_end = JS_tim + IS_siz
+                            c.variables[name][JS_idx_beg:JS_idx_end] = var[:]
+                        else:
+                            c.variables[name][:] = var[:]
+                JS_tim += IS_siz
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Update time
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        with netCDF4.Dataset(lsm_ncf, "a") as c:
+            if YS_phs == "2.0":
+                c.variables["time"][:] = c.variables["time"][:] * 60 - 694299600
+                c.variables["time_bnds"][:] = (
+                    c.variables["time_bnds"][:] * 60 - 694299600
+                )
+
+            if YS_phs == "2.1":
+                c.variables["time"][:] = c.variables["time"][:] * 60 + 946695600
+                c.variables["time_bnds"][:] = (
+                    c.variables["time_bnds"][:] * 60 + 946695600
+                )
+
+            c.variables["time"].units = "second since 1970-01-01 00:00:00 +00:00"
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Convert accumulated depth to depth rate
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        print("- Convert accumulated depth to depth rate")
+
+        with netCDF4.Dataset(lsm_ncf, "a") as c:
+            # 1. Calculate the exact duration of the first time step in seconds
+            IS_dtE = (
+                c.variables["time_bnds"][0, 1] - c.variables["time_bnds"][0, 0]
+            )
+
+            # 2. If the duration is less than a month (e.g., 3-hourly is 10,800s),
+            #    the GLDAS data is an accumulation and must be divided by time.
+            if IS_dtE < 100000:
+                print(f"  . Dividing accumulations by IS_dtE: {IS_dtE} seconds")
+
+                # Divide data by the time step duration
+                c.variables["Qs_acc"][:] = c.variables["Qs_acc"][:] / IS_dtE
+                c.variables["Qsb_acc"][:] = c.variables["Qsb_acc"][:] / IS_dtE
+
+                # Update the standard units in the netCDF metadata
+                c.variables["Qs_acc"].units = "kg m-2 s-1"
+                c.variables["Qsb_acc"].units = "kg m-2 s-1"
+            else:
+                print("  . Data appears to be monthly; assuming flux units.")
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Delete files
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        print("- Delete files")
+
+        for tmp_ncf in YV_loc:
+            try:
+                os.remove(tmp_ncf)
+            except OSError as e:
+                print(f"Error deleting {tmp_ncf}: {e}")
+
+    except (IOError, ValueError, KeyError) as e:
+        print(f"ERROR - {e}", file=sys.stderr)
+        sys.exit(1)
 
 
 # *****************************************************************************

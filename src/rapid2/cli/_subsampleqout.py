@@ -120,108 +120,113 @@ def main() -> None:
         sys.exit(0)
 
     # -------------------------------------------------------------------------
-    # Read observational gauge IDs
+    # Execute main logic
     # -------------------------------------------------------------------------
-    print("- Read observation file")
-    IV_riv_avl = read_riv_vec(obs_pqt)
-    IS_riv_avl = len(IV_riv_avl)
-    print(f"  . Found {IS_riv_avl} observation locations")
+    try:
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Read observational gauge IDs
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        print("- Read observation file")
+        IV_riv_avl = read_riv_vec(obs_pqt)
+        IS_riv_avl = len(IV_riv_avl)
+        print(f"  . Found {IS_riv_avl} observation locations")
 
-    # -------------------------------------------------------------------------
-    # Extract metadata from Qou_ncf and check spatial topology
-    # -------------------------------------------------------------------------
-    print("- Extract metadata from Qou file")
-    (
-        IV_riv_bas,
-        ZV_lon_bas,
-        ZV_lat_bas,
-        IV_tim_all,
-        IM_tim_all,
-    ) = read_std_vec(Qou_ncf)
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Extract metadata from Qou_ncf and check spatial topology
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        print("- Extract metadata from Qou file")
+        (
+            IV_riv_bas,
+            ZV_lon_bas,
+            ZV_lat_bas,
+            IV_tim_all,
+            IM_tim_all,
+        ) = read_std_vec(Qou_ncf)
 
-    if IM_tim_all is None:
-        print(f"ERROR - time_bnds is missing in {Qou_ncf}", file=sys.stderr)
+        if IM_tim_all is None:
+            raise ValueError(f"time_bnds is missing in {Qou_ncf}")
+
+        # Map the observation IDs to their 0-based indices in the Qou file
+        _, _, IV_0bi_avl = make_0bi_tbl(IV_riv_bas, IV_riv_avl)
+
+        # Spatially subset coordinates
+        ZV_lon_avl = ZV_lon_bas[IV_0bi_avl]
+        ZV_lat_avl = ZV_lat_bas[IV_0bi_avl]
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Determine temporal ratios
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        print("- Check temporal consistency")
+        IS_dtE = IM_tim_all[0, 1] - IM_tim_all[0, 0]
+        IS_tim_all = len(IV_tim_all)
+
+        if IS_dtO % IS_dtE != 0:
+            raise ValueError(
+                f"Target timestep ({IS_dtO}) is not a multiple of the "
+                f"input timestep ({IS_dtE})"
+            )
+
+        IS_rat_Qob = IS_dtO // IS_dtE
+        IS_tim_Qob = IS_tim_all // IS_rat_Qob
+
+        print(f"  . Input time step: {IS_dtE}s")
+        print(f"  . Output time step: {IS_dtO}s")
+        print(f"  . Averaging {IS_rat_Qob} timesteps per output frame")
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Create Qme file
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        print("- Create Qme file")
+        prep_Qou_ncf(IV_riv_avl, ZV_lon_avl, ZV_lat_avl, Qme_ncf)
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Sub-sample data
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        print("- Sub-sample data")
+
+        g = netCDF4.Dataset(Qou_ncf, "r")
+        m = netCDF4.Dataset(Qme_ncf, "a")
+
+        for JS_tim_Qob in tqdm(range(IS_tim_Qob), desc="Averaging discharge"):
+            JS_tim_now = JS_tim_Qob * IS_rat_Qob
+
+            # Extract the chunk and apply spatial filter simultaneously
+            ZM_Qou_tmp = g.variables["Qout"][
+                JS_tim_now : JS_tim_now + IS_rat_Qob, IV_0bi_avl
+            ]
+
+            # Calculate temporal mean across the specified window (axis 0)
+            ZV_Qme_avg = np.mean(ZM_Qou_tmp, axis=0)
+
+            # Write to Qme output
+            m.variables["Qout"][JS_tim_Qob, :] = ZV_Qme_avg[:]
+
+            # Write aligned time and bounds
+            m.variables["time"][JS_tim_Qob] = g.variables["time"][JS_tim_now]
+            m.variables["time_bnds"][JS_tim_Qob, 0] = g.variables["time_bnds"][
+                JS_tim_now, 0
+            ]
+            m.variables["time_bnds"][JS_tim_Qob, 1] = g.variables["time_bnds"][
+                JS_tim_now + IS_rat_Qob - 1, 1
+            ]
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Copy some global attributes
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        m.setncattr("title", g.getncattr("title"))
+        m.setncattr("institution", g.getncattr("institution"))
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Close files
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        g.close()
+        m.close()
+
+        print("Done")
+
+    except (IOError, ValueError, KeyError) as e:
+        print(f"ERROR - {e}", file=sys.stderr)
         sys.exit(1)
-
-    # Map the observation IDs to their 0-based indices in the Qou file
-    _, _, IV_0bi_avl = make_0bi_tbl(IV_riv_bas, IV_riv_avl)
-
-    # Spatially subset coordinates
-    ZV_lon_avl = ZV_lon_bas[IV_0bi_avl]
-    ZV_lat_avl = ZV_lat_bas[IV_0bi_avl]
-
-    # -------------------------------------------------------------------------
-    # Determine temporal ratios
-    # -------------------------------------------------------------------------
-    print("- Check temporal consistency")
-    IS_dtE = IM_tim_all[0, 1] - IM_tim_all[0, 0]
-    IS_tim_all = len(IV_tim_all)
-
-    if IS_dtO % IS_dtE != 0:
-        print(
-            f"ERROR - Target timestep ({IS_dtO}) is not a multiple of the "
-            f"input timestep ({IS_dtE})",
-            file=sys.stderr,
-        )
-        sys.exit(1)
-
-    IS_rat_Qob = IS_dtO // IS_dtE
-    IS_tim_Qob = IS_tim_all // IS_rat_Qob
-
-    print(f"  . Input time step: {IS_dtE}s")
-    print(f"  . Output time step: {IS_dtO}s")
-    print(f"  . Averaging {IS_rat_Qob} timesteps per output frame")
-
-    # -------------------------------------------------------------------------
-    # Create Qme file
-    # -------------------------------------------------------------------------
-    print("- Create Qme file")
-    prep_Qou_ncf(IV_riv_avl, ZV_lon_avl, ZV_lat_avl, Qme_ncf)
-
-    # -------------------------------------------------------------------------
-    # Sub-sample data
-    # -------------------------------------------------------------------------
-    print("- Sub-sample data")
-
-    g = netCDF4.Dataset(Qou_ncf, "r")
-    m = netCDF4.Dataset(Qme_ncf, "a")
-
-    for JS_tim_Qob in tqdm(range(IS_tim_Qob), desc="Averaging discharge"):
-        JS_tim_now = JS_tim_Qob * IS_rat_Qob
-
-        # Extract the chunk and apply spatial filter simultaneously
-        ZM_Qou_tmp = g.variables["Qout"][
-            JS_tim_now : JS_tim_now + IS_rat_Qob, IV_0bi_avl
-        ]
-
-        # Calculate temporal mean across the specified window (axis 0)
-        ZV_Qme_avg = np.mean(ZM_Qou_tmp, axis=0)
-
-        # Write to Qme output
-        m.variables["Qout"][JS_tim_Qob, :] = ZV_Qme_avg[:]
-
-        # Write aligned time and bounds
-        m.variables["time"][JS_tim_Qob] = g.variables["time"][JS_tim_now]
-        m.variables["time_bnds"][JS_tim_Qob, 0] = g.variables["time_bnds"][
-            JS_tim_now, 0
-        ]
-        m.variables["time_bnds"][JS_tim_Qob, 1] = g.variables["time_bnds"][
-            JS_tim_now + IS_rat_Qob - 1, 1
-        ]
-
-    # -------------------------------------------------------------------------
-    # Copy some global attributes
-    # -------------------------------------------------------------------------
-    m.setncattr("title", g.getncattr("title"))
-    m.setncattr("institution", g.getncattr("institution"))
-
-    # -------------------------------------------------------------------------
-    # Close files
-    # -------------------------------------------------------------------------
-    g.close()
-    m.close()
-
-    print("Done")
 
 
 # *****************************************************************************

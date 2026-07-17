@@ -119,207 +119,215 @@ def main() -> None:
     print("Converting legacy files (from/to):")
 
     # -------------------------------------------------------------------------
-    # Process connectivity (mandatory)
+    # Execute main logic
     # -------------------------------------------------------------------------
-    con_pqt = os.path.splitext(con_csv)[0] + ".parquet"
+    try:
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Process connectivity (mandatory)
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        con_pqt = os.path.splitext(con_csv)[0] + ".parquet"
 
-    print(f" - {con_csv}")
-    print(f"   -> {con_pqt}")
+        print(f" - {con_csv}")
+        print(f"   -> {con_pqt}")
 
-    if os.path.isfile(con_pqt):
-        print(f"WARNING - File already exists {con_pqt}. Skipping.")
-    else:
-        # Connectivity read handles potentially variable column counts
-        read_options = pv.ReadOptions(autogenerate_column_names=True)
-        convert_options = pv.ConvertOptions(
-            column_types={
-                "f0": pa.int32(),
-                "f1": pa.int32(),
-            },
-        )
-        table = pv.read_csv(
-            con_csv,
-            read_options=read_options,
-            convert_options=convert_options,
-        )
-        table = table.select(["f0", "f1"]).rename_columns(["riv", "dwn"])
-        schema = pa.schema(
-            [field.with_nullable(False) for field in table.schema]
-        )
-        table = table.cast(schema)
-        pq.write_table(table, con_pqt)
-
-    # -------------------------------------------------------------------------
-    # Get "master" river IDs from connectivity (always loaded for simplicity)
-    # -------------------------------------------------------------------------
-    IV_riv_tot = pq.read_table(con_pqt, columns=["riv"]).column("riv")
-
-    # -------------------------------------------------------------------------
-    # Process basin (optional)
-    # -------------------------------------------------------------------------
-    if bas_csv:
-        bas_pqt = os.path.splitext(bas_csv)[0] + ".parquet"
-
-        print(f" - {bas_csv}")
-        print(f"   -> {bas_pqt}")
-
-        if os.path.isfile(bas_pqt):
-            print(f"WARNING - File already exists {bas_pqt}. Skipping.")
+        if os.path.isfile(con_pqt):
+            print(f"WARNING - File already exists {con_pqt}. Skipping.")
         else:
-            read_options = pv.ReadOptions(column_names=["riv"])
+            # Connectivity read handles potentially variable column counts
+            read_options = pv.ReadOptions(autogenerate_column_names=True)
             convert_options = pv.ConvertOptions(
                 column_types={
-                    "riv": pa.int32(),
+                    "f0": pa.int32(),
+                    "f1": pa.int32(),
                 },
             )
             table = pv.read_csv(
-                bas_csv,
+                con_csv,
                 read_options=read_options,
                 convert_options=convert_options,
             )
+            table = table.select(["f0", "f1"]).rename_columns(["riv", "dwn"])
             schema = pa.schema(
                 [field.with_nullable(False) for field in table.schema]
             )
             table = table.cast(schema)
-            pq.write_table(table, bas_pqt)
+            pq.write_table(table, con_pqt)
 
-    # -------------------------------------------------------------------------
-    # Process k parameter (optional)
-    # -------------------------------------------------------------------------
-    if kpr_csv:
-        kpr_pqt = os.path.splitext(kpr_csv)[0] + ".parquet"
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Get "master" river IDs from connectivity (always loaded for simplicity)
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        IV_riv_tot = pq.read_table(con_pqt, columns=["riv"]).column("riv")
 
-        print(f" - {kpr_csv}")
-        print(f"   -> {kpr_pqt}")
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Process basin (optional)
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        if bas_csv:
+            bas_pqt = os.path.splitext(bas_csv)[0] + ".parquet"
 
-        if os.path.isfile(kpr_pqt):
-            print(f"WARNING - File already exists {kpr_pqt}. Skipping.")
-        else:
-            read_options = pv.ReadOptions(column_names=["kpr"])
-            convert_options = pv.ConvertOptions(
-                column_types={
-                    "kpr": pa.float64(),
-                },
-            )
-            table = pv.read_csv(
-                kpr_csv,
-                read_options=read_options,
-                convert_options=convert_options,
-            )
-            # Stitch the river IDs to the parameter array
-            table = pa.table(
-                [IV_riv_tot, table.column("kpr")], names=["riv", "kpr"]
-            )
-            schema = pa.schema(
-                [field.with_nullable(False) for field in table.schema]
-            )
-            table = table.cast(schema)
-            pq.write_table(table, kpr_pqt)
+            print(f" - {bas_csv}")
+            print(f"   -> {bas_pqt}")
 
-    # -------------------------------------------------------------------------
-    # Process x parameter (optional)
-    # -------------------------------------------------------------------------
-    if xpr_csv:
-        xpr_pqt = os.path.splitext(xpr_csv)[0] + ".parquet"
+            if os.path.isfile(bas_pqt):
+                print(f"WARNING - File already exists {bas_pqt}. Skipping.")
+            else:
+                read_options = pv.ReadOptions(column_names=["riv"])
+                convert_options = pv.ConvertOptions(
+                    column_types={
+                        "riv": pa.int32(),
+                    },
+                )
+                table = pv.read_csv(
+                    bas_csv,
+                    read_options=read_options,
+                    convert_options=convert_options,
+                )
+                schema = pa.schema(
+                    [field.with_nullable(False) for field in table.schema]
+                )
+                table = table.cast(schema)
+                pq.write_table(table, bas_pqt)
 
-        print(f" - {xpr_csv}")
-        print(f"   -> {xpr_pqt}")
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Process k parameter (optional)
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        if kpr_csv:
+            kpr_pqt = os.path.splitext(kpr_csv)[0] + ".parquet"
 
-        if os.path.isfile(xpr_pqt):
-            print(f"WARNING - File already exists {xpr_pqt}. Skipping.")
-        else:
-            read_options = pv.ReadOptions(column_names=["xpr"])
-            convert_options = pv.ConvertOptions(
-                column_types={
-                    "xpr": pa.float64(),
-                },
-            )
-            table = pv.read_csv(
-                xpr_csv,
-                read_options=read_options,
-                convert_options=convert_options,
-            )
-            # Stitch the river IDs to the parameter array
-            table = pa.table(
-                [IV_riv_tot, table.column("xpr")], names=["riv", "xpr"]
-            )
-            schema = pa.schema(
-                [field.with_nullable(False) for field in table.schema]
-            )
-            table = table.cast(schema)
-            pq.write_table(table, xpr_pqt)
+            print(f" - {kpr_csv}")
+            print(f"   -> {kpr_pqt}")
 
-    # -------------------------------------------------------------------------
-    # Process coordinates (optional)
-    # -------------------------------------------------------------------------
-    if crd_csv:
-        crd_pqt = os.path.splitext(crd_csv)[0] + ".parquet"
+            if os.path.isfile(kpr_pqt):
+                print(f"WARNING - File already exists {kpr_pqt}. Skipping.")
+            else:
+                read_options = pv.ReadOptions(column_names=["kpr"])
+                convert_options = pv.ConvertOptions(
+                    column_types={
+                        "kpr": pa.float64(),
+                    },
+                )
+                table = pv.read_csv(
+                    kpr_csv,
+                    read_options=read_options,
+                    convert_options=convert_options,
+                )
+                # Stitch the river IDs to the parameter array
+                table = pa.table(
+                    [IV_riv_tot, table.column("kpr")], names=["riv", "kpr"]
+                )
+                schema = pa.schema(
+                    [field.with_nullable(False) for field in table.schema]
+                )
+                table = table.cast(schema)
+                pq.write_table(table, kpr_pqt)
 
-        print(f" - {crd_csv}")
-        print(f"   -> {crd_pqt}")
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Process x parameter (optional)
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        if xpr_csv:
+            xpr_pqt = os.path.splitext(xpr_csv)[0] + ".parquet"
 
-        if os.path.isfile(crd_pqt):
-            print(f"WARNING - File already exists {crd_pqt}. Skipping.")
-        else:
-            read_options = pv.ReadOptions(
-                column_names=["riv", "lon", "lat"]
-            )
-            convert_options = pv.ConvertOptions(
-                column_types={
-                    "riv": pa.int32(),
-                    "lon": pa.float64(),
-                    "lat": pa.float64(),
-                },
-            )
-            table = pv.read_csv(
-                crd_csv,
-                read_options=read_options,
-                convert_options=convert_options,
-            )
-            schema = pa.schema(
-                [field.with_nullable(False) for field in table.schema]
-            )
-            table = table.cast(schema)
-            pq.write_table(table, crd_pqt)
+            print(f" - {xpr_csv}")
+            print(f"   -> {xpr_pqt}")
 
-    # -------------------------------------------------------------------------
-    # Process coupling (optional)
-    # -------------------------------------------------------------------------
-    if cpl_csv:
-        cpl_pqt = os.path.splitext(cpl_csv)[0] + ".parquet"
+            if os.path.isfile(xpr_pqt):
+                print(f"WARNING - File already exists {xpr_pqt}. Skipping.")
+            else:
+                read_options = pv.ReadOptions(column_names=["xpr"])
+                convert_options = pv.ConvertOptions(
+                    column_types={
+                        "xpr": pa.float64(),
+                    },
+                )
+                table = pv.read_csv(
+                    xpr_csv,
+                    read_options=read_options,
+                    convert_options=convert_options,
+                )
+                # Stitch the river IDs to the parameter array
+                table = pa.table(
+                    [IV_riv_tot, table.column("xpr")], names=["riv", "xpr"]
+                )
+                schema = pa.schema(
+                    [field.with_nullable(False) for field in table.schema]
+                )
+                table = table.cast(schema)
+                pq.write_table(table, xpr_pqt)
 
-        print(f" - {cpl_csv}")
-        print(f"   -> {cpl_pqt}")
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Process coordinates (optional)
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        if crd_csv:
+            crd_pqt = os.path.splitext(crd_csv)[0] + ".parquet"
 
-        if os.path.isfile(cpl_pqt):
-            print(f"WARNING - File already exists {cpl_pqt}. Skipping.")
-        else:
-            read_options = pv.ReadOptions(
-                column_names=["riv", "skm", "1bi", "1bj"]
-            )
-            convert_options = pv.ConvertOptions(
-                column_types={
-                    "riv": pa.int32(),
-                    "skm": pa.float64(),
-                    "1bi": pa.int32(),
-                    "1bj": pa.int32(),
-                },
-            )
-            table = pv.read_csv(
-                cpl_csv,
-                read_options=read_options,
-                convert_options=convert_options,
-            )
-            schema = pa.schema(
-                [field.with_nullable(False) for field in table.schema]
-            )
-            table = table.cast(schema)
-            pq.write_table(table, cpl_pqt)
+            print(f" - {crd_csv}")
+            print(f"   -> {crd_pqt}")
 
-    # -------------------------------------------------------------------------
-    # End process
-    # -------------------------------------------------------------------------
-    print("Conversion complete.")
+            if os.path.isfile(crd_pqt):
+                print(f"WARNING - File already exists {crd_pqt}. Skipping.")
+            else:
+                read_options = pv.ReadOptions(
+                    column_names=["riv", "lon", "lat"]
+                )
+                convert_options = pv.ConvertOptions(
+                    column_types={
+                        "riv": pa.int32(),
+                        "lon": pa.float64(),
+                        "lat": pa.float64(),
+                    },
+                )
+                table = pv.read_csv(
+                    crd_csv,
+                    read_options=read_options,
+                    convert_options=convert_options,
+                )
+                schema = pa.schema(
+                    [field.with_nullable(False) for field in table.schema]
+                )
+                table = table.cast(schema)
+                pq.write_table(table, crd_pqt)
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Process coupling (optional)
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        if cpl_csv:
+            cpl_pqt = os.path.splitext(cpl_csv)[0] + ".parquet"
+
+            print(f" - {cpl_csv}")
+            print(f"   -> {cpl_pqt}")
+
+            if os.path.isfile(cpl_pqt):
+                print(f"WARNING - File already exists {cpl_pqt}. Skipping.")
+            else:
+                read_options = pv.ReadOptions(
+                    column_names=["riv", "skm", "1bi", "1bj"]
+                )
+                convert_options = pv.ConvertOptions(
+                    column_types={
+                        "riv": pa.int32(),
+                        "skm": pa.float64(),
+                        "1bi": pa.int32(),
+                        "1bj": pa.int32(),
+                    },
+                )
+                table = pv.read_csv(
+                    cpl_csv,
+                    read_options=read_options,
+                    convert_options=convert_options,
+                )
+                schema = pa.schema(
+                    [field.with_nullable(False) for field in table.schema]
+                )
+                table = table.cast(schema)
+                pq.write_table(table, cpl_pqt)
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # End process
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        print("Conversion complete.")
+
+    except (IOError, ValueError, KeyError) as e:
+        print(f"ERROR - {e}", file=sys.stderr)
+        sys.exit(1)
 
 
 # *****************************************************************************

@@ -111,111 +111,121 @@ def main() -> None:
     print(f"   -> {YS_base}_<rivid>{YS_ext}")
 
     # -------------------------------------------------------------------------
-    # Read netCDF files
+    # Execute main logic
     # -------------------------------------------------------------------------
-    print("- Read netCDF files")
-    o = netCDF4.Dataset(Qob_ncf, "r")
-    m = netCDF4.Dataset(Qme_ncf, "r")
+    try:
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Read netCDF files
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        print("- Read netCDF files")
+        o = netCDF4.Dataset(Qob_ncf, "r")
+        m = netCDF4.Dataset(Qme_ncf, "r")
 
-    # -------------------------------------------------------------------------
-    # Extract metadata
-    # -------------------------------------------------------------------------
-    print("- Extract metadata")
-    IV_riv_avl = o.variables["rivid"][:]
-    IV_tim_all = o.variables["time"][:]
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Extract metadata
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        print("- Extract metadata")
+        IV_riv_avl = o.variables["rivid"][:]
+        IV_tim_all = o.variables["time"][:]
 
-    IS_riv_avl = len(IV_riv_avl)
-    print(f"  . Found {IS_riv_avl} observation locations")
+        IS_riv_avl = len(IV_riv_avl)
+        print(f"  . Found {IS_riv_avl} observation locations")
 
-    # -------------------------------------------------------------------------
-    # Setup canvas dimensions
-    # -------------------------------------------------------------------------
-    canvas_width = 700
-    canvas_height = 300
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Setup canvas dimensions
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        canvas_width = 700
+        canvas_height = 300
 
-    # -------------------------------------------------------------------------
-    # Plot data and render individual SVGs
-    # -------------------------------------------------------------------------
-    for JS_riv_avl in tqdm(range(IS_riv_avl), desc="Plotting hydrographs"):
-        IS_riv = IV_riv_avl[JS_riv_avl]
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Plot data and render individual SVGs
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        for JS_riv_avl in tqdm(range(IS_riv_avl), desc="Plotting hydrographs"):
+            IS_riv = IV_riv_avl[JS_riv_avl]
 
-        YS_hyd_svg = f"{YS_base}_{IS_riv}{YS_ext}"
+            YS_hyd_svg = f"{YS_base}_{IS_riv}{YS_ext}"
 
-        # Skip if this specific station's file already exists
-        if os.path.exists(YS_hyd_svg):
-            tqdm.write(f"WARNING - File already exists {YS_hyd_svg} skipping.")
-            continue
+            # Skip if this specific station's file already exists
+            if os.path.exists(YS_hyd_svg):
+                tqdm.write(
+                    f"WARNING - File already exists {YS_hyd_svg} skipping."
+                )
+                continue
 
-        # Create a fresh canvas for this specific station
-        canvas = toyplot.Canvas(
-            width=canvas_width,
-            height=canvas_height,
-            style={"background-color": "white"},
-        )
+            # Create a fresh canvas for this specific station
+            canvas = toyplot.Canvas(
+                width=canvas_width,
+                height=canvas_height,
+                style={"background-color": "white"},
+            )
 
-        # Slice timeseries directly from disk to save memory
-        if "Qout" in o.variables:
-            ZV_Qob_tmp = o.variables["Qout"][:, JS_riv_avl]
-        else:
-            ZV_Qob_tmp = o.variables["Qext"][:, JS_riv_avl]
+            # Slice timeseries directly from disk to save memory
+            if "Qout" in o.variables:
+                ZV_Qob_tmp = o.variables["Qout"][:, JS_riv_avl]
+            else:
+                ZV_Qob_tmp = o.variables["Qext"][:, JS_riv_avl]
 
-        if "Qout" in m.variables:
-            ZV_Qme_tmp = m.variables["Qout"][:, JS_riv_avl]
-        else:
-            ZV_Qme_tmp = m.variables["Qext"][:, JS_riv_avl]
+            if "Qout" in m.variables:
+                ZV_Qme_tmp = m.variables["Qout"][:, JS_riv_avl]
+            else:
+                ZV_Qme_tmp = m.variables["Qext"][:, JS_riv_avl]
 
-        # Add axes
-        axes = canvas.cartesian(
-            xlabel="Date",
-            ylabel="Discharge (m3 s-1)",
-            label=f"Hydrograph for River ID: {IS_riv}",
-            ymin=0,
-            ymax=ZS_Qou_max,
-        )
-        axes.x.ticks.locator = toyplot.locator.Timestamp(
-            timezone="UTC",
-            format="{0:YYYY-MM-DD}",
-        )
+            # Add axes
+            axes = canvas.cartesian(
+                xlabel="Date",
+                ylabel="Discharge (m3 s-1)",
+                label=f"Hydrograph for River ID: {IS_riv}",
+                ymin=0,
+                ymax=ZS_Qou_max,
+            )
+            axes.x.ticks.locator = toyplot.locator.Timestamp(
+                timezone="UTC",
+                format="{0:YYYY-MM-DD}",
+            )
 
-        axes.padding = 0
+            axes.padding = 0
 
-        # Observations
-        Qob_mark = axes.plot(
-            IV_tim_all,
-            ZV_Qob_tmp,
-            title="Observations",
-            color="black",
-            style={"stroke-width": 2},
-        )
+            # Observations
+            Qob_mark = axes.plot(
+                IV_tim_all,
+                ZV_Qob_tmp,
+                title="Observations",
+                color="black",
+                style={"stroke-width": 2},
+            )
 
-        # Model Equivalent
-        Qme_mark = axes.plot(
-            IV_tim_all,
-            ZV_Qme_tmp,
-            title="Model Equivalent",
-            color="red",
-            style={"stroke-width": 2, "stroke-dasharray": "5,5"},
-        )
+            # Model Equivalent
+            Qme_mark = axes.plot(
+                IV_tim_all,
+                ZV_Qme_tmp,
+                title="Model Equivalent",
+                color="red",
+                style={"stroke-width": 2, "stroke-dasharray": "5,5"},
+            )
 
-        # Add Legend
-        canvas.legend(
-            [
-                ("Observations", Qob_mark),
-                ("Model Equivalent", Qme_mark),
-            ],
-            corner=("top-right", 50, 100, 50),
-        )
+            # Add Legend
+            canvas.legend(
+                [
+                    ("Observations", Qob_mark),
+                    ("Model Equivalent", Qme_mark),
+                ],
+                corner=("top-right", 50, 100, 50),
+            )
 
-        # Render the SVG
-        toyplot.svg.render(canvas, YS_hyd_svg)
+            # Render the SVG
+            toyplot.svg.render(canvas, YS_hyd_svg)
 
-    # -------------------------------------------------------------------------
-    # Close
-    # -------------------------------------------------------------------------
-    o.close()
-    m.close()
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Close
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        o.close()
+        m.close()
 
-    print("Done")
+        print("Done")
+
+    except (IOError, ValueError, KeyError) as e:
+        print(f"ERROR - {e}", file=sys.stderr)
+        sys.exit(1)
 
 
 # *****************************************************************************

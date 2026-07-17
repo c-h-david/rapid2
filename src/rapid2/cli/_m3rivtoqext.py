@@ -87,84 +87,68 @@ def main() -> None:
         sys.exit(0)
 
     # -------------------------------------------------------------------------
-    # Get metadata from m3_riv file
+    # Execute main logic
     # -------------------------------------------------------------------------
-    d = netCDF4.Dataset(m3r_ncf, "r")
+    try:
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Get metadata from m3_riv file
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        d = netCDF4.Dataset(m3r_ncf, "r")
 
-    if "m3_riv" not in d.variables:
-        print(
-            f"ERROR - m3_riv variable does not exist in {m3r_ncf}",
-            file=sys.stderr,
-        )
+        if "m3_riv" not in d.variables:
+            raise ValueError(f"m3_riv variable does not exist in {m3r_ncf}")
+
+        if "rivid" not in d.variables:
+            raise ValueError(f"rivid variable does not exist in {m3r_ncf}")
+
+        if "lon" not in d.variables:
+            raise ValueError(f"lon variable does not exist in {m3r_ncf}")
+
+        if "lat" not in d.variables:
+            raise ValueError(f"lat variable does not exist in {m3r_ncf}")
+
+        if "time" not in d.variables:
+            raise ValueError(f"time variable does not exist in {m3r_ncf}")
+
+        if "time_bnds" not in d.variables:
+            raise ValueError(f"time_bnds variable does not exist in {m3r_ncf}")
+
+        IV_riv_tot = d.variables["rivid"][:]
+        ZV_lon_tot = d.variables["lon"][:]
+        ZV_lat_tot = d.variables["lat"][:]
+
+        IV_tim_all = d.variables["time"][:]
+        IM_tim_all = d.variables["time_bnds"][:]
+
+        IS_tim_all = len(IV_tim_all)
+        IS_dtE = IM_tim_all[0, 1] - IM_tim_all[0, 0]
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Create Qex file
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        print(f"The transformation will divide by the value: {IS_dtE}")
+
+        prep_Qex_ncf(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Qex_ncf)
+
+        f = netCDF4.Dataset(Qex_ncf, "a")
+
+        f.variables["time"][:] = IV_tim_all
+        f.variables["time_bnds"][:] = IM_tim_all
+
+        for JS_tim_all in range(IS_tim_all):
+            f.variables["Qext"][JS_tim_all, :] = (
+                d.variables["m3_riv"][JS_tim_all, :] / IS_dtE
+            )
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Close files
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        d.close()
+        f.close()
+
+    except (IOError, ValueError, KeyError) as e:
+        print(f"ERROR - {e}", file=sys.stderr)
         sys.exit(1)
-
-    if "rivid" not in d.variables:
-        print(
-            f"ERROR - rivid variable does not exist in {m3r_ncf}",
-            file=sys.stderr,
-        )
-        sys.exit(1)
-
-    if "lon" not in d.variables:
-        print(
-            f"ERROR - lon variable does not exist in {m3r_ncf}",
-            file=sys.stderr,
-        )
-        sys.exit(1)
-
-    if "lat" not in d.variables:
-        print(
-            f"ERROR - lat variable does not exist in {m3r_ncf}",
-            file=sys.stderr,
-        )
-        sys.exit(1)
-
-    if "time" not in d.variables:
-        print(
-            f"ERROR - time variable does not exist in {m3r_ncf}",
-            file=sys.stderr,
-        )
-        sys.exit(1)
-
-    if "time_bnds" not in d.variables:
-        print(
-            f"ERROR - time_bnds variable does not exist in {m3r_ncf}",
-            file=sys.stderr,
-        )
-        sys.exit(1)
-
-    IV_riv_tot = d.variables["rivid"][:]
-    ZV_lon_tot = d.variables["lon"][:]
-    ZV_lat_tot = d.variables["lat"][:]
-
-    IV_tim_all = d.variables["time"][:]
-    IM_tim_all = d.variables["time_bnds"][:]
-
-    IS_tim_all = len(IV_tim_all)
-    IS_dtE = IM_tim_all[0, 1] - IM_tim_all[0, 0]
-
-    # -------------------------------------------------------------------------
-    # Create Qex file
-    # -------------------------------------------------------------------------
-    print(f"The transformation will divide by the value: {IS_dtE}")
-
-    prep_Qex_ncf(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Qex_ncf)
-
-    f = netCDF4.Dataset(Qex_ncf, "a")
-
-    f.variables["time"][:] = IV_tim_all
-    f.variables["time_bnds"][:] = IM_tim_all
-
-    for JS_tim_all in range(IS_tim_all):
-        f.variables["Qext"][JS_tim_all, :] = (
-            d.variables["m3_riv"][JS_tim_all, :] / IS_dtE
-        )
-
-    # -------------------------------------------------------------------------
-    # Close files
-    # -------------------------------------------------------------------------
-    d.close()
-    f.close()
 
 
 # *****************************************************************************

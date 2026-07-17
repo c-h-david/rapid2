@@ -139,127 +139,135 @@ def main() -> None:
         sys.exit(0)
 
     # -------------------------------------------------------------------------
-    # Read connectivity file
+    # Execute main logic
     # -------------------------------------------------------------------------
-    print("- Read connectivity file")
+    try:
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Read connectivity file
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        print("- Read connectivity file")
 
-    IV_riv_tot, IV_dwn_tot = read_con_vec(con_pqt)
-    IS_riv_tot = len(IV_riv_tot)
-    print(
-        "  . The number of river reaches in connectivity file is: "
-        f"{IS_riv_tot}"
-    )
+        IV_riv_tot, IV_dwn_tot = read_con_vec(con_pqt)
+        IS_riv_tot = len(IV_riv_tot)
+        print(
+            "  . The number of river reaches in connectivity file is: "
+            f"{IS_riv_tot}"
+        )
 
-    # -------------------------------------------------------------------------
-    # Read coordinate file
-    # -------------------------------------------------------------------------
-    print("- Read coordinate file")
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Read coordinate file
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        print("- Read coordinate file")
 
-    IV_riv_tmp, ZV_lon_tot, ZV_lat_tot = read_crd_vec(crd_pqt)
-    np.testing.assert_array_equal(IV_riv_tot, IV_riv_tmp)
-    print("  . The river reaches are the same as in connectivity file")
+        IV_riv_tmp, ZV_lon_tot, ZV_lat_tot = read_crd_vec(crd_pqt)
+        np.testing.assert_array_equal(IV_riv_tot, IV_riv_tmp)
+        print("  . The river reaches are the same as in connectivity file")
 
-    # -------------------------------------------------------------------------
-    # Read coupling file
-    # -------------------------------------------------------------------------
-    print("- Read coupling file")
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Read coupling file
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        print("- Read coupling file")
 
-    IV_riv_tmp, ZV_skm_tot, IV_1bi_tot, IV_1bj_tot = read_cpl_vec(cpl_pqt)
-    np.testing.assert_array_equal(IV_riv_tot, IV_riv_tmp)
-    print("  . The river reaches are the same as in connectivity file")
+        IV_riv_tmp, ZV_skm_tot, IV_1bi_tot, IV_1bj_tot = read_cpl_vec(cpl_pqt)
+        np.testing.assert_array_equal(IV_riv_tot, IV_riv_tmp)
+        print("  . The river reaches are the same as in connectivity file")
 
-    # -------------------------------------------------------------------------
-    # Check consistency of coupling file
-    # -------------------------------------------------------------------------
-    print("- Check consisitency of coupling file")
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Check consistency of coupling file
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        print("- Check consisitency of coupling file")
 
-    chck_cpl(ZV_skm_tot, IV_1bi_tot, IV_1bj_tot)
-    print(" . OK")
+        chck_cpl(ZV_skm_tot, IV_1bi_tot, IV_1bj_tot)
+        print(" . OK")
 
-    # -------------------------------------------------------------------------
-    # Read LSM metadata
-    # -------------------------------------------------------------------------
-    print("- Read LSM metadata")
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Read LSM metadata
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        print("- Read LSM metadata")
 
-    c = netCDF4.Dataset(lsm_ncf, "r")
+        c = netCDF4.Dataset(lsm_ncf, "r")
 
-    IS_lon_lsm = len(c.dimensions["lon"])
-    print(f"  . The number of longitudes is: {IS_lon_lsm}")
+        IS_lon_lsm = len(c.dimensions["lon"])
+        print(f"  . The number of longitudes is: {IS_lon_lsm}")
 
-    IS_lat_lsm = len(c.dimensions["lat"])
-    print(f"  . The number of latitudes is: {IS_lat_lsm}")
+        IS_lat_lsm = len(c.dimensions["lat"])
+        print(f"  . The number of latitudes is: {IS_lat_lsm}")
 
-    IS_tim_all = len(c.dimensions["time"])
-    print(f"  . The number of time steps is: {IS_tim_all}")
+        IS_tim_all = len(c.dimensions["time"])
+        print(f"  . The number of time steps is: {IS_tim_all}")
 
-    if "Qs_acc" in c.variables:
-        if "_FillValue" in c.variables["Qs_acc"].ncattrs():
-            ZS_fll = c.variables["Qs_acc"]._FillValue
-            print(f"  . The fill value for Qs_acc is: {ZS_fll}")
-    else:
-        raise ValueError("Qs_acc variable missing")
+        if "Qs_acc" in c.variables:
+            if "_FillValue" in c.variables["Qs_acc"].ncattrs():
+                ZS_fll = c.variables["Qs_acc"]._FillValue
+                print(f"  . The fill value for Qs_acc is: {ZS_fll}")
+        else:
+            raise ValueError("Qs_acc variable missing")
 
-    if "Qsb_acc" in c.variables:
-        if "_FillValue" in c.variables["Qsb_acc"].ncattrs():
-            ZS_fll = c.variables["Qsb_acc"]._FillValue
-            print(f"  . The fill value for Qsb_acc is: {ZS_fll}")
-    else:
-        raise ValueError("Qsb_acc variable missing")
+        if "Qsb_acc" in c.variables:
+            if "_FillValue" in c.variables["Qsb_acc"].ncattrs():
+                ZS_fll = c.variables["Qsb_acc"]._FillValue
+                print(f"  . The fill value for Qsb_acc is: {ZS_fll}")
+        else:
+            raise ValueError("Qsb_acc variable missing")
 
-    # -------------------------------------------------------------------------
-    # Create Qext file
-    # -------------------------------------------------------------------------
-    print("- Create Qext file")
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Create Qext file
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        print("- Create Qext file")
 
-    prep_Qex_ncf(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Qex_ncf)
+        prep_Qex_ncf(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Qex_ncf)
 
-    f = netCDF4.Dataset(Qex_ncf, "a")
+        f = netCDF4.Dataset(Qex_ncf, "a")
 
-    # -------------------------------------------------------------------------
-    # Populate dynamic data
-    # -------------------------------------------------------------------------
-    print("- Populate dynamic data")
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Populate dynamic data
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        print("- Populate dynamic data")
 
-    # Scale by 1000: the multiplication of 0.001 m/mm and 1,000,000 m^2/km^2
-    # This directly converts an input flux of mm/s (or kg*m^-2*s-1) and an
-    # input area of km^2 into an output flow rate of m^3/s.
-    ZV_scl_tot = 1000 * ZV_skm_tot
+        # Scale by 1000: the multiplication of 0.001 m/mm and 1,000,000 m^2/km^2
+        # This directly converts an input flux of mm/s (or kg*m^-2*s-1) and an
+        # input area of km^2 into an output flow rate of m^3/s.
+        ZV_scl_tot = 1000 * ZV_skm_tot
 
-    # Shift to 0-based indexing; entries becoming −1 have 0 area (chck_cpl.py).
-    IV_0bi_tot = IV_1bi_tot - 1
-    IV_0bj_tot = IV_1bj_tot - 1
+        # Shift to 0-based indexing; entries becoming −1 have 0 area (chck_cpl.py).
+        IV_0bi_tot = IV_1bi_tot - 1
+        IV_0bj_tot = IV_1bj_tot - 1
 
-    for JS_tim_all in tqdm(range(IS_tim_all), desc="Processing LSM data"):
-        # netCDF data are stored following: c.variables[var][time][lat][lon]
-        # ZM_run_lsm is of type 'np.ma.core.MaskedArray' or 'np.ndarray'
-        # We here assume that runoff data inputs are in kg/m^2/s.
-        ZM_rsf_lsm = c.variables["Qs_acc"][JS_tim_all][:][:]
-        ZM_rsb_lsm = c.variables["Qsb_acc"][JS_tim_all][:][:]
-        ZM_run_lsm = ZM_rsf_lsm + ZM_rsb_lsm
+        for JS_tim_all in tqdm(range(IS_tim_all), desc="Processing LSM data"):
+            # netCDF data are stored following: c.variables[var][time][lat][lon]
+            # ZM_run_lsm is of type 'np.ma.core.MaskedArray' or 'np.ndarray'
+            # We here assume that runoff data inputs are in kg/m^2/s.
+            ZM_rsf_lsm = c.variables["Qs_acc"][JS_tim_all][:][:]
+            ZM_rsb_lsm = c.variables["Qsb_acc"][JS_tim_all][:][:]
+            ZM_run_lsm = ZM_rsf_lsm + ZM_rsb_lsm
 
-        # This uses the multidimensional list-of-locations indexing capability.
-        # All values at given i and j indices can be obtained by giving two
-        # lists of j and i indices.
-        ZV_Qex_tot = ZM_run_lsm[IV_0bj_tot, IV_0bi_tot]
+            # This uses the multidimensional list-of-locations indexing capability.
+            # All values at given i and j indices can be obtained by giving two
+            # lists of j and i indices.
+            ZV_Qex_tot = ZM_run_lsm[IV_0bj_tot, IV_0bi_tot]
 
-        # Result is now a true flow rate (m3/s) because input was a rate.
-        ZV_Qex_tot = ZV_Qex_tot * ZV_scl_tot
+            # Result is now a true flow rate (m3/s) because input was a rate.
+            ZV_Qex_tot = ZV_Qex_tot * ZV_scl_tot
 
-        # Make sure the masked values are replaced by 0
-        if isinstance(ZV_Qex_tot, np.ma.MaskedArray):
-            ZV_Qex_tot = np.where(ZV_Qex_tot.mask, 0, ZV_Qex_tot.data)
+            # Make sure the masked values are replaced by 0
+            if isinstance(ZV_Qex_tot, np.ma.MaskedArray):
+                ZV_Qex_tot = np.where(ZV_Qex_tot.mask, 0, ZV_Qex_tot.data)
 
-        # netCDF data are stored following: f.variables[Qext][time][rivid]
-        f.variables["Qext"][JS_tim_all, :] = ZV_Qex_tot[:]
+            # netCDF data are stored following: f.variables[Qext][time][rivid]
+            f.variables["Qext"][JS_tim_all, :] = ZV_Qex_tot[:]
 
-    # From the LSM netCDF file
-    f.variables["time"][:] = c.variables["time"][:]
-    f.variables["time_bnds"][:] = c.variables["time_bnds"][:]
+        # From the LSM netCDF file
+        f.variables["time"][:] = c.variables["time"][:]
+        f.variables["time_bnds"][:] = c.variables["time_bnds"][:]
 
-    # -------------------------------------------------------------------------
-    # Close file to allow populating all data
-    # -------------------------------------------------------------------------
-    c.close()
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Close file to allow populating all data
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        c.close()
+
+    except (IOError, ValueError, KeyError) as e:
+        print(f"ERROR - {e}", file=sys.stderr)
+        sys.exit(1)
 
 
 # *****************************************************************************

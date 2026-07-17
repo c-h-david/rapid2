@@ -90,65 +90,57 @@ def main() -> None:
         sys.exit(0)
 
     # -------------------------------------------------------------------------
-    # Get metadata from m3_riv file
+    # Execute main logic
     # -------------------------------------------------------------------------
-    f = netCDF4.Dataset(Qex_ncf, "r")
+    try:
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Get metadata from m3_riv file
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        f = netCDF4.Dataset(Qex_ncf, "r")
 
-    if "rivid" not in f.variables:
-        print(
-            f"ERROR - rivid variable does not exist in {Qex_ncf}",
-            file=sys.stderr,
-        )
+        if "rivid" not in f.variables:
+            raise ValueError(f"rivid variable does not exist in {Qex_ncf}")
+
+        if "lon" not in f.variables:
+            raise ValueError(f"lon variable does not exist in {Qex_ncf}")
+
+        if "lat" not in f.variables:
+            raise ValueError(f"lat variable does not exist in {Qex_ncf}")
+
+        if "time" not in f.variables:
+            raise ValueError(f"time variable does not exist in {Qex_ncf}")
+
+        IV_riv_tot = f.variables["rivid"][:]
+        ZV_lon_tot = f.variables["lon"][:]
+        ZV_lat_tot = f.variables["lat"][:]
+
+        IV_tim_all = f.variables["time"][:]
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Create Qfi file
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        prep_Qfi_ncf(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Q00_ncf)
+
+        e = netCDF4.Dataset(Q00_ncf, "a")
+
+        e.variables["time"][0] = IV_tim_all[0]
+        e.variables["Qout"][0, :] = 0
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Copy some global attributes
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        e.setncattr("title", f.getncattr("title"))
+        e.setncattr("institution", f.getncattr("institution"))
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Close files
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        e.close()
+        f.close()
+
+    except (IOError, ValueError, KeyError) as e:
+        print(f"ERROR - {e}", file=sys.stderr)
         sys.exit(1)
-
-    if "lon" not in f.variables:
-        print(
-            f"ERROR - lon variable does not exist in {Qex_ncf}",
-            file=sys.stderr,
-        )
-        sys.exit(1)
-
-    if "lat" not in f.variables:
-        print(
-            f"ERROR - lat variable does not exist in {Qex_ncf}",
-            file=sys.stderr,
-        )
-        sys.exit(1)
-
-    if "time" not in f.variables:
-        print(
-            f"ERROR - time variable does not exist in {Qex_ncf}",
-            file=sys.stderr,
-        )
-        sys.exit(1)
-
-    IV_riv_tot = f.variables["rivid"][:]
-    ZV_lon_tot = f.variables["lon"][:]
-    ZV_lat_tot = f.variables["lat"][:]
-
-    IV_tim_all = f.variables["time"][:]
-
-    # -------------------------------------------------------------------------
-    # Create Qfi file
-    # -------------------------------------------------------------------------
-    prep_Qfi_ncf(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Q00_ncf)
-
-    e = netCDF4.Dataset(Q00_ncf, "a")
-
-    e.variables["time"][0] = IV_tim_all[0]
-    e.variables["Qout"][0, :] = 0
-
-    # -------------------------------------------------------------------------
-    # Copy some global attributes
-    # -------------------------------------------------------------------------
-    e.setncattr("title", f.getncattr("title"))
-    e.setncattr("institution", f.getncattr("institution"))
-
-    # -------------------------------------------------------------------------
-    # Close files
-    # -------------------------------------------------------------------------
-    e.close()
-    f.close()
 
 
 # *****************************************************************************

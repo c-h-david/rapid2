@@ -124,187 +124,169 @@ def main() -> None:
     ZS_atl = np.float64(YS_atl)
 
     # -------------------------------------------------------------------------
-    # Get metadata in netCDF files
+    # Execute main logic
     # -------------------------------------------------------------------------
-    (
-        IV_riv_prv,
-        ZV_lon_prv,
-        ZV_lat_prv,
-        IV_tim_prv,
-        IM_tim_prv,
-    ) = read_std_vec(prv_ncf)
+    try:
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Get metadata in netCDF files
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        (
+            IV_riv_prv,
+            ZV_lon_prv,
+            ZV_lat_prv,
+            IV_tim_prv,
+            IM_tim_prv,
+        ) = read_std_vec(prv_ncf)
 
-    (
-        IV_riv_now,
-        ZV_lon_now,
-        ZV_lat_now,
-        IV_tim_now,
-        IM_tim_now,
-    ) = read_std_vec(now_ncf)
+        (
+            IV_riv_now,
+            ZV_lon_now,
+            ZV_lat_now,
+            IV_tim_now,
+            IM_tim_now,
+        ) = read_std_vec(now_ncf)
 
-    # -------------------------------------------------------------------------
-    # Compare dimension sizes
-    # -------------------------------------------------------------------------
-    if len(IV_riv_prv) == len(IV_riv_now):
-        IS_riv_tot = len(IV_riv_prv)
-        print(f"Common number of river reaches: {IS_riv_tot}")
-    else:
-        print(
-            f"ERROR - The number of river reaches differs: "
-            f"{len(IV_riv_prv)} <> {len(IV_riv_now)}",
-            file=sys.stderr,
-        )
-        sys.exit(1)
-
-    if len(IV_tim_prv) == len(IV_tim_now):
-        IS_tim = len(IV_tim_prv)
-        print(f"Common number of time steps   : {IS_tim}")
-    else:
-        print(
-            f"ERROR - The number of time steps differs: "
-            f"{len(IV_tim_prv)} <> {len(IV_tim_now)}",
-            file=sys.stderr,
-        )
-        sys.exit(1)
-
-    # -------------------------------------------------------------------------
-    # Compare rivid values
-    # -------------------------------------------------------------------------
-    if np.array_equal(IV_riv_prv, IV_riv_now):
-        print("The rivids and their sort are both the same")
-    else:
-        if np.array_equal(np.sort(IV_riv_prv), np.sort(IV_riv_now)):
-            print("WARNING - The rivids are the same, but sorted differently")
-            _, _, IV_0bi_prv = make_0bi_tbl(IV_riv_now, IV_riv_prv)
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Compare dimension sizes
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        if len(IV_riv_prv) == len(IV_riv_now):
+            IS_riv_tot = len(IV_riv_prv)
+            print(f"Common number of river reaches: {IS_riv_tot}")
         else:
-            print("ERROR - The rivids differ", file=sys.stderr)
-            sys.exit(1)
+            raise ValueError(
+                f"The number of river reaches differs: "
+                f"{len(IV_riv_prv)} <> {len(IV_riv_now)}"
+            )
 
-    # -------------------------------------------------------------------------
-    # Compare other metadata values
-    # -------------------------------------------------------------------------
-    if np.array_equal(ZV_lon_prv, ZV_lon_now):
-        print("The longitude values are the same")
-    else:
-        print("ERROR - The longitude values differ", file=sys.stderr)
-        sys.exit(1)
-
-    if np.array_equal(ZV_lat_prv, ZV_lat_now):
-        print("The latitude values are the same")
-    else:
-        print("ERROR - The latitude values differ", file=sys.stderr)
-        sys.exit(1)
-
-    if np.array_equal(IV_tim_prv, IV_tim_now):
-        print("The time values are the same")
-    else:
-        print("ERROR - The time values differ", file=sys.stderr)
-        sys.exit(1)
-
-    if (IM_tim_prv is None) != (IM_tim_now is None):
-        print("ERROR - time_bnds present in only one file", file=sys.stderr)
-        sys.exit(1)
-
-    if (IM_tim_prv is not None) and (IM_tim_now is not None):
-        if np.array_equal(IM_tim_prv, IM_tim_now):
-            print("The time_bnds values are the same")
+        if len(IV_tim_prv) == len(IV_tim_now):
+            IS_tim = len(IV_tim_prv)
+            print(f"Common number of time steps   : {IS_tim}")
         else:
-            print("ERROR - The time_bnds values differ", file=sys.stderr)
-            sys.exit(1)
-    else:
-        print("WARNING - time_bnds variable missing: skipping comparison")
-
-    # -------------------------------------------------------------------------
-    # Get main variable in netCDF files
-    # -------------------------------------------------------------------------
-    p = netCDF4.Dataset(prv_ncf, "r")
-    n = netCDF4.Dataset(now_ncf, "r")
-
-    if "Qext" in p.variables and "Qext" in n.variables:
-        YS_val_tmp = "Qext"
-    elif "Qout" in p.variables and "Qout" in n.variables:
-        YS_val_tmp = "Qout"
-    else:
-        print(
-            "ERROR - Neither Qext nor Qout is common variable", file=sys.stderr
-        )
-        sys.exit(1)
-    print(f"The main variable names are the same: {YS_val_tmp}")
-
-    # -------------------------------------------------------------------------
-    # Compute differences
-    # -------------------------------------------------------------------------
-    ZS_rdf_max = 0
-    ZS_adf_max = 0
-    BS_fll_prv = False
-    BS_fll_now = False
-
-    for JS_tim in range(IS_tim):
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Initializing
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        ZS_rdf = 0
-        ZS_adf = 0
+            raise ValueError(
+                f"The number of time steps differs: "
+                f"{len(IV_tim_prv)} <> {len(IV_tim_now)}"
+            )
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Getting values
+        # Compare rivid values
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        ZV_val_prv = p.variables[YS_val_tmp][JS_tim, :]
-        ZV_val_now = n.variables[YS_val_tmp][JS_tim, :]
-        if "IV_0bi_prv" in locals():
-            ZV_val_now = ZV_val_now[IV_0bi_prv]
+        if np.array_equal(IV_riv_prv, IV_riv_now):
+            print("The rivids and their sort are both the same")
+        else:
+            if np.array_equal(np.sort(IV_riv_prv), np.sort(IV_riv_now)):
+                print(
+                    "WARNING - The rivids are the same, but sorted differently"
+                )
+                _, _, IV_0bi_prv = make_0bi_tbl(IV_riv_now, IV_riv_prv)
+            else:
+                raise ValueError("The rivids differ")
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Converting masked values to -9999
+        # Compare other metadata values
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        if isinstance(ZV_val_prv, MaskedArray) and np.any(ZV_val_prv.mask):
-            ZV_val_prv = ZV_val_prv.filled(fill_value=-9999)
-            BS_fll_prv = True
-        if isinstance(ZV_val_now, MaskedArray) and np.any(ZV_val_now.mask):
-            ZV_val_now = ZV_val_now.filled(fill_value=-9999)
-            BS_fll_now = True
+        if np.array_equal(ZV_lon_prv, ZV_lon_now):
+            print("The longitude values are the same")
+        else:
+            raise ValueError("The longitude values differ")
+
+        if np.array_equal(ZV_lat_prv, ZV_lat_now):
+            print("The latitude values are the same")
+        else:
+            raise ValueError("The latitude values differ")
+
+        if np.array_equal(IV_tim_prv, IV_tim_now):
+            print("The time values are the same")
+        else:
+            raise ValueError("The time values differ")
+
+        if (IM_tim_prv is None) != (IM_tim_now is None):
+            raise ValueError("time_bnds present in only one file")
+
+        if (IM_tim_prv is not None) and (IM_tim_now is not None):
+            if np.array_equal(IM_tim_prv, IM_tim_now):
+                print("The time_bnds values are the same")
+            else:
+                raise ValueError("The time_bnds values differ")
+        else:
+            print("WARNING - time_bnds variable missing: skipping comparison")
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Comparing difference values
+        # Get main variable in netCDF files
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Tried computations with regular Python lists but they are very slow.
-        # Also tried using map(operator.sub,V,W) or [x-y for x,y in zip(V,W)],
-        # but this still results in slow computations.
-        # The best performance seems to be with Numpy.
-        ZV_adf_tmp = np.absolute(ZV_val_prv - ZV_val_now)
-        ZS_adf_max = max(np.max(ZV_adf_tmp), ZS_adf_max)
+        p = netCDF4.Dataset(prv_ncf, "r")
+        n = netCDF4.Dataset(now_ncf, "r")
 
-        ZS_rdf = np.sqrt(
-            np.sum(ZV_adf_tmp * ZV_adf_tmp) / np.sum(ZV_val_prv * ZV_val_prv)
-        )
-        ZS_rdf_max = max(ZS_rdf, ZS_rdf_max)
+        if "Qext" in p.variables and "Qext" in n.variables:
+            YS_val_tmp = "Qext"
+        elif "Qout" in p.variables and "Qout" in n.variables:
+            YS_val_tmp = "Qout"
+        else:
+            raise ValueError("Neither Qext nor Qout is common variable")
+        print(f"The main variable names are the same: {YS_val_tmp}")
 
-    # ------------------------------------------------------------------------
-    # Print difference values and compare to tolerances
-    # ------------------------------------------------------------------------
-    if BS_fll_prv:
-        print(f"WARNING - masked values replaced by -9999 in {prv_ncf}")
-    if BS_fll_now:
-        print(f"WARNING - masked values replaced by -9999 in {now_ncf}")
-    if BS_fll_prv or BS_fll_now:
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Compute differences
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        ZS_rdf_max = 0
+        ZS_adf_max = 0
+        BS_fll_prv = False
+        BS_fll_now = False
+
+        for JS_tim in range(IS_tim):
+            # Initializing
+            ZS_rdf = 0
+            ZS_adf = 0
+
+            # Getting values
+            ZV_val_prv = p.variables[YS_val_tmp][JS_tim, :]
+            ZV_val_now = n.variables[YS_val_tmp][JS_tim, :]
+            if "IV_0bi_prv" in locals():
+                ZV_val_now = ZV_val_now[IV_0bi_prv]
+
+            # Converting masked values to -9999
+            if isinstance(ZV_val_prv, MaskedArray) and np.any(ZV_val_prv.mask):
+                ZV_val_prv = ZV_val_prv.filled(fill_value=-9999)
+                BS_fll_prv = True
+            if isinstance(ZV_val_now, MaskedArray) and np.any(ZV_val_now.mask):
+                ZV_val_now = ZV_val_now.filled(fill_value=-9999)
+                BS_fll_now = True
+
+            # Comparing difference values
+            ZV_adf_tmp = np.absolute(ZV_val_prv - ZV_val_now)
+            ZS_adf_max = max(np.max(ZV_adf_tmp), ZS_adf_max)
+
+            ZS_rdf = np.sqrt(
+                np.sum(ZV_adf_tmp * ZV_adf_tmp)
+                / np.sum(ZV_val_prv * ZV_val_prv)
+            )
+            ZS_rdf_max = max(ZS_rdf, ZS_rdf_max)
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Print difference values and compare to tolerances
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        if BS_fll_prv:
+            print(f"WARNING - masked values replaced by -9999 in {prv_ncf}")
+        if BS_fll_now:
+            print(f"WARNING - masked values replaced by -9999 in {now_ncf}")
+        if BS_fll_prv or BS_fll_now:
+            print("-------------------------------")
+
+        print("Max relative difference       :" + "{0:.2e}".format(ZS_rdf_max))
+        print("Max absolute difference       :" + "{0:.2e}".format(ZS_adf_max))
         print("-------------------------------")
 
-    print("Max relative difference       :" + "{0:.2e}".format(ZS_rdf_max))
-    print("Max absolute difference       :" + "{0:.2e}".format(ZS_adf_max))
-    print("-------------------------------")
+        if ZS_rdf_max > ZS_rtl:
+            raise ValueError("Unacceptable rel. difference!!!")
 
-    if ZS_rdf_max > ZS_rtl:
-        print("Unacceptable rel. difference!!!")
+        if ZS_adf_max > ZS_atl:
+            raise ValueError("Unacceptable abs. difference!!!")
+
+        print("netCDF files similar!!!")
         print("-------------------------------")
-        sys.exit(1)
 
-    if ZS_adf_max > ZS_atl:
-        print("Unacceptable abs. difference!!!")
-        print("-------------------------------")
+    except (IOError, ValueError, KeyError) as e:
+        print(f"ERROR - {e}", file=sys.stderr)
         sys.exit(1)
-
-    print("netCDF files similar!!!")
-    print("-------------------------------")
 
 
 # *****************************************************************************
