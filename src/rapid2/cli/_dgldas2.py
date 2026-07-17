@@ -107,7 +107,7 @@ def main() -> None:
     # Skip if file already exists
     # -------------------------------------------------------------------------
     if os.path.exists(lsm_ncf):
-        print(f"WARNING - File already exists {lsm_ncf}. Exit without error")
+        print(f"WARNING - File already exists {lsm_ncf}. Skipping.")
         sys.exit(0)
 
     # -------------------------------------------------------------------------

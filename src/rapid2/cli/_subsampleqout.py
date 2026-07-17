@@ -116,7 +116,7 @@ def main() -> None:
     # Skip if file already exists
     # -------------------------------------------------------------------------
     if os.path.exists(Qme_ncf):
-        print(f"WARNING - File already exists {Qme_ncf}. Exit without error")
+        print(f"WARNING - File already exists {Qme_ncf}. Skipping.")
         sys.exit(0)
 
     # -------------------------------------------------------------------------
