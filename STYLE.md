@@ -28,9 +28,10 @@ exactly: it is the canonical example. For a small read-input and report tool,
   `pyproject.toml` so the tool installs as a console command.
 - **Progress:** Any loop processing time-series or large dimensional data
   must use `tqdm` with a descriptive `desc` argument.
-- **Error Handling:** Catch missing files or missing metadata with an `if`
-  block or `try/except`, print an `ERROR - ...` message, and immediately
-  call `sys.exit(1)`.
+- **Error Handling:** Wrap the execution logic in a global `try/except`
+  block (catching `IOError, ValueError, KeyError` or `Exception`) that
+  prints `ERROR - {e}` to `sys.stderr` and calls `sys.exit(1)`. Pre-flight
+  checks (e.g., skipping existing files) must occur *before* the `try` block.
 
 ### CLI Skeleton
 
@@ -48,6 +49,7 @@ exactly: it is the canonical example. For a small read-input and report tool,
 # Import Python modules
 # *****************************************************************************
 import argparse
+import sys
 
 import netCDF4
 import numpy as np
@@ -72,6 +74,26 @@ def main() -> None:
     )
 
     args = parser.parse_args()
+
+    # -------------------------------------------------------------------------
+    # Skip if file already exists
+    # -------------------------------------------------------------------------
+    # if os.path.exists(out_file):
+    #     print(f"WARNING - File already exists {out_file}. Skipping.")
+    #     sys.exit(0)
+
+    # -------------------------------------------------------------------------
+    # Execute main logic
+    # -------------------------------------------------------------------------
+    try:
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Do work
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        pass
+
+    except (IOError, ValueError, KeyError) as e:
+        print(f"ERROR - {e}", file=sys.stderr)
+        sys.exit(1)
 
 
 # *****************************************************************************
@@ -100,8 +122,9 @@ the standard `verb_dataset_format` nomenclature (e.g., `read_crd_vec.py`,
   (`npt.NDArray`) with explicit inner types (e.g., `npt.NDArray[np.int32]`
   or `npt.NDArray[np.float64]`) for all array inputs and outputs.
 - **Error Handling:** Let algorithmic violations (e.g., misaligned arrays,
-  improper sorting) fail loudly by raising a `ValueError`. Do not use
-  `sys.exit(1)` inside core mathematical functions.
+  improper sorting) fail loudly by raising a `ValueError`. For I/O
+  operations, catch `IOError` and use `raise IOError(...) from e` to preserve
+  the traceback. Do not use `sys.exit(1)` inside core mathematical functions.
 - **Sparse Matrices:** Heavy matrix representations of the river network
   must default to `csc_matrix` (`scipy.sparse`) to optimize operations and
   memory footprint.
@@ -214,8 +237,6 @@ the body text readable and clear of URL clutter.
       it using underscores (`_`). Prefer pre-padding the shorthand (e.g.,
       `[LOC__STYLE]`, `[URL__AMMOS]`) or internal padding to meet the strict
       length requirement.
-  - Use strictly UPPERCASE and restrict the shorthand name following the
-    prefix to 6 characters.
 
 [LOC_NOMENC]: NOMENCLATURE.md
 [LOC_TSTING]: TESTING.md
