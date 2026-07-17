@@ -115,7 +115,7 @@ if __name__ == "__main__":
 
 ## 2. Core Library (`core/`)
 
-Every internal core utility lives under `src/rapid2/core/` in a standalone file.
+Every internal core utility lives in `src/rapid2/core/` as a standalone file.
 To maintain a strict 1:1 mapping across the library, the filename must exactly
 match the name of the primary public function it contains, adhering strictly to
 the semantic grammar rules established in [`NOMENCLATURE.md`][LOC_NOMENC].

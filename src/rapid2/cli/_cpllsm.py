@@ -175,7 +175,7 @@ def main() -> None:
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Check consistency of coupling file
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        print("- Check consisitency of coupling file")
+        print("- Check consistency of coupling file")
 
         chck_cpl(ZV_skm_tot, IV_1bi_tot, IV_1bj_tot)
         print(" . OK")
