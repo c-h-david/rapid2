@@ -120,8 +120,6 @@ def updt_Mus_Qou(
             ZM_ICN, ZV_rhs, lower=True, unit_diagonal=True
         )
     ZV_Qou_avg = ZV_Qou_avg / IS_rat_Qex
-
-    ZV_Qou_avg = ZV_Qou_avg
     ZV_Qou_now = ZV_Qou
 
     return ZV_Qou_avg, ZV_Qou_now
