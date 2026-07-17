@@ -154,7 +154,7 @@ def main() -> None:
             pq.write_table(table, con_pqt)
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Get "master" river IDs from connectivity (always loaded for simplicity)
+        # Get "master" river IDs from connectivity (loaded for simplicity)
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         IV_riv_tot = pq.read_table(con_pqt, columns=["riv"]).column("riv")
 

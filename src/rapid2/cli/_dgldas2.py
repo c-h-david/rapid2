@@ -246,7 +246,7 @@ def main() -> None:
                 c.variables["time_bnds"][0, 1] - c.variables["time_bnds"][0, 0]
             )
 
-            # 2. If the duration is less than a month (e.g., 3-hourly is 10,800s),
+            # 2. If duration is less than a month (e.g., 3-hourly is 10,800s),
             #    the GLDAS data is an accumulation and must be divided by time.
             if IS_dtE < 100000:
                 print(f"  . Dividing accumulations by IS_dtE: {IS_dtE} seconds")

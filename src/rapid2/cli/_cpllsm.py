@@ -224,24 +224,24 @@ def main() -> None:
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         print("- Populate dynamic data")
 
-        # Scale by 1000: the multiplication of 0.001 m/mm and 1,000,000 m^2/km^2
+        # Scale by 1000: product of 0.001 m/mm and 1,000,000 m^2/km^2.
         # This directly converts an input flux of mm/s (or kg*m^-2*s-1) and an
         # input area of km^2 into an output flow rate of m^3/s.
         ZV_scl_tot = 1000 * ZV_skm_tot
 
-        # Shift to 0-based indexing; entries becoming −1 have 0 area (chck_cpl.py).
+        # Shift to 0-based indexing; -1 entries have 0 area (chck_cpl.py).
         IV_0bi_tot = IV_1bi_tot - 1
         IV_0bj_tot = IV_1bj_tot - 1
 
         for JS_tim_all in tqdm(range(IS_tim_all), desc="Processing LSM data"):
-            # netCDF data are stored following: c.variables[var][time][lat][lon]
+            # netCDF data are stored as: c.variables[var][time][lat][lon]
             # ZM_run_lsm is of type 'np.ma.core.MaskedArray' or 'np.ndarray'
             # We here assume that runoff data inputs are in kg/m^2/s.
             ZM_rsf_lsm = c.variables["Qs_acc"][JS_tim_all][:][:]
             ZM_rsb_lsm = c.variables["Qsb_acc"][JS_tim_all][:][:]
             ZM_run_lsm = ZM_rsf_lsm + ZM_rsb_lsm
 
-            # This uses the multidimensional list-of-locations indexing capability.
+            # Uses the multidimensional list-of-locations indexing capability.
             # All values at given i and j indices can be obtained by giving two
             # lists of j and i indices.
             ZV_Qex_tot = ZM_run_lsm[IV_0bj_tot, IV_0bi_tot]
