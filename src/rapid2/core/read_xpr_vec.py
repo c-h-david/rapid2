@@ -60,8 +60,8 @@ def read_xpr_vec(
         IV_riv_bas = IV_riv_tot[IV_0bi_bas]
         ZV_xpr_bas = ZV_xpr_tot[IV_0bi_bas]
 
-    except IOError:
-        raise IOError(f"Unable to open {xpr_pqt}")
+    except IOError as e:
+        raise IOError(f"Unable to open {xpr_pqt}") from e
 
     return IV_riv_bas, ZV_xpr_bas
 

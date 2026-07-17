@@ -60,8 +60,8 @@ def read_kpr_vec(
         IV_riv_bas = IV_riv_tot[IV_0bi_bas]
         ZV_kpr_bas = ZV_kpr_tot[IV_0bi_bas]
 
-    except IOError:
-        raise IOError(f"Unable to open {kpr_pqt}")
+    except IOError as e:
+        raise IOError(f"Unable to open {kpr_pqt}") from e
 
     return IV_riv_bas, ZV_kpr_bas
 

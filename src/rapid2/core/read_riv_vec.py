@@ -48,8 +48,8 @@ def read_riv_vec(riv_pqt: str) -> npt.NDArray[np.int32]:
 
         IV_riv = table.column("riv").to_numpy().astype(np.int32)
 
-    except IOError:
-        raise IOError(f"Unable to open {riv_pqt}")
+    except IOError as e:
+        raise IOError(f"Unable to open {riv_pqt}") from e
 
     return IV_riv
 

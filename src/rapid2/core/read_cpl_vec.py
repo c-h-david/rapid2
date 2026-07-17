@@ -67,8 +67,8 @@ def read_cpl_vec(
         IV_1bi_tot = table.column("1bi").to_numpy().astype(np.int32)
         IV_1bj_tot = table.column("1bj").to_numpy().astype(np.int32)
 
-    except IOError:
-        raise IOError(f"Unable to open {cpl_pqt}")
+    except IOError as e:
+        raise IOError(f"Unable to open {cpl_pqt}") from e
 
     return IV_riv_tot, ZV_skm_tot, IV_1bi_tot, IV_1bj_tot
 

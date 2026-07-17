@@ -60,8 +60,8 @@ def read_crd_vec(
         ZV_lon_tot = table.column("lon").to_numpy().astype(np.float64)
         ZV_lat_tot = table.column("lat").to_numpy().astype(np.float64)
 
-    except IOError:
-        raise IOError(f"Unable to open {crd_pqt}")
+    except IOError as e:
+        raise IOError(f"Unable to open {crd_pqt}") from e
 
     return IV_riv_tot, ZV_lon_tot, ZV_lat_tot
 

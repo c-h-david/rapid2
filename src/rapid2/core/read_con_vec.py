@@ -56,8 +56,8 @@ def read_con_vec(
         IV_riv_tot = table.column("riv").to_numpy().astype(np.int32)
         IV_dwn_tot = table.column("dwn").to_numpy().astype(np.int32)
 
-    except IOError:
-        raise IOError(f"Unable to open {con_pqt}")
+    except IOError as e:
+        raise IOError(f"Unable to open {con_pqt}") from e
 
     return IV_riv_tot, IV_dwn_tot
 

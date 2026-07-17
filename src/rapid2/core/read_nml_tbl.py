@@ -98,8 +98,8 @@ def read_nml_tbl(nml_yml: str) -> Dict[str, Any]:
         # ---------------------------------------------------------------------
         return AT_nml
 
-    except IOError:
-        raise IOError(f"Unable to open {nml_yml}")
+    except IOError as e:
+        raise IOError(f"Unable to open {nml_yml}") from e
 
 
 # *****************************************************************************
