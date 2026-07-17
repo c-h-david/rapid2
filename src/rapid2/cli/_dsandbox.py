@@ -56,69 +56,68 @@ def main() -> None:
     doi = "doi:10.5281/zenodo.21248920/"
 
     # -------------------------------------------------------------------------
-    # Download input files
+    # Execute main logic
     # -------------------------------------------------------------------------
-    files = [
-        "con_Sandbox.parquet",
-        "Qex_Sandbox_19700101_19700110_TR.nc4",
-        "Q00_Sandbox_19700101_19700110_TR.nc4",
-        "kpr_Sandbox.parquet",
-        "xpr_Sandbox.parquet",
-        "bas_Sandbox_ascend.parquet",
-        "nml_Sandbox_TR.yml",
-        "nml_Sandbox_OL.yml",
-        "cpl_Sandbox.parquet",
-        "crd_Sandbox.parquet",
-        "obs_Sandbox.parquet",
-        "Qob_Sandbox_19700101_19700110_TR.nc4",
-        "Qex_Sandbox_19700101_19700110_FG.nc4",
-        "Q00_Sandbox_19700101_19700110_FG.nc4",
-    ]
-
-    fetcher = pooch.create(
-        path=Path("input/Sandbox"),
-        base_url=doi,
-        registry={f: None for f in files},
-    )
-
     try:
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Download input files
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        files = [
+            "con_Sandbox.parquet",
+            "Qex_Sandbox_19700101_19700110_TR.nc4",
+            "Q00_Sandbox_19700101_19700110_TR.nc4",
+            "kpr_Sandbox.parquet",
+            "xpr_Sandbox.parquet",
+            "bas_Sandbox_ascend.parquet",
+            "nml_Sandbox_TR.yml",
+            "nml_Sandbox_OL.yml",
+            "cpl_Sandbox.parquet",
+            "crd_Sandbox.parquet",
+            "obs_Sandbox.parquet",
+            "Qob_Sandbox_19700101_19700110_TR.nc4",
+            "Qex_Sandbox_19700101_19700110_FG.nc4",
+            "Q00_Sandbox_19700101_19700110_FG.nc4",
+        ]
+
+        fetcher = pooch.create(
+            path=Path("input/Sandbox"),
+            base_url=doi,
+            registry={f: None for f in files},
+        )
+
         print("- Downloading input files...")
         for file in files:
             fetcher.fetch(file)
-    except Exception as e:
-        print(f"ERROR - Problem downloading files: {e}", file=sys.stderr)
-        sys.exit(44)
 
-    # -------------------------------------------------------------------------
-    # Download output files
-    # -------------------------------------------------------------------------
-    files = [
-        "Qou_Sandbox_19700101_19700110_TR.nc4",
-        "Qfi_Sandbox_19700101_19700110_TR.nc4",
-        "Qou_Sandbox_19700101_19700110_OL.nc4",
-        "Qfi_Sandbox_19700101_19700110_OL.nc4",
-        "Qme_Sandbox_19700101_19700110_OL.nc4",
-    ]
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Download output files
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        files = [
+            "Qou_Sandbox_19700101_19700110_TR.nc4",
+            "Qfi_Sandbox_19700101_19700110_TR.nc4",
+            "Qou_Sandbox_19700101_19700110_OL.nc4",
+            "Qfi_Sandbox_19700101_19700110_OL.nc4",
+            "Qme_Sandbox_19700101_19700110_OL.nc4",
+        ]
 
-    fetcher = pooch.create(
-        path=Path("output/Sandbox"),
-        base_url=doi,
-        registry={f: None for f in files},
-    )
+        fetcher = pooch.create(
+            path=Path("output/Sandbox"),
+            base_url=doi,
+            registry={f: None for f in files},
+        )
 
-    try:
         print("- Downloading output files...")
         for file in files:
             fetcher.fetch(file)
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # End
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        print("Done")
+
     except Exception as e:
         print(f"ERROR - Problem downloading files: {e}", file=sys.stderr)
-        sys.exit(44)
-
-    # -------------------------------------------------------------------------
-    # End
-    # -------------------------------------------------------------------------
-    print("Done")
-    sys.exit(0)
+        sys.exit(1)
 
 
 # *****************************************************************************
