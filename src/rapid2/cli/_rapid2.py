@@ -11,6 +11,7 @@
 # Import Python modules
 # *****************************************************************************
 import argparse
+import sys
 
 import netCDF4
 import numpy as np
