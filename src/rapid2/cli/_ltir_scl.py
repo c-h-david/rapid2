@@ -143,14 +143,21 @@ def main() -> None:
         ZM_Net = make_Net_mat(IV_dwn_tot, IT_0bi_tot, IV_riv_bas, IT_0bi_bas)
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Active observations
+        # External inflows
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        print("- Process active observations")
-        IV_riv_avl, _, _, _, _ = read_std_vec(Qob_ncf)
+        print("- Process external inflows")
+        IV_riv_tmp, _, _, IV_tim_all, IM_tim_all = read_std_vec(Qex_ncf)
 
-        IV_riv_act = np.array(
-            [riv for riv in IV_riv_avl if riv in IT_0bi_bas], dtype=np.int32
-        )
+        if not np.array_equal(IV_riv_tot, IV_riv_tmp):
+            raise ValueError(f"River IDs in {Qex_ncf} must match {con_pqt}")
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Observational locations
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        print("- Process observational locations")
+        IV_riv_avl, _, _, IV_tim_tmp, IM_tim_tmp = read_std_vec(Qob_ncf)
+
+        IV_riv_act = IV_riv_avl[np.isin(IV_riv_avl, IV_riv_bas)]
         if len(IV_riv_act) == 0:
             raise ValueError("No valid overlapping gauges found in the basin")
 
@@ -158,17 +165,39 @@ def main() -> None:
         ZM_Sel = make_Sel_mat(IV_riv_act, IT_0bi_bas)
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Validate temporal alignment
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        print("- Validate temporal alignment")
+        # Check start time
+        IS_tim_all = (
+            IM_tim_all[0, 0] if IM_tim_all is not None else IV_tim_all[0]
+        )
+        IS_tim_tmp = (
+            IM_tim_tmp[0, 0] if IM_tim_tmp is not None else IV_tim_tmp[0]
+        )
+        if IS_tim_all != IS_tim_tmp:
+            raise ValueError(
+                f"Start times differ. Qex: {IS_tim_all}, Qob: {IS_tim_tmp}"
+            )
+
+        # Check end time
+        IS_tim_all = (
+            IM_tim_all[-1, 1] if IM_tim_all is not None else IV_tim_all[-1]
+        )
+        IS_tim_tmp = (
+            IM_tim_tmp[-1, 1] if IM_tim_tmp is not None else IV_tim_tmp[-1]
+        )
+        if IS_tim_all != IS_tim_tmp:
+            raise ValueError(
+                f"End times differ. Qex: {IS_tim_all}, Qob: {IS_tim_tmp}"
+            )
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Average external inflows
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         print("- Average external inflows")
-        IV_riv_tmp, _, _, _, _ = read_std_vec(Qex_ncf)
-
-        if not np.array_equal(IV_riv_tot, IV_riv_tmp):
-            raise ValueError(f"River IDs in {Qex_ncf} must match {con_pqt}")
-
         f = netCDF4.Dataset(Qex_ncf, "r")
-        ZM_Qex_tmp = f.variables["Qext"][:, IV_0bi_bas]
-        ZV_Qex_avg = np.mean(ZM_Qex_tmp, axis=0)
+        ZV_Qex_avg = np.mean(f.variables["Qext"][:, IV_0bi_bas], axis=0)
         f.close()
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -176,16 +205,7 @@ def main() -> None:
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         print("- Average observations")
         o = netCDF4.Dataset(Qob_ncf, "r")
-
-        if "Qout" in o.variables:
-            YS_ob_var = "Qout"
-        elif "Qext" in o.variables:
-            YS_ob_var = "Qext"
-        else:
-            raise ValueError(f"No known observation variable in {Qob_ncf}")
-
-        ZM_Qob_tmp = o.variables[YS_ob_var][:, IV_0bi_act]
-        ZV_Qob_avg = np.mean(ZM_Qob_tmp, axis=0)
+        ZV_Qob_avg = np.mean(o.variables["Qout"][:, IV_0bi_act], axis=0)
         o.close()
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
