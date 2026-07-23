@@ -82,6 +82,7 @@ subsampleqout = "rapid2.cli._subsampleqout:main"
 hydrographs = "rapid2.cli._hydrographs:main"
 dsandbox = "rapid2.cli._dsandbox:main"
 ltir_scl = "rapid2.cli._ltir_scl:main"
+ltir_cor = "rapid2.cli._ltir_cor:main"
 
 [tool.ruff]
 line-length = 79
