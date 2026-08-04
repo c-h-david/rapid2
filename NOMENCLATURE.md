@@ -86,6 +86,7 @@ to accommodate external API terminology.
 | `rdf`| Relative difference| Relative difference (>=0) in `val` (-).         |
 | `atl`| Absolute tolerance | Acceptable absolute difference (varies).        |
 | `rtl`| Relative tolerance | Acceptable relative difference (-).             |
+| `MBy`| Megabytes          | Memory size footprint (MB).                     |
 
 ### `<dataset>`
 
@@ -178,9 +179,10 @@ to accommodate external API terminology.
 
 | Code | Meaning            | Notes                                           |
 | ---- | ------------------ | ----------------------------------------------- |
-| `vec`| Vector             | Assembled 1-dimensional array in memory.        |
-| `mat`| Matrix             | Assembled 2-dimensional sparse matrix.          |
-| `tbl`| Table              | Assembled dictionary or hash table.             |
+| `sca`| Scalar             | A 0-dimensional single value in memory.         |
+| `vec`| Vector             | A 1-dimensional array in memory.                |
+| `mat`| Matrix             | A 2-dimensional sparse matrix in memory.        |
+| `tbl`| Table              | A dictionary or hash table in memory.           |
 
 ### `<format>` (Disk Destinations)
 
