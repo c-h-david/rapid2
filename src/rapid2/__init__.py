@@ -25,6 +25,7 @@ except importlib.metadata.PackageNotFoundError:
 # -----------------------------------------------------------------------------
 # Top-Level API Facade
 # -----------------------------------------------------------------------------
+from .core.calc_MBy_sca import calc_MBy_sca
 from .core.calc_scl_vec import calc_scl_vec
 from .core.chck_bas import chck_bas
 from .core.chck_cpl import chck_cpl
@@ -54,6 +55,7 @@ from .core.updt_Mus_Qou import updt_Mus_Qou
 # -----------------------------------------------------------------------------
 __all__ = [
     "__version__",
+    "calc_MBy_sca",
     "calc_scl_vec",
     "chck_bas",
     "chck_cpl",
