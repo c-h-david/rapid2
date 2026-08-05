@@ -167,14 +167,15 @@ to accommodate external API terminology.
 | `ICN`| Identity minus C1N | Linear system matrix for Muskingum routing.     |
 | `ImN`| Identity minus Net | Linear system matrix for Lumped routing.        |
 | `ImD`| Identity minus Dis | Linear system matrix for disconnected routing.  |
-| `Mus`| Muskingum          | The Muskingum routing physics and matrices.     |
+| `Msk`| Muskingum physics  | Overarching Muskingum routing method & matrices.|
 | `Aex`| Ae operator        | Window mapping operator for external forcing.   |
 | `A00`| A0 operator        | Window mapping operator for initial state.      |
 | `Wdw`| Time window        | Temporal window for data assimilation.          |
 | `Wdx`| Time window, expl. | Explicit temporal window matrix operators.      |
 | `Crm`| Courant matrix     | Modified Courant routing matrix (C1 + C2).      |
-| `Lmp`| Lumped             | The Lumped routing physics and matrices.        |
 | `Nmn`| Neumann series     | The Neumann series expansion matrix.            |
+| `Lmp`| Lumped             | The Lumped routing physics and matrices.        |
+| `Mus`| Muskingum Operator | Transitive propagation matrix (I - C1 N)^-1.    |
 
 ### `<structure2>` (Memory Destinations)
 
@@ -298,9 +299,9 @@ cognitive load and preserve the visibility of the naming grammar.
 | Code             | Meaning            | Notes                               |
 | ---------------- | ------------------ | ----------------------------------- |
 | `make_0bi_tbl()` | Make 0-base index  | Builds dictionary mapping to 0bi.   |
-| `make_net_mat()` | Make network mat   | Assembles connectivity matrix.      |
-| `make_ccc_mat()` | Make CCC matrix    | Assembles C1, C2, C3 matrices.      |
-| `make_lin_mat()` | Make linear mat    | Assembles linear routing system.    |
+| `make_Net_mat()` | Make network mat   | Assembles connectivity matrix.      |
+| `make_CCC_mat()` | Make CCC matrix    | Assembles C1, C2, C3 matrices.      |
+| `make_Msk_mat()` | Make Muskingum mat | Assembles linear system matrices.   |
 
 ### Preparers (Memory -> Disk)
 

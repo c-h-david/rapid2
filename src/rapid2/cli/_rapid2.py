@@ -22,7 +22,7 @@ from rapid2 import (
     chck_bas,
     make_0bi_tbl,
     make_CCC_mat,
-    make_Mus_mat,
+    make_Msk_mat,
     make_Net_mat,
     prep_Qfi_ncf,
     prep_Qou_ncf,
@@ -122,7 +122,7 @@ def main() -> None:
         np.testing.assert_array_equal(IV_riv_bas, IV_riv_tmp)
 
         ZM_C1p, ZM_C2p, ZM_C3p = make_CCC_mat(ZV_kpr_bas, ZV_xpr_bas, IS_dtR)
-        ZM_ICN, ZM_Qex, ZM_Qou = make_Mus_mat(ZM_Net, ZM_C1p, ZM_C2p, ZM_C3p)
+        ZM_ICN, ZM_Qex, ZM_Qou = make_Msk_mat(ZM_Net, ZM_C1p, ZM_C2p, ZM_C3p)
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Extract metadata of external inflow and check IDs
