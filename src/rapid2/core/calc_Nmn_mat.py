@@ -20,7 +20,7 @@ from scipy.sparse import (
 # *****************************************************************************
 # Neumann series inverse network matrix
 # *****************************************************************************
-def calc_Lum_mat(
+def calc_Nmn_mat(
     ZM_nlp: csc_matrix,
 ) -> csc_matrix:
     """Calculate (I - ZM_nlp)^-1 using the Neumann series expansion
@@ -46,7 +46,7 @@ def calc_Lum_mat(
                                       [1, 1, 0, 0, 0],\
                                       [0, 0, 0, 0, 0],\
                                       [0, 0, 1, 1, 0]], dtype=np.float64))
-    >>> ZM_Lmp = calc_Lum_mat(ZM_Net)
+    >>> ZM_Lmp = calc_Nmn_mat(ZM_Net)
     >>> ZM_Lmp.toarray()
     array([[1., 0., 0., 0., 0.],
            [0., 1., 0., 0., 0.],
