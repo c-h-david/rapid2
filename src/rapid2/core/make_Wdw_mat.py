@@ -15,16 +15,13 @@ from scipy.sparse import (
     csc_matrix,
     identity,
 )
-from scipy.sparse.linalg import (
-    spsolve,
-)
 
 
 # *****************************************************************************
 # Matrices for average over a window
 # *****************************************************************************
 def make_Wdw_mat(
-    ZM_ICN: csc_matrix,
+    ZM_Mus: csc_matrix,
     ZM_Qex: csc_matrix,
     ZM_Qou: csc_matrix,
     IS_rat_Qob: np.int32,
@@ -39,8 +36,8 @@ def make_Wdw_mat(
 
     Parameters
     ----------
-    ZM_ICN : scipy.sparse.spmatrix
-        The linear system matrix for the basin in matrix-based Muskingum.
+    ZM_Mus : scipy.sparse.spmatrix
+        The transitive propagation matrix (I - C1 N)^-1 for the basin.
     ZM_Qex : scipy.sparse.spmatrix
         The multiplicand matrix for ZV_Qex for the basin in right-hand side.
     ZM_Qou : scipy.sparse.spmatrix
@@ -57,11 +54,11 @@ def make_Wdw_mat(
 
     Examples
     --------
-    >>> ZM_ICN = csc_matrix(np.array([[1.  , 0.  , 0.  , 0.  , 0.  ],\
-                                      [0.  , 1.  , 0.  , 0.  , 0.  ],\
-                                      [0.25, 0.25, 1.  , 0.  , 0.  ],\
-                                      [0.  , 0.  , 0.  , 1.  , 0.  ],\
-                                      [0.  , 0.  , 0.25, 0.25, 1.  ]]))
+    >>> ZM_Mus = csc_matrix(np.array([[ 1.    ,  0.    ,  0.  ,  0.  ,  0. ],\
+                                      [ 0.    ,  1.    ,  0.  ,  0.  ,  0. ],\
+                                      [-0.25  , -0.25  ,  1.  ,  0.  ,  0. ],\
+                                      [ 0.    ,  0.    ,  0.  ,  1.  ,  0. ],\
+                                      [ 0.0625,  0.0625, -0.25, -0.25,  1. ]]))
     >>> ZM_Qex = csc_matrix(np.array([[0.125, 0.   , 0.   , 0.   , 0.   ],\
                                       [0.   , 0.125, 0.   , 0.   , 0.   ],\
                                       [0.   , 0.   , 0.125, 0.   , 0.   ],\
@@ -73,7 +70,7 @@ def make_Wdw_mat(
                                       [0.   , 0.   , 0.   , 0.875, 0.   ],\
                                       [0.   , 0.   , 0.375, 0.375, 0.875]]))
     >>> IS_rat_Qob = 2
-    >>> ZM_Aex, ZM_A00 = make_Wdw_mat(ZM_ICN, ZM_Qex, ZM_Qou, IS_rat_Qob)
+    >>> ZM_Aex, ZM_A00 = make_Wdw_mat(ZM_Mus, ZM_Qex, ZM_Qou, IS_rat_Qob)
     >>> ZM_Aex.toarray()
     array([[ 0.0625    ,  0.        ,  0.        ,  0.        ,  0.        ],
            [ 0.        ,  0.0625    ,  0.        ,  0.        ,  0.        ],
@@ -101,35 +98,35 @@ def make_Wdw_mat(
     # -------------------------------------------------------------------------
     # Start with some initial variables
     # -------------------------------------------------------------------------
-    IS_riv_bas = ZM_ICN.shape[0]
+    IS_riv_bas = ZM_Mus.shape[0]
     ZM_Idt = identity(IS_riv_bas, format="csc", dtype=np.float64)
-    ZM_Bet = spsolve(ZM_ICN, ZM_Qex)
+    ZM_Bet = ZM_Mus @ ZM_Qex
 
     # -------------------------------------------------------------------------
     # Computation of Ae
     # -------------------------------------------------------------------------
-    ZM_Aex = csc_matrix((IS_riv_bas, IS_riv_bas))
+    ZM_Aex = csc_matrix((IS_riv_bas, IS_riv_bas), dtype=np.float64)
     ZM_Aex_tmp = ZM_Bet
     for JS_rat_Qob in range(IS_rat_Qob):
         ZM_Aex = ZM_Aex + (IS_rat_Qob - 1 - JS_rat_Qob) * ZM_Aex_tmp
-        ZM_Aex_tmp = spsolve(ZM_ICN, ZM_Qou @ ZM_Aex_tmp)
+        ZM_Aex_tmp = ZM_Mus @ (ZM_Qou @ ZM_Aex_tmp)
     ZM_Aex = ZM_Aex / IS_rat_Qob
 
     # -------------------------------------------------------------------------
     # Computation of A0
     # -------------------------------------------------------------------------
-    ZM_A00 = csc_matrix((IS_riv_bas, IS_riv_bas))
+    ZM_A00 = csc_matrix((IS_riv_bas, IS_riv_bas), dtype=np.float64)
     ZM_A00_tmp = ZM_Idt
     for _ in range(IS_rat_Qob):
         ZM_A00 = ZM_A00 + ZM_A00_tmp
-        ZM_A00_tmp = spsolve(ZM_ICN, ZM_Qou @ ZM_A00_tmp)
+        ZM_A00_tmp = ZM_Mus @ (ZM_Qou @ ZM_A00_tmp)
     ZM_A00 = ZM_A00 / IS_rat_Qob
 
     # -------------------------------------------------------------------------
     # Explanations
     # -------------------------------------------------------------------------
-    # ZM_Alp = (ZM_ICN)^(-1) @ ZM_Qou
-    # ZM_Bet = (ZM_ICN)^(-1) @ ZM_Qex
+    # ZM_Alp = ZM_Mus @ ZM_Qou
+    # ZM_Bet = ZM_Mus @ ZM_Qex
     # ZM_A00 = (ZM_Idt + ZM_Alp + ZM_Alp^2 + ...
     #           + ZM_Alp^(IS_rat_Qob-1)) / IS_rat_Qob
     # ZM_Aex = (
@@ -141,22 +138,8 @@ def make_Wdw_mat(
     #             @ ZM_Bet
     #           ) / IS_rat_Qob
     #
-    # The inverse (ZM_ICN)^(-1) is never actually computed, relying instead
-    # on the following linear system solver applied to matrices:
-    # ZM_ICN @ ZM_Alp^(JS_rat_Qob+1) = ZM_Qou @ ZM_Alp^(JS_rat_Qob)
-    # ZM_A00_tmp stores ZM_Alp^(JS_rat_Qob) for the A00 computation.
-    # ZM_Aex_tmp stores ZM_Alp^(JS_rat_Qob) @ ZM_Bet for the Aex computation.
-    # The recurrence for ZM_A00 is initialized with ZM_Alp^0 = ZM_Idt
-    # The recurrence for ZM_Aex is initialized with ZM_Alp^0 @ ZM_Bet = ZM_Bet
-    # Note that spsolve_triangular cannot be used on sparse matrices. It could
-    # be used on dense matrices but densifying the lower triangular matrices
-    # would not be sustainable for memory usage when dealing with networks
-    # composed of 100k-200k river reaches.
-    #
-    # This implementation explicitly constructs entire Ae and A0 matrices
-    # (sparse versions of them) using repeated sparse solves. It is intended as
-    # a reference version. More memory- and compute-efficient formulations
-    # (e.g. row-restricted construction of S @ Ae) should be considered.
+    # The precomputed ZM_Mus matrix = (I - C1 N)^-1 is passed directly,
+    # replacing spsolve calls with fast sparse matrix multiplication (@).
 
     return ZM_Aex, ZM_A00
 
