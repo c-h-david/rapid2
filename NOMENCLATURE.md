@@ -174,6 +174,7 @@ to accommodate external API terminology.
 | `Wdx`| Time window, expl. | Explicit temporal window matrix operators.      |
 | `Crm`| Courant matrix     | Modified Courant routing matrix (C1 + C2).      |
 | `Lmp`| Lumped             | The Lumped routing physics and matrices.        |
+| `Nmn`| Neumann series     | The Neumann series expansion matrix.            |
 
 ### `<structure2>` (Memory Destinations)
 
@@ -232,7 +233,7 @@ still obey the `<type><structure1>_` prefix:
 - **Algebraic Idioms:** Data structures representing pure mathematical
   abstractions confined within a single function (e.g., right-hand side vectors
   `rhs` or `rh1`, equation denominators `den`, or Greek letter placeholders
-   like `Alp` or `Bet`).
+  like `Alp` or `Bet`, or mathematical properties like `nlp` for nilpotent).
 - **Sparse Matrix Idioms:** Standard coordinate arrays used for sparse matrix
   assembly (`row`, `col`, `val`).
 
