@@ -50,8 +50,13 @@ def main() -> None:
         ),
         epilog=(
             "examples:\n"
-            "  rapid2 --namelist input/Sandbox/namelist_Sandbox_TR.yml\n"
-            "  rapid2 --namelist input/Tutorial/namelist_Tutorial.yml"
+            "  rapid2 --namelist input/Sandbox/nml_Sandbox_OL.yml\n"
+            "  rapid2 --namelist input/Sandbox/nml_Sandbox_TR.yml\n"
+            "\n"
+            "citation:\n"
+            "  If using RAPID2, please cite:\n"
+            "  https://doi.org/10.1175/2011JHM1345.1\n"
+            "  See CITATION.cff for full citation details."
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
@@ -69,6 +74,13 @@ def main() -> None:
         required=True,
         help="specify the namelist file",
     )
+
+    # -------------------------------------------------------------------------
+    # Show help if no arguments provided
+    # -------------------------------------------------------------------------
+    if len(sys.argv) == 1:
+        parser.print_help()
+        sys.exit(0)
 
     # -------------------------------------------------------------------------
     # Parse arguments and assign to variables
