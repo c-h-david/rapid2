@@ -80,6 +80,17 @@ def read_nml_tbl(nml_yml: str) -> Dict[str, Any]:
             "Qfi_ncf": None,
         }
 
+        # Dynamically add DA keys to checklist if observations are provided
+        if "Qob_ncf" in AT_nml:
+            AT_nml_tmp.update(
+                {
+                    "Qob_ncf": None,
+                    "ZS_scl_inf": None,
+                    "ZS_scl_sdv": None,
+                    "ZS_lkm_cov": None,
+                }
+            )
+
         if AT_nml_tmp.keys() - AT_nml.keys():
             raise ValueError(
                 f"Missing required keys: {AT_nml_tmp.keys() - AT_nml.keys()}"
@@ -92,6 +103,15 @@ def read_nml_tbl(nml_yml: str) -> Dict[str, Any]:
             raise ValueError("IS_dtR must be an integer")
 
         AT_nml["IS_dtR"] = np.int32(AT_nml["IS_dtR"])
+
+        # ---------------------------------------------------------------------
+        # Check that DA parameters are numbers and make them np.float64
+        # ---------------------------------------------------------------------
+        if "Qob_ncf" in AT_nml:
+            for YS_key in ["ZS_scl_inf", "ZS_scl_sdv", "ZS_lkm_cov"]:
+                if not isinstance(AT_nml[YS_key], (int, float)):
+                    raise ValueError(f"{YS_key} must be a number")
+                AT_nml[YS_key] = np.float64(AT_nml[YS_key])
 
         # ---------------------------------------------------------------------
         # Return dictionary

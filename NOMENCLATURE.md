@@ -71,6 +71,7 @@ to accommodate external API terminology.
 | `Vol`| Volume             | Volume of water stored in the reach (m^3).      |
 | `lon`| Longitude          | Representative longitude of the reach (°).      |
 | `lat`| Latitude           | Representative latitude of the reach (°).       |
+| `lkm`| Length             | Linear distance or length (km).                 |
 | `skm`| Contributing area  | Area of the contributing catchment (km^2).      |
 | `scl`| Scaling factor     | Multiplier for scaling or unit conversion (-).  |
 | `rsf`| Surface runoff     | Flow of water over the land surface (kg/m^2/s). |
@@ -152,6 +153,14 @@ to accommodate external API terminology.
 | ---- | ------------------ | ----------------------------------------------- |
 | `Qex`| External inflow    | Associated with the external forcing timescale. |
 | `Qob`| Observed discharge | Associated with the observation timescale.      |
+
+#### Statistics and Data Assimilation
+
+| Code | Meaning            | Notes                                           |
+| ---- | ------------------ | ----------------------------------------------- |
+| `cov`| Covariance         | Associated with covariance of errors.           |
+| `sdv`| Standard deviation | Associated with standard deviation of errors.   |
+| `inf`| Inflation          | Associated with artificial error inflation.     |
 
 ### `<concept>`
 
