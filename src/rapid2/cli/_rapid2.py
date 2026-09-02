@@ -24,6 +24,7 @@ from rapid2 import (
     make_CCC_mat,
     make_Msk_mat,
     make_Net_mat,
+    make_Sel_mat,
     prep_Qfi_ncf,
     prep_Qou_ncf,
     read_con_vec,
@@ -114,6 +115,12 @@ def main() -> None:
         Qou_ncf = AT_nml["Qou_ncf"]
         Qfi_ncf = AT_nml["Qfi_ncf"]
 
+        if "Qob_ncf" in AT_nml:
+            Qob_ncf = AT_nml["Qob_ncf"]
+            ZS_scl_inf = AT_nml["ZS_scl_inf"]
+            ZS_scl_sdv = AT_nml["ZS_scl_sdv"]
+            ZS_lkm_cov = AT_nml["ZS_lkm_cov"]
+
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # River network
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -193,6 +200,32 @@ def main() -> None:
             ZV_lat_tot,
             Qfi_ncf,
         )
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Data Assimilation: Static setup for observations
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        if "Qob_ncf" in locals():
+            # Extract metadata of observed flows
+            (
+                IV_riv_avl,
+                _,
+                _,
+                IV_tim_obs,
+                IM_tim_obs,
+            ) = read_std_vec(Qob_ncf)
+
+            # Find gauges that physically intersect the simulated basin
+            IV_riv_act = IV_riv_avl[np.isin(IV_riv_avl, IV_riv_bas)]
+            if len(IV_riv_act) == 0:
+                raise ValueError(
+                    "No valid overlapping gauges found in the basin"
+                )
+
+            # Get 0-based indices of active gauges relative to observations
+            _, _, IV_0bi_act = make_0bi_tbl(IV_riv_avl, IV_riv_act)
+
+            # Build the Selection matrix mapping active gauges to basin reaches
+            ZM_Sel = make_Sel_mat(IV_riv_act, IT_0bi_bas)
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Open files
