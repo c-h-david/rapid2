@@ -272,6 +272,8 @@ def main() -> None:
         f = netCDF4.Dataset(Qex_ncf, "r")
         g = netCDF4.Dataset(Qou_ncf, "a")
         h = netCDF4.Dataset(Qfi_ncf, "a")
+        if "Qob_ncf" in locals():
+            o = netCDF4.Dataset(Qob_ncf, "r")
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Read initial discharge state
@@ -282,9 +284,10 @@ def main() -> None:
         # Run simulations
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         for JS_tim_all in tqdm(range(IS_tim_all), desc="Computing discharge"):
-            # Compute Qout
+            # Read external inflow
             ZV_Qex_avg = f.variables["Qext"][JS_tim_all][IV_0bi_bas]
 
+            # Compute Qout
             ZV_Qou_avg, ZV_Qou_now = updt_Mus_Qou(
                 ZM_ICN, ZM_Qex, ZM_Qou, IS_rat_Qex, ZV_Qou_prv, ZV_Qex_avg
             )
@@ -316,6 +319,8 @@ def main() -> None:
         f.close()
         g.close()
         h.close()
+        if "Qob_ncf" in locals():
+            o.close()
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Done
