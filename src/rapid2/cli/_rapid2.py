@@ -250,6 +250,9 @@ def main() -> None:
             if IS_dtO == 0:
                 raise ValueError("Values of time_bnds lead to IS_dtO = 0")
 
+            if IS_dtO % IS_dtE != 0:
+                raise ValueError("IS_dtO is not a multiple of IS_dtE")
+
             if IS_dtO % IS_dtR == 0:
                 IS_rat_Qob = IS_dtO // IS_dtR
             else:
@@ -286,6 +289,11 @@ def main() -> None:
         for JS_tim_all in tqdm(range(IS_tim_all), desc="Computing discharge"):
             # Read external inflow
             ZV_Qex_avg = f.variables["Qext"][JS_tim_all][IV_0bi_bas]
+
+            # Data Assimilation
+            if "Qob_ncf" in locals() and JS_tim_all % (IS_dtO // IS_dtE) == 0:
+                JS_tim_obs = JS_tim_all // (IS_dtO // IS_dtE)
+                ZV_Qob_now = o.variables["Qout"][JS_tim_obs, IV_0bi_act]
 
             # Compute Qout
             ZV_Qou_avg, ZV_Qou_now = updt_Mus_Qou(
