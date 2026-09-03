@@ -228,6 +228,32 @@ def main() -> None:
             ZM_Sel = make_Sel_mat(IV_riv_act, IT_0bi_bas)
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Data Assimilation: Validate temporal alignment
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        if "Qob_ncf" in locals():
+            # Check for existence of time bounds
+            if IM_tim_obs is None:
+                raise ValueError("time_bnds is missing in Qob_ncf")
+
+            # Check start times
+            if IM_tim_all[0, 0] != IM_tim_obs[0, 0]:
+                raise ValueError(
+                    f"Start times differ. Sim: {IM_tim_all[0, 0]}, "
+                    f"Obs: {IM_tim_obs[0, 0]}"
+                )
+
+            # Check time step of observations
+            IS_dtO = IM_tim_obs[0, 1] - IM_tim_obs[0, 0]
+
+            if IS_dtO == 0:
+                raise ValueError("Values of time_bnds lead to IS_dtO = 0")
+
+            if IS_dtO % IS_dtR == 0:
+                IS_rat_Qob = IS_dtO // IS_dtR
+            else:
+                raise ValueError("IS_dtO is not a multiple of IS_dtR")
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Open files
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         e = netCDF4.Dataset(Q00_ncf, "r")
