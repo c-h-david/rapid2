@@ -19,11 +19,13 @@ from tqdm import tqdm
 
 from rapid2 import (
     __version__,
+    calc_Nmn_mat,
     chck_bas,
     make_0bi_tbl,
     make_CCC_mat,
     make_Msk_mat,
     make_Net_mat,
+    make_SAe_mat,
     make_Sel_mat,
     prep_Qfi_ncf,
     prep_Qou_ncf,
@@ -252,6 +254,16 @@ def main() -> None:
                 IS_rat_Qob = IS_dtO // IS_dtR
             else:
                 raise ValueError("IS_dtO is not a multiple of IS_dtR")
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Data Assimilation: Build observation matrices
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        if "Qob_ncf" in locals():
+            # Compute the Muskingum operator (I - C1*N)^-1
+            ZM_Mus = calc_Nmn_mat(ZM_C1p @ ZM_Net)
+
+            # Compute the selection-multiplied input-to-state average matrix
+            ZM_SAe = make_SAe_mat(ZM_Sel, ZM_Mus, ZM_Qex, ZM_Qou, IS_rat_Qob)
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Open files
