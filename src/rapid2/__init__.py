@@ -37,8 +37,6 @@ from .core.make_Net_mat import make_Net_mat
 from .core.make_SA0_mat import make_SA0_mat
 from .core.make_SAe_mat import make_SAe_mat
 from .core.make_Sel_mat import make_Sel_mat
-from .core.make_Wdw_mat import make_Wdw_mat
-from .core.make_Wdx_mat import make_Wdx_mat
 from .core.prep_Qex_ncf import prep_Qex_ncf
 from .core.prep_Qfi_ncf import prep_Qfi_ncf
 from .core.prep_Qou_ncf import prep_Qou_ncf
@@ -70,8 +68,6 @@ __all__ = [
     "make_SA0_mat",
     "make_SAe_mat",
     "make_Sel_mat",
-    "make_Wdw_mat",
-    "make_Wdx_mat",
     "prep_Qex_ncf",
     "prep_Qfi_ncf",
     "prep_Qou_ncf",
