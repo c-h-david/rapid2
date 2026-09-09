@@ -179,8 +179,8 @@ to accommodate external API terminology.
 | `Msk`| Muskingum physics  | Overarching Muskingum routing method & matrices.|
 | `Aex`| Ae operator        | Window mapping operator for external forcing.   |
 | `A00`| A0 operator        | Window mapping operator for initial state.      |
-| `SAe`| Sel * Aex operator | Selection-multiplied Aex operator matrix.       |
-| `SA0`| Sel * A00 operator | Selection-multiplied A00 operator matrix.       |
+| `SAe`| Sel × Aex operator | Selection-multiplied Aex operator matrix.       |
+| `SA0`| Sel × A00 operator | Selection-multiplied A00 operator matrix.       |
 | `Wdw`| Time window        | Temporal window for data assimilation.          |
 | `Wdx`| Time window, expl. | Explicit temporal window matrix operators.      |
 | `Crm`| Courant matrix     | Modified Courant routing matrix (C1 + C2).      |
