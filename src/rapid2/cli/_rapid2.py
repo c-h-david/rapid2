@@ -25,6 +25,7 @@ from rapid2 import (
     make_CCC_mat,
     make_Msk_mat,
     make_Net_mat,
+    make_SA0_mat,
     make_SAe_mat,
     make_Sel_mat,
     prep_Qfi_ncf,
@@ -268,6 +269,9 @@ def main() -> None:
             # Compute the selection-multiplied input-to-state average matrix
             ZM_SAe = make_SAe_mat(ZM_Sel, ZM_Mus, ZM_Qex, ZM_Qou, IS_rat_Qob)
 
+            # Compute the selection-multiplied initial-to-state average matrix
+            ZM_SA0 = make_SA0_mat(ZM_Sel, ZM_Mus, ZM_Qou, IS_rat_Qob)
+
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Open files
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -294,6 +298,10 @@ def main() -> None:
             if "Qob_ncf" in locals() and JS_tim_all % (IS_dtO // IS_dtE) == 0:
                 JS_tim_obs = JS_tim_all // (IS_dtO // IS_dtE)
                 ZV_Qob_now = o.variables["Qout"][JS_tim_obs, IV_0bi_act]
+                ZV_Qex_tmp = f.variables["Qext"][
+                    JS_tim_all : JS_tim_all + (IS_dtO // IS_dtE), IV_0bi_bas
+                ].mean(axis=0)
+                ZV_Qme_tmp = ZM_SAe @ ZV_Qex_tmp + ZM_SA0 @ ZV_Qou_prv
 
             # Compute Qout
             ZV_Qou_avg, ZV_Qou_now = updt_Mus_Qou(
