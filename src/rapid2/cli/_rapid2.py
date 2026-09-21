@@ -302,6 +302,7 @@ def main() -> None:
                     JS_tim_all : JS_tim_all + (IS_dtO // IS_dtE), IV_0bi_bas
                 ].mean(axis=0)
                 ZV_Qme_tmp = ZM_SAe @ ZV_Qex_tmp + ZM_SA0 @ ZV_Qou_prv
+                ZV_dQo_act = ZV_Qob_now - ZV_Qme_tmp
 
             # Compute Qout
             ZV_Qou_avg, ZV_Qou_now = updt_Mus_Qou(
