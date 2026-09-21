@@ -183,9 +183,6 @@ to accommodate external API terminology.
 | `A00`| A0 operator        | Window mapping operator for initial state.      |
 | `SAe`| Sel × Aex operator | Selection-multiplied Aex operator matrix.       |
 | `SA0`| Sel × A00 operator | Selection-multiplied A00 operator matrix.       |
-| `Wdw`| Time window        | Temporal window for data assimilation.          |
-| `Wdx`| Time window, expl. | Explicit temporal window matrix operators.      |
-| `Crm`| Courant matrix     | Modified Courant routing matrix (C1 + C2).      |
 | `Nmn`| Neumann series     | The Neumann series expansion matrix.            |
 | `Lmp`| Lumped             | The Lumped routing physics and matrices.        |
 | `Mus`| Muskingum Operator | Transitive propagation matrix (I - C1 N)^-1.    |
