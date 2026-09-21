@@ -67,6 +67,8 @@ to accommodate external API terminology.
 | `Qob`| Observed discharge | Flow of water from observations (m^3/s).        |
 | `Qme`| Model equivalent   | Model equivalent to observations (m^3/s).       |
 | `Qdi`| Discon. discharge  | Flow of water in disconnected network (m^3/s).  |
+| `dQo`| Delta Qob          | Difference between observations & simulations.  |
+| `dQe`| Delta Qex          | Correction applied to external inflow.          |
 | `lqe`| Little q ext       | External inflow (observation space) (m^3/s)     |
 | `Vol`| Volume             | Volume of water stored in the reach (m^3).      |
 | `lon`| Longitude          | Representative longitude of the reach (°).      |
@@ -187,6 +189,7 @@ to accommodate external API terminology.
 | `Nmn`| Neumann series     | The Neumann series expansion matrix.            |
 | `Lmp`| Lumped             | The Lumped routing physics and matrices.        |
 | `Mus`| Muskingum Operator | Transitive propagation matrix (I - C1 N)^-1.    |
+| `Kal`| Kalman operator    | Kalman filter routing & assimilation matrices.  |
 
 ### `<structure2>` (Memory Destinations)
 
