@@ -205,7 +205,7 @@ def main() -> None:
         )
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Data Assimilation: Static setup for observations
+        # Uncertainty OR Assimilation: Locate observations in basin
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         if "Qob_ncf" in locals():
             # Extract metadata of observed flows
@@ -231,7 +231,7 @@ def main() -> None:
             ZM_Sel = make_Sel_mat(IV_riv_act, IT_0bi_bas)
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Data Assimilation: Validate temporal alignment
+        # Uncertainty or Assimilation: Check temporal alignment of observations
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         if "Qob_ncf" in locals():
             # Check for existence of time bounds
@@ -260,7 +260,7 @@ def main() -> None:
                 raise ValueError("IS_dtO is not a multiple of IS_dtR")
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Data Assimilation: Build observation matrices
+        # Uncertainty or Assimilation: Build forward operators
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         if "Qob_ncf" in locals():
             # Compute the Muskingum operator (I - C1*N)^-1
