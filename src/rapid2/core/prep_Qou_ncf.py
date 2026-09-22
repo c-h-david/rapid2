@@ -64,7 +64,7 @@ def prep_Qou_ncf(
     True
     >>> all(var in g.variables for var in ["Qout", "time_bnds"])
     True
-    >>> all(var in g.variables for var in ["Qout_bia", "Qout_var", "Qout_cov"])
+    >>> all(var in g.variables for var in ["Qout_bia", "Qout_sdv"])
     True
     >>> import os
     >>> os.remove(Qou_ncf)
@@ -130,32 +130,19 @@ def prep_Qou_ncf(
     Qout_bia.window = "applicable to entire period of simulation"
     Qout_bia.interval = "temporal resolution does not impact computation"
 
-    Qout_var = g.createVariable(
-        "Qout_var", "float32", "rivid", fill_value=ZS_fll
+    Qout_sdv = g.createVariable(
+        "Qout_sdv", "float32", "rivid", fill_value=ZS_fll
     )
-    Qout_var.long_name = (
-        "variance of river water outflow error downstream of each river reach"
+    Qout_sdv.long_name = (
+        "standard deviation of river water outflow error downstream of each "
+        "river reach"
     )
-    Qout_var.units = "m6 s-2"
-    Qout_var.coordinates = "lon lat"
-    Qout_var.grid_mapping = "crs"
-    Qout_var.cell_methods = "time: variance"
-    Qout_var.window = "applicable to entire period of simulation"
-    Qout_var.interval = "typically same temporal resolution as observations"
-
-    Qout_cov = g.createVariable(
-        "Qout_cov", "float32", "rivid", fill_value=ZS_fll
-    )
-    Qout_cov.long_name = (
-        "indicative covariance between river water outflow "
-        "error at a given reach and at another"
-    )
-    Qout_cov.units = "m6 s-2"
-    Qout_cov.coordinates = "lon lat"
-    Qout_cov.grid_mapping = "crs"
-    Qout_cov.cell_methods = "time: covariance"
-    Qout_cov.window = "applicable to entire period of simulation"
-    Qout_cov.interval = "typically same temporal resolution as observations"
+    Qout_sdv.units = "m3 s-1"
+    Qout_sdv.coordinates = "lon lat"
+    Qout_sdv.grid_mapping = "crs"
+    Qout_sdv.cell_methods = "time: standard_deviation"
+    Qout_sdv.window = "applicable to entire period of simulation"
+    Qout_sdv.interval = "typically same temporal resolution as observations"
 
     # -------------------------------------------------------------------------
     # Close file to allow populating all data

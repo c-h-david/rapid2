@@ -64,7 +64,7 @@ def prep_Qex_ncf(
     True
     >>> all(var in f.variables for var in ["Qext", "time_bnds"])
     True
-    >>> all(var in f.variables for var in ["Qext_bia", "Qext_var", "Qext_cov"])
+    >>> all(var in f.variables for var in ["Qext_bia", "Qext_sdv"])
     True
     >>> import os
     >>> os.remove(Qex_ncf)
@@ -130,32 +130,19 @@ def prep_Qex_ncf(
     Qext_bia.window = "applicable to entire period of simulation"
     Qext_bia.interval = "temporal resolution does not impact computation"
 
-    Qext_var = f.createVariable(
-        "Qext_var", "float32", "rivid", fill_value=ZS_fll
+    Qext_sdv = f.createVariable(
+        "Qext_sdv", "float32", "rivid", fill_value=ZS_fll
     )
-    Qext_var.long_name = (
-        "variance of external water inflow error upstream of each river reach"
+    Qext_sdv.long_name = (
+        "standard deviation of external water inflow error upstream of each "
+        "river reach"
     )
-    Qext_var.units = "m6 s-2"
-    Qext_var.coordinates = "lon lat"
-    Qext_var.grid_mapping = "crs"
-    Qext_var.cell_methods = "time: variance"
-    Qext_var.window = "applicable to entire period of simulation"
-    Qext_var.interval = "typically same temporal resolution as observations"
-
-    Qext_cov = f.createVariable(
-        "Qext_cov", "float32", "rivid", fill_value=ZS_fll
-    )
-    Qext_cov.long_name = (
-        "indicative covariance between external water "
-        "inflow error at a given reach and at another"
-    )
-    Qext_cov.units = "m6 s-2"
-    Qext_cov.coordinates = "lon lat"
-    Qext_cov.grid_mapping = "crs"
-    Qext_cov.cell_methods = "time: covariance"
-    Qext_cov.window = "applicable to entire period of simulation"
-    Qext_cov.interval = "typically same temporal resolution as observations"
+    Qext_sdv.units = "m3 s-1"
+    Qext_sdv.coordinates = "lon lat"
+    Qext_sdv.grid_mapping = "crs"
+    Qext_sdv.cell_methods = "time: standard_deviation"
+    Qext_sdv.window = "applicable to entire period of simulation"
+    Qext_sdv.interval = "typically same temporal resolution as observations"
 
     # -------------------------------------------------------------------------
     # Close file to allow populating all data
