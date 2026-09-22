@@ -44,6 +44,7 @@ from .core.prep_skl_ncf import prep_skl_ncf
 from .core.read_con_vec import read_con_vec
 from .core.read_cpl_vec import read_cpl_vec
 from .core.read_crd_vec import read_crd_vec
+from .core.read_err_vec import read_err_vec
 from .core.read_kpr_vec import read_kpr_vec
 from .core.read_nml_tbl import read_nml_tbl
 from .core.read_riv_vec import read_riv_vec
@@ -75,6 +76,7 @@ __all__ = [
     "read_con_vec",
     "read_cpl_vec",
     "read_crd_vec",
+    "read_err_vec",
     "read_kpr_vec",
     "read_nml_tbl",
     "read_riv_vec",
