@@ -156,10 +156,11 @@ to accommodate external API terminology.
 | `Qex`| External inflow    | Associated with the external forcing timescale. |
 | `Qob`| Observed discharge | Associated with the observation timescale.      |
 
-#### Statistics and Data Assimilation
+#### Error statistics and Data Assimilation
 
 | Code | Meaning            | Notes                                           |
 | ---- | ------------------ | ----------------------------------------------- |
+| `bia`| Bias               | Associated with mean error.                     |
 | `cov`| Covariance         | Associated with covariance of errors.           |
 | `sdv`| Standard deviation | Associated with standard deviation of errors.   |
 | `inf`| Inflation          | Associated with artificial error inflation.     |
