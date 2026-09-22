@@ -39,7 +39,8 @@ def main() -> None:
         epilog=(
             "examples:\n"
             "  sandboxqext --scale 5 5 5 10 10 --average 10 10 10 "
-            "20 20 --external_inflow Qext_Sandbox.nc"
+            "20 20 --bias 0 0 0 0 0 --standard_deviation 0 0 0 0 0 "
+            "--external_inflow Qext_Sandbox.nc"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
@@ -71,6 +72,30 @@ def main() -> None:
     )
 
     parser.add_argument(
+        "-bia",
+        "--bias",
+        dest="bia",
+        metavar="BIAS",
+        type=float,
+        required=False,
+        nargs=5,
+        default=[1e20, 1e20, 1e20, 1e20, 1e20],
+        help="specify five bias error values: b1 b2 b3 b4 b5",
+    )
+
+    parser.add_argument(
+        "-sdv",
+        "--standard_deviation",
+        dest="sdv",
+        metavar="STANDARD_DEVIATION",
+        type=float,
+        required=False,
+        nargs=5,
+        default=[1e20, 1e20, 1e20, 1e20, 1e20],
+        help="specify five standard deviation error values: s1 s2 s3 s4 s5",
+    )
+
+    parser.add_argument(
         "-Qex",
         "--external_inflow",
         dest="Qex",
@@ -87,6 +112,8 @@ def main() -> None:
 
     ZV_Qex_avg = np.array(args.avg, dtype=np.float32)
     ZV_scl_tot = np.array(args.scl, dtype=np.float32)
+    ZV_bia_tot = np.array(args.bia, dtype=np.float32)
+    ZV_sdv_tot = np.array(args.sdv, dtype=np.float32)
     Qex_ncf = args.Qex
 
     print("Creating (from/to):")
@@ -142,6 +169,9 @@ def main() -> None:
 
         f.variables["time_bnds"][:, 0] = IV_tim_all[:]
         f.variables["time_bnds"][:, 1] = IV_tim_all[:] + np.int32(10800)
+
+        f.variables["Qext_bia"][:] = ZV_bia_tot[:]
+        f.variables["Qext_sdv"][:] = ZV_sdv_tot[:]
 
         for JS_tim_all in tqdm(
             range(IS_tim_all), desc="Generating synthetic inflow"
