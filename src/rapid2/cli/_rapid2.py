@@ -205,7 +205,7 @@ def main() -> None:
         )
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Uncertainty OR Assimilation: Locate observations in basin
+        # Uncertainty or Assimilation: Locate observations in basin
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         if "Qob_ncf" in locals():
             # Extract metadata of observed flows
@@ -260,7 +260,7 @@ def main() -> None:
                 raise ValueError("IS_dtO is not a multiple of IS_dtR")
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Uncertainty or Assimilation: Build forward operators
+        # Uncertainty or Assimilation: Zero-State Response Operator (H×Γ)
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         if "Qob_ncf" in locals():
             # Compute the Muskingum operator (I - C1*N)^-1
@@ -269,8 +269,20 @@ def main() -> None:
             # Compute the selection-multiplied input-to-state average matrix
             ZM_SAe = make_SAe_mat(ZM_Sel, ZM_Mus, ZM_Qex, ZM_Qou, IS_rat_Qob)
 
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Uncertainty or Assimilation: Background error covariance (Pb)
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Assimilation only: Zero-Input Response Operator (H×M)
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        if "Qob_ncf" in locals():
             # Compute the selection-multiplied initial-to-state average matrix
             ZM_SA0 = make_SA0_mat(ZM_Sel, ZM_Mus, ZM_Qou, IS_rat_Qob)
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Assimilation only: Observation error covariance (R)
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Open files
