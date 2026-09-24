@@ -188,6 +188,7 @@ to accommodate external API terminology.
 | `Lmp`| Lumped             | The Lumped routing physics and matrices.        |
 | `Mus`| Muskingum Operator | Transitive propagation matrix (I - C1 N)^-1.    |
 | `Kal`| Kalman operator    | Kalman filter routing & assimilation matrices.  |
+| `GCt`| Gaspari-Cohn       | Gaspari-Cohn tapering piecewise polynomial.     |
 
 ### `<structure2>` (Memory Destinations)
 
@@ -245,8 +246,9 @@ still obey the `<type><structure1>_` prefix:
 
 - **Algebraic Idioms:** Data structures representing pure mathematical
   abstractions confined within a single function (e.g., right-hand side vectors
-  `rhs` or `rh1`, equation denominators `den`, or Greek letter placeholders
-  like `Alp` or `Bet`, or mathematical properties like `nlp` for nilpotent).
+  `rhs` or `rh1`, equation denominators `den`, temporary abstract masks like
+  `tmp`, Greek letter placeholders like `Alp`, `Bet`, or `Omg`, or
+  mathematical properties like `nlp` for nilpotent).
 - **Sparse Matrix Idioms:** Standard coordinate arrays used for sparse matrix
   assembly (`row`, `col`, `val`).
 
