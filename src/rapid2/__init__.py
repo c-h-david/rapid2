@@ -26,6 +26,7 @@ except importlib.metadata.PackageNotFoundError:
 # Top-Level API Facade
 # -----------------------------------------------------------------------------
 from .core.calc_GCt_vec import calc_GCt_vec
+from .core.calc_Kal_mat import calc_Kal_mat
 from .core.calc_MBy_sca import calc_MBy_sca
 from .core.calc_Nmn_mat import calc_Nmn_mat
 from .core.calc_scl_vec import calc_scl_vec
@@ -61,6 +62,7 @@ from .core.updt_Mus_Qou import updt_Mus_Qou
 __all__ = [
     "__version__",
     "calc_GCt_vec",
+    "calc_Kal_mat",
     "calc_MBy_sca",
     "calc_Nmn_mat",
     "calc_scl_vec",
