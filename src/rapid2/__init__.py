@@ -34,6 +34,7 @@ from .core.chck_cpl import chck_cpl
 from .core.make_0bi_tbl import make_0bi_tbl
 from .core.make_CCC_mat import make_CCC_mat
 from .core.make_dQe_mat import make_dQe_mat
+from .core.make_dQo_mat import make_dQo_mat
 from .core.make_Msk_mat import make_Msk_mat
 from .core.make_Net_mat import make_Net_mat
 from .core.make_SA0_mat import make_SA0_mat
@@ -68,6 +69,7 @@ __all__ = [
     "make_0bi_tbl",
     "make_CCC_mat",
     "make_dQe_mat",
+    "make_dQo_mat",
     "make_Msk_mat",
     "make_Net_mat",
     "make_SA0_mat",
