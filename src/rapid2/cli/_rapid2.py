@@ -23,6 +23,8 @@ from rapid2 import (
     chck_bas,
     make_0bi_tbl,
     make_CCC_mat,
+    make_dQe_mat,
+    make_dQo_mat,
     make_Msk_mat,
     make_Net_mat,
     make_SA0_mat,
@@ -31,6 +33,7 @@ from rapid2 import (
     prep_Qfi_ncf,
     prep_Qou_ncf,
     read_con_vec,
+    read_err_vec,
     read_kpr_vec,
     read_nml_tbl,
     read_riv_vec,
@@ -272,6 +275,15 @@ def main() -> None:
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Uncertainty or Assimilation: Background error covariance (Pb)
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        if "Qob_ncf" in locals():
+            _, ZV_Qex_tmp = read_err_vec(Qex_ncf)
+            ZV_Qex_sdv = ZV_Qex_tmp[IV_0bi_bas]
+            ZM_dQe = make_dQe_mat(
+                ZV_Qex_sdv,
+                ZV_lon_tot[IV_0bi_bas],
+                ZV_lat_tot[IV_0bi_bas],
+                ZS_lkm_cov,
+            )
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Assimilation only: Zero-Input Response Operator (H×M)
@@ -283,6 +295,10 @@ def main() -> None:
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Assimilation only: Observation error covariance (R)
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        if "Qob_ncf" in locals():
+            _, ZV_Qob_tmp = read_err_vec(Qob_ncf)
+            ZV_Qob_sdv = ZV_Qob_tmp[IV_0bi_act]
+            ZM_dQo = make_dQo_mat(ZV_Qob_sdv)
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Open files
