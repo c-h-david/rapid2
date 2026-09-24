@@ -108,15 +108,15 @@ def read_nml_tbl(nml_yml: str) -> Dict[str, Any]:
         AT_nml["IS_dtR"] = np.int32(AT_nml["IS_dtR"])
 
         # ---------------------------------------------------------------------
-        # Check that DA parameters are stricly positive numbers and np.float64
+        # Check that DA parameters are non-negative numbers and np.float64
         # ---------------------------------------------------------------------
         if "Qob_ncf" in AT_nml:
             for YS_key in ["ZS_scl_inf", "ZS_scl_sdv", "ZS_lkm_cov"]:
                 if not isinstance(AT_nml[YS_key], (int, float)):
                     raise ValueError(f"{YS_key} must be a number")
 
-                if AT_nml[YS_key] <= 0:
-                    raise ValueError(f"{YS_key} must be strictly positive")
+                if AT_nml[YS_key] < 0:
+                    raise ValueError(f"{YS_key} must be non-negative")
 
                 AT_nml[YS_key] = np.float64(AT_nml[YS_key])
 
