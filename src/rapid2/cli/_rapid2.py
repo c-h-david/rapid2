@@ -19,6 +19,7 @@ from tqdm import tqdm
 
 from rapid2 import (
     __version__,
+    calc_Kal_mat,
     calc_Nmn_mat,
     chck_bas,
     make_0bi_tbl,
@@ -301,6 +302,13 @@ def main() -> None:
             ZM_dQo = make_dQo_mat(ZV_Qob_sdv)
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Assimilation only: Kalman Gain (K) and initialize inflow correction
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        if "Qob_ncf" in locals():
+            ZM_Kal = calc_Kal_mat(ZM_SAe, ZM_dQe, ZM_dQo)
+            ZV_dQe_bas = np.zeros(len(IV_riv_bas), dtype=np.float64)
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Open files
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         e = netCDF4.Dataset(Q00_ncf, "r")
@@ -331,6 +339,9 @@ def main() -> None:
                 ].mean(axis=0)
                 ZV_Qme_tmp = ZM_SAe @ ZV_Qex_tmp + ZM_SA0 @ ZV_Qou_prv
                 ZV_dQo_act = ZV_Qob_now - ZV_Qme_tmp
+                ZV_dQe_bas = ZM_Kal @ ZV_dQo_act
+            if "Qob_ncf" in locals():
+                ZV_Qex_avg = ZV_Qex_avg + ZV_dQe_bas
 
             # Compute Qout
             ZV_Qou_avg, ZV_Qou_now = updt_Mus_Qou(
