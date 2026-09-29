@@ -45,7 +45,7 @@ def main() -> None:
     # Publication message
     # -------------------------------------------------------------------------
     print("********************")
-    print("Downloading files from:   https://doi.org/10.5281/zenodo.22968070")
+    print("Downloading files from:   https://doi.org/10.5281/zenodo.23044811")
     print("These are under a Creative Commons Attribution (CC BY) license.")
     print("Please cite the DOI if using these files for your publications.")
     print("********************")
@@ -53,7 +53,7 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Location of the dataset
     # -------------------------------------------------------------------------
-    doi = "doi:10.5281/zenodo.22968070/"
+    doi = "doi:10.5281/zenodo.23044811/"
 
     # -------------------------------------------------------------------------
     # Execute main logic
