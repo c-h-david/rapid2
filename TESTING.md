@@ -121,15 +121,15 @@ python3 -m doctest src/rapid2/core/*.py
 ### Replication of past results
 
 ```bash
-for EXP in TR OL BC DA HY; do
-  rapid2 -nml input/Sandbox/nml_Sandbox_${EXP}.yml
+for XP in TR OL BC DA HY; do
+  rapid2 -nml input/Sandbox/nml_Sandbox_${XP}.yml
 
-  cmpncf -prv output/Sandbox/Qou_Sandbox_19700101_19700110_${EXP}.nc4 \
-         -now output/Sandbox/Qou_Sandbox_19700101_19700110_${EXP}_tst.nc4 \
+  cmpncf -prv output/Sandbox/Qou_Sandbox_19700101_19700110_${XP}.nc4 \
+         -now output/Sandbox/Qou_Sandbox_19700101_19700110_${XP}_tst.nc4 \
          -rtl 1e-10 -atl 1e-10
 
-  cmpncf -prv output/Sandbox/Qfi_Sandbox_19700101_19700110_${EXP}.nc4 \
-         -now output/Sandbox/Qfi_Sandbox_19700101_19700110_${EXP}_tst.nc4 \
+  cmpncf -prv output/Sandbox/Qfi_Sandbox_19700101_19700110_${XP}.nc4 \
+         -now output/Sandbox/Qfi_Sandbox_19700101_19700110_${XP}_tst.nc4 \
          -rtl 1e-10 -atl 1e-10
 done
 ```
