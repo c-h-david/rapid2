@@ -121,7 +121,17 @@ python3 -m doctest src/rapid2/core/*.py
 ### Replication of past results
 
 ```bash
-rapid2 -nml input/Sandbox/nml_Sandbox_TR.yml
+for EXP in TR OL BC DA HY; do
+  rapid2 -nml input/Sandbox/nml_Sandbox_${EXP}.yml
+
+  cmpncf -prv output/Sandbox/Qou_Sandbox_19700101_19700110_${EXP}.nc4 \
+         -now output/Sandbox/Qou_Sandbox_19700101_19700110_${EXP}_tst.nc4 \
+         -rtl 1e-10 -atl 1e-10
+
+  cmpncf -prv output/Sandbox/Qfi_Sandbox_19700101_19700110_${EXP}.nc4 \
+         -now output/Sandbox/Qfi_Sandbox_19700101_19700110_${EXP}_tst.nc4 \
+         -rtl 1e-10 -atl 1e-10
+done
 ```
 
 ```bash
@@ -130,22 +140,6 @@ subsampleqout \
   -obs input/Sandbox/obs_Sandbox.parquet \
   -dtO 86400 \
   -Qme input/Sandbox/Qob_Sandbox_19700101_19700110_TR_tst.nc4
-```
-
-```bash
-cmpncf \
-  -prv output/Sandbox/Qou_Sandbox_19700101_19700110_TR.nc4 \
-  -now output/Sandbox/Qou_Sandbox_19700101_19700110_TR_tst.nc4 \
-  -rtl 1e-10 \
-  -atl 1e-10
-```
-
-```bash
-cmpncf \
-  -prv output/Sandbox/Qfi_Sandbox_19700101_19700110_TR.nc4 \
-  -now output/Sandbox/Qfi_Sandbox_19700101_19700110_TR_tst.nc4 \
-  -rtl 1e-10 \
-  -atl 1e-10
 ```
 
 ```bash
