@@ -9,6 +9,51 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [2.0.0b4] - 2026-09-29
+
+### Added
+
+- **Data Assimilation (DA)**: Introduced Kalman Filter assimilation components
+  (`calc_Kal_mat`, `make_dQe_mat`, `make_dQo_mat`, `calc_GCt_vec`,
+  `make_SAe_mat`, `make_SA0_mat`) for integrating gauge observations
+  dynamically during routing. This implementation is substantially modified
+  from Emery et al., 2020 (DOI: 10.1175/JHM-D-19-0084.1). The averaging window
+  is now shifted by one routing time step to align with code base and computed
+  at runtime, the topological radius localization was replaced with a
+  Gaspari-Cohn (GC) decay function, and covariance is now computed directly
+  from standard deviation via GC decay.
+- **Bias Correction (BC)**: Long-Term Inverse Routing (LTIR) was added with
+  associated CLI utilities (`ltir_scl`, `ltir_cor`) and core functions
+  (`calc_scl_vec`) to compute and apply scaling factors to external inflows.
+  This was directly adapted from Collins et al., 2024
+  (DOI: 10.1038/s41561-024-01421-5) but split in two steps to allow application
+  to time ranges that potentially differ from that of observations.
+- **Mathematical Utilities**: Added `calc_MBy_sca` to compute sparse matrix
+  memory footprints and `calc_Nmn_mat` for Neumann series expansions.
+
+### Changed
+
+- **Sandbox Dataset (v11)**: Bumped Zenodo DOI to `10.5281/zenodo.23044811`,
+  updating from `21248920`, and integrated the new Bias Correction (`BC`), Data
+  Assimilation (`DA`) and Hybrid (`HY`)  baselines into the `dsandbox` fetcher.
+- **CI Verification Pipeline**: Refactored the GitHub Actions CI workflow and
+  `TESTING.md` to programmatically validate five distinct routing states (`TR`,
+  `OL`, `BC`, `DA`, `HY`) using a bash loop.
+- **Error Statistics Terminology**: Replaced variance (`Qout_var`, `Qext_var`)
+  and covariance (`_cov`) metadata variables with standard deviation
+  (`Qout_sdv`, `Qext_sdv`) in core preprocessing files (`prep_Qou_ncf`,
+  `prep_Qex_ncf`).
+- **Routing Matrices**: Renamed `make_Mus_mat` to `make_Msk_mat` to align
+  with the semantic nomenclature, and applied minor code cleanups to the
+  `updt_Mus_Qou` routing loop (removing a redundant variable assignment).
+
+### Removed
+
+- **Explicit Window Matrices**: Removed experimental explicit matrix builders
+  (`make_Wdw_mat`, `make_Wdx_mat`) because the new `make_SAe_mat` and
+  `make_SA0_mat` functions allow for exact, highly efficient computation of
+  the selection operators without memory-intensive full matrix expansions.
+
 ## [2.0.0b3] - 2026-07-07
 
 ### Added
