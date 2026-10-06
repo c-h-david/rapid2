@@ -251,6 +251,8 @@ still obey the `<type><structure1>_` prefix:
   mathematical properties like `nlp` for nilpotent).
 - **Sparse Matrix Idioms:** Standard coordinate arrays used for sparse matrix
   assembly (`row`, `col`, `val`).
+- **CLI Dispatch Idioms:** Standard string variables used exclusively within
+  the command-line dispatcher (e.g., `YS_grp` for group, `YS_cmd` for command).
 
 The following are exempt from strict triplet checking and `<type><structure1>_`
 prefix:
