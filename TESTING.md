@@ -122,20 +122,22 @@ python3 -m doctest src/rapid2/core/*.py
 
 ```bash
 for XP in TR OL BC DA HY; do
-  rapid2 -nml input/Sandbox/nml_Sandbox_${XP}.yml
+  rapid2 run -nml input/Sandbox/nml_Sandbox_${XP}.yml
 
-  cmpncf -prv output/Sandbox/Qou_Sandbox_19700101_19700110_${XP}.nc4 \
+  rapid2 comp netcdf \
+         -prv output/Sandbox/Qou_Sandbox_19700101_19700110_${XP}.nc4 \
          -now output/Sandbox/Qou_Sandbox_19700101_19700110_${XP}_tst.nc4 \
          -rtl 1e-10 -atl 1e-10
 
-  cmpncf -prv output/Sandbox/Qfi_Sandbox_19700101_19700110_${XP}.nc4 \
+  rapid2 comp netcdf \
+         -prv output/Sandbox/Qfi_Sandbox_19700101_19700110_${XP}.nc4 \
          -now output/Sandbox/Qfi_Sandbox_19700101_19700110_${XP}_tst.nc4 \
          -rtl 1e-10 -atl 1e-10
 done
 ```
 
 ```bash
-subsampleqout \
+rapid2 sample spacetime \
   -Qou output/Sandbox/Qou_Sandbox_19700101_19700110_TR.nc4 \
   -obs input/Sandbox/obs_Sandbox.parquet \
   -dtO 86400 \
@@ -143,7 +145,7 @@ subsampleqout \
 ```
 
 ```bash
-cmpncf \
+rapid2 comp netcdf \
   -prv input/Sandbox/Qob_Sandbox_19700101_19700110_TR.nc4 \
   -now input/Sandbox/Qob_Sandbox_19700101_19700110_TR_tst.nc4 \
   -rtl 1e-10 \

@@ -81,7 +81,7 @@ pip install .
 ### Run Instructions
 
 ```bash
-rapid2 --namelist nml_Sandbox_TR.yml
+rapid2 run --namelist nml_Sandbox_TR.yml
 ```
 
 ### Usage Examples

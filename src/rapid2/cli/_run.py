@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # *****************************************************************************
-# _rapid2.py
+# _run.py
 # *****************************************************************************
 
 # Author:
@@ -58,8 +58,8 @@ def main() -> None:
         ),
         epilog=(
             "examples:\n"
-            "  rapid2 --namelist input/Sandbox/nml_Sandbox_OL.yml\n"
-            "  rapid2 --namelist input/Sandbox/nml_Sandbox_TR.yml\n"
+            "  run --namelist input/Sandbox/nml_Sandbox_OL.yml\n"
+            "  run --namelist input/Sandbox/nml_Sandbox_TR.yml\n"
             "\n"
             "citation:\n"
             "  If using RAPID2, please cite:\n"

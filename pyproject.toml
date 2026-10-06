@@ -70,6 +70,7 @@ dev = [
 Repository = "https://github.com/c-h-david/rapid2.git"
 
 [project.scripts]
+rapid2 = "rapid2.cli._rapid2:main"
 run = "rapid2.cli._run:main"
 rapid1to2 = "rapid2.cli._rapid1to2:main"
 dgldas2 = "rapid2.cli._dgldas2:main"
