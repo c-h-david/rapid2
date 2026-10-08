@@ -133,9 +133,11 @@ the semantic grammar rules established in [`NOMENCLATURE.md`][LOC_NOMENC].
   (`npt.NDArray`) with explicit inner types (e.g., `npt.NDArray[np.int32]`
   or `npt.NDArray[np.float64]`) for all array inputs and outputs.
 - **Error Handling:** Let algorithmic violations (e.g., misaligned arrays,
-  improper sorting) fail loudly by raising a `ValueError`. For I/O
-  operations, catch `IOError` and use `raise IOError(...) from e` to preserve
-  the traceback. Do not use `sys.exit(1)` inside base mathematical functions.
+  improper sorting) fail loudly by raising a `ValueError`. Keep `try/except`
+  blocks strictly narrow around file-opening calls, catching `IOError` and
+  using `raise IOError(...) from err` to preserve tracebacks without wrapping
+  data parsing or array operations. Do not use `sys.exit(1)` or `print()`
+  inside base library functions.
 - **Sparse Matrices:** Heavy matrix representations of the river network
   must default to `csc_matrix` (`scipy.sparse`) to optimize operations and
   memory footprint.
