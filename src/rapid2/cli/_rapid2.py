@@ -41,19 +41,20 @@ def main() -> None:
         print(f"RAPID2 {__version__} - Unified Command Line Interface")
         print("\nUsage: rapid2 <group> <command> [options]")
         print("\nAvailable commands:")
-        print("  run              Execute the core matrix-based routing model")
-        print("  fetch sandbox    Download Sandbox synthetic experiment files")
-        print("  fetch gldas2     Download remote GLDAS-2 data")
-        print("  inflow lsm       Map prepped LSM grids to river networks")
-        print("  inflow sandbox   Generate synthetic sine-wave inflow")
-        print("  init zero        Generate cold-start initial discharge files")
-        print("  sample spacetime Align NetCDF data to match gauges")
-        print("  bias learn       Compute LTIR scalars to learn the bias")
-        print("  bias correct     Apply the learned scalars to correct inflow")
-        print("  plot hydro       Generate SVG hydrograph visualizations")
-        print("  comp netcdf      Compare NetCDF files for regression testing")
-        print("  legacy static    Upgrade RAPID1 CSV files to Parquet")
-        print("  legacy inflow    Convert legacy external volumes to flows")
+        print("  core run         Run the core matrix routing model")
+        print("  core ltir        Apply inflow bias correction")
+        print("  pull sandbox     Download Sandbox data")
+        print("  pull gldas2      Download raw GLDAS2 data")
+        print("  prep gldas2      Reformat GLDAS2 time and units")
+        print("  prep couple      Map LSM grids to river networks")
+        print("  prep sandbox     Generate synthetic inflow")
+        print("  prep coldinit    Generate cold-start states")
+        print("  prep sample      Align NetCDF data to gauges")
+        print("  prep ltir        Compute LTIR scalars")
+        print("  eval graph       Generate SVG hydrographs")
+        print("  eval cmpncf      Compare NetCDF files")
+        print("  v1v2 static      Upgrade RAPID1 CSV to Parquet")
+        print("  v1v2 inflow      Convert volumes to flow rates")
         sys.exit(0)
 
     # -------------------------------------------------------------------------
@@ -63,97 +64,104 @@ def main() -> None:
     YS_cmd = sys.argv[2] if len(sys.argv) > 2 else ""
 
     # -------------------------------------------------------------------------
-    # Dispatch to: rapid2 run
+    # Dispatch to: rapid2 core run
     # -------------------------------------------------------------------------
-    if YS_grp == "run":
+    if YS_grp == "core" and YS_cmd == "run":
         # Rewrite sys.argv so argparse prints the correct usage string
-        sys.argv = ["rapid2 run"] + sys.argv[2:]
+        sys.argv = ["rapid2 core run"] + sys.argv[3:]
         _run.main()
 
     # -------------------------------------------------------------------------
-    # Dispatch to: rapid2 fetch sandbox
+    # Dispatch to: rapid2 core ltir
     # -------------------------------------------------------------------------
-    elif YS_grp == "fetch" and YS_cmd == "sandbox":
-        sys.argv = ["rapid2 fetch sandbox"] + sys.argv[3:]
-        _dsandbox.main()
-
-    # -------------------------------------------------------------------------
-    # Dispatch to: rapid2 fetch gldas2
-    # -------------------------------------------------------------------------
-    elif YS_grp == "fetch" and YS_cmd == "gldas2":
-        sys.argv = ["rapid2 fetch gldas2"] + sys.argv[3:]
-        _dgldas2.main()
-
-    # -------------------------------------------------------------------------
-    # Dispatch to: rapid2 inflow lsm
-    # -------------------------------------------------------------------------
-    elif YS_grp == "inflow" and YS_cmd == "lsm":
-        sys.argv = ["rapid2 inflow lsm"] + sys.argv[3:]
-        _cpllsm.main()
-
-    # -------------------------------------------------------------------------
-    # Dispatch to: rapid2 inflow sandbox
-    # -------------------------------------------------------------------------
-    elif YS_grp == "inflow" and YS_cmd == "sandbox":
-        sys.argv = ["rapid2 inflow sandbox"] + sys.argv[3:]
-        _sandboxqext.main()
-
-    # -------------------------------------------------------------------------
-    # Dispatch to: rapid2 init zero
-    # -------------------------------------------------------------------------
-    elif YS_grp == "init" and YS_cmd == "zero":
-        sys.argv = ["rapid2 init zero"] + sys.argv[3:]
-        _zeroqinit.main()
-
-    # -------------------------------------------------------------------------
-    # Dispatch to: rapid2 sample spacetime
-    # -------------------------------------------------------------------------
-    elif YS_grp == "sample" and YS_cmd == "spacetime":
-        sys.argv = ["rapid2 sample spacetime"] + sys.argv[3:]
-        _subsampleqout.main()
-
-    # -------------------------------------------------------------------------
-    # Dispatch to: rapid2 bias learn
-    # -------------------------------------------------------------------------
-    elif YS_grp == "bias" and YS_cmd == "learn":
-        sys.argv = ["rapid2 bias learn"] + sys.argv[3:]
-        _ltir_scl.main()
-
-    # -------------------------------------------------------------------------
-    # Dispatch to: rapid2 bias correct
-    # -------------------------------------------------------------------------
-    elif YS_grp == "bias" and YS_cmd == "correct":
-        sys.argv = ["rapid2 bias correct"] + sys.argv[3:]
+    elif YS_grp == "core" and YS_cmd == "ltir":
+        sys.argv = ["rapid2 core ltir"] + sys.argv[3:]
         _ltir_cor.main()
 
     # -------------------------------------------------------------------------
-    # Dispatch to: rapid2 plot hydro
+    # Dispatch to: rapid2 pull sandbox
     # -------------------------------------------------------------------------
-    elif YS_grp == "plot" and YS_cmd == "hydro":
-        sys.argv = ["rapid2 plot hydro"] + sys.argv[3:]
+    elif YS_grp == "pull" and YS_cmd == "sandbox":
+        sys.argv = ["rapid2 pull sandbox"] + sys.argv[3:]
+        _dsandbox.main()
+
+    # -------------------------------------------------------------------------
+    # Dispatch to: rapid2 pull gldas2
+    # -------------------------------------------------------------------------
+    elif YS_grp == "pull" and YS_cmd == "gldas2":
+        sys.argv = ["rapid2 pull gldas2"] + sys.argv[3:]
+        _dgldas2.main()
+
+    # -------------------------------------------------------------------------
+    # Dispatch to: rapid2 prep gldas2
+    # -------------------------------------------------------------------------
+    elif YS_grp == "prep" and YS_cmd == "gldas2":
+        sys.argv = ["rapid2 prep gldas2"] + sys.argv[3:]
+        _dgldas2.main()
+
+    # -------------------------------------------------------------------------
+    # Dispatch to: rapid2 prep couple
+    # -------------------------------------------------------------------------
+    elif YS_grp == "prep" and YS_cmd == "couple":
+        sys.argv = ["rapid2 prep couple"] + sys.argv[3:]
+        _cpllsm.main()
+
+    # -------------------------------------------------------------------------
+    # Dispatch to: rapid2 prep sandbox
+    # -------------------------------------------------------------------------
+    elif YS_grp == "prep" and YS_cmd == "sandbox":
+        sys.argv = ["rapid2 prep sandbox"] + sys.argv[3:]
+        _sandboxqext.main()
+
+    # -------------------------------------------------------------------------
+    # Dispatch to: rapid2 prep coldinit
+    # -------------------------------------------------------------------------
+    elif YS_grp == "prep" and YS_cmd == "coldinit":
+        sys.argv = ["rapid2 prep coldinit"] + sys.argv[3:]
+        _zeroqinit.main()
+
+    # -------------------------------------------------------------------------
+    # Dispatch to: rapid2 prep sample
+    # -------------------------------------------------------------------------
+    elif YS_grp == "prep" and YS_cmd == "sample":
+        sys.argv = ["rapid2 prep sample"] + sys.argv[3:]
+        _subsampleqout.main()
+
+    # -------------------------------------------------------------------------
+    # Dispatch to: rapid2 prep ltir
+    # -------------------------------------------------------------------------
+    elif YS_grp == "prep" and YS_cmd == "ltir":
+        sys.argv = ["rapid2 prep ltir"] + sys.argv[3:]
+        _ltir_scl.main()
+
+    # -------------------------------------------------------------------------
+    # Dispatch to: rapid2 eval graph
+    # -------------------------------------------------------------------------
+    elif YS_grp == "eval" and YS_cmd == "graph":
+        sys.argv = ["rapid2 eval graph"] + sys.argv[3:]
         _hydrographs.main()
 
     # -------------------------------------------------------------------------
-    # Dispatch to: rapid2 legacy static
+    # Dispatch to: rapid2 eval cmpncf
     # -------------------------------------------------------------------------
-    elif YS_grp == "legacy" and YS_cmd == "static":
-        sys.argv = ["rapid2 legacy static"] + sys.argv[3:]
+    elif YS_grp == "eval" and YS_cmd == "cmpncf":
+        # Rewrite sys.argv so argparse prints the correct usage string
+        sys.argv = ["rapid2 eval cmpncf"] + sys.argv[3:]
+        _cmpncf.main()
+
+    # -------------------------------------------------------------------------
+    # Dispatch to: rapid2 v1v2 static
+    # -------------------------------------------------------------------------
+    elif YS_grp == "v1v2" and YS_cmd == "static":
+        sys.argv = ["rapid2 v1v2 static"] + sys.argv[3:]
         _rapid1to2.main()
 
     # -------------------------------------------------------------------------
-    # Dispatch to: rapid2 legacy inflow
+    # Dispatch to: rapid2 v1v2 inflow
     # -------------------------------------------------------------------------
-    elif YS_grp == "legacy" and YS_cmd == "inflow":
-        sys.argv = ["rapid2 legacy inflow"] + sys.argv[3:]
+    elif YS_grp == "v1v2" and YS_cmd == "inflow":
+        sys.argv = ["rapid2 v1v2 inflow"] + sys.argv[3:]
         _m3rivtoqext.main()
-
-    # -------------------------------------------------------------------------
-    # Dispatch to: rapid2 comp netcdf
-    # -------------------------------------------------------------------------
-    elif YS_grp == "comp" and YS_cmd == "netcdf":
-        # Rewrite sys.argv so argparse prints the correct usage string
-        sys.argv = ["rapid2 comp netcdf"] + sys.argv[3:]
-        _cmpncf.main()
 
     # -------------------------------------------------------------------------
     # Handle unknown commands
