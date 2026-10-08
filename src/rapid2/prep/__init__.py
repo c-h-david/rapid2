@@ -3,9 +3,9 @@
 # *****************************************************************************
 
 # Purpose:
-# This file used in Python to define packages and initialize their namespaces.
+# Define the prep subpackage and export pre-processing functions.
 # Author:
-# Cedric H. David, 2025-2026
+# Cedric H. David, 2026-2026
 
 
 # *****************************************************************************
@@ -13,29 +13,17 @@
 # *****************************************************************************
 
 # -----------------------------------------------------------------------------
-# Dynamic Package Versioning
+# prep API Facade
 # -----------------------------------------------------------------------------
-import importlib.metadata
-
-try:
-    __version__ = importlib.metadata.version("rapid2")
-except importlib.metadata.PackageNotFoundError:
-    __version__ = "unknown"
-
-# -----------------------------------------------------------------------------
-# Top-Level Namespace Exports
-# -----------------------------------------------------------------------------
-from rapid2 import base, cmds, prep, v1v2
+from rapid2.prep.coldinit import coldinit
+from rapid2.prep.sandbox import sandbox
 
 # -----------------------------------------------------------------------------
 # Explicit Public Interface
 # -----------------------------------------------------------------------------
 __all__ = [
-    "__version__",
-    "base",
-    "cmds",
-    "prep",
-    "v1v2",
+    "coldinit",
+    "sandbox",
 ]
 
 

@@ -3,9 +3,9 @@
 # *****************************************************************************
 
 # Purpose:
-# This file used in Python to define packages and initialize their namespaces.
+# Define the v1v2 subpackage and export legacy conversion functions.
 # Author:
-# Cedric H. David, 2025-2026
+# Cedric H. David, 2026-2026
 
 
 # *****************************************************************************
@@ -13,29 +13,17 @@
 # *****************************************************************************
 
 # -----------------------------------------------------------------------------
-# Dynamic Package Versioning
+# v1v2 API Facade
 # -----------------------------------------------------------------------------
-import importlib.metadata
-
-try:
-    __version__ = importlib.metadata.version("rapid2")
-except importlib.metadata.PackageNotFoundError:
-    __version__ = "unknown"
-
-# -----------------------------------------------------------------------------
-# Top-Level Namespace Exports
-# -----------------------------------------------------------------------------
-from rapid2 import base, cmds, prep, v1v2
+from rapid2.v1v2.inflow import inflow
+from rapid2.v1v2.static import static
 
 # -----------------------------------------------------------------------------
 # Explicit Public Interface
 # -----------------------------------------------------------------------------
 __all__ = [
-    "__version__",
-    "base",
-    "cmds",
-    "prep",
-    "v1v2",
+    "inflow",
+    "static",
 ]
 
 
