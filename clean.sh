@@ -22,26 +22,15 @@ IFS=$'\n\t'
 # *****************************************************************************
 # Clean Python Caches and Build Artifacts
 # *****************************************************************************
-targets=(
-    "build"
-    "src/rapid2.egg-info"
-    ".mypy_cache"
-    "src/.mypy_cache"
-    "src/rapid2/.mypy_cache"
-    "src/rapid2/core/.mypy_cache"
-    "src/rapid2/cli/.mypy_cache"
-    "__pycache__"
-    "src/__pycache__"
-    "src/rapid2/__pycache__"
-    "src/rapid2/core/__pycache__"
-    "src/rapid2/cli/__pycache__"
-)
+find . -type d \( \
+    -name "__pycache__" -o \
+    -name ".mypy_cache" -o \
+    -name "*.egg-info" -o \
+    -name "build" \
+\) -exec rm -rf {} +
 
-for target in "${targets[@]}"; do
-    rm -rf "$target"
-done
+find . -type f -name ".DS_Store" -exec rm -f {} +
 
-find . -name .DS_Store -delete
 
 # *****************************************************************************
 # Nuke and Rebuild Virtual Environment
