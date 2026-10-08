@@ -113,7 +113,7 @@ jobs:
             -obs input/Sandbox/obs_Sandbox.parquet \
             -dtO 86400 \
             -Qme input/Sandbox/Qob_Sandbox_19700101_19700110_TR_tst.nc4
-          rapid2 comp netcdf \
+          rapid2 eval cmpncf \
             -prv input/Sandbox/Qob_Sandbox_19700101_19700110_TR.nc4 \
             -now input/Sandbox/Qob_Sandbox_19700101_19700110_TR_tst.nc4 \
             -rtl 1e-10 \
