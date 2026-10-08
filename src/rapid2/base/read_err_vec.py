@@ -51,7 +51,13 @@ def read_err_vec(
     array([10., 10., 10.,  5.,  5.])
     """
 
-    s = netCDF4.Dataset(std_ncf, "r")
+    # -------------------------------------------------------------------------
+    # Open NetCDF file
+    # -------------------------------------------------------------------------
+    try:
+        s = netCDF4.Dataset(std_ncf, "r")
+    except IOError as err:
+        raise IOError(f"Unable to open {std_ncf}") from err
 
     # -------------------------------------------------------------------------
     # Discover variable prefix

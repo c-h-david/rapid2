@@ -89,7 +89,13 @@ def read_std_vec(
           dtype=int32)
     """
 
-    s = netCDF4.Dataset(std_ncf, "r")
+    # -------------------------------------------------------------------------
+    # Open NetCDF file
+    # -------------------------------------------------------------------------
+    try:
+        s = netCDF4.Dataset(std_ncf, "r")
+    except IOError as err:
+        raise IOError(f"Unable to open {std_ncf}") from err
 
     # -------------------------------------------------------------------------
     # Check dimensions exist

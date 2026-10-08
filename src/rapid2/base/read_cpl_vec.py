@@ -57,18 +57,20 @@ def read_cpl_vec(
     """
 
     # -------------------------------------------------------------------------
-    # Read Parquet and populate arrays
+    # Read Parquet
     # -------------------------------------------------------------------------
     try:
         table = pq.read_table(cpl_pqt, columns=["riv", "skm", "1bi", "1bj"])
+    except IOError as err:
+        raise IOError(f"Unable to open {cpl_pqt}") from err
 
-        IV_riv_tot = table.column("riv").to_numpy().astype(np.int32)
-        ZV_skm_tot = table.column("skm").to_numpy().astype(np.float64)
-        IV_1bi_tot = table.column("1bi").to_numpy().astype(np.int32)
-        IV_1bj_tot = table.column("1bj").to_numpy().astype(np.int32)
-
-    except IOError as e:
-        raise IOError(f"Unable to open {cpl_pqt}") from e
+    # -------------------------------------------------------------------------
+    # Populate arrays
+    # -------------------------------------------------------------------------
+    IV_riv_tot = table.column("riv").to_numpy().astype(np.int32)
+    ZV_skm_tot = table.column("skm").to_numpy().astype(np.float64)
+    IV_1bi_tot = table.column("1bi").to_numpy().astype(np.int32)
+    IV_1bj_tot = table.column("1bj").to_numpy().astype(np.int32)
 
     return IV_riv_tot, ZV_skm_tot, IV_1bi_tot, IV_1bj_tot
 

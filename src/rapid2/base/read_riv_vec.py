@@ -41,15 +41,17 @@ def read_riv_vec(riv_pqt: str) -> npt.NDArray[np.int32]:
     """
 
     # -------------------------------------------------------------------------
-    # Read Parquet and populate array
+    # Read Parquet
     # -------------------------------------------------------------------------
     try:
         table = pq.read_table(riv_pqt, columns=["riv"])
-
-        IV_riv = table.column("riv").to_numpy().astype(np.int32)
-
     except IOError as e:
         raise IOError(f"Unable to open {riv_pqt}") from e
+
+    # -------------------------------------------------------------------------
+    # Populate array
+    # -------------------------------------------------------------------------
+    IV_riv = table.column("riv").to_numpy().astype(np.int32)
 
     return IV_riv
 

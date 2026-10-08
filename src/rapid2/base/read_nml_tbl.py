@@ -58,75 +58,74 @@ def read_nml_tbl(nml_yml: str) -> Dict[str, Any]:
     >>> AT_nml["Qfi_ncf"]
     './output/Sandbox/Qfi_Sandbox_19700101_19700110_TR_tst.nc4'
     """
-
+    # -------------------------------------------------------------------------
+    # Load namelist file
+    # -------------------------------------------------------------------------
     try:
-        # ---------------------------------------------------------------------
-        # Load namelist
-        # ---------------------------------------------------------------------
         with open(nml_yml, "r") as ymlfile:
             AT_nml: Dict[str, Any] = yaml.safe_load(ymlfile)
-        # ---------------------------------------------------------------------
-        # Check for required keys
-        # ---------------------------------------------------------------------
-        AT_nml_tmp = {
-            "Q00_ncf": None,
-            "Qex_ncf": None,
-            "con_pqt": None,
-            "kpr_pqt": None,
-            "xpr_pqt": None,
-            "bas_pqt": None,
-            "IS_dtR": None,
-            "Qou_ncf": None,
-            "Qfi_ncf": None,
-        }
+    except (IOError, yaml.YAMLError) as err:
+        raise IOError(f"Unable to open {nml_yml}") from err
 
-        # Dynamically add DA keys to checklist if observations are provided
-        if "Qob_ncf" in AT_nml:
-            AT_nml_tmp.update(
-                {
-                    "Qob_ncf": None,
-                    "ZS_scl_inf": None,
-                    "ZS_scl_sdv": None,
-                    "ZS_lkm_cov": None,
-                }
-            )
+    # -------------------------------------------------------------------------
+    # Check for required keys
+    # -------------------------------------------------------------------------
+    AT_nml_tmp = {
+        "Q00_ncf": None,
+        "Qex_ncf": None,
+        "con_pqt": None,
+        "kpr_pqt": None,
+        "xpr_pqt": None,
+        "bas_pqt": None,
+        "IS_dtR": None,
+        "Qou_ncf": None,
+        "Qfi_ncf": None,
+    }
 
-        if AT_nml_tmp.keys() - AT_nml.keys():
-            raise ValueError(
-                f"Missing required keys: {AT_nml_tmp.keys() - AT_nml.keys()}"
-            )
+    # Dynamically add DA keys to checklist if observations are provided
+    if "Qob_ncf" in AT_nml:
+        AT_nml_tmp.update(
+            {
+                "Qob_ncf": None,
+                "ZS_scl_inf": None,
+                "ZS_scl_sdv": None,
+                "ZS_lkm_cov": None,
+            }
+        )
 
-        # ---------------------------------------------------------------------
-        # Check that timestep is stricly positive integer and np.int32
-        # ---------------------------------------------------------------------
-        if not isinstance(AT_nml["IS_dtR"], int):
-            raise ValueError("IS_dtR must be an integer")
+    if AT_nml_tmp.keys() - AT_nml.keys():
+        raise ValueError(
+            f"Missing required keys: {AT_nml_tmp.keys() - AT_nml.keys()}"
+        )
 
-        if AT_nml["IS_dtR"] <= 0:
-            raise ValueError("IS_dtR must be strictly positive")
+    # -------------------------------------------------------------------------
+    # Check that timestep is stricly positive integer and np.int32
+    # -------------------------------------------------------------------------
+    if not isinstance(AT_nml["IS_dtR"], int):
+        raise ValueError("IS_dtR must be an integer")
 
-        AT_nml["IS_dtR"] = np.int32(AT_nml["IS_dtR"])
+    if AT_nml["IS_dtR"] <= 0:
+        raise ValueError("IS_dtR must be strictly positive")
 
-        # ---------------------------------------------------------------------
-        # Check that DA parameters are non-negative numbers and np.float64
-        # ---------------------------------------------------------------------
-        if "Qob_ncf" in AT_nml:
-            for YS_key in ["ZS_scl_inf", "ZS_scl_sdv", "ZS_lkm_cov"]:
-                if not isinstance(AT_nml[YS_key], (int, float)):
-                    raise ValueError(f"{YS_key} must be a number")
+    AT_nml["IS_dtR"] = np.int32(AT_nml["IS_dtR"])
 
-                if AT_nml[YS_key] < 0:
-                    raise ValueError(f"{YS_key} must be non-negative")
+    # -------------------------------------------------------------------------
+    # Check that DA parameters are non-negative numbers and np.float64
+    # -------------------------------------------------------------------------
+    if "Qob_ncf" in AT_nml:
+        for YS_key in ["ZS_scl_inf", "ZS_scl_sdv", "ZS_lkm_cov"]:
+            if not isinstance(AT_nml[YS_key], (int, float)):
+                raise ValueError(f"{YS_key} must be a number")
 
-                AT_nml[YS_key] = np.float64(AT_nml[YS_key])
+            if AT_nml[YS_key] < 0:
+                raise ValueError(f"{YS_key} must be non-negative")
 
-        # ---------------------------------------------------------------------
-        # Return dictionary
-        # ---------------------------------------------------------------------
-        return AT_nml
+            AT_nml[YS_key] = np.float64(AT_nml[YS_key])
 
-    except IOError as e:
-        raise IOError(f"Unable to open {nml_yml}") from e
+    # -------------------------------------------------------------------------
+    # Return dictionary
+    # -------------------------------------------------------------------------
+    return AT_nml
 
 
 # *****************************************************************************

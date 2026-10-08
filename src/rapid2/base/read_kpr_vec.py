@@ -49,19 +49,21 @@ def read_kpr_vec(
     """
 
     # -------------------------------------------------------------------------
-    # Read Parquet and populate array
+    # Read Parquet
     # -------------------------------------------------------------------------
     try:
         table = pq.read_table(kpr_pqt, columns=["riv", "kpr"])
+    except IOError as err:
+        raise IOError(f"Unable to open {kpr_pqt}") from err
 
-        IV_riv_tot = table.column("riv").to_numpy().astype(np.int32)
-        ZV_kpr_tot = table.column("kpr").to_numpy().astype(np.float64)
+    # -------------------------------------------------------------------------
+    # Populate array
+    # -------------------------------------------------------------------------
+    IV_riv_tot = table.column("riv").to_numpy().astype(np.int32)
+    ZV_kpr_tot = table.column("kpr").to_numpy().astype(np.float64)
 
-        IV_riv_bas = IV_riv_tot[IV_0bi_bas]
-        ZV_kpr_bas = ZV_kpr_tot[IV_0bi_bas]
-
-    except IOError as e:
-        raise IOError(f"Unable to open {kpr_pqt}") from e
+    IV_riv_bas = IV_riv_tot[IV_0bi_bas]
+    ZV_kpr_bas = ZV_kpr_tot[IV_0bi_bas]
 
     return IV_riv_bas, ZV_kpr_bas
 

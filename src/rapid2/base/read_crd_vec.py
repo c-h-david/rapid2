@@ -51,17 +51,19 @@ def read_crd_vec(
     """
 
     # -------------------------------------------------------------------------
-    # Read Parquet and populate arrays
+    # Read Parquet
     # -------------------------------------------------------------------------
     try:
         table = pq.read_table(crd_pqt, columns=["riv", "lon", "lat"])
+    except IOError as err:
+        raise IOError(f"Unable to open {crd_pqt}") from err
 
-        IV_riv_tot = table.column("riv").to_numpy().astype(np.int32)
-        ZV_lon_tot = table.column("lon").to_numpy().astype(np.float64)
-        ZV_lat_tot = table.column("lat").to_numpy().astype(np.float64)
-
-    except IOError as e:
-        raise IOError(f"Unable to open {crd_pqt}") from e
+    # -------------------------------------------------------------------------
+    # Populate arrays
+    # -------------------------------------------------------------------------
+    IV_riv_tot = table.column("riv").to_numpy().astype(np.int32)
+    ZV_lon_tot = table.column("lon").to_numpy().astype(np.float64)
+    ZV_lat_tot = table.column("lat").to_numpy().astype(np.float64)
 
     return IV_riv_tot, ZV_lon_tot, ZV_lat_tot
 

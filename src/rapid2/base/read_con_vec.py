@@ -48,16 +48,18 @@ def read_con_vec(
     """
 
     # -------------------------------------------------------------------------
-    # Read Parquet and populate arrays
+    # Read Parquet
     # -------------------------------------------------------------------------
     try:
         table = pq.read_table(con_pqt, columns=["riv", "dwn"])
+    except IOError as err:
+        raise IOError(f"Unable to open {con_pqt}") from err
 
-        IV_riv_tot = table.column("riv").to_numpy().astype(np.int32)
-        IV_dwn_tot = table.column("dwn").to_numpy().astype(np.int32)
-
-    except IOError as e:
-        raise IOError(f"Unable to open {con_pqt}") from e
+    # -------------------------------------------------------------------------
+    # Populate arrays
+    # -------------------------------------------------------------------------
+    IV_riv_tot = table.column("riv").to_numpy().astype(np.int32)
+    IV_dwn_tot = table.column("dwn").to_numpy().astype(np.int32)
 
     return IV_riv_tot, IV_dwn_tot
 
