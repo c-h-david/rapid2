@@ -14,7 +14,7 @@ Load the relevant sources before you start; do not reproduce their content from
 memory.
 
 - [`NOMENCLATURE.md`][LOC_NOMENC] — semantic naming grammar for data
-  structures, files, and functions. Strictly enforced for the core model and
+  structures, files, and functions. Strictly enforced for the main model and
   library.
 - [`CONTRIBUTING.md`][LOC_CONTRI] — fork / branch / test / pull request flow.
 - [`TESTING.md`][LOC_TSTING] — every lint, format, type-check, and doctest
@@ -25,9 +25,9 @@ memory.
   for Continuous Linting (static analysis) and Continuous Integration
   (runtime tests) run on every PR.
 - [`STYLE.md`][LOC__STYLE] — the file-structure and formatting standard for CLI
-  scripts, core functions, and markdown files (including link styles and line
+  scripts, base functions, and markdown files (including link styles and line
   limits).
-- [`src/rapid2/cli/_rapid2.py`][LOC_RAPID2] — the canonical script to mirror;
+- [`src/rapid2/cmds/_rapid2.py`][LOC_RAPID2] — the canonical script to mirror;
   for a small read-and-report tool, [`_zeroqinit.py`][LOC_ZEROQI] is lighter.
 
 ## Program structure
@@ -36,10 +36,10 @@ Code style and CI are defined by the sources above. The one convention worth
 stating up front is program structure, because a coding assistant rarely infers
 it correctly:
 
-- New CLI tools go under `src/rapid2/cli/` as `_<tool>.py`, follow the skeleton
+- New CLI tools go under `src/rapid2/cmds/` as `_<tool>.py`, follow the skeleton
   in [`STYLE.md`][LOC__STYLE], and mirror `_rapid2.py`.
 - Register each new CLI under `[project.scripts]` in `pyproject.toml`.
-- New core functions go under `src/rapid2/core/` as `<function>.py`, follow the
+- New base functions go under `src/rapid2/base/` as `<function>.py`, follow the
   function naming conventions in [`NOMENCLATURE.md`][LOC_NOMENC] and skeleton
   in [`STYLE.md`][LOC__STYLE], and mirror `read_con_vec.py`.
 - Strictly enforce explicit typing for array inputs and outputs using
@@ -76,5 +76,5 @@ Before opening a PR:
 [LOC_CLWORK]: .github/workflows/CL.yml
 [LOC_CIWORK]: .github/workflows/CI.yml
 [LOC__STYLE]: STYLE.md
-[LOC_RAPID2]: src/rapid2/cli/_rapid2.py
-[LOC_ZEROQI]: src/rapid2/cli/_zeroqinit.py
+[LOC_RAPID2]: src/rapid2/cmds/_rapid2.py
+[LOC_ZEROQI]: src/rapid2/cmds/_zeroqinit.py

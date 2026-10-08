@@ -6,9 +6,9 @@ RAPID2. It complements our
 and our
 [`TESTING.md`][LOC_TSTING].
 
-## 1. Command-Line Interface (`cli/`)
+## 1. Command-Line Interface (`cmds/`)
 
-Every command-line tool in `rapid2` lives under `src/rapid2/cli/` in a file
+Every command-line tool in `rapid2` lives under `src/rapid2/cmds/` in a file
 named `_<tool>.py` and follows the structure below. Mirror `_rapid2.py`
 exactly: it is the canonical example. For a small read-input and report tool,
 `_zeroqinit.py` is a lighter example to mirror.
@@ -113,9 +113,9 @@ if __name__ == "__main__":
 # *****************************************************************************
 ```
 
-## 2. Core Library (`core/`)
+## 2. Base Library (`base/`)
 
-Every internal core utility lives in `src/rapid2/core/` as a standalone file.
+Every internal base utility lives in `src/rapid2/base/` as a standalone file.
 To maintain a strict 1:1 mapping across the library, the filename must exactly
 match the name of the primary public function it contains, adhering strictly to
 the semantic grammar rules established in [`NOMENCLATURE.md`][LOC_NOMENC].
@@ -135,7 +135,7 @@ the semantic grammar rules established in [`NOMENCLATURE.md`][LOC_NOMENC].
 - **Error Handling:** Let algorithmic violations (e.g., misaligned arrays,
   improper sorting) fail loudly by raising a `ValueError`. For I/O
   operations, catch `IOError` and use `raise IOError(...) from e` to preserve
-  the traceback. Do not use `sys.exit(1)` inside core mathematical functions.
+  the traceback. Do not use `sys.exit(1)` inside base mathematical functions.
 - **Sparse Matrices:** Heavy matrix representations of the river network
   must default to `csc_matrix` (`scipy.sparse`) to optimize operations and
   memory footprint.
@@ -144,12 +144,12 @@ the semantic grammar rules established in [`NOMENCLATURE.md`][LOC_NOMENC].
 - **Doctests:** The `Examples` section in the docstring must contain executable
   Python code (`>>>`) that serves as an automated test for `doctest`.
 
-### Core Skeleton
+### Base Skeleton
 
 ```python
 #!/usr/bin/env python3
 # *****************************************************************************
-# new_core_func.py
+# new_base_func.py
 # *****************************************************************************
 
 # Author:
@@ -166,7 +166,7 @@ import numpy.typing as npt
 # *****************************************************************************
 # Description of the function group
 # *****************************************************************************
-def new_core_func(
+def new_base_func(
     IV_arg: npt.NDArray[np.int32],
 ) -> npt.NDArray[np.float64]:
     """Short summary of the function.
@@ -187,7 +187,7 @@ def new_core_func(
     Examples
     --------
     >>> IV_arg = np.array([1, 2, 3], dtype=np.int32)
-    >>> new_core_func(IV_arg)
+    >>> new_base_func(IV_arg)
     array([1., 2., 3.])
     """
 
