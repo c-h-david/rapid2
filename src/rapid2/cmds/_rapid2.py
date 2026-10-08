@@ -13,7 +13,7 @@
 import sys
 
 from rapid2 import __version__
-from rapid2.cli import (
+from rapid2.cmds import (
     _cmpncf,
     _cpllsm,
     _dgldas2,

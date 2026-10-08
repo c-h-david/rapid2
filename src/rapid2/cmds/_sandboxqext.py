@@ -18,10 +18,8 @@ import netCDF4
 import numpy as np
 from tqdm import tqdm
 
-from rapid2 import (
-    __version__,
-    prep_Qex_ncf,
-)
+from rapid2 import __version__
+from rapid2.base import prep_Qex_ncf
 
 
 # *****************************************************************************

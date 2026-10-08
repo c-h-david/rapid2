@@ -19,8 +19,8 @@ import numpy as np
 import pyarrow as pa
 import pyarrow.parquet as pq
 
-from rapid2 import (
-    __version__,
+from rapid2 import __version__
+from rapid2.base import (
     calc_scl_vec,
     make_0bi_tbl,
     make_Net_mat,

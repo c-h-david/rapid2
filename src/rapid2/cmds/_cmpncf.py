@@ -17,8 +17,8 @@ import netCDF4
 import numpy as np
 from numpy.ma import MaskedArray
 
-from rapid2 import (
-    __version__,
+from rapid2 import __version__
+from rapid2.base import (
     make_0bi_tbl,
     read_std_vec,
 )

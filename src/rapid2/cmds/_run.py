@@ -17,8 +17,8 @@ import netCDF4
 import numpy as np
 from tqdm import tqdm
 
-from rapid2 import (
-    __version__,
+from rapid2 import __version__
+from rapid2.base import (
     calc_Kal_mat,
     calc_Nmn_mat,
     chck_bas,

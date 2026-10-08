@@ -19,8 +19,8 @@ import numpy as np
 import pyarrow.parquet as pq
 from tqdm import tqdm
 
-from rapid2 import (
-    __version__,
+from rapid2 import __version__
+from rapid2.base import (
     prep_Qex_ncf,
     read_std_vec,
 )
