@@ -20,6 +20,7 @@ from scipy.spatial import cKDTree
 
 from rapid2.base.calc_GCt_vec import calc_GCt_vec
 
+
 # *****************************************************************************
 # Background error covariance matrix (Pb)
 # *****************************************************************************

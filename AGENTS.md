@@ -36,8 +36,8 @@ Code style and CI are defined by the sources above. The one convention worth
 stating up front is program structure, because a coding assistant rarely infers
 it correctly:
 
-- New CLI tools go under `src/rapid2/cmds/` as `_<tool>.py`, follow the skeleton
-  in [`STYLE.md`][LOC__STYLE], and mirror `_rapid2.py`.
+- New CLI tools go under `src/rapid2/cmds/` as `_<tool>.py`, follow the
+  skeleton in [`STYLE.md`][LOC__STYLE], and mirror `_rapid2.py`.
 - Register each new CLI under `[project.scripts]` in `pyproject.toml`.
 - New base functions go under `src/rapid2/base/` as `<function>.py`, follow the
   function naming conventions in [`NOMENCLATURE.md`][LOC_NOMENC] and skeleton
