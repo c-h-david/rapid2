@@ -15,7 +15,6 @@ import os
 import sys
 
 from rapid2 import __version__, prep
-from rapid2.base import prep_Qfi_ncf
 
 
 # *****************************************************************************

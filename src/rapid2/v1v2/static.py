@@ -190,9 +190,8 @@ def static(
         crd_pqt = os.path.splitext(crd_csv)[0] + ".parquet"
 
         if not os.path.isfile(crd_pqt):
-            read_options = pv.ReadOptions(
-                column_names=["riv", "lon", "lat"]
-            )
+            read_options = pv.ReadOptions(column_names=["riv", "lon", "lat"])
+
             convert_options = pv.ConvertOptions(
                 column_types={
                     "riv": pa.int32(),
