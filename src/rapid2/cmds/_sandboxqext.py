@@ -4,7 +4,7 @@
 # *****************************************************************************
 
 # Author:
-# Cedric H. David, 2025-2025
+# Cedric H. David, 2025-2026
 
 
 # *****************************************************************************
@@ -14,12 +14,9 @@ import argparse
 import os
 import sys
 
-import netCDF4
 import numpy as np
-from tqdm import tqdm
 
-from rapid2 import __version__
-from rapid2.base import prep_Qex_ncf
+from rapid2 import __version__, prep
 
 
 # *****************************************************************************
@@ -130,71 +127,15 @@ def main() -> None:
     # Execute main logic
     # -------------------------------------------------------------------------
     try:
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Hardcoded Sandbox values
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        IV_riv_tot = np.array([10, 20, 30, 40, 50], dtype=np.int32)
-        ZV_lon_tot = np.array([4.30, 5.94, 5.12, 6.55, 4.30])
-        ZV_lat_tot = np.array([8.20, 8.20, 5.12, 4.30, 2.04])
-        IV_tim_all = np.array(range(80), dtype=np.int32) * np.int32(10800)
-
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Array sizes
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        IS_riv_tot = len(IV_riv_tot)
-        IS_tim_all = len(IV_tim_all)
-
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Check size of provided unit-amplitude scaling and average arrays
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        if len(ZV_scl_tot) != IS_riv_tot:
-            raise ValueError("Unit-amplitude scaling array not of size 5.")
-
-        if len(ZV_Qex_avg) != IS_riv_tot:
-            raise ValueError("Average array not of size 5.")
-
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Create Qext file
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        prep_Qex_ncf(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Qex_ncf)
-
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Populate Qext file
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        f = netCDF4.Dataset(Qex_ncf, "a")
-
-        f.variables["time"][:] = IV_tim_all[:]
-
-        f.variables["time_bnds"][:, 0] = IV_tim_all[:]
-        f.variables["time_bnds"][:, 1] = IV_tim_all[:] + np.int32(10800)
-
-        f.variables["Qext_bia"][:] = ZV_bia_tot[:]
-        f.variables["Qext_sdv"][:] = ZV_sdv_tot[:]
-
-        for JS_tim_all in tqdm(
-            range(IS_tim_all), desc="Generating synthetic inflow"
-        ):
-            # The 1e-7 avoids np.sign(0) = 0
-            ZV_Qex_tmp = np.sign(
-                np.sin(np.pi / 86400 * IV_tim_all[JS_tim_all] + 1e-7)
-            )
-            ZV_Qex_tmp = ZV_Qex_tmp * ZV_scl_tot
-            ZV_Qex_tmp = ZV_Qex_tmp + ZV_Qex_avg
-            f.variables["Qext"][JS_tim_all, :] = ZV_Qex_tmp[:]
-
-        f.title = "Sandbox dataset for RAPID2"
-        f.institution = (
-            "Jet Propulsion Laboratory, California Institute of Technology"
+        prep.sandbox(
+            ZV_scl_tot=ZV_scl_tot,
+            ZV_Qex_avg=ZV_Qex_avg,
+            Qex_ncf=Qex_ncf,
+            ZV_bia_tot=ZV_bia_tot,
+            ZV_sdv_tot=ZV_sdv_tot,
         )
-
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Close file
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        f.close()
-
-    except (IOError, ValueError, KeyError) as e:
-        print(f"ERROR - {e}", file=sys.stderr)
-        sys.exit(1)
+    except (IOError, ValueError, KeyError, FileExistsError) as err:
+        print(f"ERROR - {err}", file=sys.stderr)
 
 
 # *****************************************************************************

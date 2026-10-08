@@ -208,6 +208,7 @@ to accommodate external API terminology.
 | `ncf`| NetCDF             | Used for scientific multi-dimensional data.     |
 | `yml`| YAML               | Used for model configuration inputs.            |
 | `svg`| Scalable Vector    | Used for vector-based plots and visualizations. |
+| `dir`| Directory          | Used for directory paths.                       |
 
 ## Semantic Quadruplets
 
