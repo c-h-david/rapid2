@@ -3,9 +3,9 @@
 # *****************************************************************************
 
 # Purpose:
-# This file used in Python to define packages and initialize their namespaces.
+# Define the core subpackage and export core routing and correction functions.
 # Author:
-# Cedric H. David, 2025-2026
+# Cedric H. David, 2026-2026
 
 
 # *****************************************************************************
@@ -13,31 +13,15 @@
 # *****************************************************************************
 
 # -----------------------------------------------------------------------------
-# Dynamic Package Versioning
+# core API Facade
 # -----------------------------------------------------------------------------
-import importlib.metadata
-
-try:
-    __version__ = importlib.metadata.version("rapid2")
-except importlib.metadata.PackageNotFoundError:
-    __version__ = "unknown"
-
-# -----------------------------------------------------------------------------
-# Top-Level Namespace Exports
-# -----------------------------------------------------------------------------
-from rapid2 import base, cmds, core, prep, pull, v1v2
+from rapid2.core.ltir import ltir
 
 # -----------------------------------------------------------------------------
 # Explicit Public Interface
 # -----------------------------------------------------------------------------
 __all__ = [
-    "__version__",
-    "base",
-    "cmds",
-    "core",
-    "prep",
-    "pull",
-    "v1v2",
+    "ltir",
 ]
 
 

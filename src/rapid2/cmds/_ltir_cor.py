@@ -14,16 +14,7 @@ import argparse
 import os
 import sys
 
-import netCDF4
-import numpy as np
-import pyarrow.parquet as pq
-from tqdm import tqdm
-
-from rapid2 import __version__
-from rapid2.base import (
-    prep_Qex_ncf,
-    read_std_vec,
-)
+from rapid2 import __version__, core
 
 
 # *****************************************************************************
@@ -108,72 +99,7 @@ def main() -> None:
     # Execute main logic
     # -------------------------------------------------------------------------
     try:
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Validate metadata alignment between files
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        print("- Validating files")
-        (
-            IV_riv_tot,
-            ZV_lon_tot,
-            ZV_lat_tot,
-            IV_tim_all,
-            IM_tim_all,
-        ) = read_std_vec(prv_ncf)
-        IS_tim_all = len(IV_tim_all)
-
-        table = pq.read_table(scl_pqt, columns=["riv", "scl"])
-        IV_riv_tmp = table.column("riv").to_numpy().astype(np.int32)
-
-        if not np.array_equal(IV_riv_tot, IV_riv_tmp):
-            raise ValueError(f"River IDs in {scl_pqt} must match {prv_ncf}")
-
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Load scalars and handle NoData padding
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        print("- Loading and padding scalars")
-        # Extract the scalar array and replace explicitly stored NaNs with 1.0
-        ZV_scl_tot = table.column("scl").to_numpy().astype(np.float64)
-        ZV_scl_tot = np.nan_to_num(ZV_scl_tot, nan=1.0)
-
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Prepare the new netCDF file
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        print("- Preparing corrected file structure")
-        prep_Qex_ncf(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, now_ncf)
-
-        p = netCDF4.Dataset(prv_ncf, "r")
-        n = netCDF4.Dataset(now_ncf, "a")
-
-        # Copy time and time bounds
-        n.variables["time"][:] = IV_tim_all
-        if IM_tim_all is not None:
-            n.variables["time_bnds"][:] = IM_tim_all
-
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Apply scaling factors
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        print("- Applying scaling factors")
-        for JS_tim_all in tqdm(
-            range(IS_tim_all), desc="Scaling external inflow"
-        ):
-            # Scale the entire domain simultaneously at each timestep
-            ZV_Qex_tmp = p.variables["Qext"][JS_tim_all, :]
-            n.variables["Qext"][JS_tim_all, :] = ZV_Qex_tmp * ZV_scl_tot
-
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Copy global attributes
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        if "title" in p.ncattrs():
-            n.setncattr("title", p.getncattr("title"))
-        if "institution" in p.ncattrs():
-            n.setncattr("institution", p.getncattr("institution"))
-
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        # Close files
-        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        p.close()
-        n.close()
-
+        core.ltir(prv_ncf, scl_pqt, now_ncf)
         print("Done")
 
     except (IOError, ValueError, KeyError) as e:
