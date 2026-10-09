@@ -102,8 +102,9 @@ def coldinit(
     # -------------------------------------------------------------------------
     # Copy global attributes
     # -------------------------------------------------------------------------
-    e.setncattr("title", f.getncattr("title"))
-    e.setncattr("institution", f.getncattr("institution"))
+    for attr in ["title", "institution"]:
+        if attr in f.ncattrs():
+            e.setncattr(attr, f.getncattr(attr))
 
     # -------------------------------------------------------------------------
     # Close files
