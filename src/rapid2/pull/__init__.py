@@ -3,9 +3,9 @@
 # *****************************************************************************
 
 # Purpose:
-# This file used in Python to define packages and initialize their namespaces.
+# Define the pull subpackage and export data download functions.
 # Author:
-# Cedric H. David, 2025-2026
+# Cedric H. David, 2026-2026
 
 
 # *****************************************************************************
@@ -13,30 +13,15 @@
 # *****************************************************************************
 
 # -----------------------------------------------------------------------------
-# Dynamic Package Versioning
+# pull API Facade
 # -----------------------------------------------------------------------------
-import importlib.metadata
-
-try:
-    __version__ = importlib.metadata.version("rapid2")
-except importlib.metadata.PackageNotFoundError:
-    __version__ = "unknown"
-
-# -----------------------------------------------------------------------------
-# Top-Level Namespace Exports
-# -----------------------------------------------------------------------------
-from rapid2 import base, cmds, prep, pull, v1v2
+from rapid2.pull.sandbox import sandbox
 
 # -----------------------------------------------------------------------------
 # Explicit Public Interface
 # -----------------------------------------------------------------------------
 __all__ = [
-    "__version__",
-    "base",
-    "cmds",
-    "prep",
-    "pull",
-    "v1v2",
+    "sandbox",
 ]
 
 

@@ -285,6 +285,7 @@ prefix:
 | `Qex_ncf`        | External inflow    | NetCDF file containing forcing data.|
 | `nml_yml`        | Namelist           | YAML file for model configuration.  |
 | `hyd_svg`        | Hydrograph plot    | SVG file containing hydrographs.    |
+| `trg_dir`        | Target directory   | Directory where files are saved.    |
 
 ## Function Names
 
