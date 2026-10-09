@@ -56,7 +56,7 @@ def cmpncf(
     >>> now_ncf = "input/Sandbox/Qex_Sandbox_19700101_19700110_TR.nc4"
     >>> ZS_rtl = np.float64(1e-10)
     >>> ZS_atl = np.float64(1e-10)
-    >>> cmpncf(p_ncf, n_ncf, ZS_rtl, ZS_atl)
+    >>> cmpncf(prv_ncf, now_ncf, ZS_rtl, ZS_atl)
     """
 
     # -------------------------------------------------------------------------
@@ -104,7 +104,10 @@ def cmpncf(
         pass
     else:
         if np.array_equal(np.sort(IV_riv_prv), np.sort(IV_riv_now)):
-            warnings.warn("The rivids are the same, but sorted differently")
+            warnings.warn(
+                "The rivids are the same, but sorted differently",
+                stacklevel=2,
+            )
             _, _, IV_0bi_prv = make_0bi_tbl(IV_riv_now, IV_riv_prv)
         else:
             raise ValueError("The rivids differ")
@@ -196,9 +199,15 @@ def cmpncf(
     # Compare to tolerances and handle closures
     # -------------------------------------------------------------------------
     if BS_fll_prv:
-        warnings.warn(f"masked values replaced by -9999 in {prv_ncf}")
+        warnings.warn(
+            f"masked values replaced by -9999 in {prv_ncf}",
+            stacklevel=2,
+        )
     if BS_fll_now:
-        warnings.warn(f"masked values replaced by -9999 in {now_ncf}")
+        warnings.warn(
+            f"masked values replaced by -9999 in {now_ncf}",
+            stacklevel=2,
+        )
 
     if ZS_rdf_max > ZS_rtl:
         raise ValueError("Unacceptable rel. difference!!!")
