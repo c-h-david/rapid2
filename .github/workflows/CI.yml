@@ -94,7 +94,7 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           rapid2 pull sandbox
-          python3 -m doctest src/rapid2/base/*.py
+          python3 -m doctest src/rapid2/*/*.py
           for XP in TR OL BC DA HY; do
             rapid2 core run -nml input/Sandbox/nml_Sandbox_${XP}.yml
             rapid2 eval cmpncf \

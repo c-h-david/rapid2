@@ -115,7 +115,7 @@ on which our runtime testing efforts rely.
 We use the `doctest` module to check examples in docstrings.
 
 ```bash
-python3 -m doctest src/rapid2/base/*.py
+python3 -m doctest src/rapid2/*/*.py
 ```
 
 ### Replication of past results
