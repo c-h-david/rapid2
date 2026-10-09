@@ -91,7 +91,10 @@ def coldinit(
     # -------------------------------------------------------------------------
     prep_Qfi_ncf(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Q00_ncf)
 
-    e = netCDF4.Dataset(Q00_ncf, "a")
+    try:
+        e = netCDF4.Dataset(Q00_ncf, "a")
+    except IOError as err:
+        raise IOError(f"Unable to open {Q00_ncf}") from err
 
     e.variables["time"][0] = IV_tim_all[0]
     e.variables["Qout"][0, :] = 0

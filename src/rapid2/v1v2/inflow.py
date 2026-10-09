@@ -94,7 +94,10 @@ def inflow(
     # -------------------------------------------------------------------------
     prep_Qex_ncf(IV_riv_tot, ZV_lon_tot, ZV_lat_tot, Qex_ncf)
 
-    f = netCDF4.Dataset(Qex_ncf, "a")
+    try:
+        f = netCDF4.Dataset(Qex_ncf, "a")
+    except IOError as err:
+        raise IOError(f"Unable to open {Qex_ncf}") from err
 
     f.variables["time"][:] = IV_tim_all
     f.variables["time_bnds"][:] = IM_tim_all
