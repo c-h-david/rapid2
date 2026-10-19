@@ -106,6 +106,17 @@ def main() -> None:
             ZS_lkm_cov = AT_nml["ZS_lkm_cov"]
 
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Skip if file already exists
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        if os.path.exists(Qou_ncf):
+            print(f"WARNING - File already exists {Qou_ncf}. Skipping.")
+            sys.exit(0)
+
+        if os.path.exists(Qfi_ncf):
+            print(f"WARNING - File already exists {Qfi_ncf}. Skipping.")
+            sys.exit(0)
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Execute core function
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         core.run(
