@@ -13,6 +13,7 @@
 import os
 
 import netCDF4
+from tqdm import tqdm
 
 from rapid2.base import prep_Qex_ncf
 
@@ -105,7 +106,7 @@ def inflow(
     # -------------------------------------------------------------------------
     # Convert inflow volume to rate
     # -------------------------------------------------------------------------
-    for JS_tim_all in range(IS_tim_all):
+    for JS_tim_all in tqdm(range(IS_tim_all), desc="Converting volumes"):
         f.variables["Qext"][JS_tim_all, :] = (
             d.variables["m3_riv"][JS_tim_all, :] / IS_dtE
         )

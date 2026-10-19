@@ -15,6 +15,7 @@ import warnings
 import netCDF4
 import numpy as np
 from numpy.ma import MaskedArray
+from tqdm import tqdm
 
 from rapid2.base import make_0bi_tbl, read_std_vec
 
@@ -167,7 +168,7 @@ def cmpncf(
     BS_fll_prv = False
     BS_fll_now = False
 
-    for JS_tim in range(IS_tim):
+    for JS_tim in tqdm(range(IS_tim), desc="Comparing time steps"):
         # Initializing
         ZS_rdf = 0
         ZS_adf = 0
