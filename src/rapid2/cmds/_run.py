@@ -11,6 +11,7 @@
 # Import Python modules
 # *****************************************************************************
 import argparse
+import os
 import sys
 
 from rapid2 import __version__, base, core
