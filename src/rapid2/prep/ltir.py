@@ -67,9 +67,11 @@ def ltir(
     >>> Qob_ncf = "input/Sandbox/Qob_Sandbox_19700101_19700110_TR.nc4"
     >>> scl_pqt = "output/Sandbox/scl_Sandbox_tst.parquet"
     >>> ltir(con_pqt, bas_pqt, Qex_ncf, Qob_ncf, scl_pqt)
+    >>> from rapid2.eval import cmppqt
+    >>> import numpy as np
+    >>> scl_ref = "input/Sandbox/scl_Sandbox.parquet"
+    >>> cmppqt(scl_ref, scl_pqt, np.float64(1e-10), np.float64(1e-10))
     >>> import os
-    >>> os.path.exists(scl_pqt)
-    True
     >>> os.remove(scl_pqt)
     """
 
