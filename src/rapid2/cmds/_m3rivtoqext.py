@@ -88,6 +88,7 @@ def main() -> None:
         v1v2.inflow(m3r_ncf, Qex_ncf)
     except (IOError, ValueError, KeyError, FileExistsError) as err:
         print(f"ERROR - {err}", file=sys.stderr)
+        sys.exit(1)
 
 
 # *****************************************************************************

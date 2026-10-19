@@ -91,6 +91,7 @@ def main() -> None:
         prep.coldinit(Qex_ncf, Q00_ncf)
     except (IOError, ValueError, KeyError, FileExistsError) as err:
         print(f"ERROR - {err}", file=sys.stderr)
+        sys.exit(1)
 
 
 # *****************************************************************************
