@@ -16,6 +16,7 @@
 # prep API Facade
 # -----------------------------------------------------------------------------
 from rapid2.prep.coldinit import coldinit
+from rapid2.prep.sample import sample
 from rapid2.prep.sandbox import sandbox
 
 # -----------------------------------------------------------------------------
@@ -23,6 +24,7 @@ from rapid2.prep.sandbox import sandbox
 # -----------------------------------------------------------------------------
 __all__ = [
     "coldinit",
+    "sample",
     "sandbox",
 ]
 
