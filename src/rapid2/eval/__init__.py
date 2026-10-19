@@ -16,6 +16,7 @@
 # eval API Facade
 # -----------------------------------------------------------------------------
 from rapid2.eval.cmpncf import cmpncf
+from rapid2.eval.cmppqt import cmppqt
 from rapid2.eval.graph import graph
 
 # -----------------------------------------------------------------------------
@@ -23,6 +24,7 @@ from rapid2.eval.graph import graph
 # -----------------------------------------------------------------------------
 __all__ = [
     "cmpncf",
+    "cmppqt",
     "graph",
 ]
 

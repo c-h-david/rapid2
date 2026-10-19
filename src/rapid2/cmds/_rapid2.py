@@ -15,6 +15,7 @@ import sys
 from rapid2 import __version__
 from rapid2.cmds import (
     _cmpncf,
+    _cmppqt,
     _cpllsm,
     _dgldas2,
     _dsandbox,
@@ -53,6 +54,7 @@ def main() -> None:
         print("  prep ltir        Compute LTIR scalars")
         print("  eval graph       Generate SVG hydrographs")
         print("  eval cmpncf      Compare NetCDF files")
+        print("  eval cmppqt      Compare Parquet files")
         print("  v1v2 static      Upgrade RAPID1 CSV to Parquet")
         print("  v1v2 inflow      Convert volumes to flow rates")
         sys.exit(0)
@@ -148,6 +150,13 @@ def main() -> None:
         # Rewrite sys.argv so argparse prints the correct usage string
         sys.argv = ["rapid2 eval cmpncf"] + sys.argv[3:]
         _cmpncf.main()
+
+    # -------------------------------------------------------------------------
+    # Dispatch to: rapid2 eval cmppqt
+    # -------------------------------------------------------------------------
+    elif YS_grp == "eval" and YS_cmd == "cmppqt":
+        sys.argv = ["rapid2 eval cmppqt"] + sys.argv[3:]
+        _cmppqt.main()
 
     # -------------------------------------------------------------------------
     # Dispatch to: rapid2 v1v2 static
