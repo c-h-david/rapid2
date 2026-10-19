@@ -27,7 +27,8 @@ exactly: it is the canonical example. For a small read-input and report tool,
 - **Registration:** Add an entry under `[project.scripts]` in
   `pyproject.toml` so the tool installs as a console command.
 - **Progress:** Any loop processing time-series or large dimensional data
-  must use `tqdm` with a descriptive `desc` argument.
+  must use `tqdm` with a descriptive `desc` argument. This may be delegated
+  to the underlying core Python functions where the actual loop executes.
 - **Error Handling:** Wrap the execution logic in a global `try/except`
   block (catching `IOError, ValueError, KeyError` or `Exception`) that
   prints `ERROR - {e}` to `sys.stderr` and calls `sys.exit(1)`. Pre-flight
