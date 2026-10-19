@@ -272,6 +272,10 @@ prefix:
     item (e.g., `Qout = g.createVariable("Qout", ...)`).
   - **Dynamic Iteration:** The generic labels `name`, `var`, and `dim` are
     permitted during loops.
+- **Plotting Toolbox Idioms:** Conventional handles and configuration objects
+  used exclusively for rendering visualizations with libraries like `toyplot`
+  (e.g., `canvas`, `axes`, `canvas_width`, `canvas_height`, or `mark_`
+  prefixes).
 
 ## File Names
 
