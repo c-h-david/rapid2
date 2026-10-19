@@ -10,6 +10,8 @@
 # *****************************************************************************
 # Import Python modules
 # *****************************************************************************
+import warnings
+
 import numpy as np
 import numpy.typing as npt
 
@@ -66,16 +68,25 @@ def chck_bas(
                       np.int32(20): 1,\
                       np.int32(30): 2,\
                       np.int32(40): 3}
-    >>> chck_bas(IV_riv_bas, IT_0bi_bas, IV_riv_tot, IV_dwn_tot, IT_0bi_tot)
-    WARNING - connectivity: 50 is downstream of 30 but is not in basin file
-    WARNING - connectivity: 50 is downstream of 40 but is not in basin file
+    >>> import warnings
+    >>> with warnings.catch_warnings(record=True) as w:
+    ...     warnings.simplefilter("always")
+    ...     chck_bas(IV_riv_bas, IT_0bi_bas, IV_riv_tot, IV_dwn_tot,
+    ...              IT_0bi_tot)
+    ...     for warn in w: print(warn.message)
+    connectivity: 50 is downstream of 30 but is not in basin file
+    connectivity: 50 is downstream of 40 but is not in basin file
     >>> IV_riv_bas = np.array([20, 30, 40, 50], dtype=np.int32)
     >>> IT_0bi_bas = {np.int32(20): 0,\
                       np.int32(30): 1,\
                       np.int32(40): 2,\
                       np.int32(50): 3}
-    >>> chck_bas(IV_riv_bas, IT_0bi_bas, IV_riv_tot, IV_dwn_tot, IT_0bi_tot)
-    WARNING - connectivity: 10 is upstream of 30 but is not in basin file
+    >>> with warnings.catch_warnings(record=True) as w:
+    ...     warnings.simplefilter("always")
+    ...     chck_bas(IV_riv_bas, IT_0bi_bas, IV_riv_tot, IV_dwn_tot,
+    ...              IT_0bi_tot)
+    ...     for warn in w: print(warn.message)
+    connectivity: 10 is upstream of 30 but is not in basin file
     >>> IV_riv_bas = np.array([50, 40, 30, 20, 10], dtype=np.int32)
     >>> IT_0bi_bas = {np.int32(50): 0,\
                       np.int32(40): 1,\
@@ -98,10 +109,11 @@ def chck_bas(
         IS_dwn = IV_dwn_tot[JS_riv_tot]
         if IS_dwn != 0:
             if IS_dwn in IT_0bi_bas and IS_riv not in IT_0bi_bas:
-                print(
-                    f"WARNING - connectivity: {IS_riv} "
+                warnings.warn(
+                    f"connectivity: {IS_riv} "
                     f"is upstream of {IS_dwn} "
-                    f"but is not in basin file"
+                    f"but is not in basin file",
+                    stacklevel=2,
                 )
 
     # -------------------------------------------------------------------------
@@ -111,10 +123,11 @@ def chck_bas(
         IS_dwn = IV_dwn_tot[IT_0bi_tot[IS_riv]]
         if IS_dwn != 0:
             if IS_dwn not in IT_0bi_bas:
-                print(
-                    f"WARNING - connectivity: {IS_dwn} "
+                warnings.warn(
+                    f"connectivity: {IS_dwn} "
                     f"is downstream of {IS_riv} "
-                    f"but is not in basin file"
+                    f"but is not in basin file",
+                    stacklevel=2,
                 )
 
     # -------------------------------------------------------------------------
