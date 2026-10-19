@@ -16,6 +16,7 @@
 # prep API Facade
 # -----------------------------------------------------------------------------
 from rapid2.prep.coldinit import coldinit
+from rapid2.prep.couple import couple
 from rapid2.prep.ltir import ltir
 from rapid2.prep.sample import sample
 from rapid2.prep.sandbox import sandbox
@@ -25,6 +26,7 @@ from rapid2.prep.sandbox import sandbox
 # -----------------------------------------------------------------------------
 __all__ = [
     "coldinit",
+    "couple",
     "ltir",
     "sample",
     "sandbox",
