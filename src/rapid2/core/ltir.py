@@ -47,9 +47,11 @@ def ltir(prv_ncf: str, scl_pqt: str, now_ncf: str) -> None:
     >>> scl_pqt = "input/Sandbox/scl_Sandbox.parquet"
     >>> now_ncf = "output/Sandbox/Qex_Sandbox_19700101_19700110_BC_tst.nc4"
     >>> ltir(prv_ncf, scl_pqt, now_ncf)
+    >>> from rapid2.eval import cmpncf
+    >>> import numpy as np
+    >>> now_ref = "input/Sandbox/Qex_Sandbox_19700101_19700110_BC.nc4"
+    >>> cmpncf(now_ref, now_ncf, np.float64(1e-10), np.float64(1e-10))
     >>> import os
-    >>> os.path.exists(now_ncf)
-    True
     >>> os.remove(now_ncf)
     """
 

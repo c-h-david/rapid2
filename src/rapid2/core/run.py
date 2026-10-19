@@ -105,8 +105,8 @@ def run(
     >>> xpr_pqt = "input/Sandbox/xpr_Sandbox.parquet"
     >>> bas_pqt = "input/Sandbox/bas_Sandbox_ascend.parquet"
     >>> IS_dtR = np.int32(900)
-    >>> Qou_ncf = "output/Sandbox/Qou_Sandbox_19700101_19700110_DA_tst.nc4"
-    >>> Qfi_ncf = "output/Sandbox/Qfi_Sandbox_19700101_19700110_DA_tst.nc4"
+    >>> Qou_ncf = "output/Sandbox/Qou_Sandbox_19700101_19700110_OL_tst.nc4"
+    >>> Qfi_ncf = "output/Sandbox/Qfi_Sandbox_19700101_19700110_OL_tst.nc4"
     >>> run(
     ...     Q00_ncf,
     ...     Qex_ncf,
@@ -118,9 +118,12 @@ def run(
     ...     Qou_ncf,
     ...     Qfi_ncf,
     ... )
+    >>> from rapid2.eval import cmpncf
+    >>> Qou_ref = "output/Sandbox/Qou_Sandbox_19700101_19700110_OL.nc4"
+    >>> cmpncf(Qou_ref, Qou_ncf, np.float64(1e-10), np.float64(1e-10))
+    >>> Qfi_ref = "output/Sandbox/Qfi_Sandbox_19700101_19700110_OL.nc4"
+    >>> cmpncf(Qfi_ref, Qfi_ncf, np.float64(1e-10), np.float64(1e-10))
     >>> import os
-    >>> os.path.exists(Qou_ncf)
-    True
     >>> os.remove(Qou_ncf)
     >>> os.remove(Qfi_ncf)
     """

@@ -149,7 +149,11 @@ the semantic grammar rules established in [`NOMENCLATURE.md`][LOC_NOMENC].
 - **Docstrings:** Every function must have a strict NumPy-style docstring
   containing a summary, `Parameters`, `Returns`, and `Examples` section.
 - **Doctests:** The `Examples` section in the docstring must contain executable
-  Python code (`>>>`) that serves as an automated test for `doctest`.
+  Python code (`>>>`) that serves as an automated test for `doctest`. When
+  testing file generation, strictly use numerical regression utilities (e.g.,
+  `rapid2.eval.cmpncf`) to compare outputs against a reference file rather
+  than checking for file existence. Use the `_ref` suffix for reference
+  files (e.g., `Qou_ref`).
 
 ### Base Skeleton
 

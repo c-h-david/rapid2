@@ -59,9 +59,10 @@ def sample(
     >>> IS_dtO = np.int32(86400)
     >>> Qme_ncf = "output/Sandbox/Qme_Sandbox_19700101_19700110_tst.nc4"
     >>> sample(Qou_ncf, obs_pqt, IS_dtO, Qme_ncf)
+    >>> from rapid2.eval import cmpncf
+    >>> Qme_ref = "input/Sandbox/Qob_Sandbox_19700101_19700110_TR.nc4"
+    >>> cmpncf(Qme_ref, Qme_ncf, np.float64(1e-10), np.float64(1e-10))
     >>> import os
-    >>> os.path.exists(Qme_ncf)
-    True
     >>> os.remove(Qme_ncf)
     """
 

@@ -163,15 +163,15 @@ def cmpncf(
     # -------------------------------------------------------------------------
     # Compute differences
     # -------------------------------------------------------------------------
-    ZS_rdf_max = 0
-    ZS_adf_max = 0
+    ZS_rdf_max = 0.0
+    ZS_adf_max = 0.0
     BS_fll_prv = False
     BS_fll_now = False
 
     for JS_tim in tqdm(range(IS_tim), desc="Comparing time steps"):
         # Initializing
-        ZS_rdf = 0
-        ZS_adf = 0
+        ZS_rdf = 0.0
+        ZS_adf = 0.0
 
         # Getting values
         ZV_val_prv = p.variables[YS_val_tmp][JS_tim, :]
