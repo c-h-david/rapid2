@@ -211,7 +211,29 @@ def new_base_func(
 # *****************************************************************************
 ```
 
-## 3. Markdown Files (`*.md`)
+## 3. Subpackages (`core/`, `prep/`, `pull/`, `eval/`, `v1v2/`)
+
+The intermediate subpackages serve as the public API facade and orchestration
+layers. Files within these directories generally inherit the structural rules
+of the `base/` library, with a few necessary distinctions.
+
+### Structure Rules
+
+- **Inherited Standards:** Banners spanning 79 characters, strict type hinting
+  with `numpy.typing`, narrow error handling for file I/O, and complete
+  NumPy-style docstrings with executable `doctest` examples are strictly
+  enforced, exactly as in `base/`.
+- **Naming Relief:** Unlike the `base/` library, filenames and their primary
+  functions in these directories are not strictly bound to the 4-character verb
+  and 3-character semantic grammar. They use clean, descriptive names (e.g.,
+  `run.py`, `couple.py`, `gldas2.py`) to provide a readable Python API.
+- **Progress:** Any loops processing time-series or large dimensional data
+  must utilize `tqdm` with a descriptive `desc` argument.
+- **API Exports:** Each subpackage must contain an `__init__.py` file that
+  explicitly exports its primary functions via the `__all__` list to maintain a
+  clean top-level namespace.
+
+## 4. Markdown Files (`*.md`)
 
 To maintain clean diffs and a standardized visual layout, all Markdown files
 must adhere to the following layout rules.
