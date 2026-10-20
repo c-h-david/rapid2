@@ -51,9 +51,10 @@ def static(
 
     Examples
     --------
-    >>> con_csv = "./input/Sandbox/rapid_connect.csv"
-    >>> bas_csv = "./input/Sandbox/riv_bas_id.csv"
-    >>> static(con_csv, bas_csv=bas_csv)  # doctest: +SKIP
+    >>> con_csv = "./input/Sandbox/con_Sandbox_tst.csv"
+    >>> bas_csv = "./input/Sandbox/bas_Sandbox_ascend_tst.csv"
+    >>> static(con_csv=con_csv, bas_csv=bas_csv)  # doctest: +SKIP
+    # TODO: Replace +SKIP & add cmppqt assertions once legacy references exist
     """
 
     # -------------------------------------------------------------------------

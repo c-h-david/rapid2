@@ -43,6 +43,7 @@ def inflow(
     >>> m3r_ncf = "./input/Sandbox/m3_riv_Sandbox.nc4"
     >>> Qex_ncf = "./input/Sandbox/Qex_Sandbox_tst.nc4"
     >>> inflow(m3r_ncf, Qex_ncf)  # doctest: +SKIP
+    # TODO: Replace +SKIP & add cmpncf assertions once legacy references exist
     """
 
     # -------------------------------------------------------------------------

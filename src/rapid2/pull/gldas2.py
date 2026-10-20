@@ -55,6 +55,7 @@ def gldas2(
     >>> YS_tim = "2010-01"
     >>> lsm_ncf = "input/Tutorial/GLDAS_2.1_VIC_2010-01.nc4"
     >>> gldas2(YS_phs, YS_mod, YS_tim, lsm_ncf)  # doctest: +SKIP
+    # TODO: Replace +SKIP & add chck_lsm() to validate sch, dim, and var.
     """
 
     # -------------------------------------------------------------------------

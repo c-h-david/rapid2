@@ -64,6 +64,7 @@ def couple(
     >>> cpl_pqt = "input/Sandbox/cpl_Sandbox.parquet"
     >>> Qex_ncf = "output/Sandbox/Qex_Sandbox_tst.nc4"
     >>> couple(lsm_ncf, con_pqt, crd_pqt, cpl_pqt, Qex_ncf)  # doctest: +SKIP
+    # TODO: Replace +SKIP & add cmpncf assertions once legacy references exist
     """
 
     # -------------------------------------------------------------------------
