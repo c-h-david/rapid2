@@ -73,7 +73,7 @@ def main() -> None:
         print("Done")
 
     except Exception as e:
-        print(f"ERROR - Problem downloading files: {e}", file=sys.stderr)
+        print(f"ERROR - {e}", file=sys.stderr)
         sys.exit(1)
 
 
