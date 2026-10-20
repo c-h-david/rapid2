@@ -9,6 +9,33 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [2.0.0b5] - 2026-10-21
+
+### Added
+
+- **Unified CLI**: Introduced a centralized command-line interface leveraging
+  subcommands (`rapid2 <group> <command>`) to route execution across discrete
+  functional domains (`core`, `eval`, `prep`, `pull`, `v1v2`).
+- **Parquet Comparison**: Added the `cmppqt` numerical regression utility to
+  compare schema, row counts, and numerical differences between Parquet files.
+
+### Changed
+
+- **Architectural Refactor**: Reorganized the flat `core` and `cli` module
+  structure into distinct subpackages (`base`, `cmds`, `core`, `eval`, `prep`,
+  `pull`, `v1v2`) to separate low-level math and I/O from high-level
+  orchestration.
+- **Base Error Handling**: Constrained `try/except` blocks in the `base`
+  library to target file-opening `IOError` calls using `raise ... from err`
+  to preserve tracebacks. Replaced hardcoded `print()` warnings with standard
+  `warnings.warn` calls.
+- **Cleanup Script**: Rewrote `clean.sh` to use `find` operations rather than
+  bash arrays for recursively targeting cache directories and `.DS_Store`
+  files.
+- **CI Verification Pipeline**: Updated testing loops in `TESTING.md` to
+  reflect the new unified CLI subcommand syntax (`rapid2 core run`,
+  `rapid2 eval cmpncf`, `rapid2 prep sample`).
+
 ## [2.0.0b4] - 2026-09-29
 
 ### Added
