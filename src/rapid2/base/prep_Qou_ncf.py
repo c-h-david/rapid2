@@ -78,7 +78,10 @@ def prep_Qou_ncf(
     # -------------------------------------------------------------------------
     # Open file to make changes
     # -------------------------------------------------------------------------
-    g = netCDF4.Dataset(Qou_ncf, "a")
+    try:
+        g = netCDF4.Dataset(Qou_ncf, "a")
+    except IOError as err:
+        raise IOError(f"Unable to open {Qou_ncf}") from err
 
     # -------------------------------------------------------------------------
     # Create dimensions

@@ -73,7 +73,10 @@ def prep_skl_ncf(
     # -------------------------------------------------------------------------
     # Create file
     # -------------------------------------------------------------------------
-    s = netCDF4.Dataset(skl_ncf, "w", format="NETCDF4")
+    try:
+        s = netCDF4.Dataset(skl_ncf, "w", format="NETCDF4")
+    except IOError as err:
+        raise IOError(f"Unable to open {skl_ncf}") from err
 
     # -------------------------------------------------------------------------
     # Create dimensions

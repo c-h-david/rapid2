@@ -78,7 +78,10 @@ def prep_Qex_ncf(
     # -------------------------------------------------------------------------
     # Open file to make changes
     # -------------------------------------------------------------------------
-    f = netCDF4.Dataset(Qex_ncf, "a")
+    try:
+        f = netCDF4.Dataset(Qex_ncf, "a")
+    except IOError as err:
+        raise IOError(f"Unable to open {Qex_ncf}") from err
 
     # -------------------------------------------------------------------------
     # Create dimensions

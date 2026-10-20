@@ -72,7 +72,10 @@ def prep_Qfi_ncf(
     # -------------------------------------------------------------------------
     # Open file to make changes
     # -------------------------------------------------------------------------
-    h = netCDF4.Dataset(Qfi_ncf, "a")
+    try:
+        h = netCDF4.Dataset(Qfi_ncf, "a")
+    except IOError as err:
+        raise IOError(f"Unable to open {Qfi_ncf}") from err
 
     # -------------------------------------------------------------------------
     # Create variables
