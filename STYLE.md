@@ -149,11 +149,9 @@ the semantic grammar rules established in [`NOMENCLATURE.md`][LOC_NOMENC].
 - **Docstrings:** Every function must have a strict NumPy-style docstring
   containing a summary, `Parameters`, `Returns`, and `Examples` section.
 - **Doctests:** The `Examples` section in the docstring must contain executable
-  Python code (`>>>`) that serves as an automated test for `doctest`. When
-  testing file generation, strictly use numerical regression utilities (e.g.,
-  `rapid2.eval.cmpncf`) to compare outputs against a reference file rather
-  than checking for file existence. Use the `_ref` suffix for reference
-  files (e.g., `Qou_ref`).
+  Python code (`>>>`) that serves as an automated test for `doctest`. These
+  tests must strictly validate low-level abstractions, pure math arrays, and
+  the metadata or schema of empty file skeletons.
 
 ### Base Skeleton
 
@@ -226,7 +224,11 @@ of the `base/` library, with a few necessary distinctions.
 - **Inherited Standards:** Banners spanning 79 characters, strict type hinting
   with `numpy.typing`, narrow error handling for file I/O, and complete
   NumPy-style docstrings with executable `doctest` examples are strictly
-  enforced, exactly as in `base/`.
+  enforced, exactly as in `base/`. When testing file generation in doctests,
+  strictly use numerical regression utilities (e.g., `rapid2.eval.cmpncf`
+  or `rapid2.eval.cmppqt`) to compare outputs against a reference file rather
+  than checking for file existence. Use the `_ref` suffix for reference
+  files (e.g., `Qou_ref`).
 - **Naming Relief:** Unlike the `base/` library, filenames and their primary
   functions in these directories are not strictly bound to the 4-character verb
   and 3-character semantic grammar. They use clean, descriptive names (e.g.,
