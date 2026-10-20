@@ -52,13 +52,11 @@ def sandbox(
     --------
     >>> ZV_scl_tot = np.array([5, 5, 5, 10, 10], dtype=np.float32)
     >>> ZV_Qex_avg = np.array([10, 10, 10, 20, 20], dtype=np.float32)
-    >>> Qex_ncf = "./output/Sandbox/Qex_Sandbox_tst.nc4"
+    >>> Qex_ncf = "./input/Sandbox/Qex_Sandbox_19700101_19700110_TR_tst.nc4"
     >>> sandbox(ZV_scl_tot, ZV_Qex_avg, Qex_ncf)
-    >>> import netCDF4
-    >>> f = netCDF4.Dataset(Qex_ncf, "r")
-    >>> f.variables["Qext"].shape
-    (80, 5)
-    >>> f.close()
+    >>> from rapid2.eval import cmpncf
+    >>> Qex_ref = "./input/Sandbox/Qex_Sandbox_19700101_19700110_TR.nc4"
+    >>> cmpncf(Qex_ref, Qex_ncf, np.float64(1e-10), np.float64(1e-10))
     >>> import os
     >>> os.remove(Qex_ncf)
     """

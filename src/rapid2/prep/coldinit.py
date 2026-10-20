@@ -42,11 +42,10 @@ def coldinit(
     >>> Qex_ncf = "./input/Sandbox/Qex_Sandbox_19700101_19700110_TR.nc4"
     >>> Q00_ncf = "./input/Sandbox/Q00_Sandbox_19700101_19700110_tst.nc4"
     >>> coldinit(Qex_ncf, Q00_ncf)
-    >>> import netCDF4
-    >>> e = netCDF4.Dataset(Q00_ncf, "r")
-    >>> e.variables["Qout"][0, :].filled()
-    array([0., 0., 0., 0., 0.])
-    >>> e.close()
+    >>> from rapid2.eval import cmpncf
+    >>> import numpy as np
+    >>> Q00_ref = "./input/Sandbox/Q00_Sandbox_19700101_19700110_FG.nc4"
+    >>> cmpncf(Q00_ref, Q00_ncf, np.float64(1e-10), np.float64(1e-10))
     >>> import os
     >>> os.remove(Q00_ncf)
     """
