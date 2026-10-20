@@ -15,6 +15,7 @@ import warnings
 
 import earthaccess
 import netCDF4
+from tqdm import tqdm
 
 
 # *****************************************************************************
@@ -141,7 +142,7 @@ def gldas2(
         raise IOError(f"Unable to process {tmp_ncf} or {lsm_ncf}") from err
 
     JS_tim = 0
-    for tmp_ncf in YV_loc:
+    for tmp_ncf in tqdm(YV_loc, desc="Concatenating LSM files"):
         try:
             with (
                 netCDF4.Dataset(tmp_ncf, "r") as t,
