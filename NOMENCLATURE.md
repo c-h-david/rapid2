@@ -52,6 +52,8 @@ to accommodate external API terminology.
 | ---- | ------------------ | ----------------------------------------------- |
 | `riv`| River ID           | Unique identifier for each river reach (-).     |
 | `dwn`| Downstream ID      | Downstream identifier (-).                      |
+| `cod`| Station code       | Unique string identifier for each gauge (-).    |
+| `qlf`| Qualifier          | Data quality flag                               |
 | `kpr`| k parameter        | Muskingum parameter k (s).                      |
 | `xpr`| x parameter        | Muskingum parameter x (-).                      |
 | `C1p`| C1 parameter       | Muskingum parameter C1 (-).                     |
@@ -261,6 +263,10 @@ prefix:
 - **Argparse Idioms:** Conventional variables representing standard parsing
   interfaces (e.g., `args`, `parser`) when used strictly for configuration
   parsing.
+- **HTTP Request Idioms:** Conventional variables representing parameters,
+  objects, or data handled during web requests (e.g., `payload`, `params`,
+  `response`, `data`, `record`, `item`) to maintain standard syntax with HTTP
+  and JSON libraries.
 - **PyArrow Toolbox Idioms:** Handles and configuration objects used as
   transient interfaces during fast file I/O operations (e.g., `table`,
   `read_options`) to maintain standard syntax with the `pyarrow` library.
