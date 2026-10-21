@@ -17,6 +17,7 @@
 # -----------------------------------------------------------------------------
 from rapid2.pull.gldas2 import gldas2
 from rapid2.pull.sandbox import sandbox
+from rapid2.pull.usgs import usgs
 
 # -----------------------------------------------------------------------------
 # Explicit Public Interface
@@ -24,6 +25,7 @@ from rapid2.pull.sandbox import sandbox
 __all__ = [
     "gldas2",
     "sandbox",
+    "usgs",
 ]
 
 
