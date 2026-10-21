@@ -15,6 +15,7 @@ import urllib.parse
 import urllib.request
 import warnings
 from datetime import datetime, timezone
+from typing import TypedDict
 
 import netCDF4
 import numpy as np
@@ -104,7 +105,17 @@ def usgs(
     # -------------------------------------------------------------------------
     # Construct and execute USGS JSON web service queries
     # -------------------------------------------------------------------------
-    AT_obs = {}
+    ObsDic = TypedDict(
+        "ObsDic",
+        {
+            "lon": float,
+            "lat": float,
+            "tim": list[str],
+            "val": list[float],
+            "qlf": list[str],
+        },
+    )
+    AT_obs: dict[str, ObsDic] = {}
 
     for YS_cod_req in tqdm(YV_cod_avl, desc="Downloading USGS Data"):
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -204,7 +215,7 @@ def usgs(
             # Slice [:10] to strip local timezones. This assumes local daily
             # means represent UTC days, which is necessary to cleanly snap the
             # records to the strict UTC time vector used by the model
-            IS_tim = int(
+            IS_tim = np.int32(
                 datetime.strptime(YS_tim[:10], "%Y-%m-%d")
                 .replace(tzinfo=timezone.utc)
                 .timestamp()
