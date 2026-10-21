@@ -204,9 +204,16 @@ def usgs(
         ZV_lon_avl[JS_riv_avl] = AT_obs[YS_cod]["lon"]
         ZV_lat_avl[JS_riv_avl] = AT_obs[YS_cod]["lat"]
 
-        for YS_tim, ZS_val in zip(
-            AT_obs[YS_cod]["tim"], AT_obs[YS_cod]["val"], strict=True
+        for YS_tim, ZS_val, YS_qlf in zip(
+            AT_obs[YS_cod]["tim"],
+            AT_obs[YS_cod]["val"],
+            AT_obs[YS_cod]["qlf"],
+            strict=True,
         ):
+            # Strictly filter for Approved ('A') data
+            if "A" not in YS_qlf:
+                ZS_val = 1e20
+
             # Convert cubic feet per second to cubic meters per second except
             # for NoData points
             if ZS_val != 1e20:
