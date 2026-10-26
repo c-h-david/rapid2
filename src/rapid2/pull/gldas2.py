@@ -145,25 +145,31 @@ def gldas2(
     except IOError as err:
         raise IOError(f"Unable to process {tmp_ncf} or {lsm_ncf}") from err
 
+    try:
+        c = netCDF4.Dataset(lsm_ncf, "a")
+    except IOError as err:
+        raise IOError(f"Unable to open {lsm_ncf} for appending") from err
+
     JS_tim = 0
     for tmp_ncf in tqdm(YV_loc, desc="Concatenating LSM files"):
         try:
-            with (
-                netCDF4.Dataset(tmp_ncf, "r") as t,
-                netCDF4.Dataset(lsm_ncf, "a") as c,
-            ):
-                IS_siz = t.dimensions["time"].size
-                for name, var in t.variables.items():
-                    if name in YV_yes:
-                        if "time" in var.dimensions:
-                            JS_idx_beg = JS_tim
-                            JS_idx_end = JS_tim + IS_siz
-                            c.variables[name][JS_idx_beg:JS_idx_end] = var[:]
-                        else:
-                            c.variables[name][:] = var[:]
-                JS_tim += IS_siz
+            t = netCDF4.Dataset(tmp_ncf, "r")
         except IOError as err:
-            raise IOError(f"Unable to process {tmp_ncf} or {lsm_ncf}") from err
+            raise IOError(f"Unable to process {tmp_ncf}") from err
+
+        IS_siz = t.dimensions["time"].size
+        for name, var in t.variables.items():
+            if name in YV_yes:
+                if "time" in var.dimensions:
+                    JS_idx_beg = JS_tim
+                    JS_idx_end = JS_tim + IS_siz
+                    c.variables[name][JS_idx_beg:JS_idx_end] = var[:]
+                else:
+                    c.variables[name][:] = var[:]
+        JS_tim += IS_siz
+        t.close()
+
+    c.close()
 
     # -------------------------------------------------------------------------
     # Update time
