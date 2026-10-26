@@ -10,6 +10,7 @@
 # *****************************************************************************
 # Import Python modules
 # *****************************************************************************
+import math
 import os
 import warnings
 
@@ -76,22 +77,23 @@ def gldas2(
         short_name=YS_nam,
         version=YS_phs,
         temporal=(YS_tim, YS_tim),
-        count=300,
+        count=2928,  # limiting to one year of 3-hourly out of the box
     )
 
     # -------------------------------------------------------------------------
     # Download
     # -------------------------------------------------------------------------
     YS_dir = os.path.dirname(lsm_ncf)
-    earthaccess.download(AV_rem, YS_dir)
+    IS_rem = len(AV_rem)
+
+    for JS_rem in tqdm(range(IS_rem), desc="Downloading LSM files"):
+        earthaccess.download([AV_rem[JS_rem]], YS_dir)
 
     # -------------------------------------------------------------------------
     # Check files
     # -------------------------------------------------------------------------
-    IS_rem = len(AV_rem)
-
     YV_loc = []
-    for JS_rem in range(IS_rem):
+    for JS_rem in tqdm(range(IS_rem), desc="Verifying LSM files"):
         YS_rem = AV_rem[JS_rem]["meta"]["native-id"].split(":", 1)[1]
         ZS_rem = AV_rem[JS_rem]["size"]
         tmp_ncf = os.path.join(YS_dir, YS_rem)
@@ -102,7 +104,8 @@ def gldas2(
             ZS_loc = os.path.getsize(tmp_ncf) / 1024**2
             YV_loc.append(tmp_ncf)
 
-        if abs(ZS_rem - ZS_loc) >= 1e-15:
+        # Check files
+        if not math.isclose(ZS_rem, ZS_loc, abs_tol=1e-3):
             raise ValueError(
                 f"Remote file {YS_rem}, "
                 f"Local file {tmp_ncf}, "
