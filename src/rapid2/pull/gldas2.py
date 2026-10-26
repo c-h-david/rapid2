@@ -84,15 +84,15 @@ def gldas2(
     # Download
     # -------------------------------------------------------------------------
     YS_dir = os.path.dirname(lsm_ncf)
-    IS_rem = len(AV_rem)
 
-    for JS_rem in tqdm(range(IS_rem), desc="Downloading LSM files"):
-        earthaccess.download([AV_rem[JS_rem]], YS_dir)
+    earthaccess.download(AV_rem, YS_dir)
 
     # -------------------------------------------------------------------------
     # Check files
     # -------------------------------------------------------------------------
+    IS_rem = len(AV_rem)
     YV_loc = []
+
     for JS_rem in tqdm(range(IS_rem), desc="Verifying LSM files"):
         YS_rem = AV_rem[JS_rem]["meta"]["native-id"].split(":", 1)[1]
         ZS_rem = AV_rem[JS_rem]["size"]
@@ -218,7 +218,6 @@ def gldas2(
                 # Update the standard units in the netCDF metadata
                 c.variables["Qs_acc"].units = "kg m-2 s-1"
                 c.variables["Qsb_acc"].units = "kg m-2 s-1"
-
     except IOError as err:
         raise IOError(f"Unable to process rates in {lsm_ncf}") from err
 
