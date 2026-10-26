@@ -202,24 +202,30 @@ def gldas2(
     # Convert accumulated depth to depth rate
     # -------------------------------------------------------------------------
     try:
-        with netCDF4.Dataset(lsm_ncf, "a") as c:
-            # 1. Calculate the exact duration of the first time step in seconds
-            IS_dtE = (
-                c.variables["time_bnds"][0, 1] - c.variables["time_bnds"][0, 0]
-            )
-
-            # 2. If duration is less than a month (e.g., 3-hourly is 10,800s),
-            #    the GLDAS data is an accumulation and must be divided by time.
-            if IS_dtE < 100000:
-                # Divide data by the time step duration
-                c.variables["Qs_acc"][:] = c.variables["Qs_acc"][:] / IS_dtE
-                c.variables["Qsb_acc"][:] = c.variables["Qsb_acc"][:] / IS_dtE
-
-                # Update the standard units in the netCDF metadata
-                c.variables["Qs_acc"].units = "kg m-2 s-1"
-                c.variables["Qsb_acc"].units = "kg m-2 s-1"
+        c = netCDF4.Dataset(lsm_ncf, "a")
     except IOError as err:
         raise IOError(f"Unable to process rates in {lsm_ncf}") from err
+
+    # 1. Calculate the exact duration of the first time step in seconds
+    IS_dtE = c.variables["time_bnds"][0, 1] - c.variables["time_bnds"][0, 0]
+
+    # 2. If duration is less than a month (e.g., 3-hourly is 10,800s),
+    #    the GLDAS data is an accumulation and must be divided by time.
+    if IS_dtE < 100000:
+        IS_tim = c.dimensions["time"].size
+        for JS_tim in tqdm(range(IS_tim), desc="Converting depth to rate"):
+            c.variables["Qs_acc"][JS_tim, :] = (
+                c.variables["Qs_acc"][JS_tim, :] / IS_dtE
+            )
+            c.variables["Qsb_acc"][JS_tim, :] = (
+                c.variables["Qsb_acc"][JS_tim, :] / IS_dtE
+            )
+
+        # Update the standard units in the netCDF metadata
+        c.variables["Qs_acc"].units = "kg m-2 s-1"
+        c.variables["Qsb_acc"].units = "kg m-2 s-1"
+
+    c.close()
 
     # -------------------------------------------------------------------------
     # Delete files
