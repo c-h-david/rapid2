@@ -119,32 +119,36 @@ def gldas2(
     YV_loc = sorted(YV_loc)
     YV_yes = {"time", "time_bnds", "lon", "lat", "Qs_acc", "Qsb_acc"}
 
+    # 1. Create the skeleton file
     tmp_ncf = YV_loc[0]
     try:
-        with (
-            netCDF4.Dataset(tmp_ncf, "r") as t,
-            netCDF4.Dataset(lsm_ncf, "w") as c,
-        ):
-            # Copy global attributes
-            c.setncatts({attr: t.getncattr(attr) for attr in t.ncattrs()})
-
-            # Copy dimensions (time should be unlimited)
-            for name, dim in t.dimensions.items():
-                c.createDimension(
-                    name, None if dim.isunlimited() else len(dim)
-                )
-
-            # Copy variables that are in YV_yes (and their attributes)
-            for name, var in t.variables.items():
-                if name in YV_yes:
-                    c.createVariable(
-                        name, var.datatype, var.dimensions
-                    ).setncatts(
-                        {attr: var.getncattr(attr) for attr in var.ncattrs()}
-                    )
+        t = netCDF4.Dataset(tmp_ncf, "r")
     except IOError as err:
-        raise IOError(f"Unable to process {tmp_ncf} or {lsm_ncf}") from err
+        raise IOError(f"Unable to open {tmp_ncf}") from err
 
+    try:
+        c = netCDF4.Dataset(lsm_ncf, "w")
+    except IOError as err:
+        raise IOError(f"Unable to create {lsm_ncf}") from err
+
+    # Copy global attributes
+    c.setncatts({attr: t.getncattr(attr) for attr in t.ncattrs()})
+
+    # Copy dimensions (time should be unlimited)
+    for name, dim in t.dimensions.items():
+        c.createDimension(name, None if dim.isunlimited() else len(dim))
+
+    # Copy variables that are in YV_yes (and their attributes)
+    for name, var in t.variables.items():
+        if name in YV_yes:
+            c.createVariable(name, var.datatype, var.dimensions).setncatts(
+                {attr: var.getncattr(attr) for attr in var.ncattrs()}
+            )
+
+    t.close()
+    c.close()
+
+    # 2. Iterate and concatenate the data
     try:
         c = netCDF4.Dataset(lsm_ncf, "a")
     except IOError as err:
@@ -155,7 +159,7 @@ def gldas2(
         try:
             t = netCDF4.Dataset(tmp_ncf, "r")
         except IOError as err:
-            raise IOError(f"Unable to process {tmp_ncf}") from err
+            raise IOError(f"Unable to open {tmp_ncf}") from err
 
         IS_siz = t.dimensions["time"].size
         for name, var in t.variables.items():
@@ -175,28 +179,24 @@ def gldas2(
     # Update time
     # -------------------------------------------------------------------------
     try:
-        with netCDF4.Dataset(lsm_ncf, "a") as c:
-            if YS_phs == "2.0":
-                c.variables["time"][:] = (
-                    c.variables["time"][:] * 60 - 694299600
-                )
-                c.variables["time_bnds"][:] = (
-                    c.variables["time_bnds"][:] * 60 - 694299600
-                )
-
-            if YS_phs == "2.1":
-                c.variables["time"][:] = (
-                    c.variables["time"][:] * 60 + 946695600
-                )
-                c.variables["time_bnds"][:] = (
-                    c.variables["time_bnds"][:] * 60 + 946695600
-                )
-
-            c.variables[
-                "time"
-            ].units = "second since 1970-01-01 00:00:00 +00:00"
+        c = netCDF4.Dataset(lsm_ncf, "a")
     except IOError as err:
-        raise IOError(f"Unable to process time in {lsm_ncf}") from err
+        raise IOError(f"Unable to open {lsm_ncf}") from err
+
+    if YS_phs == "2.0":
+        c.variables["time"][:] = c.variables["time"][:] * 60 - 694299600
+        c.variables["time_bnds"][:] = (
+            c.variables["time_bnds"][:] * 60 - 694299600
+        )
+
+    if YS_phs == "2.1":
+        c.variables["time"][:] = c.variables["time"][:] * 60 + 946695600
+        c.variables["time_bnds"][:] = (
+            c.variables["time_bnds"][:] * 60 + 946695600
+        )
+
+    c.variables["time"].units = "second since 1970-01-01 00:00:00 +00:00"
+    c.close()
 
     # -------------------------------------------------------------------------
     # Convert accumulated depth to depth rate
