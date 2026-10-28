@@ -14,6 +14,7 @@ import netCDF4
 import numpy as np
 import pyarrow as pa
 import pyarrow.parquet as pq
+from tqdm import tqdm
 
 from rapid2.base import (
     calc_scl_vec,
@@ -107,23 +108,26 @@ def ltir(
     # -------------------------------------------------------------------------
     # Validate temporal alignment
     # -------------------------------------------------------------------------
-    IS_tim_all = IM_tim_all[0, 0] if IM_tim_all is not None else IV_tim_all[0]
+    IS_tim_min = IM_tim_all[0, 0] if IM_tim_all is not None else IV_tim_all[0]
     IS_tim_tmp = IM_tim_tmp[0, 0] if IM_tim_tmp is not None else IV_tim_tmp[0]
-    if IS_tim_all != IS_tim_tmp:
+    if IS_tim_min != IS_tim_tmp:
         raise ValueError(
-            f"Start times differ. Qex: {IS_tim_all}, Qob: {IS_tim_tmp}"
+            f"Start times differ. Qex: {IS_tim_min}, Qob: {IS_tim_tmp}"
         )
 
-    IS_tim_all = (
+    IS_tim_max = (
         IM_tim_all[-1, 1] if IM_tim_all is not None else IV_tim_all[-1]
     )
     IS_tim_tmp = (
         IM_tim_tmp[-1, 1] if IM_tim_tmp is not None else IV_tim_tmp[-1]
     )
-    if IS_tim_all != IS_tim_tmp:
+    if IS_tim_max != IS_tim_tmp:
         raise ValueError(
-            f"End times differ. Qex: {IS_tim_all}, Qob: {IS_tim_tmp}"
+            f"End times differ. Qex: {IS_tim_max}, Qob: {IS_tim_tmp}"
         )
+
+    IS_tim_all = len(IV_tim_all)
+    IS_tim_Qob = len(IV_tim_tmp)
 
     # -------------------------------------------------------------------------
     # Average external inflows
@@ -133,7 +137,12 @@ def ltir(
     except IOError as err:
         raise IOError(f"Unable to open {Qex_ncf}") from err
 
-    ZV_Qex_avg = np.mean(f.variables["Qext"][:, IV_0bi_bas], axis=0)
+    ZV_Qex_avg = np.zeros(len(IV_0bi_bas), dtype=np.float64)
+
+    for JS_tim_all in tqdm(range(IS_tim_all), desc="Averaging Qex"):
+        ZV_Qex_avg += f.variables["Qext"][JS_tim_all][IV_0bi_bas]
+    ZV_Qex_avg = ZV_Qex_avg / IS_tim_all
+
     f.close()
 
     # -------------------------------------------------------------------------
@@ -144,7 +153,12 @@ def ltir(
     except IOError as err:
         raise IOError(f"Unable to open {Qob_ncf}") from err
 
-    ZV_Qob_avg = np.mean(o.variables["Qout"][:, IV_0bi_act], axis=0)
+    ZV_Qob_avg = np.zeros(len(IV_0bi_act), dtype=np.float64)
+
+    for JS_tim_obs in tqdm(range(IS_tim_Qob), desc="Averaging Qob"):
+        ZV_Qob_avg += o.variables["Qout"][JS_tim_obs][IV_0bi_act]
+    ZV_Qob_avg = ZV_Qob_avg / IS_tim_Qob
+
     o.close()
 
     # -------------------------------------------------------------------------
