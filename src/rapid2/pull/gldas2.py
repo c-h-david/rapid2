@@ -73,10 +73,27 @@ def gldas2(
 
     YS_nam = YS_exp + "_" + YS_mod + YS_res + "_" + YS_frq
 
+    # GLDAS file names are stamped at end of a 3-hour accumulation window.
+    # We shift the search bounds to align with RAPID2's expected time window.
+    if len(YS_tim) == 4:
+        # If downloading a year
+        YS_beg = f"{YS_tim}-01-01T00:01:00"
+        YS_end = f"{int(YS_tim) + 1}-01-01T00:00:00"
+    elif len(YS_tim) == 7:
+        # If downloading a month
+        YS_yr, YS_mo = YS_tim.split("-")
+        YS_beg = f"{YS_tim}-01T00:01:00"
+        if YS_mo == "12":
+            YS_end = f"{int(YS_yr) + 1}-01-01T00:00:00"
+        else:
+            YS_end = f"{YS_yr}-{int(YS_mo) + 1:02d}-01T00:00:00"
+    else:
+        raise ValueError(f"Invalid time format: {YS_tim}. Use YYYY or YYYY-MM")
+
     AV_rem = earthaccess.search_data(
         short_name=YS_nam,
         version=YS_phs,
-        temporal=(YS_tim, YS_tim),
+        temporal=(YS_beg, YS_end),
         count=2928,  # limiting to one year of 3-hourly out of the box
     )
 
@@ -184,17 +201,15 @@ def gldas2(
         raise IOError(f"Unable to open {lsm_ncf}") from err
 
     if YS_phs == "2.0":
-        c.variables["time"][:] = c.variables["time"][:] * 60 - 694299600
-        c.variables["time_bnds"][:] = (
-            c.variables["time_bnds"][:] * 60 - 694299600
-        )
+        # Change 0-time to 1970-01-01 epoch and shift back 3 hours (10800s)
+        c.variables["time"][:] = c.variables["time"][:] * 60 - 694310400
 
     if YS_phs == "2.1":
-        c.variables["time"][:] = c.variables["time"][:] * 60 + 946695600
-        c.variables["time_bnds"][:] = (
-            c.variables["time_bnds"][:] * 60 + 946695600
-        )
+        # Change 0-time to 1970-01-01 epoch and shift back 3 hours (10800s)
+        c.variables["time"][:] = c.variables["time"][:] * 60 + 946684800
 
+    c.variables["time_bnds"][:, 0] = c.variables["time"][:]
+    c.variables["time_bnds"][:, 1] = c.variables["time"][:] + 10800
     c.variables["time"].units = "second since 1970-01-01 00:00:00 +00:00"
     c.close()
 
