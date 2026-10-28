@@ -14,10 +14,9 @@ import numpy as np
 import numpy.typing as npt
 from scipy.sparse import (
     csc_matrix,
+    identity,
 )
 from scipy.sparse.linalg import spsolve
-
-from rapid2.base.calc_Nmn_mat import calc_Nmn_mat
 
 
 # *****************************************************************************
@@ -71,22 +70,25 @@ def calc_scl_vec(
     # Start with some initial variables
     # -------------------------------------------------------------------------
     IS_riv_bas = ZM_Net.shape[0]
+    ZM_Idt = identity(IS_riv_bas, format="csc", dtype=np.float64)
 
     # -------------------------------------------------------------------------
     # 1. Independent Subbasin Inflows
     # -------------------------------------------------------------------------
-    ZM_inN = calc_Nmn_mat(ZM_Net)
+    ZM_ImN = ZM_Idt - ZM_Net
 
-    # Use the explicit (I - N)^-1 via Neumann series and solve for q^e
-    ZV_lqe_avg = spsolve(ZM_Sel @ ZM_inN @ ZM_Sel.T, ZV_Qob_avg)
+    # Implicitly build (I - N)^-1 * S^T (converted to CSC) and solve for q^e
+    ZV_lqe_avg = spsolve(
+        ZM_Sel @ spsolve(ZM_ImN, ZM_Sel.T.tocsc()), ZV_Qob_avg
+    )
 
     # -------------------------------------------------------------------------
     # 2. Disconnected Network and Routing
     # -------------------------------------------------------------------------
     ZM_Dis = ZM_Net - ZM_Net @ ZM_Sel.T @ ZM_Sel
-    ZM_inD = calc_Nmn_mat(ZM_Dis)
+    ZM_ImD = ZM_Idt - ZM_Dis
 
-    ZV_Qdi_avg = ZM_inD @ ZV_Qex_avg
+    ZV_Qdi_avg = spsolve(ZM_ImD, ZV_Qex_avg)
 
     # -------------------------------------------------------------------------
     # 3. Compute Scaling Factors
@@ -103,7 +105,7 @@ def calc_scl_vec(
 
     # Distribute subbasin scalars to individual reaches (big-Lambda)
     ZV_scl_bas = np.ones(IS_riv_bas, dtype=np.float64)
-    ZV_scl_bas[:] = ZM_inD.T @ (ZM_Sel.T @ (ZV_scl_act - 1.0)) + 1.0
+    ZV_scl_bas[:] = spsolve(ZM_ImD.T, ZM_Sel.T @ (ZV_scl_act - 1.0)) + 1.0
 
     return ZV_scl_bas
 
