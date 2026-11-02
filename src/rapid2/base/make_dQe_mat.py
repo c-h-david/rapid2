@@ -166,6 +166,18 @@ def make_dQe_mat(
     # Cast the populated COO matrix to CSC for downstream routing math
     ZM_dQe = ZM_lkm.tocsc()
 
+    # -------------------------------------------------------------------------
+    # Check Symmetry of Background Error Covariance (Pb)
+    # -------------------------------------------------------------------------
+    ZM_tmp = ZM_dQe - ZM_dQe.T
+    if ZM_tmp.nnz > 0:
+        ZS_val_max = np.max(np.abs(ZM_tmp.data))
+        if ZS_val_max > 1e-10:
+            raise ValueError(
+                f"Background error covariance matrix is not symmetric. "
+                f"Max asymmetry: {ZS_val_max:.2e}"
+            )
+
     return ZM_dQe
 
 
