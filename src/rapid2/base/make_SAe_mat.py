@@ -113,6 +113,12 @@ def make_SAe_mat(
     #           + ...
     #           ) @ ZM_Bet / IS_rat_Qob
 
+    # -------------------------------------------------------------------------
+    # Guard against repeated multiplication overflow
+    # -------------------------------------------------------------------------
+    if np.isnan(ZM_SAe.data).any() or np.isinf(ZM_SAe.data).any():
+        raise ValueError("SAe matrix contains NaN or Inf values.")
+
     return ZM_SAe
 
 
