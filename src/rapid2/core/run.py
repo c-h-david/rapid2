@@ -344,10 +344,16 @@ def run(
     # Run simulations
     # -------------------------------------------------------------------------
     for JS_tim_all in tqdm(range(IS_tim_all), desc="Computing discharge"):
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Read external inflow
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         ZV_Qex_avg = f.variables["Qext"][JS_tim_all][IV_0bi_bas]
 
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Data Assimilation
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Compute correction at observational cadence
         if Qob_ncf is not None and JS_tim_all % (IS_dtO // IS_dtE) == 0:
             JS_tim_obs = JS_tim_all // (IS_dtO // IS_dtE)
             ZV_Qob_now = o.variables["Qout"][JS_tim_obs, IV_0bi_act]
@@ -357,16 +363,22 @@ def run(
             ZV_Qme_tmp = ZM_SAe @ ZV_Qex_tmp + ZM_SA0 @ ZV_Qou_prv
             ZV_dQo_act = ZV_Qob_now - ZV_Qme_tmp
             ZV_dQe_bas = ZM_Kal @ ZV_dQo_act
+
+        # Apply correction at external inflow cadence
         if Qob_ncf is not None:
             ZV_Qex_avg = ZV_Qex_avg + ZV_dQe_bas
 
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Compute Qout
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         ZV_Qou_avg, ZV_Qou_now = updt_Mus_Qou(
             ZM_ICN, ZM_Qex, ZM_Qou, IS_rat_Qex, ZV_Qou_prv, ZV_Qex_avg
         )
         ZV_Qou_prv = ZV_Qou_now
 
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Populate Qout, time, and time_bnds
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         g.variables["Qout"][JS_tim_all, :] = ZV_Qou_avg[:]
         g.variables["time"][JS_tim_all] = IV_tim_all[JS_tim_all]
         g.variables["time_bnds"][JS_tim_all, :] = IM_tim_all[JS_tim_all, :]
