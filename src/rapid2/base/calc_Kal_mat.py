@@ -10,6 +10,9 @@
 # *****************************************************************************
 # Import Python modules
 # *****************************************************************************
+import warnings
+
+import numpy as np
 from scipy.sparse import csc_matrix
 from scipy.sparse.linalg import spsolve
 
@@ -73,6 +76,28 @@ def calc_Kal_mat(
     # -------------------------------------------------------------------------
     # S = H * Pb * H^T + R
     ZM_den = ZM_SAe @ ZM_dQe @ ZM_SAe.T + ZM_dQo
+
+    # -------------------------------------------------------------------------
+    # Check Innovation Covariance Matrix Conditioning
+    # -------------------------------------------------------------------------
+    ZV_val_tmp = np.linalg.eigvalsh(ZM_den.toarray())
+    ZS_val_min = np.min(ZV_val_tmp)
+    ZS_val_max = np.max(ZV_val_tmp)
+
+    if ZS_val_min <= 0.0:
+        raise ValueError(
+            f"Innovation covariance matrix is not positive definite. "
+            f"Minimum eigenvalue: {ZS_val_min:.2e}"
+        )
+
+    # Condition number is a generic temporary value here
+    ZS_val_tmp = ZS_val_max / ZS_val_min
+    if ZS_val_tmp > 1e10:
+        warnings.warn(
+            f"Innovation covariance matrix is highly ill-conditioned. "
+            f"Condition number: {ZS_val_tmp:.2e}",
+            stacklevel=2,
+        )
 
     # -------------------------------------------------------------------------
     # Solve linear system to avoid explicit inversion of S
