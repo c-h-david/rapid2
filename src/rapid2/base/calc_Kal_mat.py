@@ -112,6 +112,22 @@ def calc_Kal_mat(
     ZM_tmp = spsolve(ZM_den, ZM_rhs)
     ZM_Kal = csc_matrix(ZM_tmp.T)
 
+    # -------------------------------------------------------------------------
+    # Check Kalman Gain magnitude for numerical instability
+    # -------------------------------------------------------------------------
+    if np.isnan(ZM_Kal.data).any() or np.isinf(ZM_Kal.data).any():
+        raise ValueError("Kalman gain matrix contains NaN or Inf values.")
+
+    if ZM_Kal.data.size > 0:
+        # ZS_val_max acts as a temporary scalar for the maximum absolute gain
+        ZS_val_max = np.max(np.abs(ZM_Kal.data))
+        if ZS_val_max > 1e4:
+            warnings.warn(
+                f"Kalman gain magnitude is unusually high: {ZS_val_max:.2e}. "
+                f"Assimilation corrections may be unstable.",
+                stacklevel=2,
+            )
+
     return ZM_Kal
 
 
