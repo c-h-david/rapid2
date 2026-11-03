@@ -40,6 +40,9 @@ def make_dQe_mat(
     (c = sqrt(5/3) * L), smoothly dropping to zero at a cutoff distance of 2c.
     Reaches with missing data (NoData) for standard deviation of the external
     inflow error are mathematically isolated by forcing their variance to 0.0.
+    For example, an e-folding scale of L=80 km (where half-width c ≈ 103 km)
+    yields a correlation weight of ~0.40 at 80 km, ~0.21 at the half-width,
+    and exactly 0.0 at the absolute cutoff (2c ≈ 206 km).
 
     Parameters
     ----------
