@@ -51,28 +51,30 @@ def calc_GCt_vec(
     # Piecewise Condition 1: 0 <= Omega <= 1
     # -------------------------------------------------------------------------
     BV_tmp = ZV_Omg <= 1.0
-    ZV_Alp[BV_tmp] = (
-        1.0
-        - (1.0 / 4.0) * ZV_Omg[BV_tmp] ** 5
-        + (1.0 / 2.0) * ZV_Omg[BV_tmp] ** 4
-        + (5.0 / 8.0) * ZV_Omg[BV_tmp] ** 3
-        - (5.0 / 3.0) * ZV_Omg[BV_tmp] ** 2
-    )
+    ZV_tmp = ZV_Omg[BV_tmp]
+
+    ZV_val = 1.0 - (5.0 / 3.0) * ZV_tmp ** 2
+    ZV_val += (5.0 / 8.0) * ZV_tmp ** 3
+    ZV_val += (1.0 / 2.0) * ZV_tmp ** 4
+    ZV_val -= (1.0 / 4.0) * ZV_tmp ** 5
+
+    ZV_Alp[BV_tmp] = ZV_val
 
     # -------------------------------------------------------------------------
     # Piecewise Condition 2: 1 < Omega <= 2
     # -------------------------------------------------------------------------
     # Division by zero is inherently avoided because Omega > 1.0
     BV_tmp = (ZV_Omg > 1.0) & (ZV_Omg <= 2.0)
-    ZV_Alp[BV_tmp] = (
-        (1.0 / 12.0) * ZV_Omg[BV_tmp] ** 5
-        - (1.0 / 2.0) * ZV_Omg[BV_tmp] ** 4
-        + (5.0 / 8.0) * ZV_Omg[BV_tmp] ** 3
-        + (5.0 / 3.0) * ZV_Omg[BV_tmp] ** 2
-        - 5.0 * ZV_Omg[BV_tmp]
-        + 4.0
-        - (2.0 / 3.0) / ZV_Omg[BV_tmp]
-    )
+    ZV_tmp = ZV_Omg[BV_tmp]
+
+    ZV_val = 4.0 - (2.0 / 3.0) / ZV_tmp
+    ZV_val -= 5.0 * ZV_tmp
+    ZV_val += (5.0 / 3.0) * ZV_tmp ** 2
+    ZV_val += (5.0 / 8.0) * ZV_tmp ** 3
+    ZV_val -= (1.0 / 2.0) * ZV_tmp ** 4
+    ZV_val += (1.0 / 12.0) * ZV_tmp ** 5
+
+    ZV_Alp[BV_tmp] = ZV_val
 
     # -------------------------------------------------------------------------
     # Note: Omega > 2.0 remains 0.0 from the initial zeros_like array.
