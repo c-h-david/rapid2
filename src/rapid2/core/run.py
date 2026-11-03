@@ -344,7 +344,6 @@ def run(
     # Run simulations
     # -------------------------------------------------------------------------
     for JS_tim_all in tqdm(range(IS_tim_all), desc="Computing discharge"):
-
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         # Read external inflow
         # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -363,6 +362,15 @@ def run(
             ZV_Qme_tmp = ZM_SAe @ ZV_Qex_tmp + ZM_SA0 @ ZV_Qou_prv
             ZV_dQo_act = ZV_Qob_now - ZV_Qme_tmp
             ZV_dQe_bas = ZM_Kal @ ZV_dQo_act
+
+            # Block impossible external inflow corrections (> Amazon peak)
+            if np.max(np.abs(ZV_dQe_bas)) > 5e5:
+                raise ValueError(
+                    f"External inflow correction exceeds maximum physical "
+                    f"bounds (e.g. Amazon peak) at step {JS_tim_all}!\n"
+                    f" - Max correction: {np.max(np.abs(ZV_dQe_bas)):.2e}"
+                    f" m3 s-1"
+                )
 
         # Apply correction at external inflow cadence
         if Qob_ncf is not None:
