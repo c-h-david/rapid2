@@ -151,10 +151,10 @@ def make_dQe_mat(
 
     # Convert chord distances to arc lengths directly in the matrix
     # s = 2*R*arcsin(C / (2*R)). Clip to prevent rounding errors > 1.0
-    ZM_lkm.data /= (2.0 * ZS_rad_ear)
+    ZM_lkm.data /= 2.0 * ZS_rad_ear
     np.clip(ZM_lkm.data, -1.0, 1.0, out=ZM_lkm.data)
     np.arcsin(ZM_lkm.data, out=ZM_lkm.data)
-    ZM_lkm.data *= (2.0 * ZS_rad_ear)
+    ZM_lkm.data *= 2.0 * ZS_rad_ear
 
     # -------------------------------------------------------------------------
     # Gaspari-Cohn Tapering and Covariance Assembly (In-Place)

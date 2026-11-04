@@ -63,10 +63,10 @@ def calc_GCt_vec(
         ZV_tmp = ZV_Omg_chn[BV_tmp]
 
         if len(ZV_tmp) > 0:
-            ZV_val = 1.0 - (5.0 / 3.0) * ZV_tmp ** 2
-            ZV_val += (5.0 / 8.0) * ZV_tmp ** 3
-            ZV_val += (1.0 / 2.0) * ZV_tmp ** 4
-            ZV_val -= (1.0 / 4.0) * ZV_tmp ** 5
+            ZV_val = 1.0 - (5.0 / 3.0) * ZV_tmp**2
+            ZV_val += (5.0 / 8.0) * ZV_tmp**3
+            ZV_val += (1.0 / 2.0) * ZV_tmp**4
+            ZV_val -= (1.0 / 4.0) * ZV_tmp**5
 
             ZV_Alp_chn[BV_tmp] = ZV_val
 
@@ -80,10 +80,10 @@ def calc_GCt_vec(
         if len(ZV_tmp) > 0:
             ZV_val = 4.0 - (2.0 / 3.0) / ZV_tmp
             ZV_val -= 5.0 * ZV_tmp
-            ZV_val += (5.0 / 3.0) * ZV_tmp ** 2
-            ZV_val += (5.0 / 8.0) * ZV_tmp ** 3
-            ZV_val -= (1.0 / 2.0) * ZV_tmp ** 4
-            ZV_val += (1.0 / 12.0) * ZV_tmp ** 5
+            ZV_val += (5.0 / 3.0) * ZV_tmp**2
+            ZV_val += (5.0 / 8.0) * ZV_tmp**3
+            ZV_val -= (1.0 / 2.0) * ZV_tmp**4
+            ZV_val += (1.0 / 12.0) * ZV_tmp**5
 
             ZV_Alp_chn[BV_tmp] = ZV_val
 
