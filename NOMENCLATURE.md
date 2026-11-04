@@ -134,6 +134,7 @@ to accommodate external API terminology.
 | `act`| Active gages       | Length is `IS_riv_act` (used for correction).   |
 | `all`| All values         | Array length equals `IS_tim_all`.               |
 | `lsm`| Land surface model | Array dimensions match LSM grid (e.g., lat/lon).|
+| `chn`| Chunk subset       | A segmented slice or subset of a larger array.  |
 
 #### Temporal States
 

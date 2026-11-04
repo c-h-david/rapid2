@@ -48,37 +48,51 @@ def calc_GCt_vec(
     ZV_Alp = np.zeros_like(ZV_Omg)
 
     # -------------------------------------------------------------------------
-    # Piecewise Condition 1: 0 <= Omega <= 1
+    # Process in chunks to prevent temporary math array bloat
     # -------------------------------------------------------------------------
-    BV_tmp = ZV_Omg <= 1.0
-    ZV_tmp = ZV_Omg[BV_tmp]
+    IS_Omg_chn = 2000000
+    for JS_Omg_chn in range(0, len(ZV_Omg), IS_Omg_chn):
+        JS_Omg_max = JS_Omg_chn + IS_Omg_chn
+        ZV_Omg_chn = ZV_Omg[JS_Omg_chn:JS_Omg_max]
+        ZV_Alp_chn = np.zeros_like(ZV_Omg_chn)
 
-    ZV_val = 1.0 - (5.0 / 3.0) * ZV_tmp ** 2
-    ZV_val += (5.0 / 8.0) * ZV_tmp ** 3
-    ZV_val += (1.0 / 2.0) * ZV_tmp ** 4
-    ZV_val -= (1.0 / 4.0) * ZV_tmp ** 5
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Piecewise Condition 1: 0 <= Omega <= 1
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        BV_tmp = ZV_Omg_chn <= 1.0
+        ZV_tmp = ZV_Omg_chn[BV_tmp]
 
-    ZV_Alp[BV_tmp] = ZV_val
+        if len(ZV_tmp) > 0:
+            ZV_val = 1.0 - (5.0 / 3.0) * ZV_tmp ** 2
+            ZV_val += (5.0 / 8.0) * ZV_tmp ** 3
+            ZV_val += (1.0 / 2.0) * ZV_tmp ** 4
+            ZV_val -= (1.0 / 4.0) * ZV_tmp ** 5
 
-    # -------------------------------------------------------------------------
-    # Piecewise Condition 2: 1 < Omega <= 2
-    # -------------------------------------------------------------------------
-    # Division by zero is inherently avoided because Omega > 1.0
-    BV_tmp = (ZV_Omg > 1.0) & (ZV_Omg <= 2.0)
-    ZV_tmp = ZV_Omg[BV_tmp]
+            ZV_Alp_chn[BV_tmp] = ZV_val
 
-    ZV_val = 4.0 - (2.0 / 3.0) / ZV_tmp
-    ZV_val -= 5.0 * ZV_tmp
-    ZV_val += (5.0 / 3.0) * ZV_tmp ** 2
-    ZV_val += (5.0 / 8.0) * ZV_tmp ** 3
-    ZV_val -= (1.0 / 2.0) * ZV_tmp ** 4
-    ZV_val += (1.0 / 12.0) * ZV_tmp ** 5
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Piecewise Condition 2: 1 < Omega <= 2
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Division by zero is inherently avoided because Omega > 1.0
+        BV_tmp = (ZV_Omg_chn > 1.0) & (ZV_Omg_chn <= 2.0)
+        ZV_tmp = ZV_Omg_chn[BV_tmp]
 
-    ZV_Alp[BV_tmp] = ZV_val
+        if len(ZV_tmp) > 0:
+            ZV_val = 4.0 - (2.0 / 3.0) / ZV_tmp
+            ZV_val -= 5.0 * ZV_tmp
+            ZV_val += (5.0 / 3.0) * ZV_tmp ** 2
+            ZV_val += (5.0 / 8.0) * ZV_tmp ** 3
+            ZV_val -= (1.0 / 2.0) * ZV_tmp ** 4
+            ZV_val += (1.0 / 12.0) * ZV_tmp ** 5
 
-    # -------------------------------------------------------------------------
-    # Note: Omega > 2.0 remains 0.0 from the initial zeros_like array.
-    # -------------------------------------------------------------------------
+            ZV_Alp_chn[BV_tmp] = ZV_val
+
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # Note: Omega > 2.0 remains 0.0 from the initial zeros_like array.
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+        # Write the processed chunk back to the main array
+        ZV_Alp[JS_Omg_chn:JS_Omg_max] = ZV_Alp_chn
 
     return ZV_Alp
 
