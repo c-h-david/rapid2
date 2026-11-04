@@ -151,23 +151,27 @@ def make_dQe_mat(
 
     # Convert chord distances to arc lengths directly in the matrix
     # s = 2*R*arcsin(C / (2*R)). Clip to prevent rounding errors > 1.0
-    ZM_lkm.data = (
-        2.0
-        * ZS_rad_ear
-        * np.arcsin(np.clip(ZM_lkm.data / (2.0 * ZS_rad_ear), -1.0, 1.0))
-    )
+    ZM_lkm.data /= (2.0 * ZS_rad_ear)
+    np.clip(ZM_lkm.data, -1.0, 1.0, out=ZM_lkm.data)
+    np.arcsin(ZM_lkm.data, out=ZM_lkm.data)
+    ZM_lkm.data *= (2.0 * ZS_rad_ear)
 
     # -------------------------------------------------------------------------
     # Gaspari-Cohn Tapering and Covariance Assembly (In-Place)
     # -------------------------------------------------------------------------
     # 1. Overwrite arc lengths with Gaspari-Cohn tapering weights (Alpha)
-    ZM_lkm.data = calc_GCt_vec(ZM_lkm.data / ZS_c)
+    ZM_lkm.data /= ZS_c
+    ZM_lkm.data = calc_GCt_vec(ZM_lkm.data)
 
     # 2. Multiply weights by the standard deviations at (row, col) coordinates
-    ZM_lkm.data *= ZV_sdv_tmp[ZM_lkm.row] * ZV_sdv_tmp[ZM_lkm.col]
+    ZM_lkm.data *= ZV_sdv_tmp[ZM_lkm.row]
+    ZM_lkm.data *= ZV_sdv_tmp[ZM_lkm.col]
 
     # Cast the populated COO matrix to CSC for downstream routing math
     ZM_dQe = ZM_lkm.tocsc()
+
+    # Free the COO matrix immediately to avoid dead weight in RAM
+    del ZM_lkm
 
     # -------------------------------------------------------------------------
     # Check Symmetry of Background Error Covariance (Pb)
