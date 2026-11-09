@@ -71,6 +71,8 @@ def chck_Kal(
 
     ZS_scl_max = np.max(ZV_scl)
 
+    print(f"\n[DEBUG] Max Old Water Index (SA0/SAe): {ZS_scl_max:.2f}x")
+
     if ZS_scl_max >= 5.0:
         raise ValueError(
             f"Observability limit exceeded: Max 'old water' index "
@@ -85,8 +87,6 @@ def chck_Kal(
             stacklevel=2,
         )
 
-    print(f"\n[DEBUG] Max Old Water Index (SA0/SAe): {ZS_scl_max:.2f}x")
-
     # -------------------------------------------------------------------------
     # 2. Gauge Interference: Innovation Condition Number
     # -------------------------------------------------------------------------
@@ -94,6 +94,8 @@ def chck_Kal(
 
     # Calculate condition number using SVD
     ZS_val = np.linalg.cond(ZM_den.toarray())
+
+    print(f"[DEBUG] Innovation Matrix Condition Number: {ZS_val:.2e}")
 
     if ZS_val > 1e6:
         warnings.warn(
@@ -103,7 +105,26 @@ def chck_Kal(
             stacklevel=2,
         )
 
-    print(f"[DEBUG] Innovation Matrix Condition Number: {ZS_val:.2e}")
+    # -------------------------------------------------------------------------
+    # 3. Filter Aggressiveness: DA Amplification Ratio
+    # -------------------------------------------------------------------------
+    ZV_scl = np.sum(np.abs(ZM_Kal.toarray()), axis=0)
+    ZS_scl_max = np.max(ZV_scl)
+
+    print(f"[DEBUG] Max DA Amplification Ratio: {ZS_scl_max:.2f}x")
+
+    if ZS_scl_max >= 10.0:
+        raise ValueError(
+            f"Data assimilation instability: max amplification ratio "
+            f"({ZS_scl_max:.2f}x) exceeds critical threshold (10.0)."
+        )
+    elif ZS_scl_max > 5.0:
+        warnings.warn(
+            f"High data assimilation amplification ratio "
+            f"({ZS_scl_max:.2f}x). Spatial covariance radius may "
+            "exceed routing constraints.",
+            stacklevel=2,
+        )
 
 
 # *****************************************************************************
