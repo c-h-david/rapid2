@@ -87,6 +87,24 @@ def chck_Kal(
 
     print(f"\n[DEBUG] Max Old Water Index (SA0/SAe): {ZS_scl_max:.2f}x")
 
+    # -------------------------------------------------------------------------
+    # 2. Gauge Interference: Innovation Condition Number
+    # -------------------------------------------------------------------------
+    ZM_den = ZM_SAe @ ZM_dQe @ ZM_SAe.T + ZM_dQo
+
+    # Calculate condition number using SVD
+    ZS_val = np.linalg.cond(ZM_den.toarray())
+
+    if ZS_val > 1e6:
+        warnings.warn(
+            f"High innovation condition number ({ZS_val:.2e}). "
+            "Gauges are likely interfering with each other due to "
+            "overlapping spatial covariance radii (ZS_lkm_cov).",
+            stacklevel=2,
+        )
+
+    print(f"[DEBUG] Innovation Matrix Condition Number: {ZS_val:.2e}")
+
 
 # *****************************************************************************
 # End
