@@ -18,6 +18,7 @@ from rapid2.base import (
     calc_Kal_mat,
     calc_Nmn_mat,
     chck_bas,
+    chck_Kal,
     make_0bi_tbl,
     make_CCC_mat,
     make_dQe_mat,
@@ -305,6 +306,13 @@ def run(
     if Qob_ncf is not None:
         ZM_Kal = calc_Kal_mat(ZM_SAe, ZM_dQe, ZM_dQo)
         ZV_dQe_bas = np.zeros(len(IV_riv_bas), dtype=np.float64)
+
+    # -------------------------------------------------------------------------
+    # Assimilation only: final checks before flight
+    # -------------------------------------------------------------------------
+    if Qob_ncf is not None:
+        # Diagnose Theoretical Stability and Plausibility
+        chck_Kal(ZM_SA0, ZM_SAe, ZM_dQe, ZM_dQo, ZM_Kal, ZM_Mus)
 
     # -------------------------------------------------------------------------
     # Open files

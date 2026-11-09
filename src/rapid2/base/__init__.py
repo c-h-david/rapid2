@@ -22,6 +22,7 @@ from rapid2.base.calc_Nmn_mat import calc_Nmn_mat
 from rapid2.base.calc_scl_vec import calc_scl_vec
 from rapid2.base.chck_bas import chck_bas
 from rapid2.base.chck_cpl import chck_cpl
+from rapid2.base.chck_Kal import chck_Kal
 from rapid2.base.make_0bi_tbl import make_0bi_tbl
 from rapid2.base.make_CCC_mat import make_CCC_mat
 from rapid2.base.make_dQe_mat import make_dQe_mat
@@ -57,6 +58,7 @@ __all__ = [
     "calc_scl_vec",
     "chck_bas",
     "chck_cpl",
+    "chck_Kal",
     "make_0bi_tbl",
     "make_CCC_mat",
     "make_dQe_mat",
