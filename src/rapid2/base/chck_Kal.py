@@ -14,6 +14,7 @@ import warnings
 
 import numpy as np
 from scipy.sparse import csc_matrix
+from scipy.sparse.linalg import eigsh
 
 
 # *****************************************************************************
@@ -92,14 +93,37 @@ def chck_Kal(
     # -------------------------------------------------------------------------
     ZM_den = ZM_SAe @ ZM_dQe @ ZM_SAe.T + ZM_dQo
 
-    # Calculate condition number using SVD
-    ZS_val = np.linalg.cond(ZM_den.toarray())
+    # Get the single (k=1) largest magnitude (which='LM') absolute eigen value
+    ZS_val_max = np.float64(
+        np.abs(eigsh(ZM_den, k=1, which="LM", return_eigenvectors=False)[0])
+    )
 
-    print(f"[DEBUG] Innovation Matrix Condition Number: {ZS_val:.2e}")
+    # Use shift-invert (sigma=0.0) to find the eigenvalue closest to zero
+    try:
+        ZS_val_min = np.float64(
+            np.abs(
+                eigsh(
+                    ZM_den,
+                    k=1,
+                    sigma=0.0,
+                    which="LM",
+                    return_eigenvectors=False,
+                )[0]
+            )
+        )
+    except Exception:
+        ZS_val_min = np.float64(0.0)
 
-    if ZS_val > 1e6:
+    if ZS_val_min == 0.0:
+        ZS_scl = np.inf
+    else:
+        ZS_scl = ZS_val_max / ZS_val_min
+
+    print(f"[DEBUG] Innovation Matrix Condition Number: {ZS_scl:.2e}")
+
+    if ZS_scl > 1e6:
         warnings.warn(
-            f"High innovation condition number ({ZS_val:.2e}). "
+            f"High innovation condition number ({ZS_scl:.2e}). "
             "Gauges are likely interfering with each other due to "
             "overlapping spatial covariance radii (ZS_lkm_cov).",
             stacklevel=2,
