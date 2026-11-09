@@ -231,8 +231,8 @@ to accommodate external API terminology.
 
 ## Data Structure Names
 
-**Pattern:** `<type><structure1>_<quantity>_[<qualifier>]`
-**or:** `<type><structure1>_<concept>`
+**Pattern:** `<type><structure1>_<quantity>_[<qualifier>]` **or**
+`<type><structure1>_<concept>`
 
 **Examples:**
 
@@ -307,7 +307,8 @@ cognitive load and preserve the visibility of the naming grammar.
 
 ### Readers (Disk -> Memory)
 
-**Pattern:** `read_<dataset>_<structure2>()` or `read_<quantity>_<structure2>`
+**Pattern:** `read_<dataset>_<structure2>()` **or**
+`read_<quantity>_<structure2>`
 
 **Examples:**
 
@@ -321,7 +322,7 @@ cognitive load and preserve the visibility of the naming grammar.
 ### Makers (Memory -> Memory)
 
 **Pattern:** `make_<quantity>_<structure2>()`
-**or:** `make_<concept>_<structure2>()`
+**or** `make_<concept>_<structure2>()`
 
 **Examples:**
 
@@ -345,7 +346,7 @@ cognitive load and preserve the visibility of the naming grammar.
 
 ### Checkers (Memory -> Void)
 
-**Pattern:** `chck_<dataset>()`
+**Pattern:** `chck_<dataset>()` **or** `chck_<concept>()`
 
 **Examples:**
 
@@ -353,6 +354,7 @@ cognitive load and preserve the visibility of the naming grammar.
 | ---------------- | ------------------ | ----------------------------------- |
 | `chck_bas()`     | Check basin.       | Validates upstream/downstream sort. |
 | `chck_cpl()`     | Check coupling     | Validates null indices and areas.   |
+| `chck_Kal()`     | Check Kalman       | Validates assimilation matrices.    |
 
 ### Updaters (State -> State)
 
