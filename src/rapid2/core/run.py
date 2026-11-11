@@ -312,7 +312,17 @@ def run(
     # -------------------------------------------------------------------------
     if Qob_ncf is not None:
         # Diagnose Theoretical Stability and Plausibility
-        chck_Kal(ZM_SA0, ZM_SAe, ZM_dQe, ZM_dQo, ZM_Kal, ZM_Mus)
+        chck_Kal(
+            ZM_SA0,
+            ZM_SAe,
+            ZM_dQe,
+            ZM_dQo,
+            ZM_Kal,
+            ZM_ICN,
+            ZM_Qex,
+            ZM_Qou,
+            IS_rat_Qob,
+        )
 
     # -------------------------------------------------------------------------
     # Open files

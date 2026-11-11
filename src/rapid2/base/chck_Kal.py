@@ -14,7 +14,9 @@ import warnings
 
 import numpy as np
 from scipy.sparse import csc_matrix
-from scipy.sparse.linalg import eigsh
+from scipy.sparse.linalg import LinearOperator, eigs, eigsh
+
+from rapid2.base.updt_Mus_Qou import updt_Mus_Qou
 
 
 # *****************************************************************************
@@ -26,7 +28,10 @@ def chck_Kal(
     ZM_dQe: csc_matrix,
     ZM_dQo: csc_matrix,
     ZM_Kal: csc_matrix,
-    ZM_Mus: csc_matrix,
+    ZM_ICN: csc_matrix,
+    ZM_Qex: csc_matrix,
+    ZM_Qou: csc_matrix,
+    IS_rat_Qob: np.int32,
 ) -> None:
     """Diagnose theoretical stability and plausibility of Data Assimilation.
 
@@ -46,8 +51,14 @@ def chck_Kal(
         The observation error covariance matrix.
     ZM_Kal : scipy.sparse.spmatrix
         The computed Kalman Gain matrix.
-    ZM_Mus : scipy.sparse.spmatrix
-        The transitive propagation matrix (I - C1 N)^-1 for the basin.
+    ZM_ICN : scipy.sparse.spmatrix
+        The linear system matrix for the basin in matrix-based Muskingum.
+    ZM_Qex : scipy.sparse.spmatrix
+        The multiplicand matrix for ZV_Qex for the basin in right-hand side.
+    ZM_Qou : scipy.sparse.spmatrix
+        The multiplicand matrix for ZV_Qou for the basin in right-hand side.
+    IS_rat_Qob : np.int32
+        The number of routing time steps within one assimilation window.
 
     Returns
     -------
@@ -147,6 +158,58 @@ def chck_Kal(
             f"High data assimilation amplification ratio "
             f"({ZS_scl_max:.2f}x). Spatial covariance radius may "
             "exceed routing constraints.",
+            stacklevel=2,
+        )
+
+    # -------------------------------------------------------------------------
+    # 4. Absolute Stability: Closed-Loop Spectral Radius
+    # -------------------------------------------------------------------------
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # Linear Operator mapping initial state to final state across the window
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    def mv_CLp(ZV_Qou_prv: np.ndarray) -> np.ndarray:
+        # 1. Compute the autonomous feedback correction from the initial state
+        ZV_dQe = -(ZM_Kal @ (ZM_SA0 @ ZV_Qou_prv))
+
+        # 2. Route the state forward using the exact Muskingum solver
+        _, ZV_Qou_now = updt_Mus_Qou(
+            ZM_ICN, ZM_Qex, ZM_Qou, IS_rat_Qob, ZV_Qou_prv, ZV_dQe
+        )
+
+        return np.asarray(ZV_Qou_now)
+
+    IS_riv_bas = ZM_ICN.shape[0]
+    LO_CLp = LinearOperator(
+        (IS_riv_bas, IS_riv_bas), matvec=mv_CLp, dtype=np.float64
+    )
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # Extract dominant eigenvalue using Arnoldi iteration (eigs for asymmetric)
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    ZS_rad_max = np.float64(
+        np.abs(
+            eigs(LO_CLp, k=1, which="LM", tol=1e-2, return_eigenvectors=False)[
+                0
+            ]
+        )
+    )
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # Evaluate numerical stability limits
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    print(f"[DEBUG] Max Closed-Loop Spectral Radius: {ZS_rad_max:.4f}\n")
+
+    if ZS_rad_max >= 1.0:
+        raise ValueError(
+            f"Catastrophic DA Instability: Closed-loop spectral radius "
+            f"({ZS_rad_max:.4f}) is >= 1.0. The filter feedback loop "
+            "will generate infinite mass."
+        )
+    elif ZS_rad_max > 0.95:
+        warnings.warn(
+            f"High closed-loop spectral radius ({ZS_rad_max:.4f}). "
+            "The assimilation feedback is dangerously close to "
+            "numerical instability.",
             stacklevel=2,
         )
 
