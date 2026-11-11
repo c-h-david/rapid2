@@ -25,7 +25,7 @@ def updt_Mus_Qou(
     ZM_ICN: csc_matrix,
     ZM_Qex: csc_matrix,
     ZM_Qou: csc_matrix,
-    IS_rat_Qex: int,
+    IS_rat_Qex: np.int32,
     ZV_Qou_prv: npt.NDArray[np.float64],
     ZV_Qex_avg: npt.NDArray[np.float64],
 ) -> tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]:
@@ -44,7 +44,7 @@ def updt_Mus_Qou(
         The multiplicand matrix for ZV_Qex for the basin in right-hand side.
     ZM_Qou : scipy.sparse.spmatrix
         The multiplicand matrix for ZV_Qou for the basin in right-hand side.
-    IS_rat_Qex : int32
+    IS_rat_Qex : np.int32
         The given number of Muskingum routing timesteps.
     ZV_Qou_prv : ndarray[float64]
         The instantaneous discharge in the basin before Muskingum timesteps.
