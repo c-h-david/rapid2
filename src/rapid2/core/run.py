@@ -307,6 +307,11 @@ def run(
         ZM_Kal = calc_Kal_mat(ZM_SAe, ZM_dQe, ZM_dQo)
         ZV_dQe_bas = np.zeros(len(IV_riv_bas), dtype=np.float64)
 
+        # DEBUG: Precompute innovation covariance diagonal and accumulators
+        ZV_den = (ZM_SAe @ ZM_dQe @ ZM_SAe.T + ZM_dQo).diagonal()
+        ZV_val_tmp = np.zeros(len(IV_riv_act), dtype=np.float64)
+        IV_val_tmp = np.zeros(len(IV_riv_act), dtype=np.int32)
+
     # -------------------------------------------------------------------------
     # Assimilation only: final checks before flight
     # -------------------------------------------------------------------------
@@ -381,6 +386,13 @@ def run(
             ZV_dQo_act = ZV_Qob_now - ZV_Qme_tmp
             ZV_dQe_bas = ZM_Kal @ ZV_dQo_act
 
+            # DEBUG: Accumulate Normalized Innovation Squared (NIS)
+            BV_val_tmp = ZV_Qob_now != 1e20
+            ZV_val_tmp[BV_val_tmp] += (
+                ZV_dQo_act[BV_val_tmp] ** 2 / ZV_den[BV_val_tmp]
+            )
+            IV_val_tmp[BV_val_tmp] += 1
+
             # Block impossible external inflow corrections (> Amazon peak)
             if np.max(np.abs(ZV_dQe_bas)) > 5e5:
                 raise ValueError(
@@ -422,6 +434,19 @@ def run(
         if attr in f.ncattrs():
             g.setncattr(attr, f.getncattr(attr))
             h.setncattr(attr, f.getncattr(attr))
+
+    # -------------------------------------------------------------------------
+    # Debug: Print Normalized Innovation Squared (NIS)
+    # -------------------------------------------------------------------------
+    if Qob_ncf is not None:
+        ZV_val_tmp = ZV_val_tmp[IV_val_tmp > 0] / IV_val_tmp[IV_val_tmp > 0]
+        if len(ZV_val_tmp) > 0:
+            print(
+                f"[DEBUG] NIS (Min/Median/Max): "
+                f"{np.min(ZV_val_tmp):.1f} / "
+                f"{np.median(ZV_val_tmp):.1f} / "
+                f"{np.max(ZV_val_tmp):.1f}"
+            )
 
     # -------------------------------------------------------------------------
     # Close files
