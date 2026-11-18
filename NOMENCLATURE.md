@@ -119,6 +119,7 @@ to accommodate external API terminology.
 | `prv`| Previous           | File from a prior run. (`p`)                    |
 | `now`| Current            | File from another run. (`n`)                    |
 | `hyd`| Hydrograph         | Time-series plot.                               |
+| `sts`| Statistics         | Hydrograph performance and error metrics.       |
 | `xyp`| X-Y Plot           | Scatter plots for statistical comparisons.      |
 | `cdf`| Distribution       | Cumulative distribution plots.                  |
 
@@ -159,14 +160,18 @@ to accommodate external API terminology.
 | `Qex`| External inflow    | Associated with the external forcing timescale. |
 | `Qob`| Observed discharge | Associated with the observation timescale.      |
 
-#### Error statistics and Data Assimilation
+#### Error statistics and Goodness of Fit
 
 | Code | Meaning            | Notes                                           |
 | ---- | ------------------ | ----------------------------------------------- |
-| `bia`| Bias               | Associated with mean error.                     |
-| `cov`| Covariance         | Associated with covariance of errors.           |
-| `sdv`| Standard deviation | Associated with standard deviation of errors.   |
-| `inf`| Inflation          | Associated with artificial error inflation.     |
+| `bia`| Bias               | Mean error.                                     |
+| `sdv`| Standard deviation | Standard deviation of errors.                   |
+| `cov`| Covariance         | Covariance of errors.                           |
+| `inf`| Inflation          | Artificial error inflation.                     |
+| `rms`| RMSE               | Root Mean Square Error.                         |
+| `cor`| Correlation        | Pearson correlation coefficient.                |
+| `nse`| Nash-Sutcliffe     | Nash-Sutcliffe Efficiency.                      |
+| `kge`| Kling-Gupta        | Kling-Gupta Efficiency.                         |
 
 ### `<concept>`
 
