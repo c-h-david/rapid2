@@ -44,6 +44,7 @@ from rapid2.base.read_kpr_vec import read_kpr_vec
 from rapid2.base.read_nml_tbl import read_nml_tbl
 from rapid2.base.read_riv_vec import read_riv_vec
 from rapid2.base.read_std_vec import read_std_vec
+from rapid2.base.read_sts_vec import read_sts_vec
 from rapid2.base.read_xpr_vec import read_xpr_vec
 from rapid2.base.updt_Mus_Qou import updt_Mus_Qou
 
@@ -80,6 +81,7 @@ __all__ = [
     "read_nml_tbl",
     "read_riv_vec",
     "read_std_vec",
+    "read_sts_vec",
     "read_xpr_vec",
     "updt_Mus_Qou",
 ]
