@@ -15,9 +15,12 @@ import warnings
 from pathlib import Path
 
 import netCDF4
+import numpy as np
 import toyplot  # type: ignore[import-untyped]
 import toyplot.svg  # type: ignore[import-untyped]
 from tqdm import tqdm
+
+from rapid2.base import read_sts_vec
 
 
 # *****************************************************************************
@@ -88,6 +91,19 @@ def graph(
     IV_tim_all = o.variables["time"][:]
 
     IS_riv_avl = len(IV_riv_avl)
+
+    # -------------------------------------------------------------------------
+    # Compute performance metrics globally
+    # -------------------------------------------------------------------------
+    (
+        _,
+        ZV_bia_avl,
+        ZV_sdv_avl,
+        ZV_rms_avl,
+        ZV_cor_avl,
+        ZV_nse_avl,
+        ZV_kge_avl,
+    ) = read_sts_vec(Qob_ncf, Qme_ncf)
 
     # -------------------------------------------------------------------------
     # Setup canvas dimensions
@@ -170,6 +186,39 @@ def graph(
             ],
             corner=("top-right", 50, 100, 50),
         )
+
+        # Annotate goodness of fit metrics
+        ZS_bia = ZV_bia_avl[JS_riv_avl]
+        ZS_sdv = ZV_sdv_avl[JS_riv_avl]
+        ZS_rms = ZV_rms_avl[JS_riv_avl]
+        ZS_cor = ZV_cor_avl[JS_riv_avl]
+        ZS_nse = ZV_nse_avl[JS_riv_avl]
+        ZS_kge = ZV_kge_avl[JS_riv_avl]
+
+        if not np.isnan(ZS_nse):
+            # Top line
+            axes.text(
+                IV_tim_all[0],
+                ZS_Qou_max * 0.9,
+                f"Bias {ZS_bia:.2f} | STDE {ZS_sdv:.2f} | RMSE {ZS_rms:.2f}",
+                style={
+                    "font-size": "12px",
+                    "font-weight": "bold",
+                    "text-anchor": "start",
+                },
+            )
+
+            # Next line
+            axes.text(
+                IV_tim_all[0],
+                ZS_Qou_max * 0.82,
+                f"Corr {ZS_cor:.2f} | NSE  {ZS_nse:.2f} | MKGE {ZS_kge:.2f}",
+                style={
+                    "font-size": "12px",
+                    "font-weight": "bold",
+                    "text-anchor": "start",
+                },
+            )
 
         # Render the SVG
         toyplot.svg.render(canvas, YS_hyd_svg)
