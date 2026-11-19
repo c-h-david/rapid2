@@ -171,7 +171,7 @@ to accommodate external API terminology.
 | `rms`| RMSE               | Root Mean Square Error.                         |
 | `cor`| Correlation        | Pearson correlation coefficient.                |
 | `nse`| Nash-Sutcliffe     | Nash-Sutcliffe Efficiency.                      |
-| `kge`| Kling-Gupta        | Kling-Gupta Efficiency.                         |
+| `kge`| Kling-Gupta        | Modified Kling-Gupta Efficiency.                |
 
 ### `<concept>`
 

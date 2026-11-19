@@ -60,7 +60,7 @@ def read_sts_vec(
     ZV_nse_avl : ndarray[float64]
         The Nash-Sutcliffe Efficiency (NSE) for each gauge.
     ZV_kge_avl : ndarray[float64]
-        The Kling-Gupta Efficiency (KGE) for each gauge.
+        The modified Kling-Gupta Efficiency (MKGE) for each gauge.
 
     Examples
     --------
@@ -274,11 +274,22 @@ def read_sts_vec(
         out=np.zeros_like(ZV_Qme_avg),
         where=(ZV_Qob_avg != 0),
     )
-    ZV_kge_avl = 1.0 - np.sqrt(
-        (ZV_cor_avl - 1.0) ** 2 + (ZV_Alp - 1.0) ** 2 + (ZV_Bet - 1.0) ** 2
+    ZV_Gam = np.divide(
+        ZV_Alp,
+        ZV_Bet,
+        out=np.zeros_like(ZV_Alp),
+        where=(ZV_Bet != 0),
     )
+
+    ZV_kge_avl = 1.0 - np.sqrt(
+        (ZV_cor_avl - 1.0) ** 2 + (ZV_Gam - 1.0) ** 2 + (ZV_Bet - 1.0) ** 2
+    )
+
     ZV_kge_avl = np.where(
-        (IV_val_tmp > 0) & (ZV_Qob_sig > 0) & (ZV_Qob_avg != 0),
+        (IV_val_tmp > 0)
+        & (ZV_Qob_sig > 0)
+        & (ZV_Qob_avg != 0)
+        & (ZV_Qme_avg != 0),
         ZV_kge_avl,
         np.nan,
     )
