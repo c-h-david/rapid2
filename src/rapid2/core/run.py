@@ -286,6 +286,22 @@ def run(
         )
 
     # -------------------------------------------------------------------------
+    # Uncertainty or Assimilation: Discharge error from lateral inflow error
+    # -------------------------------------------------------------------------
+    if Qob_ncf is not None:
+        # Initialize values to NoData for entire basin
+        ZV_Qou_sdv = np.full(len(IV_riv_bas), 1e20, dtype=np.float32)
+
+        # Compute discharge errors at gauge locations only for performance
+        ZV_val_tmp = np.sqrt((ZM_SAe @ ZM_dQe @ ZM_SAe.T).diagonal())
+
+        # Map active gauge IDs to their 0-based basin indices
+        _, _, IV_0bi_tmp = make_0bi_tbl(IV_riv_bas, IV_riv_act)
+
+        # Populate the discharge errors at gauges within entire basin
+        ZV_Qou_sdv[IV_0bi_tmp] = ZV_val_tmp
+
+    # -------------------------------------------------------------------------
     # Assimilation only: Zero-Input Response Operator (H×M)
     # -------------------------------------------------------------------------
     if Qob_ncf is not None:
@@ -420,6 +436,12 @@ def run(
         g.variables["Qout"][JS_tim_all, :] = ZV_Qou_avg[:]
         g.variables["time"][JS_tim_all] = IV_tim_all[JS_tim_all]
         g.variables["time_bnds"][JS_tim_all, :] = IM_tim_all[JS_tim_all, :]
+
+    # -------------------------------------------------------------------------
+    # Populate discharge errors
+    # -------------------------------------------------------------------------
+    if Qob_ncf is not None:
+        g.variables["Qout_sdv"][:] = ZV_Qou_sdv[:]
 
     # -------------------------------------------------------------------------
     # Save final discharge state
