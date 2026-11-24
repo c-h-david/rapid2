@@ -192,6 +192,8 @@ to accommodate external API terminology.
 | `A00`| A0 operator        | Window mapping operator for initial state.      |
 | `SAe`| Sel × Aex operator | Selection-multiplied Aex operator matrix.       |
 | `SA0`| Sel × A00 operator | Selection-multiplied A00 operator matrix.       |
+| `deS`| dQe × SAe^T operat.| Inflow-to-observation error cross-cov.          |
+| `d0S`| dQ0 × SA0^T operat.| Initial-state-to-observation error cross-cov.   |
 | `Nmn`| Neumann series     | The Neumann series expansion matrix.            |
 | `Lmp`| Lumped             | The Lumped routing physics and matrices.        |
 | `Mus`| Muskingum Operator | Transitive propagation matrix (I - C1 N)^-1.    |
