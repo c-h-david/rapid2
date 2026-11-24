@@ -288,6 +288,19 @@ def run(
         del ZM_dQe
 
     # -------------------------------------------------------------------------
+    # Uncertainty or Assimilation: Zero-Input Response Operator (H×M)
+    # -------------------------------------------------------------------------
+    if Qob_ncf is not None:
+        # Compute the selection-multiplied initial-to-state average matrix
+        ZM_SA0 = make_SA0_mat(ZM_Sel, ZM_Mus, ZM_Qou, IS_rat_Qob)
+
+    # -------------------------------------------------------------------------
+    # Uncertainty or Assimilation: State error cross-covariance (P0×(H×M)^T)
+    # -------------------------------------------------------------------------
+    if Qob_ncf is not None:
+        pass
+
+    # -------------------------------------------------------------------------
     # Uncertainty or Assimilation: Discharge error from lateral inflow error
     # -------------------------------------------------------------------------
     if Qob_ncf is not None:
@@ -310,13 +323,6 @@ def run(
             f"{np.median(ZV_val_tmp):.2f} / "
             f"{np.max(ZV_val_tmp):.2f} m3 s-1"
         )
-
-    # -------------------------------------------------------------------------
-    # Assimilation only: Zero-Input Response Operator (H×M)
-    # -------------------------------------------------------------------------
-    if Qob_ncf is not None:
-        # Compute the selection-multiplied initial-to-state average matrix
-        ZM_SA0 = make_SA0_mat(ZM_Sel, ZM_Mus, ZM_Qou, IS_rat_Qob)
 
     # -------------------------------------------------------------------------
     # Assimilation only: Observation error covariance (R)
