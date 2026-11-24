@@ -25,7 +25,7 @@ from rapid2.base.updt_Mus_Qou import updt_Mus_Qou
 def chck_Kal(
     ZM_SA0: csc_matrix,
     ZM_SAe: csc_matrix,
-    ZM_dQe: csc_matrix,
+    ZM_deS: csc_matrix,
     ZM_dQo: csc_matrix,
     ZM_Kal: csc_matrix,
     ZM_ICN: csc_matrix,
@@ -45,8 +45,8 @@ def chck_Kal(
         The selection-multiplied initial-to-state average matrix.
     ZM_SAe : scipy.sparse.spmatrix
         The selection-multiplied input-to-state average matrix.
-    ZM_dQe : scipy.sparse.spmatrix
-        The background error covariance matrix.
+    ZM_deS : scipy.sparse.spmatrix
+        The inflow-to-observation error cross-covariance matrix (dQe * SAe^T).
     ZM_dQo : scipy.sparse.spmatrix
         The observation error covariance matrix.
     ZM_Kal : scipy.sparse.spmatrix
@@ -102,7 +102,7 @@ def chck_Kal(
     # -------------------------------------------------------------------------
     # 2. Gauge Interference: Innovation Condition Number
     # -------------------------------------------------------------------------
-    ZM_den = ZM_SAe @ ZM_dQe @ ZM_SAe.T + ZM_dQo
+    ZM_den = ZM_SAe @ ZM_deS + ZM_dQo
 
     # Get the single (k=1) largest magnitude (which='LM') absolute eigen value
     ZS_val_max = np.float64(

@@ -271,7 +271,7 @@ def run(
         ZM_SAe = make_SAe_mat(ZM_Sel, ZM_Mus, ZM_Qex, ZM_Qou, IS_rat_Qob)
 
     # -------------------------------------------------------------------------
-    # Uncertainty or Assimilation: Background error covariance (Pb)
+    # Uncertainty or Assimilation: Inflow error cross-covariance (Pb×(H×Γ)^T)
     # -------------------------------------------------------------------------
     if Qob_ncf is not None:
         if ZS_lkm_cov is None:
@@ -284,6 +284,8 @@ def run(
             ZV_lat_tot[IV_0bi_bas],
             ZS_lkm_cov,
         )
+        ZM_deS = ZM_dQe @ ZM_SAe.T
+        del ZM_dQe
 
     # -------------------------------------------------------------------------
     # Uncertainty or Assimilation: Discharge error from lateral inflow error
@@ -293,7 +295,7 @@ def run(
         ZV_Qou_sdv = np.full(len(IV_riv_bas), 1e20, dtype=np.float32)
 
         # Compute discharge errors at gauge locations only for performance
-        ZV_val_tmp = np.sqrt((ZM_SAe @ ZM_dQe @ ZM_SAe.T).diagonal())
+        ZV_val_tmp = np.sqrt((ZM_SAe @ ZM_deS).diagonal())
 
         # Map active gauge IDs to their 0-based basin indices
         _, _, IV_0bi_tmp = make_0bi_tbl(IV_riv_bas, IV_riv_act)
@@ -328,11 +330,11 @@ def run(
     # Assimilation only: Kalman Gain (K) and initialize inflow correction
     # -------------------------------------------------------------------------
     if Qob_ncf is not None:
-        ZM_Kal = calc_Kal_mat(ZM_SAe, ZM_dQe, ZM_dQo)
+        ZM_Kal = calc_Kal_mat(ZM_SAe, ZM_deS, ZM_dQo)
         ZV_dQe_bas = np.zeros(len(IV_riv_bas), dtype=np.float64)
 
         # DEBUG: Precompute innovation covariance diagonal and accumulators
-        ZV_den = (ZM_SAe @ ZM_dQe @ ZM_SAe.T + ZM_dQo).diagonal()
+        ZV_den = (ZM_SAe @ ZM_deS + ZM_dQo).diagonal()
         ZV_val_tmp = np.zeros(len(IV_riv_act), dtype=np.float64)
         IV_val_tmp = np.zeros(len(IV_riv_act), dtype=np.int32)
 
@@ -344,7 +346,7 @@ def run(
         chck_Kal(
             ZM_SA0,
             ZM_SAe,
-            ZM_dQe,
+            ZM_deS,
             ZM_dQo,
             ZM_Kal,
             ZM_ICN,
