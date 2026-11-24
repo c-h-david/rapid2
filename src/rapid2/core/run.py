@@ -301,6 +301,14 @@ def run(
         # Populate the discharge errors at gauges within entire basin
         ZV_Qou_sdv[IV_0bi_tmp] = ZV_val_tmp
 
+        # DEBUG: Print propagated discharge error (Qout_sdv) at gauges
+        print(
+            f"[DEBUG] Qout_sdv (Min/Median/Max): "
+            f"{np.min(ZV_val_tmp):.2f} / "
+            f"{np.median(ZV_val_tmp):.2f} / "
+            f"{np.max(ZV_val_tmp):.2f} m3 s-1"
+        )
+
     # -------------------------------------------------------------------------
     # Assimilation only: Zero-Input Response Operator (H×M)
     # -------------------------------------------------------------------------
